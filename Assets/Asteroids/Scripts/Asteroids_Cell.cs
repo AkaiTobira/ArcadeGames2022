@@ -105,8 +105,8 @@ public class Asteroids_Cell : Asteroids
 
                 });
                 
-                AudioSystem.Instance.PlayEffect("Dead", 1);
-                AudioSystem.Instance.PlayMusic("BG", 0.2f);
+                AudioSystem.Instance.PlayEffect("Asteroid_Dead", 1);
+                AudioSystem.Instance.PlayMusic("Asteroid_BG", 0.2f);
 
 //                TweenManager.Instance.TweenTo(QRCode, centerPoint, 1f, () => {
 
@@ -119,7 +119,7 @@ public class Asteroids_Cell : Asteroids
   //              });
                 
             }else{
-                AudioSystem.Instance.PlayEffect("Hit", 1, true);
+                AudioSystem.Instance.PlayEffect("Asteroid_Hit", 1, true);
             }
         }
     }

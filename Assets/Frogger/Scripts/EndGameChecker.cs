@@ -18,7 +18,7 @@ public class EndGameChecker : CUpdateMonoBehaviour
 
 
     void Awake() {
-        AudioSystem.Instance.PlayMusic("BG", 1);
+        AudioSystem.Instance.PlayMusic("Frogger_BG", 1);
     }
 
     public override void CUpdate()
@@ -42,8 +42,8 @@ public class EndGameChecker : CUpdateMonoBehaviour
         continued = true;
         _frogger.DoNotRespawn = true;
         TweenManager.Instance.TweenTo(QRCode, centerPoint, 1f, () => {
-            AudioSystem.Instance.PlayMusic("BG", 0.2f);
-            AudioSystem.Instance.PlayEffect("Victory", 1);
+            AudioSystem.Instance.PlayMusic("Frogger_BG", 0.2f);
+            AudioSystem.Instance.PlayEffect("Frogger_Victory", 1);
 
             TimersManager.Instance.FireAfter(10, ()=>{
                 TweenManager.Instance.TweenTo(QRCode, bottomPoint, 1f);

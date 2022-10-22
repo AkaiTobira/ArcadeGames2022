@@ -1,23 +1,25 @@
-Tag	UK	DE::
-DigDugIntro	You are a Terraformator, and your mission is to terraform a planet to make it habitable for humans to live on. <br><br> Modify its atmosphere, temperature, surface topography, ecology, etc. <br><br>It must become as similar to the environment of the Earth as possible.	Du bist ein Terraformator und deine Aufgabe ist es, ein Planet zu terraformen, damit er für Menschen bewohnbar wird. <br><br>Verändere seine Atmosphäre, Temperatur, Oberflächentopographie, Landschaftsökologie usw. <br><br>Du musst sein Klima so ähnlich wie das von der Erde möglich machen.::
-DigDugGameOver0	WINNER <br>You terraformed the planet! <br>Ups.. now you are on your own!	GEWINNER <br>Du hast den Planeten terrageformt! <br> Ups... jetzt bist du auf dich gestellt!::
-DigDugBar	We don't want to conquer the cosmos, we simply want to extend the boundaries of Earth to the frontiers of the cosmos •••	Wir wollen den Kosmos nicht erobern, wir wollen einfach die Grenzen der Erde bis an die Grenzen des Kosmos ausdehnen::
-DigDugBar2	Planet Earth *** Trees: -2,400/min *** People: +140/min *** Temperature: +0.18°C/10 years *** Ice: -13%/10 years *** Sea level: +3.6 mm/year *** 	Planet Erde: *** Bäume: -2,400/Min. *** Menschen: +140/Min. *** Temperatur: +0.18°C/10 Jahre *** Eis: -13%/10 Jahre *** Meeresspiegel: +3.6 mm/Jahr ***::
 DigDugQCode	Scan the QR code with your phone and enter the next level.	Scanne den QR-Code mit deinem Handy und betrete die nächste Ebene.::
 Danger	Danger !!!	Achtung !!!::
 Time	TIME LEFT : @	Übrige Zeit : @::
 Start	START	START::
 MainMenu	MAIN MENU	HAUPTMENÜ::
-SpaceJunkIntro	You are an astronaut, and you want to get back to your spaceship. <br>Woah! There is so much debris floating in Space! <br>Try not to get hit!	Du bist ein Astronaut und willst zurück zu deinem Raumschiff. <br>Wahnsinn! Es gibt so viele Trümmer im Weltraum! <br>Versuche, nicht erwischt zu werden!::
+SpaceJunkIntro	You are an<br>astronaut,<br>and you want to get<br>back to your spaceship.<br><br>Woah! There is so much<br>debris floating in Space <br>Try not to get hit!	Du bist ein<br>Astronaut<br>und willst zurück zu<br>deinem Raumschiff.<br><br>Wahnsinn! Es gibt so viele<br>Trümmer im Weltraum!<br>Versuche, nicht erwischt zu werden!::
 SpaceJunkOutro	It was a challenge, but you’ve made it! <br>Now let's do some serious Trash Talking!	Es war eine Herausforderung, aber du hast es geschafft! <br> Und jetzt lasst uns ernsthaft über den Müll reden!::
 SpaceJunkBar	32150: the number of debris objects regularly tracked, and catalogued by Space Surveillance Networks ••• 10100 tonnes: the total mass of all space objects in Earth’s orbit ••• 36500: the space debris objects greater than 10 cm  •••  1000000: the space debris objects greater than 1 cm  ••• 130 million space debris objects greater than 1 mm ••• There is 10% of chance that in the next 10 years a human will be severely injured or killed by space junk •••	32150: die Anzahl der Trümmerobjekte, die regelmäßig von dem Weltraumüberwachungsnetz verfolgt und katalogisiert werden  •••  10100 Tonnen: die Gesamtmasse aller Weltraumobjekte in der Erdumlaufbahn •••  36500: die Weltraummüllobjekte, die größer als 10 cm sind ••• 1000000: die Weltraummüllobjekte, die größer als 1 cm sind ••• 130 Millionen Weltraummüllobjekte die größer als 1 mm sind •••  Es besteht eine Wahrscheinlichkeit von 10%, dass in den nächsten 10 Jahren ein Mensch durch Weltraumschrott schwer verletzt oder getötet wird. ••• ::
 SapceJunkQRCode	Scan the QR code with your phone and enter the next level.	Scanne den QR-Code mit deinem Handy und betrete die nächste Ebene.::
-NoLifeIntro	You are a nucleotide floating in space among other cell elements. <br><br>If they catch you, life will be created. <br><br> But you enjoy life before life. <br><br> Try not to get caught.	Du bist ein Nukleotid, das zwischen anderen Zellelementen im Raum schwebt. <br><br> Falls sie dich fangen, wird das Leben entstehen. <br><br> Aber genieße das Leben vor dem Leben. <br><br> Versuche, nicht gefangen zu werden.::
-NoLifeOutro1	GAME OVER <br>Life was created.	DAS SPIEL IST ZU ENDE <br>Leben wurde erschafft.::
+NoLifeIntro1	You are	Du bist::
+NoLifeOutro1	GAME OVER <br><br>Life was created.	DAS SPIEL IST ZU ENDE <br><br>Leben wurde erschafft.::
 NoLifeOutro2	The natural state of a human is to be dead, not to be alive! <br><br>Enjoy your life!	Der natürlicher Zustand eines Menschen ist es, tot zu sein, nicht lebendig! <br><br> Genieße dein Leben!::
-NoLifeQRCode	Scan the QR code with your phone and enter the next level. 	Scanne den QR-Code mit deinem Handy und betrete die nächste Ebene.::
+NoLifeQRCode	Scan the QR code<br>with your phone<br> and enter the next level. 	Scanne den QR-Code<br>mit deinem Handy<br>und betrete die nächste Ebene.::
 NoLifeBar	Human lifespan: 75 years *** Time before birth: 13 700,000,000 years *** Time after death: Unlimited ***	Lebenserwartung des Menschen: 75 Jahre *** Zeit vor der Geburt: 13 700,000,000 Jahre *** Zeit nach dem Tod: Unendlich ***::
 DigDugGameOver1	GAME OVER <br>You are dead.	DAS SPIEL IST ZU ENDE <br>Du bist tot.::
 DigDugGameOver2	GAME OVER <br>Time is up.	DAS SPIEL IST ZU ENDE <br>Zeit ist um.::
 Shoot	Shoot	Schießen::
 Dig	Dig	Graben::
+THRUST	THRUST	SCHUBKRAFT::
+NoLifeIntro2	A NUCLEOTIDE,	EIN NUKLEOTID,::
+NoLifeIntro3	floating in space among other cell elements.	das zwischen anderen Zellelementen im Raum schwebt.::
+NoLifeIntro4	If they catch you,<br>life will be created.	Falls sie dich fangen,<br>wird das Leben entstehen.::
+NoLifeIntro5	But you enjoy life<br>	Aber genieße das Leben<br>::
+NoLifeIntro6	BEFORE LIFE	VOR DEM LEBEN::
+NoLifeIntro7	Try not to<br>get caught.	Versuche,<br>nicht gefangen zu werden.::

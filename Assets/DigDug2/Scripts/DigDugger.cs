@@ -78,7 +78,7 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
     
     float _elapsedDangerTime = 0;
 
-    protected override void UpdatePhysic(){
+    protected override void UpdateState(){
         _shootingTimeElapsed -= Time.deltaTime;
         _shootingTimeColdown -= Time.deltaTime;
         _lineShootingTimeElapsed -= Time.deltaTime;
@@ -86,13 +86,18 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
 
         _elapsedDangerTime += Time.deltaTime;
         if(_elapsedDangerTime > 0 && IsBlinking() ){
-            AudioSystem.Instance.PlayEffect("Danger", 1, true);
+            AudioSystem.Instance.PlayEffect("DigDug_Danger", 1, true);
             _elapsedDangerTime = -0.6f;
         }
 
         switch (ActiveState) {
-            case PlayerStates.Idle:  break;
-            case PlayerStates.Move:  ProcessMove(_inputs); break;
+            case PlayerStates.Idle: 
+                    TurnOffShooting();
+                break;
+            case PlayerStates.Move:  
+                    _lockMoving = false;
+                    ProcessMove(_inputs);
+                break;
             case PlayerStates.Dig:   ProvessMoveInDigging(_inputs); break;
             case PlayerStates.Dead:  {
                 if(reportDead){
@@ -100,8 +105,7 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
                     reportDead = false;
                 }
             
-                RequestDisable(1.0f);
-             } break;
+            } break;
             case PlayerStates.Shoot: {
                 ProcessShooting();
                 ProcessShootingVisuals();
@@ -110,6 +114,7 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
                     if(_pumpableEnemy.IsDead()) _shootingTimeElapsed -= CONSTS.SHOT_ACTION_NONLANDED_COLDOWN;
                 }
 
+                if(_shootingRequirementsMeet) PumpingShot();
             }break;
         }
     }
@@ -155,7 +160,7 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
             _shootingFailed = true;
             _lineShootingTimeElapsed = CONSTS.SHOT_LANDING_TIME;
 
-            AudioSystem.Instance.PlayEffect("Shoot", 1);
+            AudioSystem.Instance.PlayEffect("DigDug_Shoot", 1);
         }
 
 
@@ -228,18 +233,33 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
         _lockRotation   = false;
     }
 
-    protected override PlayerStates UpdateTransitions(){
+    protected override void OnStateEnter(PlayerStates enteredState)
+    {
+        switch (ActiveState) {
+            case PlayerStates.Dead : RequestDisable(1.0f); break;
+            default : break;
+        }
+    }
+
+    protected override void OnStateExit(PlayerStates enteredState)
+    {
+        switch (ActiveState) {
+            case PlayerStates.Dig: SetupFixedDigging(false, null); break;
+            case PlayerStates.Shoot: _shootLineRenderer.SetPosition(1, _shootLineRenderer.GetPosition(0)); break;
+            default : break;
+        }
+    }
+
+    protected override PlayerStates CheckStateTransitions (){
 
         switch (ActiveState) {
             case PlayerStates.Idle:
-                TurnOffShooting();
                 if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
                 else if(_shootingRequirementsMeet) return PlayerStates.Shoot;
                 else if(_diggingRequirementsMeet) return PlayerStates.Dig;
                 else if(_inputs.magnitude > CONSTS.FLOAT_EPSILON) return PlayerStates.Move;
                 break;
             case PlayerStates.Move:
-                _lockMoving = false;
                 if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
                 else if(_shootingRequirementsMeet) return PlayerStates.Shoot;
                 else if(_diggingRequirementsMeet) return PlayerStates.Dig;
@@ -247,21 +267,14 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
                 break;
             case PlayerStates.Dig:
                 if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
-                else if(!_diggingRequirementsMeet){
-                    SetupFixedDigging(false, null);
-                    return PlayerStates.Idle;
-                }
+                else if(!_diggingRequirementsMeet) return PlayerStates.Idle;
                 break;
             case PlayerStates.Dead:
                 
                 break;
             case PlayerStates.Shoot:
                 if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
-                else if(_shootingRequirementsMeet) PumpingShot();
-                else if(_shootingTimeElapsed <= 0) {
-                    _shootLineRenderer.SetPosition(1, _shootLineRenderer.GetPosition(0));
-                    return PlayerStates.Idle;
-                }
+                else if(_shootingTimeElapsed <= 0) return PlayerStates.Idle;
                 break;
         }
 

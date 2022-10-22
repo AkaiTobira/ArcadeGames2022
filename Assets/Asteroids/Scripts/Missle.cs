@@ -12,7 +12,7 @@ public class Missle : WallThrought
     public void Setup(Vector3 direcion){
         _forwardDirection = direcion;
         Asteroids.NumberOfMissles += 1;
-        AudioSystem.Instance.PlayEffect("Shoot", 1, true);
+        AudioSystem.Instance.PlayEffect("Asteroid_Shoot", 1, true);
     }
 
     override protected void Update()

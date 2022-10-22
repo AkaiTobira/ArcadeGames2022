@@ -117,7 +117,7 @@ public class Frogger : MonoBehaviour
         elapsedTime   = 0;
 
         if(!isDead) GetComponent<Image>().sprite = animations[4];
-        AudioSystem.Instance.PlayEffect("Move", 1, true);
+        AudioSystem.Instance.PlayEffect("Frogger_Move", 1, true);
 
         while(elapsedTime < movingTime){
             yield return new WaitForEndOfFrame();
@@ -140,7 +140,7 @@ public class Frogger : MonoBehaviour
             bool values = other.GetComponent<Target>().OnReach();
             if(values) {
                 StartCoroutine(Reset());
-                AudioSystem.Instance.PlayEffect("Landing", 1, true);
+                AudioSystem.Instance.PlayEffect("Frogger_Landing", 1, true);
             }
         }
     }
@@ -148,7 +148,7 @@ public class Frogger : MonoBehaviour
     IEnumerator Dead(){
         isDead          = true;
         elapsedDeadTime   = 0;
-        AudioSystem.Instance.PlayEffect("Dead", 1, true);
+        AudioSystem.Instance.PlayEffect("Frogger_Dead", 1, true);
 
         GetComponent<Image>().sprite = animations[1];
         yield return new WaitForSeconds(0.1f);
@@ -165,7 +165,7 @@ public class Frogger : MonoBehaviour
         transform.position = startInstancePosition;
         isDead = false;
         GetComponent<Image>().sprite = animations[0];
-        AudioSystem.Instance.PlayEffect("Lost", 1, true);
+        AudioSystem.Instance.PlayEffect("Frogger_Lost", 1, true);
     }
 
     IEnumerator Reset(){
@@ -173,7 +173,7 @@ public class Frogger : MonoBehaviour
         while(isMoving || isDead) yield return null;
         if(DoNotRespawn) yield break;
         transform.position = startInstancePosition;
-        AudioSystem.Instance.PlayEffect("Lost", 1, true);
+        AudioSystem.Instance.PlayEffect("Frogger_Lost", 1, true);
         isAlreadyHandled = false;
     }
 

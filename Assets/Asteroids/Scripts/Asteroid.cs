@@ -150,7 +150,7 @@ public class Asteroid : WallThrought, IListenToGameplayEvents
         if(other.tag.Contains("ssle")){
 
 
-            AudioSystem.Instance.PlayEffect("EnemyHit", 1, true);
+            AudioSystem.Instance.PlayEffect("Asteroid_EnemyHit", 1, true);
 
             Destroy(GetComponent<CircleCollider2D>());
             _frame.enabled = true;
