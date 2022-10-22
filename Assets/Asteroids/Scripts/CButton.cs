@@ -5,20 +5,20 @@ using UnityEngine.Events;
 using System;
 using TMPro;
 
-public abstract class CButtonHandler : CMonoBehaviour, IPointerDownHandler, IPointerUpHandler //, IListenToUIEvents
+public abstract class CButtonHandler : CMonoBehaviour, IPointerDownHandler, IPointerUpHandler, IListenToGameplayEvents
 {
     [SerializeField] GameObject _overwievedFrame;
     private bool _overview;
 
     protected virtual void Awake() {
-    //    Events.UI.RegisterListener(this, UIEventType.ButtonOvervieved);
+        Events.Gameplay.RegisterListener(this, GameplayEventType.ButtonOvervieved);
     }
-/*
-    public virtual void OnGameEvent(UIGameEvent gameEvent){
+
+    public virtual void OnGameEvent(GameplayEvent gameEvent){
         if(!Guard.IsValid(this) || !gameObject.activeSelf) return;
 
-        /*
-        if(gameEvent.type == UIEventType.ButtonOvervieved){
+        
+        if(gameEvent.type == GameplayEventType.ButtonOvervieved){
             CButtonHandler activeButton = gameEvent.parameter as CButtonHandler;
 
             if(activeButton == null) {
@@ -29,7 +29,7 @@ public abstract class CButtonHandler : CMonoBehaviour, IPointerDownHandler, IPoi
         }
         
     }
-    */
+    
     public virtual bool Overwiev{
         get => _overview;
         set{
@@ -61,7 +61,7 @@ public abstract class CButtonHoverableHandler : CButtonHandler,  IPointerEnterHa
     public virtual void OnPointerEnter(PointerEventData eventData){
         if(isInside) return;
         isInside = true;
-    //    Events.UI.RiseEvent(new UIGameEvent(UIEventType.ButtonOvervieved, this));
+        Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.ButtonOvervieved, this));
         _onPointerEnter?.Invoke();
     }
 
@@ -145,11 +145,13 @@ public class CButton : CButtonHoverableHandler, IPointerUpHandler, IListenToGame
     }
 
     
-    public virtual void OnGameEvent(GameplayEvent gameEvent)
+    public override void OnGameEvent(GameplayEvent gameEvent)
     {
         if(gameEvent.type == GameplayEventType.LocalizationUpdate){
             ButtonText = ButtonText;
         }
+
+        base.OnGameEvent(gameEvent);
     }
     
 
@@ -203,7 +205,7 @@ public class CButton : CButtonHoverableHandler, IPointerUpHandler, IListenToGame
         if(!_interactable) return;
 
         if(_currentState != ButtonState.Pressed){
-            CallAfterFixedUpdate(() => {_OnClick?.Invoke();});
+            CallAfterFixedUpdate(() => { _OnClick?.Invoke();});
             base.OnPointerDown(eventData);
         }
 
@@ -232,7 +234,7 @@ public class CButton : CButtonHoverableHandler, IPointerUpHandler, IListenToGame
         if(!_interactable) return;
         
         if(_currentState != ButtonState.Hovered){
-        //    Events.UI.RiseEvent(new UIGameEvent(UIEventType.ButtonOvervieved, this));
+            Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.ButtonOvervieved, this));
         }
 
         SetState(ButtonState.Hovered);

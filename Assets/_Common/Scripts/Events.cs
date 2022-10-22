@@ -9,6 +9,7 @@ public enum GameplayEventType{
     RefreshConections,
     EnemyHasBeenMurdered,
     LocalizationUpdate,
+    ButtonOvervieved,
 }
 
 public static class Events{
