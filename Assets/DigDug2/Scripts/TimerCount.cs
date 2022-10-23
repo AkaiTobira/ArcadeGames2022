@@ -12,10 +12,18 @@ public class TimerCount : MonoBehaviour
     float _elapsedTime = 0;
 
     TextMeshProUGUI _text;
+    private static TimerCount _instance;
+    
     void Start()
     {
         _text = GetComponent<TextMeshProUGUI>();
+        if(!Guard.IsValid(_instance)) _instance = this;
     }
+
+    public static void Disable(){
+        if(Guard.IsValid(_instance)) _instance.enabled = false;
+    }
+
 
     void Update()
     {

@@ -6,7 +6,6 @@ using TMPro;
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class AutoTranslatorUnit : CMonoBehaviour, IListenToGameplayEvents
 {
-
     [SerializeField] string textTag;
     TextMeshProUGUI _text;
 
@@ -22,6 +21,7 @@ public class AutoTranslatorUnit : CMonoBehaviour, IListenToGameplayEvents
     }
 
     public void OnGameEvent(GameplayEvent gameEvent){
+        if(!Guard.IsValid(gameObject)) return;
 
         if(gameEvent.type == GameplayEventType.LocalizationUpdate){
             _text.font = TextAssets.GetFont();
@@ -29,5 +29,4 @@ public class AutoTranslatorUnit : CMonoBehaviour, IListenToGameplayEvents
             _text.ForceMeshUpdate(false, true);
         }
     }
-
 }

@@ -6,6 +6,8 @@ using System.Collections.Generic;
 public enum SupportedLanguages{
     UK,
     DE,
+
+    MAX_COUNT,
 }
 
 public static class AutoTranslator

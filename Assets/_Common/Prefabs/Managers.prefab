@@ -877,6 +877,11 @@ MonoBehaviour:
     Volume: 0
     TargetVolume: 0
     Pitch: 0
+  - _name: ButtonChange
+    _clip: {fileID: 8300000, guid: 2a6b0702b574208439ba084d0471c020, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
   - _name: Button
     _clip: {fileID: 8300000, guid: 62eb840b29f54bf418c2bf63c17e1117, type: 3}
     Volume: 0
@@ -895,8 +900,23 @@ MonoBehaviour:
     Volume: 0
     TargetVolume: 0
     Pitch: 0
-  - _name: DigDug_BG
+  - _name: DigDug_BG1
     _clip: {fileID: 8300000, guid: b3c3cc4634729384b923307aa10623ab, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: Intro_BG
+    _clip: {fileID: 8300000, guid: 965376d176aa1ff4681a486be864195f, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: DigDug_BG2
+    _clip: {fileID: 8300000, guid: 95630c58152ed334cae8baf7615dcdc4, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: DigDug_BG3
+    _clip: {fileID: 8300000, guid: c88a0e13bb6564c4280d05285a4ee251, type: 3}
     Volume: 0
     TargetVolume: 0
     Pitch: 0
@@ -911,9 +931,9 @@ AudioSource:
   m_Enabled: 1
   serializedVersion: 4
   OutputAudioMixerGroup: {fileID: 0}
-  m_audioClip: {fileID: 8300000, guid: 4c2ef69b11431e3478cf99b9bf3f266b, type: 3}
+  m_audioClip: {fileID: 8300000, guid: 3742d4a8386d1c94c9ecd78cd5acb9e0, type: 3}
   m_PlayOnAwake: 0
-  m_Volume: 1
+  m_Volume: 0
   m_Pitch: 1
   Loop: 1
   Mute: 0

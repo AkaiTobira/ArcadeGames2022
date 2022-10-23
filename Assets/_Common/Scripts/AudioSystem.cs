@@ -101,28 +101,29 @@ public class AudioSystem : MonoBehaviour
 
 
     void Update() {
-        if( _BGMusicToPlay.Count != 0 && MusicSource.isPlaying){
-            if( _BGMusicToPlay[0]._clip == MusicSource.clip ){
-                float musicChange = Mathf.Sign(_BGMusicToPlay[0].TargetVolume - MusicSource.volume) * 2f * Time.deltaTime;
+        if(_BGMusicToPlay.Count != 0){
+            if(MusicSource.isPlaying){
+                if( _BGMusicToPlay[0]._clip == MusicSource.clip ){
+                    float musicChange = Mathf.Sign(_BGMusicToPlay[0].TargetVolume - MusicSource.volume) * 2f * Time.deltaTime;
 
-                MusicSource.volume = (musicChange < 0) ?
-                    Mathf.Max( _BGMusicToPlay[0].TargetVolume, MusicSource.volume + musicChange ) :
-                    Mathf.Min( _BGMusicToPlay[0].TargetVolume, MusicSource.volume + musicChange );
+                    MusicSource.volume = (musicChange < 0) ?
+                        Mathf.Max( _BGMusicToPlay[0].TargetVolume, MusicSource.volume + musicChange ) :
+                        Mathf.Min( _BGMusicToPlay[0].TargetVolume, MusicSource.volume + musicChange );
 
-                if( Mathf.Abs( _BGMusicToPlay[0].TargetVolume - MusicSource.volume ) <= 0.001f ){
-                    if(_BGMusicToPlay[0].TargetVolume <= 0.01f) MusicSource.Stop();
-                    _BGMusicToPlay.RemoveAt(0);
+                    if( Mathf.Abs( _BGMusicToPlay[0].TargetVolume - MusicSource.volume ) <= 0.001f ){
+                        if(_BGMusicToPlay[0].TargetVolume <= 0.01f) MusicSource.Stop();
+                        _BGMusicToPlay.RemoveAt(0);
+                    }
+                }else{
+                    if( MusicSource.volume >= 0){
+                        MusicSource.volume = Mathf.Max( 0, MusicSource.volume - (2f* Time.deltaTime) );
+                    }
                 }
             }else{
-                if( MusicSource.volume > 0){
-                    MusicSource.volume = Mathf.Max( 0, MusicSource.volume - (2f* Time.deltaTime) );
-                }else{
-                    MusicSource.clip   = _BGMusicToPlay[0]._clip;
-                    MusicSource.volume = 0;
-                    MusicSource.Play();
-                }
+                MusicSource.clip   = _BGMusicToPlay[0]._clip;
+                MusicSource.volume = 0;
+                MusicSource.Play();
             }
-        
         }
     }
 }

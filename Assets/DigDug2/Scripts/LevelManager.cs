@@ -34,6 +34,6 @@ public class LevelManager : MonoBehaviour
             );
         _levels[selectedLevel].gameObject.SetActive(true);
         _timer.time = _timerMax[selectedLevel];
-    //    AudioSystem.Instance.PlayMusic(_audioClipsNames[selectedLevel],1);
+        AudioSystem.Instance.PlayMusic(_audioClipsNames[selectedLevel],1);
     }
 }

@@ -8,7 +8,7 @@ public class RandomizeCurrentAnimation : MonoBehaviour
     void Start()
     {
         TimersManager.Instance.FireAfter(Random.Range(0,0.5f), () => {
-            GetComponent<Animator>().enabled = true;
+            if(Guard.IsValid(this)) GetComponent<Animator>().enabled = true;
         });
     }
 

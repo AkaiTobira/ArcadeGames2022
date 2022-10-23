@@ -30,13 +30,13 @@ public class GameOverActivator : MonoBehaviour, IListenToGameplayEvents
             GameOver reason = (GameOver)gameplayEvent.parameter;
             isGameOverReach = true;
             _timer.gameObject.SetActive(false);
-            AudioSystem.Instance.PlayMusic("DigDug_BG", 0.2f);
+            AudioSystem.Instance.PlayMusic("DigDug_BG1", 0.2f);
             switch (reason) {
                 case GameOver.Victory: 
                     
                     AudioSystem.Instance.PlayEffect("DigDug_Victory", 1);
                 
-                    _sceneLoader.OnSceneLoadAsync();
+                    TimersManager.Instance.FireAfter( 2.0f, _sceneLoader.OnSceneLoadAsync);
                     break;
                 case GameOver.Dead: 
                     LoseTextes[0].SetActive(true);

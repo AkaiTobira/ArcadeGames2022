@@ -66,35 +66,43 @@ public class TweenManager : IActionManager<TweenAction>
 
     #region interfaces
         public void TweenTo(Transform toMove, Transform target, float time){
-            TweenBy(toMove, target.position - toMove.position,  time , null);
+            if(Guard.IsValid(toMove) && Guard.IsValid(target))
+                TweenBy(toMove, target.position - toMove.position,  time , null);
         }
 
         public void TweenTo(Transform toMove, Transform target, Action OnEnd){
-            TweenBy(toMove, target.position - toMove.position,  0 , OnEnd);
+            if(Guard.IsValid(toMove) && Guard.IsValid(target))
+                TweenBy(toMove, target.position - toMove.position,  0 , OnEnd);
         }
 
         public void TweenTo(Transform toMove, Transform target, float time = 0, Action OnEnd = null){
-            TweenBy(toMove, target.position - toMove.position,  time , OnEnd);
+            if(Guard.IsValid(toMove) && Guard.IsValid(target))
+                TweenBy(toMove, target.position - toMove.position,  time , OnEnd);
         }
 
         public void TweenTo(Transform toMove, Vector2 target, float time){
-            TweenBy(toMove, target,  time , null);
+            if(Guard.IsValid(toMove))
+                TweenBy(toMove, target,  time , null);
         }
 
         public void TweenTo(Transform toMove, Vector2 target, Action OnEnd){
-            TweenBy(toMove, target,  0 , OnEnd);
+            if(Guard.IsValid(toMove))
+                TweenBy(toMove, target,  0 , OnEnd);
         }
 
         public void TweenTo(Transform toMove, Vector3 target, float time = 0, Action OnEnd = null){
-            TweenBy(toMove, target - toMove.position,  time, OnEnd);
+            if(Guard.IsValid(toMove))
+                TweenBy(toMove, target - toMove.position,  time, OnEnd);
         }
 
         public void TweenBy(Transform toMove, Vector3 translation, float time){
-            TweenBy(toMove, translation,  time , null);
+            if(Guard.IsValid(toMove))
+                TweenBy(toMove, translation,  time , null);
         }
 
         public void TweenBy(Transform toMove, Vector3 translation, Action OnEnd){
-            TweenBy(toMove, translation,  0 , OnEnd);
+            if(Guard.IsValid(toMove))
+                TweenBy(toMove, translation,  0 , OnEnd);
         }
     #endregion
 }

@@ -10,6 +10,9 @@ public class AnimationFroggerIntro : MonoBehaviour
     [SerializeField] Transform _block;
     [SerializeField] SceneLoader _loader;
 
+    
+
+
     void Start()
     {
         BringMiddle();

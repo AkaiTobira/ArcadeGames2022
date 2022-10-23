@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class CButtonSelector : MonoBehaviour
+public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
 {
     [SerializeField] CButton[] _buttons;
 
@@ -10,10 +10,27 @@ public class CButtonSelector : MonoBehaviour
     float _reReadTime = 0.2f;
     float _elapsedTime = 0;
 
+    public void OnGameEvent(GameplayEvent gameplayEvent){
+
+        if(gameplayEvent.type == GameplayEventType.ButtonOvervieved){
+            CButton button = gameplayEvent.parameter as CButton;
+            if(Guard.IsValid(button)){
+
+                for(int i = 0; i < _buttons.Length; i++) {
+                    if(button == _buttons[i]) _activeButton = i;
+                }
+
+                AudioSystem.Instance.PlayEffect("ButtonChange", 1);
+            }
+        }
+    }
+
+
     void Start()
     {
         _activeButton = 0;
         Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.ButtonOvervieved, _buttons[_activeButton]));
+        Events.Gameplay.RegisterListener(this, GameplayEventType.ButtonOvervieved);
     }
 
     void Update()
