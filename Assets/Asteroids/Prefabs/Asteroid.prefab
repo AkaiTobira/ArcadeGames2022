@@ -81,9 +81,9 @@ MonoBehaviour:
   _frame: {fileID: 1636567859546171245}
   _image: {fileID: 8671572570692093144}
   _speed:
-  - 3
-  - 3.5
-  - 4
+  - 1.75
+  - 2.25
+  - 2.75
   _speedAccelerations:
   - 0.2
   - 0.3

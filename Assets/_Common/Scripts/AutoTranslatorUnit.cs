@@ -15,6 +15,8 @@ public class AutoTranslatorUnit : CMonoBehaviour, IListenToGameplayEvents
     }
 
     private void OnEnable() {
+        Events.Gameplay.RegisterListener(this, GameplayEventType.LocalizationUpdate);
+        
         CallNextFrame( ()=>
             OnGameEvent(new GameplayEvent(GameplayEventType.LocalizationUpdate))
         );

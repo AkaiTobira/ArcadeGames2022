@@ -10,6 +10,7 @@ public enum GameplayEventType{
     EnemyHasBeenMurdered,
     LocalizationUpdate,
     ButtonOvervieved,
+    SaveRankings,
 }
 
 public static class Events{

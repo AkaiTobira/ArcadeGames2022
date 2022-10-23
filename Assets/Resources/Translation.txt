@@ -28,7 +28,11 @@ NoLifeIntro4	If they catch you,<br>life will be created.	Falls sie dich fangen,<
 NoLifeIntro5	But you enjoy life<br>	Aber genieße das Leben<br>::
 NoLifeIntro6	BEFORE LIFE	VOR DEM LEBEN::
 NoLifeIntro7	Try not to<br>get caught.	Versuche,<br>nicht gefangen zu werden.::
-GameSelect	CHOOSE GAME: 	SPIEL WÄHLEN: ::
+GameSelect	Choose your game 	Wählen Sie Ihr Spiel::
 CommonIntro1	Art and edutainment driven by Cosmos<br> Our main objective and ambition are to bring science closer to people through art and edutainment. We prove that even the most complex phenomena and intricate issues in science can be presented in a very accessible way with the use of images, words, and sounds. The Brewster Hub tackles the stereotype of a mad scientist, absorbed in visionary research.	Kunst und Edutainment von Kosmos<br> angetrieben Unser wichtigstes Ziel und Bestreben ist es, den Menschen die Wissenschaft durch Kunst und Edutainment näher zu bringen. Wir beweisen, dass selbst die komplexesten Phänomene und kompliziertesten Fragen der Wissenschaft mithilfe von Bildern, Worten und Klängen auf sehr zugängliche Weise präsentiert werden können. Der Brewster Hub bewältigt das Klischee des verrückten Wissenschaftlers, der in visionäre Forschung vertieft ist.::
 CommonIntro2	Play three arcade games - TERRAFORMATOR, SPACE JUNK, and NO-LIFE - and shift your perception of space exploration.<br>Once you win or loose, a QR code will be displayed on the arcade machine screen. Scan it with your phone to enter the interactive chatbot. Here we start to discover the facts, discuss the possibilities, and take action on co-creating our future.<br>Try it yourself!	Spielen Sie drei Arcade-Spiele - TERRAFORMATOR, SPACE JUNK und NO-LIFE - und verändern Sie Ihre Vorstellung von der Erforschung des Weltraums.<br>Hier beginnen wir, die Fakten zu entdecken, die Möglichkeiten zu diskutieren und Maßnahmen zur Mitgestaltung unserer Zukunft einzuleiten.::
 DigDugTutorial	Dig to build<br>the betton block	Grabe, um<br>den Bettblock zu bauen::
+Score	Score : 	Punktzahl : ::
+Highscores	HIGHSCORES	HIGHSCORE::
+ANoHighScore	Well Done!<br>You did your best!	Gut gemacht!<br>Du hast dein Bestes gegeben!::
+ANEwHighScore	New Highscore !!!<br>Please enter your name	Neuer Highscore !!!<br>Bitte geben Sie Ihren Namen ein::

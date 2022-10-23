@@ -14,6 +14,8 @@ public class TimerCount : MonoBehaviour
     TextMeshProUGUI _text;
     private static TimerCount _instance;
     
+    public static int ElapsedTime = 0;
+
     void Start()
     {
         _text = GetComponent<TextMeshProUGUI>();
@@ -45,7 +47,7 @@ public class TimerCount : MonoBehaviour
 
             string leftTime = ((int)(time / 60)).ToString().PadLeft(2, '0') + ":" + ((int)(time % 60)).ToString().PadLeft(2, '0');
             _text.text = AutoTranslator.Translate(_translationTag, leftTime);// + " : " + leftTime;
-
+            ElapsedTime = time;
         }
     }
 }

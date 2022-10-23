@@ -11,6 +11,7 @@ public abstract class ScreenAnimation : MonoBehaviour{
         [SerializeField] public Image _image;
         [SerializeField] public Color _color;
         [SerializeField] public bool _autoContinue;
+        [SerializeField] public Component _activateComponent;
         [SerializeField] public float _showTimeDuration = 3f;
         [SerializeField] public float _hideTimeDuration = 1.5f;
         [SerializeField] public float _waitingTimeDuration = 3f;

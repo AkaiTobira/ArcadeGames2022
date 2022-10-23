@@ -34,6 +34,7 @@ public class GameEventSystem<G, T>
         if( !_registeredObjects.ContainsKey(type) ){
             _registeredObjects[type] = new List<IListenToEvents<G,T>>(){ newListener };
         }else{
+            if(_registeredObjects[type].Contains(newListener)) return;
             _registeredObjects[type].Add(newListener);
         }
     }

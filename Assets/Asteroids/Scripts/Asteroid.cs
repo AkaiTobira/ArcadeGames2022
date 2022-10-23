@@ -157,7 +157,7 @@ public class Asteroid : WallThrought, IListenToGameplayEvents
             EnableWallTeleport = false;
             _forwardDirection = new Vector3(0,1,0);
 
-            PointsCounter.Score += (500 + _generation * 100) * ((int)_size + 1);
+            PointsCounter.Score += (50 + _generation * 10) * ((int)_size + 1);
 
 
             Destroy(other.gameObject, 10);

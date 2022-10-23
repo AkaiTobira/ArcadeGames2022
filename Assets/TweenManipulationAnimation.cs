@@ -16,16 +16,27 @@ public class TweenManipulationAnimation : ScreenAnimation
 
         switch (nextState) {
             case State.Showing:
+                if(Guard.IsValid(ActiveAnimation._activateComponent))
+                    ActiveAnimation._activateComponent.gameObject.SetActive(true);
+
                 TweenManager.Instance.TweenTo(
                     (ActiveAnimation._image.transform as RectTransform), 
                     _center, 
                     ActiveAnimation._showTimeDuration);
             break;
             case State.Hiding:
+                Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.SaveRankings));
+
                 TweenManager.Instance.TweenTo(
                     (ActiveAnimation._image.transform as RectTransform), 
                     _bottom, 
-                    ActiveAnimation._hideTimeDuration);
+                    ActiveAnimation._hideTimeDuration,
+                    () =>{
+                        if(Guard.IsValid(ActiveAnimation._activateComponent)){
+                            ActiveAnimation._activateComponent.gameObject.SetActive(false);
+                        }
+                    }
+                    );
             break;
         }
     }

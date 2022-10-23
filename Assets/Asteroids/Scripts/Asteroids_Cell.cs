@@ -94,7 +94,7 @@ public class Asteroids_Cell : Asteroids
             _previes.Setup(CurruptedParts[0],CurruptedParts[1],CurruptedParts[2]);
 
             if( (CurruptedParts[0] + CurruptedParts[1] + CurruptedParts[2]) >= 7 ){
-                HighScoreRanking.LoadRanking();
+                HighScoreRanking.LoadRanking(GameType.Asteroids);
                 HighScoreRanking.TryAddNewRecord(PointsCounter.Score);
                 Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.GameOver));
                 enabled = false;
@@ -107,6 +107,8 @@ public class Asteroids_Cell : Asteroids
                 
                 AudioSystem.Instance.PlayEffect("Asteroid_Dead", 1);
                 AudioSystem.Instance.PlayMusic("Asteroid_BG", 0.2f);
+
+
 
 //                TweenManager.Instance.TweenTo(QRCode, centerPoint, 1f, () => {
 
