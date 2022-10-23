@@ -5,7 +5,7 @@ DigDugBar	We don't want to conquer the cosmos, we simply want to extend the boun
 DigDugBar2	Planet Earth *** Trees: -2,400/min *** People: +140/min *** Temperature: +0.18°C/10 years *** Ice: -13%/10 years *** Sea level: +3.6 mm/year *** 	Planet Erde: *** Bäume: -2,400/Min. *** Menschen: +140/Min. *** Temperatur: +0.18°C/10 Jahre *** Eis: -13%/10 Jahre *** Meeresspiegel: +3.6 mm/Jahr ***::
 DigDugQCode	Scan the QR code with your phone and enter the next level.	Scanne den QR-Code mit deinem Handy und betrete die nächste Ebene.::
 Danger	Danger !!!	Achtung !!!::
-Time	TIME LEFT : @	Übrige Zeit : @::
+TimeLeft	TIME LEFT : @	Übrige Zeit : @::
 Start	START	START::
 MainMenu	MAIN MENU	HAUPTMENÜ::
 SpaceJunkIntro	You are an<br>astronaut,<br>and you want to get<br>back to your spaceship.<br><br>Woah! There is so much<br>debris floating in Space <br>Try not to get hit!	Du bist ein<br>Astronaut<br>und willst zurück zu<br>deinem Raumschiff.<br><br>Wahnsinn! Es gibt so viele<br>Trümmer im Weltraum!<br>Versuche, nicht erwischt zu werden!::
@@ -36,3 +36,4 @@ Score	Score : 	Punktzahl : ::
 Highscores	HIGHSCORES	HIGHSCORE::
 ANoHighScore	Well Done!<br>You did your best!	Gut gemacht!<br>Du hast dein Bestes gegeben!::
 ANEwHighScore	New Highscore !!!<br>Please enter your name	Neuer Highscore !!!<br>Bitte geben Sie Ihren Namen ein::
+Time	TIME : @	Übrige : @::
