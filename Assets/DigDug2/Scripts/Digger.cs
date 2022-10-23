@@ -47,6 +47,7 @@ public class Digger : MonoBehaviour, IListenToGameplayEvents
     DigDugger _player = null;
 
 
+
     void Start(){
         Events.Gameplay.RegisterListener(this, GameplayEventType.RecalculateDiggers);
     }
@@ -110,8 +111,13 @@ public class Digger : MonoBehaviour, IListenToGameplayEvents
         }
     }
 
+    private void OnEnable() {
+        DiggersCounter.ActiveDiggers += 1;
+    }
+
     private void OnDisable() {
         if(_isPlayerInside) FinishDigging();
+        DiggersCounter.ActiveDiggers -= 1;
     }
 
     private void DigNewBreak(NeighbourSide side){

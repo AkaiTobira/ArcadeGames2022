@@ -33,7 +33,7 @@ public class LevelManager : MonoBehaviour
             new CameraFollow.KeyValuePairs(true, _cameraSetups[selectedLevel].Bottom)
             );
         _levels[selectedLevel].gameObject.SetActive(true);
-        _timer.time = _timerMax[selectedLevel];
+        _timer.time = 0;//_timerMax[selectedLevel];
         AudioSystem.Instance.PlayMusic(_audioClipsNames[selectedLevel],1);
     }
 }

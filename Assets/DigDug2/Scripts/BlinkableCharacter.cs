@@ -24,6 +24,8 @@ where T : System.Enum
     }
 
     private void ProcessBlink(){
+        //lock at client request
+        return;
         if(Convert.ToInt32(ActiveState) == Convert.ToInt32(DeadState)) return;
 
         if(_isInDangerousZone > 0){

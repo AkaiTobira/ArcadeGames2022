@@ -71,7 +71,7 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
         
         CanvasSorter.AddCanvas(Graphicals.GetComponent<Canvas>());
         _uiDangerous.SetActive(false);
-        DeadState = PlayerStates.Dead;
+    //    DeadState = PlayerStates.Dead;
     }
 
     private bool reportDead = true;
@@ -84,11 +84,11 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
         _lineShootingTimeElapsed -= Time.deltaTime;
 
 
-        _elapsedDangerTime += Time.deltaTime;
-        if(_elapsedDangerTime > 0 && IsBlinking() ){
-            AudioSystem.Instance.PlayEffect("DigDug_Danger", 1, true);
-            _elapsedDangerTime = -0.6f;
-        }
+    //    _elapsedDangerTime += Time.deltaTime;
+    //    if(_elapsedDangerTime > 0 && IsBlinking() ){
+    //        AudioSystem.Instance.PlayEffect("DigDug_Danger", 1, true);
+    //        _elapsedDangerTime = -0.6f;
+    //    }
 
         switch (ActiveState) {
             case PlayerStates.Idle: 
@@ -111,7 +111,7 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
                 ProcessShootingVisuals();
 
                 if(Guard.IsValid(_pumpableEnemy)){
-                    if(_pumpableEnemy.IsDead()) _shootingTimeElapsed -= CONSTS.SHOT_ACTION_NONLANDED_COLDOWN;
+                //    if(_pumpableEnemy.IsDead()) _shootingTimeElapsed -= CONSTS.SHOT_ACTION_NONLANDED_COLDOWN;
                 }
 
                 if(_shootingRequirementsMeet) PumpingShot();
@@ -210,7 +210,7 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
 
     private void PumpingShot(){
         if(!Guard.IsValid(_pumpableEnemy)) return;
-        if(_pumpableEnemy.GetPumpStacks() > 3) return;
+        if(_pumpableEnemy.GetPumpStacks() > 1) return;
 
         _shootingTimeColdown = CONSTS.SHOT_PUMP_ACTION_COLDOWN;
         _shootingTimeElapsed = CONSTS.SHOT_ACTION_LANDED_COLDOWN;
@@ -220,8 +220,7 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
     public override void SetupBlink(bool isInDangerousZone)
     {
         base.SetupBlink(isInDangerousZone);
-
-        _uiDangerous.SetActive(isInDangerousZone);
+    //    _uiDangerous.SetActive(isInDangerousZone);
     }
 
     private void TurnOffShooting(){
@@ -241,7 +240,7 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
             case PlayerStates.Move : 
                 _shootLineRenderer.SetPosition(1, _shootLineRenderer.GetPosition(0)); 
             break;
-            case PlayerStates.Dead : RequestDisable(1.0f); break;
+            //case PlayerStates.Dead : RequestDisable(1.0f); break;
             default : break;
         }
     }
@@ -263,26 +262,26 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
 
         switch (ActiveState) {
             case PlayerStates.Idle:
-                if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
-                else if(_shootingRequirementsMeet) return PlayerStates.Shoot;
+                //if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
+                if(_shootingRequirementsMeet) return PlayerStates.Shoot;
                 else if(_diggingRequirementsMeet) return PlayerStates.Dig;
                 else if(_inputs.magnitude > CONSTS.FLOAT_EPSILON) return PlayerStates.Move;
                 break;
             case PlayerStates.Move:
-                if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
-                else if(_shootingRequirementsMeet) return PlayerStates.Shoot;
+                //if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
+                if(_shootingRequirementsMeet) return PlayerStates.Shoot;
                 else if(_diggingRequirementsMeet) return PlayerStates.Dig;
                 else if(_inputs.magnitude < CONSTS.FLOAT_EPSILON) return PlayerStates.Idle;
                 break;
             case PlayerStates.Dig:
-                if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
-                else if(!_diggingRequirementsMeet) return PlayerStates.Idle;
+                //if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
+                if(!_diggingRequirementsMeet) return PlayerStates.Idle;
                 break;
             case PlayerStates.Dead:
                 break;
             case PlayerStates.Shoot:
-                if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
-                else if(_shootingTimeElapsed <= 0) return PlayerStates.Idle;
+                //if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
+                if(_shootingTimeElapsed <= 0) return PlayerStates.Idle;
                 break;
         }
 

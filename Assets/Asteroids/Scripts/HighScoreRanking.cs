@@ -25,7 +25,7 @@ public static class HighScoreRanking{
 
         for(int i = 0; i < 8; i++){
             string playerName = PlayerPrefs.GetString( game.ToString() + "Rank_Name" + i.ToString(), "..........");
-            int playerScore   = PlayerPrefs.GetInt   ( game.ToString() + "Rank_Score" + i.ToString(), 0);
+            int playerScore   = PlayerPrefs.GetInt   ( game.ToString() + "Rank_Score" + i.ToString(), _currentlyLoaded != GameType.DigDug ? 0 : 359999);
             _ranking.Add(new KeyValuePair<int, string>(playerScore, playerName));
             Debug.Log(_ranking[i].Key + " " + _ranking[i].Value);
         }
@@ -40,7 +40,10 @@ public static class HighScoreRanking{
 
     public static void TryAddNewRecord(int newScore){
         _ranking.Add( new KeyValuePair<int, string>(newScore, ""));
-        _ranking.Sort( (x, y) => {return y.Key - x.Key;});
+
+        if(_currentlyLoaded == GameType.Asteroids) _ranking.Sort( (x, y) => {return y.Key - x.Key;});
+        if(_currentlyLoaded == GameType.DigDug)    _ranking.Sort( (x, y) => {return x.Key - y.Key;});
+
 
         _ranking.RemoveAt(_ranking.Count-1);
 

@@ -64,7 +64,7 @@ public class EnemyVisualSlotManager : MonoBehaviour, IListenToGameplayEvents
             enemy3Count = Enemy3Count;
         };
         if(enemy1Count + enemy2Count + enemy3Count == 0 && gameWinEnabled){
-            Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.GameOver, GameOver.Victory));
+        //    Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.GameOver, GameOver.Victory));
             gameWinEnabled = false;
         }
     }

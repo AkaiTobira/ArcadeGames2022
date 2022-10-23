@@ -328,7 +328,7 @@ public class Floor2 : MonoBehaviour, IListenToGameplayEvents
         }
 
         if(other.tag.Contains("cle")){
-            other.GetComponent<Enemy1>().SetupBlink(true);
+    //        other.GetComponent<Enemy1>().SetupBlink(true);
         }
 
     }
@@ -341,7 +341,7 @@ public class Floor2 : MonoBehaviour, IListenToGameplayEvents
         }
 
         if(other.tag.Contains("cle")){
-            other.GetComponent<Enemy1>().SetupBlink(false);
+    //        other.GetComponent<Enemy1>().SetupBlink(false);
         }
     }
 

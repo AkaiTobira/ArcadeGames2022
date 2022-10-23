@@ -209,9 +209,8 @@ public class HighScoreLabelInput : MonoBehaviour, IListenToGameplayEvents
 
     protected string FormatScoreTime(int score){
         string time = (score / 3600).ToString().PadLeft(2, '0') + ":";
-        time += (score / 60).ToString().PadLeft(2, '0') + ":";
+        time += ((score % 3600)  / 60).ToString().PadLeft(2, '0') + ":";
         time += (score % 60).ToString().PadLeft(2, '0');
-
         return time;
     }
 

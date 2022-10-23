@@ -24,9 +24,13 @@ public class LevelController : MonoBehaviour, IListenToGameplayEvents
 
     [SerializeField] WorldType type;
     private void Awake() {
-        _instance = this;
         _allFloorTiles = GetComponentsInChildren<Floor2>();
     }
+
+    private void OnEnable(){
+        _instance = this;
+    }
+
 
     void Start()
     {
@@ -142,6 +146,7 @@ public class LevelController : MonoBehaviour, IListenToGameplayEvents
 
             for(int i = 0; i < _instance._allFloorTiles.Length; i++){
                 Floor2 ccc = _instance._allFloorTiles[i];
+                if(!ccc.IsSolid()) continue;
                 float distance2 = Vector3.Distance(position, ccc.transform.position);
                 if(distance2 < distance){
                     distance = distance2;
