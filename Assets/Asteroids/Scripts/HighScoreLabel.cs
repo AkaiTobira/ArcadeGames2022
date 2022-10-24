@@ -37,6 +37,6 @@ public class HighScoreLabel : MonoBehaviour, IListenToGameplayEvents
     }
 
     virtual protected string FormatScore(int score){
-        return score.ToString().PadLeft(8, '0');
+        return Fromater.FormatToPoints(score);
     }
 }

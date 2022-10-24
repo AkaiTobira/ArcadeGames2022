@@ -15,7 +15,7 @@ public class EndGameChecker : CUpdateMonoBehaviour
 
 
     bool continued = false;
-
+    bool canGoToMainMenu = false;
 
     void Awake() {
         AudioSystem.Instance.PlayMusic("Frogger_BG", 1);
@@ -28,7 +28,7 @@ public class EndGameChecker : CUpdateMonoBehaviour
             #if UNITY_ANDROID
 
             #else
-                _mainMenuButton.Select();
+                if(canGoToMainMenu) _mainMenuButton.Select();
             #endif
             
             return;
@@ -45,11 +45,12 @@ public class EndGameChecker : CUpdateMonoBehaviour
             AudioSystem.Instance.PlayMusic("Frogger_BG", 0.2f);
             AudioSystem.Instance.PlayEffect("Frogger_Victory", 1);
 
-            TimersManager.Instance.FireAfter(10, ()=>{
+            TimersManager.Instance.FireAfter(7, ()=>{
                 TweenManager.Instance.TweenTo(QRCode, bottomPoint, 1f);
                 
                 TweenManager.Instance.TweenTo(QRCode2, centerPoint, 1f, () => {
-                _mainMenuButton.Select();
+                    canGoToMainMenu = true;
+                    _mainMenuButton.Select();
                 });
             });
 

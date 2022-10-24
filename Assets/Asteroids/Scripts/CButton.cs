@@ -92,7 +92,7 @@ public class CButton : CButtonHoverableHandler, IPointerUpHandler, IListenToGame
     [SerializeField] TextMeshProUGUI _buttonName;
     [NonReorderable][SerializeField] private TextColor[] _textColorTilt;
 
-    private enum ButtonState{
+    public enum ButtonState{
         Active,
         Inactive,
         Hovered,
@@ -174,6 +174,10 @@ public class CButton : CButtonHoverableHandler, IPointerUpHandler, IListenToGame
             _buttonText = value;
             if(Guard.IsValid(_buttonName)) _buttonName.text = AutoTranslator.Translate(value);
         }
+    }
+
+    public void ForceState(ButtonState state){
+        SetState(state);
     }
 
     private void SetState(ButtonState state){

@@ -6,10 +6,7 @@ using TMPro;
 public class HighScoreLabelInput : MonoBehaviour, IListenToGameplayEvents
 {
     [SerializeField] int _labelIndex;
-    [SerializeField] TextMeshProUGUI _name;
     [SerializeField] TextMeshProUGUI _score;
-    [SerializeField] TMP_InputField _inputField;
-    [SerializeField] TextMeshProUGUI _preview;
 
     [SerializeField] GameObject _NewHighScore;
     [SerializeField] GameObject _NoNewHighScore;
@@ -37,21 +34,15 @@ public class HighScoreLabelInput : MonoBehaviour, IListenToGameplayEvents
         Events.Gameplay.RegisterListener(this, GameplayEventType.RefreshRanking);
         Events.Gameplay.RegisterListener(this, GameplayEventType.SaveRankings);
 
-        #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
-
-        _inputField.gameObject.SetActive(false);
-        _name.gameObject.SetActive(false);
         _windows.SetActive(true);
         _horizontalArrows.SetActive(true);
 
-        #endif
-
+        
         _labelIndex = HighScoreRanking.HasNewRecord();
         if(_labelIndex == -1) {
 
             _windows.SetActive(false);
             _horizontalArrows.SetActive(false);
-            _inputField.gameObject.SetActive(false);
             _NoNewHighScore.SetActive(true);
             _NewHighScore.SetActive(false);
 
@@ -59,14 +50,6 @@ public class HighScoreLabelInput : MonoBehaviour, IListenToGameplayEvents
         }
 
         HandleWindowsInput();
-
-        #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
-            HandleWindowsInput();
-        #else
-            HandleMobileInput();
-        #endif
-
-
     }
 
     public void OnGameEvent(GameplayEvent gameplayEvent){
@@ -94,20 +77,14 @@ public class HighScoreLabelInput : MonoBehaviour, IListenToGameplayEvents
             _labelIndex = HighScoreRanking.HasNewRecord();
             if(_labelIndex == -1) return;
 
-        #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
             HandleWindowsInput();
-        #else
-            HandleMobileInput();
-        #endif
-
         }
     }
 
-    #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
-
     int stringIndex = 0;
 
-    string _playerName;
+
+    #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
 
     float _elapsedTime1 = 0;
     float _elapsedTime2 = 0;
@@ -122,45 +99,23 @@ public class HighScoreLabelInput : MonoBehaviour, IListenToGameplayEvents
 
         if(_elapsedTime1 < 0 && Mathf.Abs(verticalChange) > 0.3f){
             _elapsedTime1 = 0.2f;
-
-            _letterIndexes[stringIndex] = (
-                _letterIndexes[stringIndex] + 
-                (int) Mathf.Sign(verticalChange) + 
-                _possibleLetters.Length ) % _possibleLetters.Length;
-
-            LoadLetters();
+            OnButtonVertical((int) Mathf.Sign(verticalChange));
         }
 
         if(_elapsedTime2 < 0 && Mathf.Abs(horizontalChange) > 0.3f){
             _elapsedTime2 = 0.2f;
-
-            stringIndex = (
-                stringIndex + 
-                (int) Mathf.Sign(horizontalChange) +
-                _letterIndexes.Length) % _letterIndexes.Length;
-            SetupMarkers();
+            OnButtonHorizontal((int) Mathf.Sign(horizontalChange));
         }
     }
     #endif
 
-    private void HandleMobileInput(){
-
-        int points = (_gameType == GameType.DigDug) ? TimerCount.ElapsedTime : PointsCounter.Score;
-        _score.text = (_gameType == GameType.DigDug) ? FormatScoreTime(points) : FormatScorePoints(points);
-
-        _inputField.enabled = true;
-        _windows.SetActive(false);
-        _horizontalArrows.SetActive(false);
-    }
 
     private void HandleWindowsInput(){
-        _inputField.enabled = false;
         _windows.SetActive(true);
         _horizontalArrows.SetActive(true);
         
         int points = (_gameType == GameType.DigDug) ? TimerCount.ElapsedTime : PointsCounter.Score;
-        _score.text = (_gameType == GameType.DigDug) ? FormatScoreTime(points) : FormatScorePoints(points);
-
+        _score.text = (_gameType == GameType.DigDug) ? Fromater.FormatToTime(points) : Fromater.FormatToPoints(points);
 
         ResetLetters();
         LoadLetters();
@@ -193,28 +148,22 @@ public class HighScoreLabelInput : MonoBehaviour, IListenToGameplayEvents
         }
     }
 
-    public void OnTextEnter(string s){}
+    public void OnButtonVertical(int direction){
 
-    public void OnEditEnd(string s){
-        _inputField.enabled = false;
-        _name.text = s;
+        _letterIndexes[stringIndex] = (
+            _letterIndexes[stringIndex] + 
+            direction + 
+            _possibleLetters.Length ) % _possibleLetters.Length;
 
-        #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
-
-        #else
-            HighScoreRanking.SaveName(_labelIndex, s);
-            HighScoreRanking.SaveRanking();
-        #endif
+        LoadLetters();
     }
 
-    protected string FormatScoreTime(int score){
-        string time = (score / 3600).ToString().PadLeft(2, '0') + ":";
-        time += ((score % 3600)  / 60).ToString().PadLeft(2, '0') + ":";
-        time += (score % 60).ToString().PadLeft(2, '0');
-        return time;
-    }
+    public void OnButtonHorizontal(int direction){
+        stringIndex = (
+            stringIndex + 
+            direction +
+            _letterIndexes.Length) % _letterIndexes.Length;
 
-    protected string FormatScorePoints(int score){
-        return score.ToString().PadLeft(8, '0');
+        SetupMarkers();
     }
 }

@@ -11,6 +11,7 @@ public enum GameplayEventType{
     LocalizationUpdate,
     ButtonOvervieved,
     SaveRankings,
+    ContinueAnimation,
 }
 
 public static class Events{

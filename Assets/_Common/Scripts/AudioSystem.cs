@@ -45,7 +45,7 @@ public class AudioSystem : MonoBehaviour
 
     private List<AudioTrack> _BGMusicToPlay = new List<AudioTrack>();
 
-	public void PlayEffect(string clipName, float volume, bool randomPitch=false)
+	public void PlayEffect(string clipName, float volume = 1.0f, bool randomPitch=false)
 	{
         if( string.IsNullOrEmpty(clipName) ) return;
 
@@ -60,9 +60,9 @@ public class AudioSystem : MonoBehaviour
                     
                     if( randomPitch ){
                         float pitch = Random.Range(LowPitchRange, HighPitchRange);
-		                _effectsPLayers[i].pitch = pitch;
+                        _effectsPLayers[i].pitch = pitch;
                     }
-                	_effectsPLayers[i].clip   = at._clip;
+                    _effectsPLayers[i].clip   = at._clip;
                     _effectsPLayers[i].volume = volume;
                     _effectsPLayers[i].Play();
                     return;

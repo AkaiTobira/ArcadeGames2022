@@ -53,17 +53,20 @@ public class Digger : MonoBehaviour, IListenToGameplayEvents
     }
 
     public void Setup(Floor2 parentTile){
-        if(!gameObject.activeInHierarchy) return;
+        gameObject.SetActive(true);
 
-        if(!parentTile.Neighbours.ContainsKey(NeighbourSide.NS_Top) || !parentTile.Neighbours.ContainsKey(NeighbourSide.NS_Left)){
+        if( parentTile.Neighbours.ContainsKey(NeighbourSide.NS_Left) && 
+            parentTile.Neighbours.ContainsKey(NeighbourSide.NS_Top) &&
+            Guard.IsValid(parentTile.Neighbours[NeighbourSide.NS_Left]) &&
+            parentTile.Neighbours[NeighbourSide.NS_Left].Neighbours.ContainsKey(NeighbourSide.NS_Top)
+        ){
+            _corresponingTiles[DiggersSpawnPositions.DSP_Right_Down] = parentTile;
+            _corresponingTiles[DiggersSpawnPositions.DSP_Right_Up]   = parentTile.Neighbours[NeighbourSide.NS_Top];
+            _corresponingTiles[DiggersSpawnPositions.DSP_Left_Down]  = parentTile.Neighbours[NeighbourSide.NS_Left];
+            _corresponingTiles[DiggersSpawnPositions.DSP_Left_Up]    = parentTile.Neighbours[NeighbourSide.NS_Left].Neighbours[NeighbourSide.NS_Top];
+        }else{
             gameObject.SetActive(false);
-            return;
         }
-
-        _corresponingTiles[DiggersSpawnPositions.DSP_Right_Down] = parentTile;
-        _corresponingTiles[DiggersSpawnPositions.DSP_Right_Up]   = parentTile.Neighbours[NeighbourSide.NS_Top];
-        _corresponingTiles[DiggersSpawnPositions.DSP_Left_Down]  = parentTile.Neighbours[NeighbourSide.NS_Left];
-        _corresponingTiles[DiggersSpawnPositions.DSP_Left_Up]    = parentTile.Neighbours[NeighbourSide.NS_Left]?.Neighbours[NeighbourSide.NS_Top];
     }
 
     void Update()

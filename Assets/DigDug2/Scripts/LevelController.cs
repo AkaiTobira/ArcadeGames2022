@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using TMPro;
 
 public class LevelController : MonoBehaviour, IListenToGameplayEvents
 {
@@ -17,6 +18,10 @@ public class LevelController : MonoBehaviour, IListenToGameplayEvents
     [SerializeField] List<Sprite> _solidTiles1;
     [SerializeField] List<Sprite> _solidTiles2;
     [SerializeField] List<Sprite> _solidTiles3;
+
+    [SerializeField] TextMeshProUGUI _penaltyTexy;
+    [SerializeField] TextMeshProUGUI _timer;
+    
 
     private int _numberOfGroundTiles = 0;
     private Floor2[] _allFloorTiles;
@@ -35,6 +40,7 @@ public class LevelController : MonoBehaviour, IListenToGameplayEvents
     void Start()
     {
         Events.Gameplay.RegisterListener(this, GameplayEventType.RecalculateTerrain);
+        Events.Gameplay.RegisterListener(this, GameplayEventType.GameOver);
 
         for(int i = 0; i < _allFloorTiles.Length; i ++) SetupNeighbours(_allFloorTiles[i]);
         SetupDiggersFloors();
@@ -132,10 +138,36 @@ public class LevelController : MonoBehaviour, IListenToGameplayEvents
         }
     }
 
-
+    private bool GameOVer = false;
     public void OnGameEvent(GameplayEvent gameplayEvent){
         if(gameplayEvent.type == GameplayEventType.RecalculateTerrain){
             RecalculateTerrain((List<Floor2>)gameplayEvent.parameter);
+        }
+
+        if(!gameObject.activeSelf) return;
+
+        if(gameplayEvent.type == GameplayEventType.GameOver){
+            
+            if(!GameOVer){
+                GameOVer = true;
+                _penaltyTexy.transform.parent.gameObject.SetActive( true );
+                if(_numberOfGroundTiles <= 2){
+                    _penaltyTexy.text = AutoTranslator.Translate("NoPenalty");
+                    _timer.text = AutoTranslator.Translate("Time", Fromater.FormatToTime(TimerCount.ElapsedTime));
+                }else{
+                    _penaltyTexy.text = AutoTranslator.Translate("PointsPenalty", ((_numberOfGroundTiles - 2) * 10).ToString() );
+                    _timer.text = AutoTranslator.Translate("Time", Fromater.FormatToTime(TimerCount.ElapsedTime));
+                    TimerCount.ElapsedTime += ((_numberOfGroundTiles - 2) * 10);
+                    
+                }
+
+                TimersManager.Instance.FireAfter(5f, () => {
+                    if(Guard.IsValid(_penaltyTexy)){
+
+                        _penaltyTexy.transform.parent.gameObject.SetActive( false );
+                    }
+                });
+            }
         }
     }
 

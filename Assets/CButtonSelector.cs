@@ -29,9 +29,18 @@ public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
     void Start()
     {
         _activeButton = 0;
-        Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.ButtonOvervieved, _buttons[_activeButton]));
         Events.Gameplay.RegisterListener(this, GameplayEventType.ButtonOvervieved);
+        
+        TimersManager.Instance.FireAfter( 0.3f, () => {
+            Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.ButtonOvervieved, _buttons[_activeButton]));
+
+    //        _buttons[0].ForceState(CButton.ButtonState.Hovered);
+        });
+
     }
+
+
+
 
     void Update()
     {

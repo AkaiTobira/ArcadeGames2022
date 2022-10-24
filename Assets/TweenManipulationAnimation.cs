@@ -25,7 +25,9 @@ public class TweenManipulationAnimation : ScreenAnimation
                     ActiveAnimation._showTimeDuration);
             break;
             case State.Hiding:
-                Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.SaveRankings));
+                if(Guard.IsValid(ActiveAnimation._activateComponent)){
+                    Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.SaveRankings));
+                }
 
                 TweenManager.Instance.TweenTo(
                     (ActiveAnimation._image.transform as RectTransform), 

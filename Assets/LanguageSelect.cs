@@ -36,7 +36,7 @@ public class LanguageSelect : MonoBehaviour
         if(change == 0) return;
 
         int translator = (int)AutoTranslator.Language;
-        AutoTranslator.Language = (SupportedLanguages)((translator + change)%((int)SupportedLanguages.MAX_COUNT));
+        AutoTranslator.Language = (SupportedLanguages)((translator + (int)SupportedLanguages.MAX_COUNT + change)%((int)SupportedLanguages.MAX_COUNT));
         _image.sprite = _sprites[(int)AutoTranslator.Language];
 
         Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.LocalizationUpdate));

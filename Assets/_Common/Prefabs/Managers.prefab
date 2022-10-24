@@ -744,8 +744,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _textFile: {fileID: 4900000, guid: 2125704f17fcfe04d9662e9ad3c978a5, type: 3}
   _text:
-  - {fileID: 11400000, guid: c302362db6948814fb7385596de9924d, type: 2}
-  - {fileID: 11400000, guid: c302362db6948814fb7385596de9924d, type: 2}
+  - {fileID: 11400000, guid: 6d1940ce90148f84e9529fa3d527a40d, type: 2}
+  - {fileID: 11400000, guid: 6d1940ce90148f84e9529fa3d527a40d, type: 2}
 --- !u!114 &2923781472661276938
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -778,9 +778,6 @@ MonoBehaviour:
   - {fileID: 6968140817585212888}
   - {fileID: 6968140817439992197}
   - {fileID: 6968140817726755593}
-  - {fileID: 6968140818850735977}
-  - {fileID: 6968140818350259314}
-  - {fileID: 6968140817113531724}
   _clips:
   - _name: Frogger_Move
     _clip: {fileID: 8300000, guid: 6d6a9fdb4d665e94db76f4b028ab88fe, type: 3}

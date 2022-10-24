@@ -36,9 +36,12 @@ public class GameOverActivator : MonoBehaviour, IListenToGameplayEvents
                     
                     AudioSystem.Instance.PlayEffect("DigDug_Victory", 1);
                     HighScoreRanking.LoadRanking(GameType.DigDug);
-                    HighScoreRanking.TryAddNewRecord(TimerCount.ElapsedTime);
                 
-                    TimersManager.Instance.FireAfter( 2.0f, _sceneLoader.OnSceneLoadAsync);
+                    TimersManager.Instance.FireAfter( 10.0f, () => {
+                        
+                        HighScoreRanking.TryAddNewRecord(TimerCount.ElapsedTime);
+                        _sceneLoader.OnSceneLoadAsync();
+                    } );
                     break;
                 case GameOver.Dead: 
                     LoseTextes[0].SetActive(true);

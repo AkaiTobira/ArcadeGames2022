@@ -2506,8 +2506,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -0.054000854, y: 0}
-  m_SizeDelta: {x: -19.031, y: 0}
+  m_AnchoredPosition: {x: 0.027000427, y: 0}
+  m_SizeDelta: {x: -30.908, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &737693255
 MonoBehaviour:
@@ -6950,8 +6950,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.926}
-  m_SizeDelta: {x: 200, y: 30.043}
+  m_AnchoredPosition: {x: 0.375, y: 0.926}
+  m_SizeDelta: {x: 42.957, y: 30.043}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1695371044
 MonoBehaviour:
@@ -7014,7 +7014,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3.45
+  m_fontSize: 3.65
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -7050,7 +7050,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 86.00634, y: 3.239624, z: 86.75491, w: 2.2677307}
+  m_margin: {x: -0.629364, y: 3.239624, z: 0.8682251, w: 2.2677307}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0
@@ -8308,8 +8308,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0.926}
-  m_SizeDelta: {x: 200, y: 30.043}
+  m_AnchoredPosition: {x: 0.374, y: 0.926}
+  m_SizeDelta: {x: 40.461, y: 30.043}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1967030797
 MonoBehaviour:
@@ -8408,7 +8408,7 @@ MonoBehaviour:
   m_VertexBufferAutoSizeReduction: 0
   m_useMaxVisibleDescender: 1
   m_pageToDisplay: 1
-  m_margin: {x: 86.00634, y: 3.239624, z: 86.75491, w: 2.2677307}
+  m_margin: {x: -0.37969208, y: 3.239624, z: 0.11920929, w: 2.2677307}
   m_isUsingLegacyAnimationComponent: 0
   m_isVolumetricText: 0
   m_hasFontAssetChanged: 0

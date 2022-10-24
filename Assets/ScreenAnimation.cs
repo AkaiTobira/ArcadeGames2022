@@ -4,13 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public abstract class ScreenAnimation : MonoBehaviour{
+public abstract class ScreenAnimation : MonoBehaviour, IListenToGameplayEvents{
 
     [Serializable]
     protected class Screen{
         [SerializeField] public Image _image;
         [SerializeField] public Color _color;
         [SerializeField] public bool _autoContinue;
+        [SerializeField] public bool _hasCustomContinue;
         [SerializeField] public Component _activateComponent;
         [SerializeField] public float _showTimeDuration = 3f;
         [SerializeField] public float _hideTimeDuration = 1.5f;
@@ -36,10 +37,21 @@ public abstract class ScreenAnimation : MonoBehaviour{
     protected State CurrentState = State.Showing;
     protected Screen ActiveAnimation;
 
+    public void OnGameEvent(GameplayEvent gameplayEvent){
+        if(gameplayEvent.type == GameplayEventType.ContinueAnimation){
+            if(CurrentState == State.Waiting) SetState(State.Hiding, ActiveAnimation._hideTimeDuration);
+        }
+    }
 
     void Start(){
+
+        Events.Gameplay.RegisterListener(this, GameplayEventType.ContinueAnimation);
+
+        Vector3 position = _screens[0]._image.transform.position;
+
         for(int i = 0; i < _screens.Count; i++) {
             _screens[i]._image.gameObject.SetActive(false);
+            _screens[i]._image.transform.position = position;
         }
 
         _currentIndex = 0;
@@ -62,10 +74,18 @@ public abstract class ScreenAnimation : MonoBehaviour{
                 }
                 break;
             case State.Waiting:
-                if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.KeypadEnter)){
+
+                #if !UNITY_STANDALONE_WIN && !UNITY_EDITOR_WIN
+                    if(ActiveAnimation._hasCustomContinue){
+                        return;
+                    }
+                #endif
+
+                if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.touchCount > 0){
                     SetState(State.Hiding, ActiveAnimation._hideTimeDuration);
                     return;
                 }
+
                 if(_elapsedTime <= 0){
                     if(_screens[_currentIndex]._autoContinue) SetState(State.Hiding, ActiveAnimation._hideTimeDuration);
                 }
