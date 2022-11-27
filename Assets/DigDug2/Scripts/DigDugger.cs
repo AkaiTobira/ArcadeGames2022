@@ -8,7 +8,7 @@ public static class CONSTS
 {
     public const float FLOAT_EPSILON = 0.01f;
     public const float ANIMATION_ONE_BLINK_DURAION = 0.5f;
-    public const int BLINK_TIMES_TO_BE_DEAD = 3;
+    public const int BLINK_TIMES_TO_BE_DEAD = 30000000;
     public const float DIGGING_TIME = 0.6f;
 
     public const float SHOT_ACTION_LANDED_COLDOWN = 2.0f;
@@ -111,7 +111,7 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
                 ProcessShootingVisuals();
 
                 if(Guard.IsValid(_pumpableEnemy)){
-                //    if(_pumpableEnemy.IsDead()) _shootingTimeElapsed -= CONSTS.SHOT_ACTION_NONLANDED_COLDOWN;
+                    if(_pumpableEnemy.IsDead()) _shootingTimeElapsed -= CONSTS.SHOT_ACTION_NONLANDED_COLDOWN;
                 }
 
                 if(_shootingRequirementsMeet) PumpingShot();
@@ -210,7 +210,7 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
 
     private void PumpingShot(){
         if(!Guard.IsValid(_pumpableEnemy)) return;
-        if(_pumpableEnemy.GetPumpStacks() > 1) return;
+        if(_pumpableEnemy.GetPumpStacks() > 3) return;
 
         _shootingTimeColdown = CONSTS.SHOT_PUMP_ACTION_COLDOWN;
         _shootingTimeElapsed = CONSTS.SHOT_ACTION_LANDED_COLDOWN;

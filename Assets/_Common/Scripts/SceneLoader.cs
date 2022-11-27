@@ -13,6 +13,8 @@ public class SceneLoader : MonoBehaviour
 
     IEnumerator LoadGameScene()
     {
+        yield return new WaitForSecondsRealtime(1f);
+
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
 
         while (!asyncLoad.isDone)
@@ -25,7 +27,8 @@ public class SceneLoader : MonoBehaviour
     }
 
     public void OnSceneLoadAsync(){
-        StartCoroutine(LoadGameScene());
+        //TimersManager.Instance.FireAfter(1.5f, () => {
+            StartCoroutine(LoadGameScene());
+        //});
     }
-
 }

@@ -23,17 +23,38 @@ public class LevelManager : MonoBehaviour
     [SerializeField] TimerCount _timer;
     [SerializeField] string[] _audioClipsNames;
 
+    public static int SelectedLevel = -1;
+    public static int NUMBER_OF_LEVELS = 3; 
+
+    private static List<int> indexes = new List<int>();
+
     private void Start() {
-        
-        int selectedLevel = UnityEngine.Random.Range(0, _levels.Length);
+        NUMBER_OF_LEVELS = _levels.Length;
+
+        for(int i = 0; i < NUMBER_OF_LEVELS; i++) indexes.Add(i);
+        for(int i = 0; i < NUMBER_OF_LEVELS; i++) {
+            int  firstIndex = UnityEngine.Random.Range(0, _levels.Length);
+            int secondIndex = UnityEngine.Random.Range(0, _levels.Length);
+
+            int temp = indexes[firstIndex];
+            indexes[firstIndex]  = indexes[secondIndex];
+            indexes[secondIndex] = temp;
+        }
+
+        for(int i = 0; i< NUMBER_OF_LEVELS; i++){
+            SelectedLevel = i;
+            if(!DigDugPlayedMaps.IsLocked(SelectedLevel)) break;
+        }
+
         CameraFollow.Instance.SetValues( 
-            new CameraFollow.KeyValuePairs(true, _cameraSetups[selectedLevel].Left),
-            new CameraFollow.KeyValuePairs(true, _cameraSetups[selectedLevel].Right),
-            new CameraFollow.KeyValuePairs(true, _cameraSetups[selectedLevel].Top),
-            new CameraFollow.KeyValuePairs(true, _cameraSetups[selectedLevel].Bottom)
+            new CameraFollow.KeyValuePairs(true, _cameraSetups[SelectedLevel].Left),
+            new CameraFollow.KeyValuePairs(true, _cameraSetups[SelectedLevel].Right),
+            new CameraFollow.KeyValuePairs(true, _cameraSetups[SelectedLevel].Top),
+            new CameraFollow.KeyValuePairs(true, _cameraSetups[SelectedLevel].Bottom)
             );
-        _levels[selectedLevel].gameObject.SetActive(true);
+
+        _levels[SelectedLevel].gameObject.SetActive(true);
         _timer.time = 0;//_timerMax[selectedLevel];
-        AudioSystem.Instance.PlayMusic(_audioClipsNames[selectedLevel],1);
+        AudioSystem.Instance.PlayMusic(_audioClipsNames[SelectedLevel],1);
     }
 }

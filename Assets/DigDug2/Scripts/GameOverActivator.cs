@@ -7,7 +7,8 @@ using TMPro;
 public enum GameOver{
     Victory,
     Dead,
-    TimesUp
+    TimesUp,
+    Kill
 }
 
 public class GameOverActivator : MonoBehaviour, IListenToGameplayEvents
@@ -32,6 +33,7 @@ public class GameOverActivator : MonoBehaviour, IListenToGameplayEvents
             _timer.gameObject.SetActive(false);
             AudioSystem.Instance.PlayMusic("DigDug_BG1", 0.2f);
             switch (reason) {
+                case GameOver.Kill:
                 case GameOver.Victory: 
                     
                     AudioSystem.Instance.PlayEffect("DigDug_Victory", 1);
@@ -40,8 +42,13 @@ public class GameOverActivator : MonoBehaviour, IListenToGameplayEvents
                     TimersManager.Instance.FireAfter( 10.0f, () => {
                         
                         HighScoreRanking.TryAddNewRecord(TimerCount.ElapsedTime);
-                        _sceneLoader.OnSceneLoadAsync();
                     } );
+
+                    TimersManager.Instance.FireAfter( 12.0f, () => {
+                        _sceneLoader.OnSceneLoadAsync();
+                    });
+                    
+                    DigDugPlayedMaps.LockMap(LevelManager.SelectedLevel);
                     break;
                 case GameOver.Dead: 
                     LoseTextes[0].SetActive(true);

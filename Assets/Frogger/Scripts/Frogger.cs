@@ -146,6 +146,8 @@ public class Frogger : MonoBehaviour
     }
 
     IEnumerator Dead(){
+        Events.Gameplay.RiseEvent( new GameplayEvent(GameplayEventType.PlayerDied));
+        
         isDead          = true;
         elapsedDeadTime   = 0;
         AudioSystem.Instance.PlayEffect("Frogger_Dead", 1, true);

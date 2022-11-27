@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/_Common/Intro.unity
     guid: cbea8d47102c30d4687b710c1ba6f1a5
   - enabled: 1
+    path: Assets/_Common/GameSelect.unity
+    guid: 4101815daf0c55e46831bae75480bae3
+  - enabled: 1
     path: Assets/Frogger/Scenes/FroggerMain.unity
     guid: 963ed56335ba04244adbbd6ac85370a9
   - enabled: 1
@@ -18,8 +21,11 @@ EditorBuildSettings:
     path: Assets/Frogger/Scenes/FroggerIntro.unity
     guid: 321c2da0b68729c4cb381fabeb9e898c
   - enabled: 1
-    path: Assets/_Common/GameSelect.unity
-    guid: 4101815daf0c55e46831bae75480bae3
+    path: Assets/Frogger/Scenes/FroggerOutro.unity
+    guid: 1d44bdc06ac65cb49bc6f8c824fd6324
+  - enabled: 1
+    path: Assets/Frogger/Scenes/FroggerOutro1.unity
+    guid: 816a3b58c958e9744b0b0ddeb0a852ac
   - enabled: 1
     path: Assets/Asteroids/Scenes/AsteroidsMain.unity
     guid: 3a7d1b423a0568d4390f5042fe4b2d60

@@ -72,13 +72,13 @@ public class Enemy1 : StateMachineCharacter<EnemyStates>, IListenToGameplayEvent
 
         //Need to override parent propeties as long as it cannot be locked with [NonReaodable]
     //    
-    //    if(_enemy == EnemyID.Enemy1) EnemyVisualSlotManager.Enemy1Count += 1;
-    //    if(_enemy == EnemyID.Enemy2) EnemyVisualSlotManager.Enemy2Count += 1;
-    //    if(_enemy == EnemyID.Enemy3) EnemyVisualSlotManager.Enemy3Count += 1;
+        if(_enemy == EnemyID.Enemy1) EnemyVisualSlotManager.Enemy1Count += 1;
+        if(_enemy == EnemyID.Enemy2) EnemyVisualSlotManager.Enemy2Count += 1;
+        if(_enemy == EnemyID.Enemy3) EnemyVisualSlotManager.Enemy3Count += 1;
         
         _animations = Animations2;
         CanvasSorter.AddCanvas(Graphicals.GetComponent<Canvas>());
-        //DeadState = EnemyStates.Dead;
+    //    DeadState = EnemyStates.Dead;
 
         _currentFloor = LevelController.GetClosestFloor(transform.position);
 
@@ -88,11 +88,11 @@ public class Enemy1 : StateMachineCharacter<EnemyStates>, IListenToGameplayEvent
 
     bool isUnregistered;
     private void Deregister(){
-        if(isUnregistered) return;//;
+        if(isUnregistered) return;
 
-    ;//    if(_enemy == EnemyID.Enemy1) EnemyVisualSlotManager.Enemy1Count += -1;
-    ;//    if(_enemy == EnemyID.Enemy2) EnemyVisualSlotManager.Enemy2Count += -1;
-    ;//    if(_enemy == EnemyID.Enemy3) EnemyVisualSlotManager.Enemy3Count += -1;
+        if(_enemy == EnemyID.Enemy1) EnemyVisualSlotManager.Enemy1Count += -1;
+        if(_enemy == EnemyID.Enemy2) EnemyVisualSlotManager.Enemy2Count += -1;
+        if(_enemy == EnemyID.Enemy3) EnemyVisualSlotManager.Enemy3Count += -1;
 
         AudioSystem.Instance.PlayEffect("DigDug_EnemyDead", 1);
 
@@ -170,10 +170,10 @@ public class Enemy1 : StateMachineCharacter<EnemyStates>, IListenToGameplayEvent
     protected override void OnStateEnter( EnemyStates enterState ){
 
         switch(enterState){
-        //    case EnemyStates.Dead: 
-        //        Deregister();
-        //        RequestDisable(1.0f);
-        //    break;
+            case EnemyStates.Dead: 
+                Deregister();
+                RequestDisable(1.0f);
+            break;
             case EnemyStates.Stare:
                 _elapsedStareTime = TIME_OF_STARING;
                 AudioSystem.Instance.PlayEffect("DigDug_EnemyStare", 1, true);
@@ -197,7 +197,7 @@ public class Enemy1 : StateMachineCharacter<EnemyStates>, IListenToGameplayEvent
     }
 
     public void Pump(){
-        if(_pumpingStacks > 3) return;
+        if(_pumpingStacks > 4) return;
         
         SetAnimationFrame(_pumpingStacks, EnemyStates.Pumping);
         _pumpingStacks += 1;
@@ -241,8 +241,6 @@ public class Enemy1 : StateMachineCharacter<EnemyStates>, IListenToGameplayEvent
             }else{
                 probSum += 15f;
             }
-
-
         }
 
         float prob = Random.Range(0, probSum);
@@ -306,7 +304,7 @@ public class Enemy1 : StateMachineCharacter<EnemyStates>, IListenToGameplayEvent
                 break;
             case EnemyStates.Pumping:
                 //if(IsDeadByBlinking(TIMES_TO_DEAD_BY_TILE)) return EnemyStates.Dead;
-                //if(_pumpingStacks == 4) return EnemyStates.Dead;
+                if(_pumpingStacks == 4) return EnemyStates.Dead;
                 if(_pumpingStacks == 0 && _elapsedPumpTime <= 0) return EnemyStates.Idle;
                 
                 break;
@@ -314,6 +312,10 @@ public class Enemy1 : StateMachineCharacter<EnemyStates>, IListenToGameplayEvent
         }
 
         return ActiveState;
+    }
+
+    public bool IsDead(){
+        return ActiveState == EnemyStates.Dead;
     }
 
     protected override Vector3 GetDirectionChange(){

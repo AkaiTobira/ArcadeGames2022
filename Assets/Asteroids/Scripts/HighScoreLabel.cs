@@ -30,10 +30,11 @@ public class HighScoreLabel : MonoBehaviour, IListenToGameplayEvents
     }
 
     private void SetLabel(){
-
         KeyValuePair<int, string> rankingEntry = HighScoreRanking.GetScore(_labelIndex);
         _name.text = rankingEntry.Value;
         _score.text = FormatScore(rankingEntry.Key);
+
+        Debug.Log("Setting up : " + rankingEntry.Value + " " + FormatScore(rankingEntry.Key));
     }
 
     virtual protected string FormatScore(int score){

@@ -150,15 +150,19 @@ public class LevelController : MonoBehaviour, IListenToGameplayEvents
             
             if(!GameOVer){
                 GameOVer = true;
-                _penaltyTexy.transform.parent.gameObject.SetActive( true );
-                if(_numberOfGroundTiles <= 2){
-                    _penaltyTexy.text = AutoTranslator.Translate("NoPenalty");
-                    _timer.text = AutoTranslator.Translate("Time", Fromater.FormatToTime(TimerCount.ElapsedTime));
-                }else{
-                    _penaltyTexy.text = AutoTranslator.Translate("PointsPenalty", ((_numberOfGroundTiles - 2) * 10).ToString() );
-                    _timer.text = AutoTranslator.Translate("Time", Fromater.FormatToTime(TimerCount.ElapsedTime));
-                    TimerCount.ElapsedTime += ((_numberOfGroundTiles - 2) * 10);
-                    
+
+                GameOver gameOverType = (GameOver)gameplayEvent.parameter;
+                if(gameOverType != GameOver.Kill){
+
+                    _penaltyTexy.transform.parent.gameObject.SetActive( true );
+                    if(_numberOfGroundTiles <= 2){
+                        _penaltyTexy.text = AutoTranslator.Translate("NoPenalty");
+                        _timer.text = AutoTranslator.Translate("Time", Fromater.FormatToTime(TimerCount.ElapsedTime));
+                    }else{
+                        _penaltyTexy.text = AutoTranslator.Translate("PointsPenalty", ((_numberOfGroundTiles - 2) * 10).ToString() );
+                        _timer.text = AutoTranslator.Translate("Time", Fromater.FormatToTime(TimerCount.ElapsedTime));
+                        TimerCount.ElapsedTime += ((_numberOfGroundTiles - 2) * 10);
+                    }
                 }
 
                 TimersManager.Instance.FireAfter(5f, () => {

@@ -16,6 +16,7 @@ public abstract class ScreenAnimation : MonoBehaviour, IListenToGameplayEvents{
         [SerializeField] public float _showTimeDuration = 3f;
         [SerializeField] public float _hideTimeDuration = 1.5f;
         [SerializeField] public float _waitingTimeDuration = 3f;
+        [SerializeField] public bool _ignore;
     }
 
     protected enum State{
@@ -26,7 +27,7 @@ public abstract class ScreenAnimation : MonoBehaviour, IListenToGameplayEvents{
         Inactive,
     }
 
-    [SerializeField][NonReorderable] private List<Screen> _screens;
+    [SerializeField] private List<Screen> _screens;
 
     [SerializeField] private SceneLoader _loader;
 
@@ -103,7 +104,12 @@ public abstract class ScreenAnimation : MonoBehaviour, IListenToGameplayEvents{
     }
 
     private void ChangeScreen(){
-        _currentIndex++;
+        while(_currentIndex < _screens.Count ) {
+            _currentIndex++;
+            if(_currentIndex >= _screens.Count) break;
+            if(!_screens[_currentIndex]._ignore) break;
+        }
+        
         if(_currentIndex >= _screens.Count){
             _loader.OnSceneLoadAsync();
             CurrentState = State.Inactive;

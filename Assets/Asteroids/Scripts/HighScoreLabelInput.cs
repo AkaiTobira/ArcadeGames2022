@@ -16,6 +16,8 @@ public class HighScoreLabelInput : MonoBehaviour, IListenToGameplayEvents
     [SerializeField] TextMeshProUGUI[] _letters;
     [SerializeField] GameType _gameType;
 
+    [SerializeField] bool _ignoreSetup;
+
     int[] _letterIndexes = {1,1,1,0,0,0,0,0,0,0};
 
     char[] _possibleLetters = {
@@ -30,6 +32,13 @@ public class HighScoreLabelInput : MonoBehaviour, IListenToGameplayEvents
     }
 
     private void Start() {
+        
+        if(_ignoreSetup) {
+            //HighScoreRanking.LoadRanking(_gameType);
+            SetPoints();
+            return;
+        }
+
         Events.Gameplay.RegisterListener(this, GameplayEventType.GameOver);
         Events.Gameplay.RegisterListener(this, GameplayEventType.RefreshRanking);
         Events.Gameplay.RegisterListener(this, GameplayEventType.SaveRankings);
@@ -53,7 +62,11 @@ public class HighScoreLabelInput : MonoBehaviour, IListenToGameplayEvents
     }
 
     public void OnGameEvent(GameplayEvent gameplayEvent){
-        if(enabled == false) return;
+        if(enabled == false || _ignoreSetup){
+            
+        //    Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.RefreshRanking));
+            return;
+        }
 
         if(gameplayEvent.type == GameplayEventType.SaveRankings){
             if(_labelIndex != -1){
@@ -84,13 +97,15 @@ public class HighScoreLabelInput : MonoBehaviour, IListenToGameplayEvents
     int stringIndex = 0;
 
 
-    #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
+//    #if UNITY_STANDALONE_WIN || UNITY_EDITOR_WIN
 
     float _elapsedTime1 = 0;
     float _elapsedTime2 = 0;
 
 
     private void Update() {
+        if(_ignoreSetup) return;
+
         _elapsedTime1 -= Time.deltaTime;
         _elapsedTime2 -= Time.deltaTime;
         
@@ -107,15 +122,24 @@ public class HighScoreLabelInput : MonoBehaviour, IListenToGameplayEvents
             OnButtonHorizontal((int) Mathf.Sign(horizontalChange));
         }
     }
-    #endif
+//    #endif
+
+
+    private void SetPoints(){
+        bool IsTimed = (_gameType == GameType.Frogger || _gameType == GameType.DigDug);
+
+        int points = IsTimed ? TimerCount.ElapsedTime : PointsCounter.Score;
+        if(Guard.IsValid(_score)){
+            _score.text = IsTimed ? Fromater.FormatToTime(points) : Fromater.FormatToPoints(points);
+        }
+    }
 
 
     private void HandleWindowsInput(){
         _windows.SetActive(true);
         _horizontalArrows.SetActive(true);
-        
-        int points = (_gameType == GameType.DigDug) ? TimerCount.ElapsedTime : PointsCounter.Score;
-        _score.text = (_gameType == GameType.DigDug) ? Fromater.FormatToTime(points) : Fromater.FormatToPoints(points);
+
+        SetPoints();
 
         ResetLetters();
         LoadLetters();

@@ -7,6 +7,7 @@ public enum GameType{
     NotLoaded,
     Asteroids,
     DigDug,
+    Frogger,
 }
 
 public static class HighScoreRanking{
@@ -23,9 +24,12 @@ public static class HighScoreRanking{
         _currentlyLoaded = game;
         _ranking.Clear();
 
+        bool IsTimed = _currentlyLoaded == GameType.DigDug || _currentlyLoaded == GameType.Frogger;
+
+
         for(int i = 0; i < 8; i++){
             string playerName = PlayerPrefs.GetString( game.ToString() + "Rank_Name" + i.ToString(), "..........");
-            int playerScore   = PlayerPrefs.GetInt   ( game.ToString() + "Rank_Score" + i.ToString(), _currentlyLoaded != GameType.DigDug ? 0 : 359999);
+            int playerScore   = PlayerPrefs.GetInt   ( game.ToString() + "Rank_Score" + i.ToString(), IsTimed ? 359999 : 0);
             _ranking.Add(new KeyValuePair<int, string>(playerScore, playerName));
             Debug.Log(_ranking[i].Key + " " + _ranking[i].Value);
         }
@@ -43,6 +47,7 @@ public static class HighScoreRanking{
 
         if(_currentlyLoaded == GameType.Asteroids) _ranking.Sort( (x, y) => {return y.Key - x.Key;});
         if(_currentlyLoaded == GameType.DigDug)    _ranking.Sort( (x, y) => {return x.Key - y.Key;});
+        if(_currentlyLoaded == GameType.Frogger)   _ranking.Sort( (x, y) => {return x.Key - y.Key;});
 
 
         _ranking.RemoveAt(_ranking.Count-1);

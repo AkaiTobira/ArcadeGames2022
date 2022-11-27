@@ -12,6 +12,7 @@ public enum GameplayEventType{
     ButtonOvervieved,
     SaveRankings,
     ContinueAnimation,
+    PlayerDied,
 }
 
 public static class Events{
