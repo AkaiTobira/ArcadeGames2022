@@ -9,7 +9,7 @@ public class TweenManipulationAnimation : ScreenAnimation
     [SerializeField] private Transform _center; 
     [SerializeField] private Transform _bottom; 
 
-    protected override void OnStart(){}
+    protected override void OnStart(){ base.OnStart(); }
     protected override void OnStateExit(State nextState) {}
     protected override void OnStateUpdate() {}
     protected override void OnStateEnter(State nextState) {

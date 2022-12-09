@@ -42,6 +42,11 @@ Continue	Continue	Fortsetzen::
 NoPenalty	All Cleared	Alles gelöscht::
 PointsPenalty	Penalty + @	Strafe + @::
 ScanQRCode	Use your phone camera to scan the QR code and access the Messenger chatbot for more information. Please, make sure you have the updated application.	Verwenden Sie Ihre Telefonkamera, um den QR-Code zu scannen, und greifen Sie auf den Messenger-Chatbot zu, um weitere Informationen zu erhalten. Bitte stellen Sie sicher, dass Sie über die aktualisierte Anwendung verfügen.::
-Credits	Credits<br><br>Concept and script: Jan Świerkowski<br>Art and design: Tomasz Wlaźlak<br>Curator: Jan Świerkowski<br>Production: Brewster Hub<br>Programming: AkaiTobira	Credits<br><br>Concept and script: Jan Świerkowski<br>Art and design: Tomasz Wlaźlak<br>Curator: Jan Świerkowski<br>Production: Brewster Hub<br>Programming: AkaiTobira::
+Credits	Credits<br><br>Concept and script: Jan Swierkowski<br>Art and design: Tomasz Wlazlak<br>Curator: Jan Swierkowski<br>Production: Brewster Hub<br>Programming: AkaiTobira	Credits<br><br>Concept and script: Jan Swierkowski<br>Art and design: Tomasz Wlazlak<br>Curator: Jan Swierkowski<br>Production: Brewster Hub<br>Programming: AkaiTobira::
 NextPlanetAsk	Would you like to stay on this planet or shall we terraform another one?	Möchtest du auf diesem Planeten bleiben oder sollen wir einen anderen terraformen?::
 NextPlanetButton	NEXT PLANET	NÄCHSTER PLANET::
+SpaceJunkOutro1	GAME OVER <br>You are dead.	DAS SPIEL IST ZU ENDE <br><br>Leben wurde erschafft.::
+NextPlanetDelay	I am not done here.	Ich bin hier noch nicht fertig.::
+NextPlanetOver	Good, I am out of here	Gut, ich bin hier raus::
+NextPlanetNext	Give me more of them	Gib mir mehr davon::
+NextPlanetAsk2	This planet has nothing more to offer<br>What you want to do next?	Dieser Planet hat nichts mehr zu bieten<br>Was möchtest du als nächstes tun?::

@@ -13,6 +13,7 @@ public enum GameplayEventType{
     SaveRankings,
     ContinueAnimation,
     PlayerDied,
+    SpamWithWindow,
 }
 
 public static class Events{

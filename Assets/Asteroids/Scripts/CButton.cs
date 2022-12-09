@@ -208,6 +208,8 @@ public class CButton : CButtonHoverableHandler, IPointerUpHandler, IListenToGame
     public override void OnPointerDown(PointerEventData eventData){
         if(!_interactable) return;
 
+//        Debug.Log(_currentState);
+
         if(_currentState != ButtonState.Pressed){
             CallAfterFixedUpdate(() => { _OnClick?.Invoke();});
             base.OnPointerDown(eventData);
@@ -216,6 +218,10 @@ public class CButton : CButtonHoverableHandler, IPointerUpHandler, IListenToGame
         _isPressed = true;
 
         SetState(ButtonState.Pressed);
+    }
+
+    public void ForceReset(){
+        SetState(ButtonState.Hovered);
     }
 
     public override void OnPointerUp(PointerEventData eventData){

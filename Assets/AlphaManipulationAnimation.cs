@@ -10,6 +10,7 @@ public class AlphaManipulationAnimation : ScreenAnimation
     [SerializeField] private Image _curtain; 
 
     protected override void OnStart(){
+        base.OnStart();
         SetColorRate(1.0f);
     }
 

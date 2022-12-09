@@ -24,11 +24,12 @@ public class Enemy1 : StateMachineCharacter<EnemyStates>, IListenToGameplayEvent
 
     const float TIME_OF_IDLING = 3f;
     const float TIME_OF_STARING = 2f;
-    const float TIME_OF_ESCAPING = 10f;
+    const float TIME_OF_ESCAPING = 6f;
     
     const float TIME_OF_STARING_COLDOWN = 2f;
-    const float TIME_OF_PUMP_COLDOWN = 2f;
+    const float TIME_OF_PUMP_COLDOWN = 1f;
     const int TIMES_TO_DEAD_BY_TILE = 1;
+    public const int MAX_PUMPING = 5;
 
     float _elapsedIdlingTime = 3;
     float _elapsedStareTime  = 0;
@@ -197,13 +198,13 @@ public class Enemy1 : StateMachineCharacter<EnemyStates>, IListenToGameplayEvent
     }
 
     public void Pump(){
-        if(_pumpingStacks > 4) return;
+        if(_pumpingStacks > MAX_PUMPING) return;
         
         SetAnimationFrame(_pumpingStacks, EnemyStates.Pumping);
         _pumpingStacks += 1;
         AudioSystem.Instance.PlayEffect("DigDug_Pump", 1);
 
-        if(_pumpingStacks >= 4) Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.EnemyHasBeenMurdered, this));
+        if(_pumpingStacks >= MAX_PUMPING) Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.EnemyHasBeenMurdered, this));
         _elapsedPumpTime = TIME_OF_PUMP_COLDOWN;
         OverrideAnimationUpdate = true;
     }
@@ -304,7 +305,7 @@ public class Enemy1 : StateMachineCharacter<EnemyStates>, IListenToGameplayEvent
                 break;
             case EnemyStates.Pumping:
                 //if(IsDeadByBlinking(TIMES_TO_DEAD_BY_TILE)) return EnemyStates.Dead;
-                if(_pumpingStacks == 4) return EnemyStates.Dead;
+                if(_pumpingStacks == MAX_PUMPING) return EnemyStates.Dead;
                 if(_pumpingStacks == 0 && _elapsedPumpTime <= 0) return EnemyStates.Idle;
                 
                 break;

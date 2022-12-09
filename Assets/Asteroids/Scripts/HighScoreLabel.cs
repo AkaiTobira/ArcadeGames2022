@@ -34,7 +34,7 @@ public class HighScoreLabel : MonoBehaviour, IListenToGameplayEvents
         _name.text = rankingEntry.Value;
         _score.text = FormatScore(rankingEntry.Key);
 
-        Debug.Log("Setting up : " + rankingEntry.Value + " " + FormatScore(rankingEntry.Key));
+//        Debug.Log("Setting up : " + rankingEntry.Value + " " + FormatScore(rankingEntry.Key));
     }
 
     virtual protected string FormatScore(int score){

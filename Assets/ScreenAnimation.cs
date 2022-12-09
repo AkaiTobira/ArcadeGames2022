@@ -27,7 +27,7 @@ public abstract class ScreenAnimation : MonoBehaviour, IListenToGameplayEvents{
         Inactive,
     }
 
-    [SerializeField] private List<Screen> _screens;
+    [SerializeField][NonReorderable] protected List<Screen> _screens;
 
     [SerializeField] private SceneLoader _loader;
 
@@ -38,7 +38,7 @@ public abstract class ScreenAnimation : MonoBehaviour, IListenToGameplayEvents{
     protected State CurrentState = State.Showing;
     protected Screen ActiveAnimation;
 
-    public void OnGameEvent(GameplayEvent gameplayEvent){
+    public virtual void OnGameEvent(GameplayEvent gameplayEvent){
         if(gameplayEvent.type == GameplayEventType.ContinueAnimation){
             if(CurrentState == State.Waiting) SetState(State.Hiding, ActiveAnimation._hideTimeDuration);
         }
@@ -55,11 +55,14 @@ public abstract class ScreenAnimation : MonoBehaviour, IListenToGameplayEvents{
             _screens[i]._image.transform.position = position;
         }
 
+        OnStart();
+    }
+
+    void Initialiaze(){
         _currentIndex = 0;
         ActiveAnimation = _screens[_currentIndex];
         ActiveAnimation._image.gameObject.SetActive(true);
         SetState(State.Showing, ActiveAnimation._showTimeDuration);
-        OnStart();
     }
 
     void Update()
@@ -84,6 +87,7 @@ public abstract class ScreenAnimation : MonoBehaviour, IListenToGameplayEvents{
 
                 if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.touchCount > 0){
                     SetState(State.Hiding, ActiveAnimation._hideTimeDuration);
+//                    Debug.Log("Next Event");
                     return;
                 }
 
@@ -111,7 +115,7 @@ public abstract class ScreenAnimation : MonoBehaviour, IListenToGameplayEvents{
         }
         
         if(_currentIndex >= _screens.Count){
-            _loader.OnSceneLoadAsync();
+            _loader?.OnSceneLoadAsync();
             CurrentState = State.Inactive;
             return;
         }
@@ -135,6 +139,8 @@ public abstract class ScreenAnimation : MonoBehaviour, IListenToGameplayEvents{
 
     protected abstract void OnStateEnter(State nextState);
     protected abstract void OnStateExit(State nextState);
-    protected abstract void OnStart();
+    protected virtual void OnStart(){
+        Initialiaze();
+    }
     protected abstract void OnStateUpdate();
 }

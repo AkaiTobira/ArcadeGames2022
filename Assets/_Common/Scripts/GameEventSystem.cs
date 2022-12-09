@@ -46,7 +46,7 @@ public class GameEventSystem<G, T>
     }
 
     public void RiseEvent( G gameEvent ){
-        Debug.Log("GameEvent rised : " + gameEvent.type);
+//        Debug.Log("GameEvent rised : " + gameEvent.type);
         if( _registeredObjects.TryGetValue( gameEvent.type, out List<IListenToEvents<G,T>> list ) ){
             for( int i = 0; i < list.Count; i++){
                 IListenToEvents<G,T> listener = list[i];

@@ -65,12 +65,22 @@ public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
             _elapsedTime = _reReadTime;
             _activeButton = (_activeButton - ((int)Mathf.Sign(verticalChange)) + _buttons.Length)%(_buttons.Length);
             Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.ButtonOvervieved, _buttons[_activeButton]));
+
+//            Debug.Log(_buttons[_activeButton].name + " Selected");
         }
 
         if(_elapsedTime1 > 0) return;
         if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.KeypadEnter)) {
+//            Debug.Log(_buttons[_activeButton].name + " PointDown");
             _buttons[_activeButton].OnPointerDown(null);
             _elapsedTime1 = _reReadTime;
+
+            TimersManager.Instance.FireAfter( 0.2f, () => {
+                if(Guard.IsValid(this)){
+                    CButton active = _buttons[_activeButton];
+                    if(Guard.IsValid(active)) active.ForceReset();
+                }
+            });
         }
     }
 }

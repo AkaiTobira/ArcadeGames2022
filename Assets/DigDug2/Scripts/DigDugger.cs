@@ -11,9 +11,9 @@ public static class CONSTS
     public const int BLINK_TIMES_TO_BE_DEAD = 30000000;
     public const float DIGGING_TIME = 0.6f;
 
-    public const float SHOT_ACTION_LANDED_COLDOWN = 2.0f;
-    public const float SHOT_ACTION_NONLANDED_COLDOWN = 1.0f;
-    public const float SHOT_PUMP_ACTION_COLDOWN = 1.0f;
+    public const float SHOT_ACTION_LANDED_COLDOWN = 1.0f;
+    public const float SHOT_ACTION_NONLANDED_COLDOWN = 0.5f;
+    public const float SHOT_PUMP_ACTION_COLDOWN = 0.5f;
     public const float SHOT_LANDING_TIME = 0.5f;
     public const float DISTANCE_OF_SHOOT = 2.5f;
 };
@@ -210,7 +210,7 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
 
     private void PumpingShot(){
         if(!Guard.IsValid(_pumpableEnemy)) return;
-        if(_pumpableEnemy.GetPumpStacks() > 3) return;
+        if(_pumpableEnemy.GetPumpStacks() > Enemy1.MAX_PUMPING-1) return;
 
         _shootingTimeColdown = CONSTS.SHOT_PUMP_ACTION_COLDOWN;
         _shootingTimeElapsed = CONSTS.SHOT_ACTION_LANDED_COLDOWN;
@@ -332,9 +332,11 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
             Graphicals.transform.position = digger.transform.position + _graphicalsDiggerOffset;
         }else{
             TimersManager.Instance.FireAfter(0.01f, () => { 
-                    (Graphicals.transform as RectTransform).SetParent(transform);
-                    Graphicals.transform.position = transform.position + _graphicalsBaseOffset;
-                    Graphicals.gameObject.SetActive(true); 
+                    if(Guard.IsValid(this)){
+                        (Graphicals.transform as RectTransform).SetParent(transform);
+                        Graphicals.transform.position = transform.position + _graphicalsBaseOffset;
+                        Graphicals.gameObject.SetActive(true); 
+                    }
                 });
         }
     }

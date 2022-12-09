@@ -15,6 +15,8 @@ public class SceneLoader : MonoBehaviour
     {
         yield return new WaitForSecondsRealtime(1f);
 
+        Debug.Log(sceneName);
+
         AsyncOperation asyncLoad = SceneManager.LoadSceneAsync(sceneName);
 
         while (!asyncLoad.isDone)
@@ -27,6 +29,7 @@ public class SceneLoader : MonoBehaviour
     }
 
     public void OnSceneLoadAsync(){
+        Debug.Log(sceneName + " Called");
         //TimersManager.Instance.FireAfter(1.5f, () => {
             StartCoroutine(LoadGameScene());
         //});
