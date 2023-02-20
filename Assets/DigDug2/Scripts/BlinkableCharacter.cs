@@ -6,12 +6,12 @@ using UnityEngine.UI;
 using UnityEngine;
 
 
-public abstract class BlinkableCharacter<T> : StateMachineCharacter<T>
+public abstract class BlinkableCharacter<T> : SMC<T>
 where T : System.Enum
 {
     int _isInDangerousZone = 0;
 
-    float _elapsedTimeBlinking  = 0f;
+    //float _elapsedTimeBlinking  = 0f;
     int _blinkCurrentFrame = 0;
 
     protected T DeadState;
@@ -26,7 +26,7 @@ where T : System.Enum
     private void ProcessBlink(){
         //lock at client request
         return;
-        if(Convert.ToInt32(ActiveState) == Convert.ToInt32(DeadState)) return;
+        /*if(Convert.ToInt32(ActiveState) == Convert.ToInt32(DeadState)) return;
 
         if(_isInDangerousZone > 0){
             _elapsedTimeBlinking -= Time.deltaTime;
@@ -42,6 +42,7 @@ where T : System.Enum
         }else{
             Graphicals.color = Color.white;
         }
+        */
     }
 
     protected override void Update(){
@@ -60,7 +61,7 @@ where T : System.Enum
     public virtual void SetupBlink(bool isInDangerousZone){
         _isInDangerousZone += (isInDangerousZone) ? 1 : -1;
         _isInDangerousZone = Mathf.Max(0, _isInDangerousZone); 
-        _elapsedTimeBlinking = 0;
+        //_elapsedTimeBlinking = 0;
         _blinkCurrentFrame   = 0;
     }
 

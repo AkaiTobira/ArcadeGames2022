@@ -44,7 +44,7 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
     float _shootingTimeColdown = 0;
     float _shootingTimeElapsed = 0;
     float _lineShootingTimeElapsed = 0;
-    int _pumpingStacks = 0;
+    //int _pumpingStacks = 0;
 
     Vector2 _inputs = new Vector2();
     Vector3 _landingPoint = new Vector3();
@@ -76,7 +76,7 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
 
     private bool reportDead = true;
     
-    float _elapsedDangerTime = 0;
+// /    float _elapsedDangerTime = 0;
 
     protected override void UpdateState(){
         _shootingTimeElapsed -= Time.deltaTime;

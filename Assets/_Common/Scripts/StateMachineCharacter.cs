@@ -11,7 +11,7 @@ public static class STATEMACHINE_CONSTS{
 }
 
 
-public abstract class StateMachineCharacter<T> : CMonoBehaviour
+public abstract class SMC<T> : CMonoBehaviour
 where T : System.Enum
 {
 

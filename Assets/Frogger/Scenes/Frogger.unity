@@ -3332,6 +3332,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: FroggerOutro
+  sceneFlowIndex: 0
 --- !u!1 &357717021
 GameObject:
   m_ObjectHideFlags: 0
@@ -6902,6 +6903,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: FroggerOutro1
+  sceneFlowIndex: 1
 --- !u!1 &794246890
 GameObject:
   m_ObjectHideFlags: 0
@@ -16056,6 +16058,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Intro
+  sceneFlowIndex: 2
 --- !u!1 &1896436818
 GameObject:
   m_ObjectHideFlags: 0

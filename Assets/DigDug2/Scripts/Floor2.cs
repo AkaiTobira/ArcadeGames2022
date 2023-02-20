@@ -34,7 +34,7 @@ public class Floor2 : MonoBehaviour, IListenToGameplayEvents
 
     [SerializeField] GameObject _digger;
     [SerializeField] GameObject[] _lockVisual;
-    [SerializeField] bool _bindPosition = false;
+    //[SerializeField] bool _bindPosition = false;
     [SerializeField] bool _repopulateProperties = false;
     [SerializeField] List<Floor2> _tempToSee = new List<Floor2>();
 
@@ -152,7 +152,7 @@ public class Floor2 : MonoBehaviour, IListenToGameplayEvents
         newPosition *= TILE_SIZE;
         transform.position = newPosition;
 
-        _bindPosition = false;
+    //    _bindPosition = false;
     }
 
     private void SetBreaks((Floor2, Floor2) neighbors){

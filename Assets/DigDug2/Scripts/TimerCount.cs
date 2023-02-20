@@ -5,8 +5,8 @@ using TMPro;
 public class TimerCount : MonoBehaviour
 {
     [SerializeField] public int time = 0;
-    [SerializeField] int hurryUpLevel = 140;
-    [SerializeField] Color hurryUpColor = Color.red;
+    //[SerializeField] int hurryUpLevel = 140;
+    //[SerializeField] Color hurryUpColor = Color.red;
     [SerializeField] string _translationTag = "Timer";
 
     float _elapsedTime = 0;

@@ -7,6 +7,9 @@ TagManager:
   - Obstacle
   - End
   - Missle
+  - Enemy
+  - HitBox
+  - AttackBox
   layers:
   - Default
   - TransparentFX
@@ -17,7 +20,7 @@ TagManager:
   - Solid
   - Teleportation
   - Interactable
-  - 
+  - Dangerous
   - 
   - 
   - 

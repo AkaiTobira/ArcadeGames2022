@@ -15,11 +15,6 @@ public class EndGameChecker : CUpdateMonoBehaviour, IListenToGameplayEvents
     [SerializeField] SceneLoader _loaderWin;
     [SerializeField] SceneLoader _loaderLose;
 
-    GameOver _type = GameOver.Victory;
-
-    bool continued = false;
-    bool canGoToMainMenu = false;
-
     int HealthPoints = 2;
 
     void Awake() {

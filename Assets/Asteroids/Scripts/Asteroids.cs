@@ -36,8 +36,8 @@ public class Asteroids : WallThrought
     bool isMoving;
 
     bool isDead;
-    float deadTime = 3f;
-    float elapsedDeadTime = 0.0f;
+    //float deadTime = 3f;
+    //float elapsedDeadTime = 0.0f;
     float FRAME_DISTANCE = 1.25f;
 
 

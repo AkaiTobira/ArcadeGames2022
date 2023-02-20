@@ -878,6 +878,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: DigDugMain
+  sceneFlowIndex: 2
 --- !u!1 &205897243
 GameObject:
   m_ObjectHideFlags: 0
@@ -2215,6 +2216,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: AsteroidsMain
+  sceneFlowIndex: 0
 --- !u!1 &427788462
 GameObject:
   m_ObjectHideFlags: 0
@@ -2313,6 +2315,7 @@ MonoBehaviour:
   - {fileID: 694827546}
   - {fileID: 382897611}
   - {fileID: 205139714}
+  _isVertical: 1
 --- !u!114 &494070710
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -3042,6 +3045,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: FroggerMain
+  sceneFlowIndex: 1
 --- !u!1 &696439712
 GameObject:
   m_ObjectHideFlags: 0

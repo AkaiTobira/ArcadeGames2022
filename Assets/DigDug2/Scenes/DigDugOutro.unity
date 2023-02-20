@@ -8502,6 +8502,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: DigDug
+  sceneFlowIndex: 1
 --- !u!114 &1589011716
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9098,6 +9099,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Intro
+  sceneFlowIndex: 0
 --- !u!114 &1742913711
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9752,6 +9754,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: Intro
+  sceneFlowIndex: 0
 --- !u!114 &1893794877
 MonoBehaviour:
   m_ObjectHideFlags: 0

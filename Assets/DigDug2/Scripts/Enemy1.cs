@@ -13,7 +13,7 @@ public enum EnemyStates{
     Dead
 }
 
-public class Enemy1 : StateMachineCharacter<EnemyStates>, IListenToGameplayEvents
+public class Enemy1 : SMC<EnemyStates>, IListenToGameplayEvents
 {
     // Start is called before the first frame update
 
