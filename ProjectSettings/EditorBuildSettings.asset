@@ -62,4 +62,16 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/DigDug2/Scenes/DigDugIntro.unity
     guid: 01295337aa94b834b9e4ec510ac11fe7
+  - enabled: 1
+    path: Assets/LittleFighter/Scenes/LittleFighter.unity
+    guid: f2f4c40f218eacf4fb2272d642d22f44
+  - enabled: 1
+    path: Assets/LittleFighter/Scenes/LittleFighterIntro.unity
+    guid: 5b1e1513c51df01448e71d5fbe4879d1
+  - enabled: 1
+    path: Assets/LittleFighter/Scenes/LittleFighterOutro.unity
+    guid: 5ccea156343847448b95361d078bae65
+  - enabled: 1
+    path: Assets/LittleFighter/Scenes/LittleFighterMain.unity
+    guid: bc4892f882191ee42afa8b623f4dd90a
   m_configObjects: {}

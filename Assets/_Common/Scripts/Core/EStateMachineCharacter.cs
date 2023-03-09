@@ -109,8 +109,21 @@ namespace ESM{
         } 
     }
 
+    [Serializable]
+    public class SMA_1D<StateType> : SMA<StateType>
+    where StateType : System.Enum
+    {
+        public override AnimationSide GetSide(Vector3 positionChange, AnimationSide side){
+            return AnimationSide.Top;
+        } 
+    }
 
     // public interfaces
+    public abstract class SMC_1D<StateType> :
+    SMC<StateType, SMA_1D<StateType>>
+        where StateType : System.Enum
+    {};
+
     public abstract class SMC_2D<StateType> :
     SMC<StateType, SMA_2D<StateType>>
         where StateType : System.Enum
@@ -138,6 +151,7 @@ namespace ESM{
         [SerializeField] private float _animationFrameDuration = 0.3f;
         [SerializeField][NonReorderable] protected AnimationType[] _animations;
         [SerializeField][NonReorderable] float _moveSpeed = 10;
+        [SerializeField] bool _mirrorSprites = false;
 
         bool _stateChanged = false;
         protected StateType ActiveState;
@@ -188,6 +202,7 @@ namespace ESM{
                     ? -1 
                     :  1);
             }
+            if(_mirrorSprites) scaleMultipler *= -1;
             return scaleMultipler;
         }
 
@@ -325,6 +340,21 @@ namespace ESM{
 
         public AnimationSide GetFacingDirection(){ return _side; }
 
+        private AnimationSide ReverseDirection(AnimationSide side){
+            switch(side){
+                case AnimationSide.Common: return AnimationSide.Common;
+                case AnimationSide.Left: return AnimationSide.Right;
+                case AnimationSide.Right: return AnimationSide.Left;
+                case AnimationSide.Top: return AnimationSide.Top;
+                case AnimationSide.Bottom: return AnimationSide.Bottom;
+                case AnimationSide.LeftTop: return AnimationSide.RightTop;
+                case AnimationSide.RightBottom: return AnimationSide.LeftBottom;
+                case AnimationSide.LeftBottom: return AnimationSide.RightBottom;
+                case AnimationSide.RightTop: return AnimationSide.LeftBottom;
+            }
+            return side;
+        }
+
     #endregion
 
         bool _isDisabled = false;
@@ -332,6 +362,15 @@ namespace ESM{
             if(!_isDisabled){
                 TimersManager.Instance.FireAfter(time, ()=>{
                     if(Guard.IsValid(this)) gameObject.SetActive(false);
+                });
+                _isDisabled = true;
+            }
+        }
+
+        protected void RequestDestroy(float time){
+            if(!_isDisabled){
+                TimersManager.Instance.FireAfter(time, ()=>{
+                    if(Guard.IsValid(this)) Destroy(gameObject);
                 });
                 _isDisabled = true;
             }

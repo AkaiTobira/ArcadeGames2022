@@ -9,6 +9,8 @@ public enum GameType{
     DigDug,
     Frogger,
     Berzerk,
+    LittleFighter,
+    SpaceBase
 }
 
 public static class HighScoreRanking{
@@ -25,6 +27,8 @@ public static class HighScoreRanking{
         {GameType.DigDug, true},
         {GameType.Frogger, true},
         {GameType.Berzerk, false},
+        {GameType.LittleFighter, false},
+        {GameType.SpaceBase, false},
     };
 
     private static List<KeyValuePair<int, string>> _ranking = new List<KeyValuePair<int, string>>();

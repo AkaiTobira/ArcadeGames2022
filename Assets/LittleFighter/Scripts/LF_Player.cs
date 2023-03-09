@@ -143,6 +143,8 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
 
     private const float VERTICAL_SLOW = 0.5f;
 
+    [SerializeField] private LF_PlayerHPBar _PlayerHPBar;
+    [SerializeField] private SceneLoader _endScene;
     enum RayPoints{
         Right,
         Left,
@@ -191,7 +193,7 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
 
 
 
-    [SerializeField] private float _healthPoints = 30f;
+    [SerializeField] private float _MaxHealthPoints = 30f;
     [SerializeField] private LayerMask _fieldOfView;
     [SerializeField] private string _obstacleTag;
     [SerializeField] private GameObject[] _points;
@@ -201,6 +203,7 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
     [SerializeField] private BoxCollider2D _attackSpecialBox;
     [SerializeField] private BoxCollider2D _hitBox;
 
+    private float _healthPoints = 30f;
     private bool IsDead(){ return _healthPoints <= 0;}
     private bool HasBeenHurt(){ return _ishurt;}
 
@@ -212,10 +215,10 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
     private bool _canSpecial = false;
     private bool _ishurt;
 
-    const float ATTACK_PUNCH_TIME = 0.6f;
-    const float ATTACK_KICK_TIME  = 1.2f;
-    const float ATTACK_SPECIAL_TIME  = 1.2f;
-    const float HURT_TIME = 0.5f;
+    const float ATTACK_PUNCH_TIME = 0.4f;
+    const float ATTACK_KICK_TIME  = 0.75f;
+    const float ATTACK_SPECIAL_TIME  = 0.9f;
+    const float HURT_TIME = 0.35f;
 
 
     private float _attackPunchTime = ATTACK_PUNCH_TIME;
@@ -223,9 +226,19 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
     private float _attackSpecialTime = ATTACK_SPECIAL_TIME;
     private float _hurtTime = HURT_TIME;
 
+    const string SOUND_PLAYER_PUNCH = "LittleFighter_PlayerPunch";
+    const string SOUND_PLAYER_HURT1 = "LittleFighter_PlayerHurt1";
+    const string SOUND_PLAYER_HURT2 = "LittleFighter_PlayerHurt2";
+    const string SOUND_PLAYER_KICK = "LittleFighter_PlayerKick";
+    const string SOUND_PLAYER_SPECIAL = "LittleFighter_PlayerSpecial";
+    const string SOUND_PLAYER_HEAL = "LittleFighter_Heal";
+
+
     private void Awake() {
         Player = this;
         ForceState(LFPlayerState.Idle, true);
+        _healthPoints = _MaxHealthPoints;
+        _PlayerHPBar.SetupHp(_healthPoints/_MaxHealthPoints);
     }
 
     protected override void UpdateState()
@@ -268,13 +281,18 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
             break;
             case LFPlayerState.Move: break;
             case LFPlayerState.Kick: 
+            AudioSystem.PlaySample(SOUND_PLAYER_KICK, 1, true);
                 _attackKickTime = ATTACK_KICK_TIME;
                 break;
             case LFPlayerState.Punch: 
+                AudioSystem.PlaySample(SOUND_PLAYER_PUNCH, 1, true);
                 _attackPunchTime = ATTACK_PUNCH_TIME;
                 break;
             case LFPlayerState.SuperAttack:
+                AudioSystem.PlaySample(SOUND_PLAYER_SPECIAL, 1, true);
                 _attackSpecialTime = ATTACK_SPECIAL_TIME;
+                _healthPoints -= 2;
+                _PlayerHPBar.SetupHp(_healthPoints/_MaxHealthPoints);
                 break;
             case LFPlayerState.Defend: break;
             case LFPlayerState.Hurt: 
@@ -283,6 +301,10 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
             break;
             case LFPlayerState.Dead: 
                 RequestDisable(1f);
+                HighScoreRanking.TryAddNewRecord(PointsCounter.Score);
+                TimersManager.Instance.FireAfter(5, () => {
+                    _endScene.OnSceneLoadAsync();
+                });
             break;
         }
     }
@@ -347,16 +369,29 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
         return ActiveState;
     }
 
-    public void TakeDamage(int amount){
+    public void TakeDamage(int amount, MonoBehaviour source = null){
 
         if( !_ishurt 
             && (ActiveState != LFPlayerState.Hurt
             ||  ActiveState != LFPlayerState.Dead)
             ){
             _healthPoints -= amount;
-            _ishurt = true;
+            if(amount > 0) _ishurt = true;
+            
+            
+            AudioSystem.PlaySample(
+                (amount < 0) ?
+                    SOUND_PLAYER_HEAL :
+                    ((UnityEngine.Random.Range(0,2) == 0) ?
+                        SOUND_PLAYER_HURT1 :
+                        SOUND_PLAYER_HURT2
+                    )
+                , 1, true);
 
-            Debug.Log(_healthPoints);
+
+            _healthPoints = Math.Max( Mathf.Min(_healthPoints, _MaxHealthPoints), -1);
+
+            _PlayerHPBar.SetupHp(_healthPoints/_MaxHealthPoints);
         }
     }
 
@@ -430,6 +465,7 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
 
         if(hit1){
             if(hit1.transform.CompareTag(atag)) return hit1.transform.gameObject;
+            if(hit1.transform.childCount <= 0) return null;
             Transform t1 = hit1.transform.GetChild(0).Find(colliderName);
             if(Guard.IsValid(t1) ) return hit1.transform.gameObject;
         }

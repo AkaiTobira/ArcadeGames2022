@@ -884,6 +884,106 @@ MonoBehaviour:
     Volume: 0
     TargetVolume: 0
     Pitch: 0
+  - _name: LittleFighter_RhinoHit
+    _clip: {fileID: 8300000, guid: a6f001876298eab468a0ce1a8737df44, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_RhinoHurt
+    _clip: {fileID: 8300000, guid: b7247f20c7f82234c8568f34fa33c0d5, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_RhinoAfterAttack
+    _clip: {fileID: 8300000, guid: 914e26d3fb2be2144972be05b8d918c6, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_RhinoBeforeAttack1
+    _clip: {fileID: 8300000, guid: 3c6e5804a8d04bc448f75a462f020064, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_RhinoBeforeAttack2
+    _clip: {fileID: 8300000, guid: c254ea20ad0b0d344903b5f6631a9e9f, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_GameOver
+    _clip: {fileID: 8300000, guid: 96d034f51ca41e1499b3f6f631a79a8a, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_GetReady
+    _clip: {fileID: 8300000, guid: b0ee3016057d06048ab3c8385efe5e15, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_Gun1
+    _clip: {fileID: 8300000, guid: e19e59bd27051df47b8598457b4a465a, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_Gun2
+    _clip: {fileID: 8300000, guid: 5c22d18c11f8d694fb625057ef54f328, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_Gun3
+    _clip: {fileID: 8300000, guid: 611e3c125d6ca8a4983b943eba366618, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_EnemyHurt
+    _clip: {fileID: 8300000, guid: c28b5e9d816006549ac44aaabf6d5e3f, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_KnifeAttack
+    _clip: {fileID: 8300000, guid: 4cb133416e124824abf25334e97a0f1b, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_KnifeHurt
+    _clip: {fileID: 8300000, guid: 235b4102352f95b4e863541092bfdf7d, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_Heal
+    _clip: {fileID: 8300000, guid: be63a528d5a60464081c39f97079e310, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_PlayerPunch
+    _clip: {fileID: 8300000, guid: 1748ac5ef348a9b429a4cf0fac22cabf, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_PlayerHurt1
+    _clip: {fileID: 8300000, guid: 4f7376b6edb94d943a5102e446b8007a, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_PlayerHurt2
+    _clip: {fileID: 8300000, guid: 244daf0785ad367488712ab678dd0660, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_PlayerKick
+    _clip: {fileID: 8300000, guid: 4aaa2a2bcb27d6a499977dd976e300b8, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_PlayerSpecial
+    _clip: {fileID: 8300000, guid: 6b91a6dc795904d46bd4710c73bedd08, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_RuraAttack
+    _clip: {fileID: 8300000, guid: d0d2b813b34dc934baf3bf59a1de1ebe, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
   LowPitchRange: 0.95
   HighPitchRange: 1.05
   _musics:
@@ -914,6 +1014,16 @@ MonoBehaviour:
     Pitch: 0
   - _name: DigDug_BG3
     _clip: {fileID: 8300000, guid: c88a0e13bb6564c4280d05285a4ee251, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_BG
+    _clip: {fileID: 8300000, guid: 5df906ea2764715498975762435d203c, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_BG1
+    _clip: {fileID: 8300000, guid: 0acd87116f8eaa44d9d80eb63740a366, type: 3}
     Volume: 0
     TargetVolume: 0
     Pitch: 0

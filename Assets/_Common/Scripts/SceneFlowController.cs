@@ -21,6 +21,10 @@ public static class SceneFlowController
             "FroggerMain",
         #elif THREE_GAME
             "GameSelect",
+        #elif LITTLE_FIGHTER_GAME
+            "LittleFighterMain",
+        #elif SPACE_BASE_GAME
+            "SpaceBaseMain",
         #endif
         };
         
@@ -60,6 +64,25 @@ public static class SceneFlowController
         flow["BerzerkIntro"]   = new List<string>{"Berzerk"};
         flow["BerzerkMain"]    = new List<string>{"BerzerkIntro"};
         flow["BerzerkOutro"]   = new List<string>{"Intro"};
+        
+        flow["LittleFighter"]        = new List<string>{
+            "LittleFighterOutro",
+            "Intro",
+            "LittleFighter",
+        };
+        flow["LittleFighterIntro"]   = new List<string>{"LittleFighter"};
+        flow["LittleFighterMain"]    = new List<string>{"LittleFighterIntro"};
+        flow["LittleFighterOutro"]   = new List<string>{"Intro"};
+
+        flow["SpaceBase"]        = new List<string>{
+            "SpaceBaseOutro",
+            "Intro",
+            "SpaceBase",
+        };
+        flow["SpaceBaseIntro"]   = new List<string>{"SpaceBase"};
+        flow["SpaceBaseMain"]    = new List<string>{"SpaceBaseIntro"};
+        flow["SpaceBaseOutro"]   = new List<string>{"Intro"};
+
     }
 
     public static string GetNextScene(int index){

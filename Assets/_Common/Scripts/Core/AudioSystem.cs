@@ -45,6 +45,12 @@ public class AudioSystem : MonoBehaviour
 
     private List<AudioTrack> _BGMusicToPlay = new List<AudioTrack>();
 
+    public static void PlaySample(string clipName, float volume = 1.0f, bool randomPitch = false){
+        if(Guard.IsValid(Instance)){
+            Instance.PlayEffect(clipName, volume, randomPitch);
+        }
+    }
+
 	public void PlayEffect(string clipName, float volume = 1.0f, bool randomPitch=false)
 	{
         if( string.IsNullOrEmpty(clipName) ) return;
@@ -73,6 +79,12 @@ public class AudioSystem : MonoBehaviour
             Debug.LogError("Didn't found Oneshot Sound=" + clipName );
         }
 	}
+
+    public static void PlayBackground(string clipName, float volume){
+        if(Guard.IsValid(Instance)){
+            Instance.PlayMusic(clipName, volume);
+        }
+    }
 
 	public void PlayMusic(string clipName, float volume)
 	{

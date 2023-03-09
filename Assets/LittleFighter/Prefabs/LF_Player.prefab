@@ -32,7 +32,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.59, y: -1.48}
+  m_AnchoredPosition: {x: -1.18, y: -1.48}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2145807891192926899
@@ -67,7 +67,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0.04, y: -0.14}
+  m_AnchoredPosition: {x: 0.04, y: -0.6}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &2554197811036091741
@@ -102,7 +102,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.58, y: -2.88}
+  m_AnchoredPosition: {x: -1.1700002, y: -2.45}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3026016512830053256
@@ -137,7 +137,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -1.53, y: -0.17499983}
+  m_AnchoredPosition: {x: -1.1200001, y: -0.6349999}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3780685080063239606
@@ -172,7 +172,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -0.06, y: -2.96}
+  m_AnchoredPosition: {x: -0.06, y: -2.53}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &3846546435340570691
@@ -207,7 +207,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.57, y: -0.12500012}
+  m_AnchoredPosition: {x: 1.17, y: -0.58500016}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4673028937968054509
@@ -242,7 +242,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.56, y: -2.97}
+  m_AnchoredPosition: {x: 1.16, y: -2.54}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &5206335082907307587
@@ -295,7 +295,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.6656313, y: 0.11093843}
+  m_Offset: {x: 0.64058185, y: 0.24244788}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -306,7 +306,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.8828506, y: 3.6902611}
+  m_Size: {x: 4.857801, y: 2.3501163}
   m_EdgeRadius: 0
 --- !u!114 &6343875659394334563
 MonoBehaviour:
@@ -322,6 +322,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sides: 0
   _dealDamage: 0
+  _isDetector: 0
   _Parent: {fileID: 5436822061982539336}
 --- !u!1 &5436822061982539338
 GameObject:
@@ -438,6 +439,9 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 5806cf37213b91b49911d28203751060, type: 3}
       - {fileID: 21300000, guid: 3047e73df83ed6e47aa8272b46d0d353, type: 3}
       - {fileID: 21300000, guid: 33955fb513478a9478a157c195807925, type: 3}
+      - {fileID: 21300000, guid: 3047e73df83ed6e47aa8272b46d0d353, type: 3}
+      - {fileID: 21300000, guid: 5806cf37213b91b49911d28203751060, type: 3}
+      - {fileID: 21300000, guid: 8a41a3457dcc69f479b9670bb8dbcc66, type: 3}
     Looped: 0
     UseRightAsLeft: 1
   - State: 3
@@ -449,6 +453,8 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 851a75fd413638b408a32d2bb59fff09, type: 3}
       - {fileID: 21300000, guid: a8519205aa6631042bbb4789ec3a3ebf, type: 3}
       - {fileID: 21300000, guid: 6c0629dfa79b3ee45bdcf96442ac2743, type: 3}
+      - {fileID: 21300000, guid: a8519205aa6631042bbb4789ec3a3ebf, type: 3}
+      - {fileID: 21300000, guid: 851a75fd413638b408a32d2bb59fff09, type: 3}
     Looped: 0
     UseRightAsLeft: 1
   - State: 4
@@ -495,7 +501,10 @@ MonoBehaviour:
     Looped: 1
     UseRightAsLeft: 1
   _moveSpeed: 2
-  _healthPoints: 30
+  _mirrorSprites: 0
+  _PlayerHPBar: {fileID: 0}
+  _endScene: {fileID: 0}
+  _MaxHealthPoints: 30
   _fieldOfView:
     serializedVersion: 2
     m_Bits: 64
@@ -680,13 +689,13 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5436822063220707413}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: -1.5158303}
+  m_Offset: {x: -0.0062623024, y: -1.5408797}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -697,7 +706,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.8307624, y: 2.584948}
+  m_Size: {x: 2.016656, y: 1.6831684}
   m_EdgeRadius: 0
 --- !u!1 &7231746983853091284
 GameObject:
@@ -750,7 +759,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -2.2767746, y: 0.338758}
+  m_Offset: {x: -2.3331356, y: 0.11957538}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -761,7 +770,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 8.6344185, y: 4.4025106}
+  m_Size: {x: 9.373377, y: 3.3379095}
   m_EdgeRadius: 0
 --- !u!114 &7094894644086523474
 MonoBehaviour:
@@ -777,6 +786,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sides: 0
   _dealDamage: 1
+  _isDetector: 0
   _Parent: {fileID: 5436822061982539336}
 --- !u!50 &1601030686478882312
 Rigidbody2D:
@@ -850,7 +860,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.47842264, y: 0.8805752}
+  m_Offset: {x: 0.47842264, y: 0.8993623}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -861,7 +871,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.1787224, y: 4.563903}
+  m_Size: {x: 2.1787224, y: 2.5975218}
   m_EdgeRadius: 0
 --- !u!114 &3845893942609758308
 MonoBehaviour:
@@ -877,6 +887,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sides: 0
   _dealDamage: 1
+  _isDetector: 0
   _Parent: {fileID: 5436822061982539336}
 --- !u!50 &8162808534393274936
 Rigidbody2D:
@@ -931,7 +942,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 1.78, y: -1.73}
+  m_AnchoredPosition: {x: 1.3799999, y: -1.73}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8382357880552523823
@@ -969,7 +980,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 2.32, y: 0}
+  m_AnchoredPosition: {x: 2.32, y: 2.78}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!61 &7732060508603152294
@@ -985,7 +996,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 1.3949008, y: -1.1022451}
+  m_Offset: {x: 1.2152827, y: -1.76297}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -996,7 +1007,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.0116787, y: 4.4947352}
+  m_Size: {x: 3.6524425, y: 3.5228271}
   m_EdgeRadius: 0
 --- !u!114 &7370073205519765684
 MonoBehaviour:
@@ -1012,6 +1023,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _sides: 0
   _dealDamage: 1
+  _isDetector: 0
   _Parent: {fileID: 5436822061982539336}
 --- !u!50 &8222809353606363632
 Rigidbody2D:
