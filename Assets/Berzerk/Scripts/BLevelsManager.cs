@@ -12,7 +12,7 @@ public enum BExitIndex{
     None_Max,
 }
 
-public class BLevelsManager : MonoBehaviour
+public class BLevelsManager : MonoBehaviour, IListenToGameplayEvents
 {
     public static int CurrentLevel = 1;
     public static float Timer = 0;
@@ -40,6 +40,13 @@ public class BLevelsManager : MonoBehaviour
 
     private BExitIndex _followerStart = BExitIndex.Left;
 
+    public void OnGameEvent(GameplayEvent gEvent){
+        if(gEvent.type == GameplayEventType.SpawnFollower){
+            _follower.transform.position = _followerStaringPoints[(int)_followerStart].transform.position;
+            _follower.SetActive(true);
+        }
+    }
+
     private void Awake() {
         _instance = this;
         CurrentLevel = 1;
@@ -49,6 +56,7 @@ public class BLevelsManager : MonoBehaviour
 
         LockExit(BExitIndex.None_Max);
         _follower.SetActive(false);
+        Events.Gameplay.RegisterListener(this, GameplayEventType.SpawnFollower);
     }
 
     private void LockExit(BExitIndex index){
@@ -59,14 +67,6 @@ public class BLevelsManager : MonoBehaviour
 
     private void Update() {
         Timer += Time.deltaTime;
-
-//        Debug.Log(Timer);
-
-        if(Timer >=  Mathf.Max( 17.0f - CurrentLevel/2.0f, 5f ) && !_follower.gameObject.activeSelf){
-            _follower.transform.position = _followerStaringPoints[(int)_followerStart].transform.position;
-            _follower.SetActive(true);
-        }
-
         _score.text = Points.ToString();
     }
 
@@ -104,6 +104,7 @@ public class BLevelsManager : MonoBehaviour
         _follower.SetActive(false);
 
         _enemies.SpawnEnemies();
+        BGeneralBoxController.Instance.Setup();
     }
 
 

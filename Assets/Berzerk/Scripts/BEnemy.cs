@@ -322,6 +322,7 @@ public class BEnemy : ESM.SMC_4D<B_PlayerStates>, IShootable
             BoxCollider2D box = GetComponent<BoxCollider2D>();
             if(Guard.IsValid(box)) box.enabled = false;
         }
+        BGeneralBoxController.Retributed += Mathf.Max(3 * (1.0f - (BLevelsManager.CurrentLevel/20.0f)), 1.0f);
     }
 
     protected override void ProcessMove(Vector2 directions){

@@ -31,25 +31,24 @@ where StateType : System.Enum
 {
     private const float VERTICAL_SLOW = 0.5f;
 
-    [SerializeField] private LayerMask _fieldOfView;
-    [SerializeField] private string _obstacleTag;
+    [SerializeField] protected LF_EnemyStats stats;
+
+    [SerializeField] protected GameObject HitBox;
+    [SerializeField] protected GameObject AttackBox;
     [SerializeField] protected GameObject[] _points;
-    [SerializeField] protected LF_EnemyType _type;
-    [SerializeField] private int _AquirePoints = 50;
-    [SerializeField] private int _damage = 1;
     
     protected class HitParameters{
         public RayPoints[] RelatedDirections;
         public Vector2     Direction;
         public LayerMask   Layer;
-        public string      Tag;
-        public string      ColliderName;
+        public string[]    ColliderName;
     }
 
     public abstract int GetMaxHp();
     public abstract int GetCurrentHp();
 
     protected float _startDelay = 0f;
+    protected int _enemyLevel;
 
     public void SignalLost(MonoBehaviour item){
         _canStartAttack = false;
@@ -59,23 +58,20 @@ where StateType : System.Enum
         _canStartAttack = true;
     }
 
-
-
     protected virtual void Awake() {
-//        LF_HiveMind.Register(this);
         LF_EnemySpawner.Counter ++;
-        _startDelay = LF_EnemySpawner.Counter * 3.5f;
+        _startDelay = 0;
     }
 
     protected virtual void OnDestroy() {
-        PointsCounter.Score += _AquirePoints;
+        PointsCounter.Score += stats.PointsAquire * (_enemyLevel + 1) ;
         LF_EnemySpawner.Counter --;
     }
 
     protected float _idleTimer;
     protected Vector2 _directions;
     protected bool _canMove;
-    protected bool _canPunch;
+    protected bool _canAttack;
     protected bool _canStartAttack;
     protected bool _ignoreDetection;
 
@@ -100,26 +96,22 @@ where StateType : System.Enum
             RelatedDirections = new  RayPoints[]{RayPoints.Left},//, RayPoints.LeftUp, RayPoints.LeftBottom},
             Direction = new Vector2(1, 0),
             Layer = 64,
-            Tag = "Obstacle",
-            ColliderName = "Solid_Collider"}},
+            ColliderName = new string[]{"Enviroment_Obstacle","Solid_Collider"}}},
         {RayPoints.Right, new HitParameters{ 
             RelatedDirections = new  RayPoints[]{RayPoints.Left},//, RayPoints.LeftUp, RayPoints.LeftBottom},
             Direction = new Vector2(-1, 0),
             Layer = 64,
-            Tag = "Obstacle",
-            ColliderName = "Solid_Collider"}},
+            ColliderName = new string[]{"Enviroment_Obstacle","Solid_Collider"}}},
         {RayPoints.Top, new HitParameters{ 
             RelatedDirections = new  RayPoints[]{RayPoints.Top, RayPoints.LeftUp, RayPoints.RightUp},
             Direction = new Vector2(0, 1),
             Layer = 64,
-            Tag = "Obstacle",
-            ColliderName = "Solid_Collider"}},
+            ColliderName = new string[]{"Enviroment_Obstacle","Solid_Collider"}}},
         {RayPoints.Bottom, new HitParameters{ 
             RelatedDirections = new  RayPoints[]{RayPoints.Bottom, RayPoints.LeftBottom, RayPoints.RightBottom},
             Direction = new Vector2(0, -1),
             Layer = 64,
-            Tag = "Obstacle",
-            ColliderName = "Solid_Collider"}},
+            ColliderName = new string[]{"Enviroment_Obstacle","Solid_Collider"}}},
     };
 
     private void ProcessInputs(){
@@ -134,19 +126,19 @@ where StateType : System.Enum
 
         if(ResetX) _directions.x = 0;
 
-    //    bool ResetY = false;
-    //    if(_directions.y > 0) ResetY = CheckHit(RayPoints.Top,    0.3f);
-    //    if(_directions.y < 0) ResetY = CheckHit(RayPoints.Bottom, 0.3f);
-    //    if(ResetY) _directions.y = 0;
+        bool ResetY = false;
+        if(_directions.y > 0) ResetY = CheckHit(RayPoints.Top,    0.3f);
+        if(_directions.y < 0) ResetY = CheckHit(RayPoints.Bottom, 0.3f);
+        if(ResetY) _directions.y = 0;
     }
 
-    public virtual int GetDamage(){ return _damage; }
+    public abstract int GetDamage();
     public virtual void TakeDamage(int amount, MonoBehaviour source = null){}
 
     protected virtual void ProcessMoveRequirements(Vector3 target){
         Vector3 distance = target - transform.position;
         _directions = distance.normalized;
-        if(!_ignoreDetection) ProcessInputs();
+        ProcessInputs();
 
         if(_directions.magnitude > 0.1f) _canMove = true;
     }
@@ -160,7 +152,6 @@ where StateType : System.Enum
                 parameters.Direction,
                 parameters.Layer, 
                 parameters.ColliderName,
-                parameters.Tag, 
                 distance) != null;
         }
 
@@ -171,8 +162,7 @@ where StateType : System.Enum
         RayPoints point, 
         Vector2 direction, 
         LayerMask layer, 
-        string colliderName, 
-        string tag, 
+        string[] colliderName, 
         float distance = 1){
             
         RaycastHit2D hit1 = Physics2D.Raycast(
@@ -184,13 +174,11 @@ where StateType : System.Enum
         );
 
         if(hit1){
-
-//            Debug.Log(hit1.transform.tag + " " + hit1.transform.name );
-
-            if(hit1.transform.CompareTag(tag)) return hit1.transform.gameObject;
-            if(hit1.transform.childCount <= 0) return null;
-            Transform t1 = hit1.transform.GetChild(0).Find(colliderName);
-            if(Guard.IsValid(t1) ) return hit1.transform.gameObject;
+            for(int i = 0; i < colliderName.Length; i++) {
+                if(hit1.transform.name.Contains(colliderName[i])) return hit1.transform.gameObject;
+                GameObject t1 = CUtils.FindObjectByName(hit1.transform.gameObject, ref colliderName[i]);
+                if(Guard.IsValid(t1) ) return t1;
+            }
         }
 
         return null;

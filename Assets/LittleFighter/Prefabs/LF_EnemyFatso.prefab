@@ -27,7 +27,7 @@ RectTransform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 5099112226499702399}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: -9}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 7348400193049287971}
@@ -79,6 +79,7 @@ MonoBehaviour:
   _sides: 1
   _dealDamage: 0
   _isDetector: 1
+  _destroySelfAtCollision: 0
   _Parent: {fileID: 7348400192418094592}
 --- !u!50 &3077991845638254909
 Rigidbody2D:
@@ -349,10 +350,12 @@ MonoBehaviour:
     UseRightAsLeft: 1
   _moveSpeed: 2
   _mirrorSprites: 1
+  stats: {fileID: 11400000, guid: ab3f077ca7d00a34292ebc455b2f5ba5, type: 2}
+  HitBox: {fileID: 7348400193907529947}
+  AttackBox: {fileID: 7348400193724287518}
   _fieldOfView:
     serializedVersion: 2
     m_Bits: 64
-  _obstacleTag: Obstacle
   _points:
   - {fileID: 7348400193601126423}
   - {fileID: 7348400192054099861}
@@ -363,13 +366,9 @@ MonoBehaviour:
   - {fileID: 7348400192475727226}
   - {fileID: 7348400192914317374}
   _type: 2
-  _AquirePoints: 50
   _damage: 5
   _hitBox: {fileID: 7348400193907529947}
   _attackPunchBox: {fileID: 7348400193724287518}
-  _MaxHealthPoints: 15
-  _attackPreparationTimeDelay: 1.5
-  _attackBreakTimeDelay: 3
 --- !u!1 &7348400192475727226
 GameObject:
   m_ObjectHideFlags: 0
@@ -746,7 +745,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.47842264, y: 0.8805752}
+  m_Offset: {x: 0.47842264, y: 1.1647034}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -757,7 +756,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.1787224, y: 4.563903}
+  m_Size: {x: 2.1787224, y: 3.2962036}
   m_EdgeRadius: 0
 --- !u!114 &7348400193724287504
 MonoBehaviour:
@@ -774,6 +773,7 @@ MonoBehaviour:
   _sides: 1
   _dealDamage: 1
   _isDetector: 0
+  _destroySelfAtCollision: 0
   _Parent: {fileID: 7348400192418094592}
 --- !u!50 &7348400193724287506
 Rigidbody2D:
@@ -874,6 +874,7 @@ MonoBehaviour:
   _sides: 1
   _dealDamage: 0
   _isDetector: 0
+  _destroySelfAtCollision: 0
   _Parent: {fileID: 7348400192418094592}
 --- !u!1 &7348400193946313088
 GameObject:

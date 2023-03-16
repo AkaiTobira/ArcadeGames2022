@@ -19,6 +19,7 @@ public static class CBuild
         Berzerk,
         LittleFighter,
         SpaceBase,
+        SecondThree,
 
         MAX,
     }
@@ -98,6 +99,22 @@ public static class CBuild
             _paths[Game.SpaceBase] + "SpaceBaseMain.unity",
             _paths[Game.SpaceBase] + "SpaceBaseOutro.unity",
         };
+        _scenes[Game.SecondThree] = new string[]{
+            "Assets/_Common/Intro.unity",
+            "Assets/_Common/GameSelect2.unity",
+            _paths[Game.LittleFighter] + "LittleFighter.unity",
+            _paths[Game.LittleFighter] + "LittleFighterIntro.unity",
+            _paths[Game.LittleFighter] + "LittleFighterMain.unity",
+            _paths[Game.LittleFighter] + "LittleFighterOutro.unity",
+            _paths[Game.SpaceBase] + "SpaceBase.unity",
+            _paths[Game.SpaceBase] + "SpaceBaseIntro.unity",
+            _paths[Game.SpaceBase] + "SpaceBaseMain.unity",
+            _paths[Game.SpaceBase] + "SpaceBaseOutro.unity",
+            _paths[Game.Berzerk] + "Berzerk.unity",
+            _paths[Game.Berzerk] + "BerzerkIntro.unity",
+            _paths[Game.Berzerk] + "BerzerkMain.unity",
+            _paths[Game.Berzerk] + "BerzerkOutro.unity",
+        };
     }
 
     private static void FillDirectives(){
@@ -106,6 +123,7 @@ public static class CBuild
         _directives[Game.DigDug]    = new string[] {"DIGDUG_GAME"};
         _directives[Game.Frogger]   = new string[] {"FROGGER_GAME"};
         _directives[Game.AllThree]  = new string[] {"THREE_GAME"};
+        _directives[Game.SecondThree] = new string[] { "T3_GAMES_2" };
         _directives[Game.LittleFighter] = new string[] {"LITTLE_FIGHTER_GAME"};
         _directives[Game.SpaceBase] = new string[] {"SPACE_BASE_GAME"};
     }
@@ -325,6 +343,26 @@ public static class CBuild
         long time = GetCurrentTime();
         BuildAll(BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
         PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows);
+    }
+
+    [MenuItem("Build/Rebuild WebGL/AllThree2")]
+    public static void BuildAllThree2WebGL(){
+        FillScenes();
+        FillDirectives();
+
+        long time = GetCurrentTime();
+        BuildGame(Game.SecondThree, BuildTargetGroup.WebGL, BuildTarget.WebGL);
+        PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.WebGL);
+    }
+
+    [MenuItem("Build/Rebuild Windows/AllThree2")]
+    public static void BuildAllThree2Windows(){
+        FillScenes();
+        FillDirectives();
+
+        long time = GetCurrentTime();
+        BuildGame(Game.SecondThree, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
+        PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows64);
     }
 
 #endregion

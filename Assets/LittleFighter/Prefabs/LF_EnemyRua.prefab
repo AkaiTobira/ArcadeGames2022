@@ -263,6 +263,7 @@ MonoBehaviour:
   _sides: 1
   _dealDamage: 0
   _isDetector: 0
+  _destroySelfAtCollision: 0
   _Parent: {fileID: 1239899941527907626}
 --- !u!1 &1239899940399174976
 GameObject:
@@ -385,7 +386,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.47842264, y: 0.8805752}
+  m_Offset: {x: 0.47842264, y: 0.29699707}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -396,7 +397,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.1787224, y: 4.563903}
+  m_Size: {x: 2.1787224, y: 2.8077393}
   m_EdgeRadius: 0
 --- !u!114 &1239899940623972666
 MonoBehaviour:
@@ -413,6 +414,7 @@ MonoBehaviour:
   _sides: 1
   _dealDamage: 1
   _isDetector: 0
+  _destroySelfAtCollision: 0
   _Parent: {fileID: 1239899941527907626}
 --- !u!50 &1239899940623972664
 Rigidbody2D:
@@ -777,12 +779,22 @@ MonoBehaviour:
       - {fileID: 21300000, guid: e553845fee1aa2841b98d440326389dd, type: 3}
     Looped: 1
     UseRightAsLeft: 1
-  _moveSpeed: 1
+  - State: 6
+    Sprites:
+    - Side: 0
+      Frames:
+      - {fileID: 21300000, guid: b2dd329ae45f0c348a182711fe328432, type: 3}
+      - {fileID: 21300000, guid: e553845fee1aa2841b98d440326389dd, type: 3}
+    Looped: 1
+    UseRightAsLeft: 1
+  _moveSpeed: 2
   _mirrorSprites: 1
+  stats: {fileID: 11400000, guid: 2a8d20d183534774b92da97211cf6e55, type: 2}
+  HitBox: {fileID: 1239899940305988593}
+  AttackBox: {fileID: 1239899940623972660}
   _fieldOfView:
     serializedVersion: 2
     m_Bits: 64
-  _obstacleTag: Obstacle
   _points:
   - {fileID: 1239899940469322557}
   - {fileID: 1239899941086268607}
@@ -793,16 +805,6 @@ MonoBehaviour:
   - {fileID: 1239899941470467664}
   - {fileID: 1239899941424567060}
   _type: 1
-  _AquirePoints: 100
-  _damage: 2
-  _hitBox: {fileID: 1239899940305988593}
-  _attackPunchBox: {fileID: 1239899940623972660}
-  _MaxHealthPoints: 10
-  _attackPreparationTimeDelay: 0.5
-  _HitSound: LittleFighter_Gun2
-  _HurtSound: LittleFighter_EnemyHurt
-  _PrepAttackSound: 
-  _AttackSound: LittleFighter_RuraAttack
 --- !u!1 &4059059084995818947
 GameObject:
   m_ObjectHideFlags: 0
@@ -882,6 +884,7 @@ MonoBehaviour:
   _sides: 1
   _dealDamage: 0
   _isDetector: 1
+  _destroySelfAtCollision: 0
   _Parent: {fileID: 1239899941527907626}
 --- !u!50 &1194969693723068513
 Rigidbody2D:

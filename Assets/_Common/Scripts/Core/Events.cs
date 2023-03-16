@@ -14,6 +14,7 @@ public enum GameplayEventType{
     ContinueAnimation,
     PlayerDied,
     SpamWithWindow,
+    SpawnFollower,
 }
 
 public static class Events{
@@ -25,6 +26,8 @@ public static class Events{
 #region GameplayGameEventSystem
 
     public class GameplayEvent : GameEvent<GameplayEventType>{
+
+        public GameplayEvent(){}
         public GameplayEvent( GameplayEventType _type): base(_type){}
 
         public GameplayEvent( GameplayEventType _type, object _value): base(_type, _value){}

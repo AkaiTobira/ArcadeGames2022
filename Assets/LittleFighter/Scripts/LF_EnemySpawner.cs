@@ -7,13 +7,20 @@ public class LF_EnemySpawner : MonoBehaviour
     [SerializeField] List<GameObject> Spawners;
     [SerializeField] GameObject[] EnemiesPrefabs;
     [SerializeField] int[] _probabilities;
-
+    [SerializeField] float _increaseDelay = 5f;
 
     public static int Counter = 0;
+
+    private float _increaseDelayTimer;
+    private int _maxSpawnedCounter = 3;
+    private int _spawnedEnemyCounter = 0 ;
+
+    public static int EnemyLevel = 0;
 
     private void Awake() {
         PointsCounter.Score = 0;
         HighScoreRanking.LoadRanking(GameType.LittleFighter);
+        _increaseDelayTimer = _increaseDelay;
     }
 
     private void Ranomize(){
@@ -29,14 +36,25 @@ public class LF_EnemySpawner : MonoBehaviour
 
 
     private void Update() {
-        
-        if(Counter > 0) return;
-
-        Ranomize();
-        int number = Random.Range(2, Spawners.Count);
-        for(int i = 0; i < number; i++) {
-            Instantiate(EnemiesPrefabs[GetEnemyIndex()], Spawners[i].transform.position, Quaternion.identity, transform); 
+        _increaseDelayTimer -= Time.deltaTime;
+        if(_increaseDelayTimer < 0){
+            _increaseDelayTimer = _increaseDelay;
+            _increaseDelay *= 1.2f;
+            _maxSpawnedCounter = Mathf.Min(_maxSpawnedCounter+1, Spawners.Count);
         }
+
+        if(Counter < _maxSpawnedCounter){
+            Ranomize();
+            GameObject go = Instantiate(
+                EnemiesPrefabs[GetEnemyIndex()], 
+                Spawners[0].transform.position, 
+                Quaternion.identity, 
+                transform); 
+            go.name += Counter;
+            _spawnedEnemyCounter++;
+        }
+
+        EnemyLevel = _spawnedEnemyCounter / 10;
     }
 
     private int GetEnemyIndex(){
@@ -53,8 +71,4 @@ public class LF_EnemySpawner : MonoBehaviour
 
         return 0;
     }
-
-
-
-
 }

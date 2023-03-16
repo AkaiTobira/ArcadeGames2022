@@ -29,4 +29,16 @@ public static class CUtils
         }
     }
 
+    public static GameObject FindObjectByName(GameObject root, ref string toFind){
+        if(root.gameObject.name.Contains(toFind)) return root;
+
+        for(int i = 0; i < root.transform.childCount; i++) {
+            GameObject child2 = FindObjectByName(root.transform.GetChild(i).gameObject,ref toFind);
+            if(Guard.IsValid(child2)) return child2;
+        }
+
+        return null;
+    }
+
+
 }

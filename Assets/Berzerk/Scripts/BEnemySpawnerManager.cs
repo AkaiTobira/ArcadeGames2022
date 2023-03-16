@@ -25,7 +25,14 @@ public class BEnemySpawnerManager : CMonoBehaviour
 
     public void SpawnEnemies(){
         int enemyAmount = 
-            3 
+            8             
+            + Random.Range(0,2)
+            + Random.Range(0,2)
+            + Random.Range(0,2)
+            + Random.Range(0,2)
+            + Random.Range(0,2)
+            + Random.Range(0,2)
+            + Random.Range(0,2)
             + Random.Range(0,2)
             + Random.Range(0,2)
             + Random.Range(0,2)

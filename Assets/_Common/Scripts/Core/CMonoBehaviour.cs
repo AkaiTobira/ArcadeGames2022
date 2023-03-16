@@ -6,6 +6,7 @@ using System;
 public class CMonoBehaviour : MonoBehaviour
 {
     public void SetActive(bool active){
+        if(!Guard.IsValid(gameObject)) return;
         if(active != gameObject.activeSelf) gameObject.SetActive(active);
     }
 

@@ -3,9 +3,10 @@ using System.Collections.Generic;
 using UnityEngine;
 
 public enum LF_EnemyType{
-    Fighter,
-    Fighter2,
+    Knife,
+    Rua,
     Rhino,
+    KnifeThrover
 }
 
 

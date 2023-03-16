@@ -160,8 +160,7 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
         public RayPoints[] RelatedDirections;
         public Vector2     Direction;
         public LayerMask   Layer;
-        public string      Tag;
-        public string      ColliderName;
+        public string[]    ColliderName;
     }
 
     Dictionary<RayPoints, HitParameters> _hitParameters = new Dictionary<RayPoints, HitParameters>{
@@ -169,26 +168,22 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
             RelatedDirections = new  RayPoints[]{RayPoints.Right, RayPoints.RightUp, RayPoints.RightBottom},
             Direction = new Vector2(-1, 0),
             Layer = 64,
-            Tag = "Obstacle",
-            ColliderName = "Solid_Collider"}},
+            ColliderName = new string[]{"Player_Obstacle","Enviroment_Obstacle","Solid_Collider"}}},
         {RayPoints.Right, new HitParameters{ 
             RelatedDirections = new  RayPoints[]{RayPoints.Right, RayPoints.RightUp, RayPoints.RightBottom},
             Direction = new Vector2(1, 0),
             Layer = 64,
-            Tag = "Obstacle",
-            ColliderName = "Solid_Collider"}},
+            ColliderName = new string[]{"Player_Obstacle","Enviroment_Obstacle","Solid_Collider"}}},
         {RayPoints.Top, new HitParameters{ 
             RelatedDirections = new  RayPoints[]{RayPoints.Top, RayPoints.LeftUp, RayPoints.RightUp},
             Direction = new Vector2(0, 1),
             Layer = 64,
-            Tag = "Obstacle",
-            ColliderName = "Solid_Collider"}},
+            ColliderName = new string[]{"Player_Obstacle","Enviroment_Obstacle","Solid_Collider"}}},
         {RayPoints.Bottom, new HitParameters{ 
             RelatedDirections = new  RayPoints[]{RayPoints.Bottom, RayPoints.LeftBottom, RayPoints.RightBottom},
             Direction = new Vector2(0, -1),
             Layer = 64,
-            Tag = "Obstacle",
-            ColliderName = "Solid_Collider"}},
+            ColliderName = new string[]{"Player_Obstacle","Enviroment_Obstacle","Solid_Collider"}}},
     };
 
 
@@ -217,7 +212,7 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
 
     const float ATTACK_PUNCH_TIME = 0.4f;
     const float ATTACK_KICK_TIME  = 0.75f;
-    const float ATTACK_SPECIAL_TIME  = 0.9f;
+    const float ATTACK_SPECIAL_TIME  = 0.7f;
     const float HURT_TIME = 0.35f;
 
 
@@ -439,7 +434,6 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
                 parameters.Direction,
                 parameters.Layer, 
                 parameters.ColliderName,
-                parameters.Tag, 
                 distance) != null;
         }
 
@@ -454,7 +448,13 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
         _canKick    = LF_PlayerInput.GetPressed(KeyCode.LeftControl);
     }
 
-    private GameObject IsHit(RayPoints point, Vector2 direction, LayerMask layer, string colliderName, string atag, float distance = 1){
+    private GameObject IsHit(
+        RayPoints point, 
+        Vector2 direction, 
+        LayerMask layer,
+        string[] colliderName,
+        float distance = 1){
+
         RaycastHit2D hit1 = Physics2D.Raycast(
             _points[(int)point].transform.position, direction, distance, layer);
         Debug.DrawLine(
@@ -464,14 +464,15 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
         );
 
         if(hit1){
-            if(hit1.transform.CompareTag(atag)) return hit1.transform.gameObject;
-            if(hit1.transform.childCount <= 0) return null;
-            Transform t1 = hit1.transform.GetChild(0).Find(colliderName);
-            if(Guard.IsValid(t1) ) return hit1.transform.gameObject;
+            for(int i = 0; i < colliderName.Length; i++) {
+                GameObject t1 = CUtils.FindObjectByName(hit1.transform.gameObject, ref colliderName[i]);
+                if(Guard.IsValid(t1) ) return t1;
+            }
         }
 
         return null;
     }
+
 
     protected override void ProcessMove(Vector2 directions)
     {

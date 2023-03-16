@@ -323,6 +323,7 @@ MonoBehaviour:
   _sides: 0
   _dealDamage: 0
   _isDetector: 0
+  _destroySelfAtCollision: 0
   _Parent: {fileID: 5436822061982539336}
 --- !u!1 &5436822061982539338
 GameObject:
@@ -405,7 +406,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graphicals: {fileID: 5436822062880162173}
-  _animationFrameDuration: 0.15
+  _animationFrameDuration: 0.12
   _animations:
   - State: 0
     Sprites:
@@ -468,17 +469,12 @@ MonoBehaviour:
     - Side: 0
       Frames:
       - {fileID: 21300000, guid: a2abd63f9cf43ca4b8df3e593393bc64, type: 3}
-      - {fileID: 21300000, guid: 59c7708f238053940ac5d6bd6c423d12, type: 3}
       - {fileID: 21300000, guid: 46683bcda260ccc408a59010c24b74ff, type: 3}
-      - {fileID: 21300000, guid: 0740efc2b9c20aa4d861c5b2af4bed99, type: 3}
       - {fileID: 21300000, guid: ac005de605733d542a1b16061fdb303b, type: 3}
       - {fileID: 21300000, guid: 5e855837a17b34247aaab5ad593c1a75, type: 3}
-      - {fileID: 21300000, guid: 9eab3c65dde271248adda92bd4374fa4, type: 3}
       - {fileID: 21300000, guid: 69885ce31819f294db4591f75b3cff13, type: 3}
       - {fileID: 21300000, guid: 8e2d06b4f9119494084c4d07a75c0322, type: 3}
-      - {fileID: 21300000, guid: 3533bdc550b04c341a062acbdfa33991, type: 3}
       - {fileID: 21300000, guid: e0547778917cdb748b35815ba3f01aa4, type: 3}
-      - {fileID: 21300000, guid: 50c8f5879f694fa4591c9a1c60946d8e, type: 3}
       - {fileID: 21300000, guid: aca025de628fc7a46b4735b9696b113d, type: 3}
     Looped: 0
     UseRightAsLeft: 1
@@ -500,7 +496,7 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 64b65dbd79a9b2c489079c982fe58679, type: 3}
     Looped: 1
     UseRightAsLeft: 1
-  _moveSpeed: 2
+  _moveSpeed: 2.5
   _mirrorSprites: 0
   _PlayerHPBar: {fileID: 0}
   _endScene: {fileID: 0}
@@ -787,6 +783,7 @@ MonoBehaviour:
   _sides: 0
   _dealDamage: 1
   _isDetector: 0
+  _destroySelfAtCollision: 0
   _Parent: {fileID: 5436822061982539336}
 --- !u!50 &1601030686478882312
 Rigidbody2D:
@@ -888,6 +885,7 @@ MonoBehaviour:
   _sides: 0
   _dealDamage: 1
   _isDetector: 0
+  _destroySelfAtCollision: 0
   _Parent: {fileID: 5436822061982539336}
 --- !u!50 &8162808534393274936
 Rigidbody2D:
@@ -1024,6 +1022,7 @@ MonoBehaviour:
   _sides: 0
   _dealDamage: 1
   _isDetector: 0
+  _destroySelfAtCollision: 0
   _Parent: {fileID: 5436822061982539336}
 --- !u!50 &8222809353606363632
 Rigidbody2D:

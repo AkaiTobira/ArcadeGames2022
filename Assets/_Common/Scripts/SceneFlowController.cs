@@ -9,29 +9,35 @@ public static class SceneFlowController
 
     static SceneFlowController(){
 
-        flow["Intro"]          = new List<string>{
-
-        #if ASTEROIDS_GAME
-            "AsteroidsMain",
-        #elif BERZERK_GAME
-            "BerzerkMain",
-        #elif DIGDUG_GAME
-            "DigDugMain",
-        #elif FROGGER_GAME
-            "FroggerMain",
-        #elif THREE_GAME
-            "GameSelect",
-        #elif LITTLE_FIGHTER_GAME
-            "LittleFighterMain",
-        #elif SPACE_BASE_GAME
-            "SpaceBaseMain",
-        #endif
+        flow["Intro"] = new List<string>{
+            #if ASTEROIDS_GAME
+                "AsteroidsMain",
+            #elif BERZERK_GAME
+                "BerzerkMain",
+            #elif DIGDUG_GAME
+                "DigDugMain",
+            #elif FROGGER_GAME
+                "FroggerMain",
+            #elif THREE_GAME
+                "GameSelect",
+            #elif LITTLE_FIGHTER_GAME
+                "LittleFighterMain",
+            #elif SPACE_BASE_GAME
+                "SpaceBaseMain",
+            #elif T3_GAMES_2
+                "GameSelect2"
+            #endif
         };
         
         flow["GameSelect"]     = new List<string>{
             "AsteroidsMain", 
             "FroggerMain", 
             "DigDugMain"
+        };
+        flow["GameSelect2"]     = new List<string>{
+            "SpaceBaseMain", 
+            "BerzerkMain", 
+            "LittleFighterMain"
         };
         flow["Asteroids"]      = new List<string>{"AsteroidsOutro"};
         flow["AsteroidsIntro"] = new List<string>{"Asteroids"};

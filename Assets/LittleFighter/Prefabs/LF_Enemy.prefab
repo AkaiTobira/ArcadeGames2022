@@ -79,6 +79,7 @@ MonoBehaviour:
   _sides: 1
   _dealDamage: 0
   _isDetector: 1
+  _destroySelfAtCollision: 0
   _Parent: {fileID: 7707779756186283790}
 --- !u!50 &6701107167031024870
 Rigidbody2D:
@@ -222,7 +223,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.47842264, y: 0.8805752}
+  m_Offset: {x: 0.47842264, y: 0.11860657}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -233,7 +234,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 2.1787224, y: 4.563903}
+  m_Size: {x: 2.1787224, y: 2.2466125}
   m_EdgeRadius: 0
 --- !u!114 &7707779755143674654
 MonoBehaviour:
@@ -250,6 +251,7 @@ MonoBehaviour:
   _sides: 1
   _dealDamage: 1
   _isDetector: 0
+  _destroySelfAtCollision: 0
   _Parent: {fileID: 7707779756186283790}
 --- !u!50 &7707779755143674652
 Rigidbody2D:
@@ -385,6 +387,7 @@ MonoBehaviour:
   _sides: 1
   _dealDamage: 0
   _isDetector: 0
+  _destroySelfAtCollision: 0
   _Parent: {fileID: 7707779756186283790}
 --- !u!1 &7707779755542408236
 GameObject:
@@ -702,12 +705,22 @@ MonoBehaviour:
       - {fileID: 21300000, guid: f0173db7cd6e3d049a829a84fd4b9b5d, type: 3}
     Looped: 1
     UseRightAsLeft: 1
+  - State: 6
+    Sprites:
+    - Side: 0
+      Frames:
+      - {fileID: 21300000, guid: f53988afeebd6b24892054cbe0a242ae, type: 3}
+      - {fileID: 21300000, guid: f0173db7cd6e3d049a829a84fd4b9b5d, type: 3}
+    Looped: 1
+    UseRightAsLeft: 1
   _moveSpeed: 1.75
   _mirrorSprites: 1
+  stats: {fileID: 11400000, guid: 851f12196f03c074c9dc6be84d5a234f, type: 2}
+  HitBox: {fileID: 7707779755530332629}
+  AttackBox: {fileID: 7707779755143674640}
   _fieldOfView:
     serializedVersion: 2
     m_Bits: 64
-  _obstacleTag: Obstacle
   _points:
   - {fileID: 7707779755022610713}
   - {fileID: 7707779756831002267}
@@ -718,16 +731,6 @@ MonoBehaviour:
   - {fileID: 7707779756178912372}
   - {fileID: 7707779756481171760}
   _type: 0
-  _AquirePoints: 50
-  _damage: 1
-  _hitBox: {fileID: 7707779755530332629}
-  _attackPunchBox: {fileID: 7707779755143674640}
-  _MaxHealthPoints: 10
-  _attackPreparationTimeDelay: 0.5
-  _HitSound: LittleFighter_Gun1
-  _HurtSound: LittleFighter_EnemyHurt
-  _PrepAttackSound: 
-  _AttackSound: LittleFighter_KnifeAttack
 --- !u!1 &7707779756384536765
 GameObject:
   m_ObjectHideFlags: 0

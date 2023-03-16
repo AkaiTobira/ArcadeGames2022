@@ -277,6 +277,8 @@ Debug.DrawLine(
         _health -= amount;
         _PlayerHPBar.SetupHp((float)_health / (float)_MaxHealthPoints);
 
+        Debug.Log("Player hit for" + amount);
+
 /*
         if( !_ishurt 
             && (ActiveState != BS_PlayerState.Hurt

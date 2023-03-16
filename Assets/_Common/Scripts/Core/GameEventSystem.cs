@@ -6,6 +6,8 @@ public abstract class GameEvent<T> where T : System.Enum
     public T type;
     public object parameter;
 
+    public GameEvent(){}
+
     public GameEvent( T _type, object _parameter ){
         parameter = _parameter;
         type = _type;
@@ -19,12 +21,12 @@ public abstract class GameEvent<T> where T : System.Enum
 
 public interface IListenToEvents<G, T>
     where T : System.Enum
-    where G : GameEvent<T> {
+    where G : GameEvent<T>, new() {
     void OnGameEvent( G gameEvent );
 }
 
 public class GameEventSystem<G, T> 
-    where G : GameEvent<T>
+    where G : GameEvent<T>, new()
     where T : System.Enum
 {
     Dictionary< T, List<IListenToEvents<G,T>>> _registeredObjects = new Dictionary<T, List<IListenToEvents<G, T>>>(); 
@@ -43,6 +45,12 @@ public class GameEventSystem<G, T>
         if( _registeredObjects.TryGetValue( type, out List<IListenToEvents<G,T>> list ) ){
             list.Remove( newListener );
         }
+    }
+
+    public void RiseEvent(T gemeEvent){
+        G newEvent = new G();
+        newEvent.type = gemeEvent;
+        RiseEvent(newEvent);
     }
 
     public void RiseEvent( G gameEvent ){

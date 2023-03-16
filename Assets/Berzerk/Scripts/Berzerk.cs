@@ -32,6 +32,15 @@ public class Berzerk : ESM.SMC_8D<B_PlayerStates>, IShootable
     public static Berzerk Instance;
 
     [SerializeField] BMissle _misslePrefab;
+    [SerializeField] Transform[] _shootingPoints;
+
+    enum ShootingPoint{
+        U,
+        RU,
+        R,
+        RD,
+        D
+    }
 
 
     #region  IShootable
@@ -80,13 +89,31 @@ public class Berzerk : ESM.SMC_8D<B_PlayerStates>, IShootable
         
         Vector2 direction = CalculateMissleDirection();
 
+        
+
         BMissle missle = Instantiate(_misslePrefab, 
-            transform.position + (Vector3)(direction * 0.75f), 
+            GetShootingPoint().position, 
             Quaternion.identity).GetComponent<BMissle>();
 
         missle.Setup(direction, this);
         (missle.transform as RectTransform).SetParent(transform.parent);
     }
+
+    private Transform GetShootingPoint(){
+        ESM.AnimationSide direction = GetFacingDirection();
+        switch(direction){
+            case ESM.AnimationSide.Left:
+            case ESM.AnimationSide.Right:  return _shootingPoints[(int)ShootingPoint.R];
+            case ESM.AnimationSide.Top:    return _shootingPoints[(int)ShootingPoint.U];
+            case ESM.AnimationSide.Bottom: return _shootingPoints[(int)ShootingPoint.D];
+            case ESM.AnimationSide.LeftTop:
+            case ESM.AnimationSide.RightTop: return _shootingPoints[(int)ShootingPoint.RU];
+            case ESM.AnimationSide.LeftBottom:
+            case ESM.AnimationSide.RightBottom: return _shootingPoints[(int)ShootingPoint.RD];
+            default: return _shootingPoints[0];
+        }
+    }
+
 
     private Vector2 CalculateMissleDirection(){
         string direction = GetFacingDirection().ToString();
