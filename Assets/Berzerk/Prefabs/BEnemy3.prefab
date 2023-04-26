@@ -155,7 +155,7 @@ GameObject:
   - component: {fileID: 73563989474046823}
   m_Layer: 5
   m_Name: Graphics
-  m_TagString: Untagged
+  m_TagString: PlayerObstacle
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -354,7 +354,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graphicals: {fileID: 3391805973985094182}
-  _animationFrameDuration: 0.3
+  _animationFrameDuration: 0.08333334
   _animations:
   - State: 0
     Sprites:
@@ -389,6 +389,7 @@ MonoBehaviour:
     Looped: 0
     UseRightAsLeft: 0
   _moveSpeed: 4
+  _mirrorSprites: 0
   _misslePrefab: {fileID: 8884426621438522888, guid: 5d4eb333694b6424e9552f7516854be1, type: 3}
   _navPoints:
   - {fileID: 2505253246996090826}

@@ -21,7 +21,7 @@ MonoBehaviour:
   MoveTimeDuration: 6
   AttackTimeDuration: 0.75
   AttackHitboxActivationTime: 0.375
-  AttackPreparationTimeDelay: 0.3
+  AttackPreparationTimeDelay: 0.7
   AttackBreakTimeDelay: 0
   hitSounds:
   - LittleFighter_Gun2

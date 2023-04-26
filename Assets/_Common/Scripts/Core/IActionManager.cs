@@ -3,11 +3,18 @@ using System;
 using UnityEngine;
 
 public abstract class IAction {
+
+    public int ActionID;
     public Transform Instance;
     public float ActionDuration;
     public float ElapsedTime;
     public Action OnActionEnd;
     public abstract bool Process();
+
+    public void Clear(){
+        Instance = null;
+        OnActionEnd = null;
+    }
 
     public bool SkipProcess(){
         ElapsedTime = Mathf.Min(ElapsedTime + Time.deltaTime, ActionDuration);
@@ -24,6 +31,7 @@ where T : IAction
     protected List<T> _actions = new List<T>();
     
     protected int activeActions = 0;
+    protected int actionCounter = 0;
 
     const int MAX_ACTIONS_PER_FRAME = 75;
     private int updateInterval = 0;
@@ -53,11 +61,7 @@ where T : IAction
             if(action.SkipProcess()) toRemove.Add(i);
         }
         for(int i = toRemove.Count-1; i >= 0; i--) {
-            T temp = _actions[toRemove[i]];
-            _actions[toRemove[i]] =_actions[activeActions-1];
-            _actions[activeActions-1] = temp;
-            activeActions--;
-            temp.OnActionEnd?.Invoke();
+            RemoveAction(toRemove[i], true);
         }
 
         if(activeActions != 0){
@@ -68,4 +72,25 @@ where T : IAction
         }
     }
 
+    public void InvalidateAction(int actionID, bool callOnActionEnd = false){
+
+        for(int i = 0; i < activeActions; i++) {
+            T action = _actions[i];
+            if(actionID == action.ActionID){
+                RemoveAction(i, callOnActionEnd);
+                break;
+            }
+        }
+    }
+    
+    private void RemoveAction(int index, bool callOnActionEnd){
+        T temp = _actions[index];
+        if(activeActions > 1){
+            _actions[index] =_actions[activeActions-1];
+            _actions[activeActions-1] = temp;
+        }
+        activeActions--;
+        if(callOnActionEnd) temp.OnActionEnd?.Invoke();
+        temp.Clear();
+    }
 }

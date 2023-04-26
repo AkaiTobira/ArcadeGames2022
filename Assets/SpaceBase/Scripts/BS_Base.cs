@@ -40,8 +40,29 @@ public class BS_Base : ESM.SMC_1D<BS_TowerState>,
         }
     }
 
+    float colorChangeTimer = 0.2f;
+    bool isRed = false;
+
     protected override void UpdateState()
     {
+        colorChangeTimer -= Time.deltaTime;
+        if(colorChangeTimer < 0){
+            if(isRed){ 
+                Graphicals.color = Color.white;
+                colorChangeTimer = (_health > 0) ? (_health/_MaxHealthPoints) : 999999;
+                isRed = false;
+            }else{
+                if(_health > _MaxHealthPoints * 0.3f){
+                    Graphicals.color = Color.yellow;
+                    colorChangeTimer = 0.1f;
+                }else{
+                    Graphicals.color = Color.red;
+                    colorChangeTimer = 0.2f;
+                }
+                isRed = true;
+            }
+        }
+
         switch(ActiveState){
             case BS_TowerState.Patrol:
             break;
@@ -71,6 +92,8 @@ public class BS_Base : ESM.SMC_1D<BS_TowerState>,
                 if(Guard.IsValid(_additionalAnimation)){
                     _additionalAnimation.SetActive(false);
                 }
+
+                AudioSystem.PlaySample("SpaceBase_Explode", 1, true);
 
                 for(int i = 0; i < _parts.Length; i++) {
                     ITakeDamage damage = _parts[i].GetComponent<ITakeDamage>();

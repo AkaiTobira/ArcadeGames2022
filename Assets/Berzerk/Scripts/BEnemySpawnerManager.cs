@@ -38,6 +38,12 @@ public class BEnemySpawnerManager : CMonoBehaviour
             + Random.Range(0,2)
             + Random.Range(0,2)
             + Random.Range(0,2)
+            + Random.Range(0,2)            
+            + Random.Range(0,2)
+            + Random.Range(0,2)
+            + Random.Range(0,2)
+            + Random.Range(0,2)
+            + Random.Range(0,2)
             + Random.Range(0,2)
             + Random.Range(0,2);
         

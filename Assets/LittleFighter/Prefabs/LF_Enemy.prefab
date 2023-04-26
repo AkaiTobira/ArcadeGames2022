@@ -430,7 +430,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 1, y: 1}
-  m_SizeDelta: {x: 8, y: 8}
+  m_SizeDelta: {x: 16, y: 8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &7707779755542408232
 CanvasRenderer:
@@ -460,7 +460,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f53988afeebd6b24892054cbe0a242ae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f35dba5b0e17b8d43b6f5d700be38940, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -655,39 +655,41 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graphicals: {fileID: 7707779755542408235}
-  _animationFrameDuration: 0.3
+  _animationFrameDuration: 0.085
   _animations:
   - State: 0
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: f53988afeebd6b24892054cbe0a242ae, type: 3}
-      - {fileID: 21300000, guid: f0173db7cd6e3d049a829a84fd4b9b5d, type: 3}
+      - {fileID: 21300000, guid: f35dba5b0e17b8d43b6f5d700be38940, type: 3}
+      - {fileID: 21300000, guid: f2ce5c003c34621478c0478c03cd0bdc, type: 3}
+      - {fileID: 21300000, guid: 811a06416b742e1488a21062801e7c05, type: 3}
     Looped: 1
     UseRightAsLeft: 1
   - State: 1
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: ef0715f9597dddb4ea59ee7b2464ea4c, type: 3}
-      - {fileID: 21300000, guid: 2b3689fa078605d448d06702849c0202, type: 3}
-      - {fileID: 21300000, guid: 633d31e724b36144d8c698f91530f947, type: 3}
+      - {fileID: 21300000, guid: b9efb92b702ccf84bbd9a7fc3d084eea, type: 3}
+      - {fileID: 21300000, guid: 8154e8344ce868c4f901fb4c5d9d9700, type: 3}
+      - {fileID: 21300000, guid: 156f67368fa531a479470719d0c48741, type: 3}
     Looped: 1
     UseRightAsLeft: 1
   - State: 2
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: 75f06daa51b3576459e20d28cf36668a, type: 3}
-      - {fileID: 21300000, guid: 6940a7b6b2d095a4ab7c68614dcbf304, type: 3}
+      - {fileID: 21300000, guid: 5ee23d85e65881d4d97c834aef0b995a, type: 3}
+      - {fileID: 21300000, guid: b473663cb5ff23a48b0256abcb7f0650, type: 3}
     Looped: 1
     UseRightAsLeft: 1
   - State: 3
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: b2831f40b01584745b57203d28ec7fc1, type: 3}
-      - {fileID: 21300000, guid: 6e6ff9ea67bc1c747815f277d840b1b0, type: 3}
+      - {fileID: 21300000, guid: 8f7c050115bdc2d44b33b82d9f6f8a53, type: 3}
+      - {fileID: 21300000, guid: 1d8b7b196b14cf14a88ff9a4105f3b56, type: 3}
+      - {fileID: 21300000, guid: 2ff25f08c00227a478606ef861375e53, type: 3}
     Looped: 1
     UseRightAsLeft: 1
   - State: 4
@@ -701,26 +703,25 @@ MonoBehaviour:
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: f53988afeebd6b24892054cbe0a242ae, type: 3}
-      - {fileID: 21300000, guid: f0173db7cd6e3d049a829a84fd4b9b5d, type: 3}
+      - {fileID: 21300000, guid: 75aadc83e19681048a963d868551524f, type: 3}
+      - {fileID: 21300000, guid: 5ee23d85e65881d4d97c834aef0b995a, type: 3}
     Looped: 1
     UseRightAsLeft: 1
   - State: 6
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: f53988afeebd6b24892054cbe0a242ae, type: 3}
-      - {fileID: 21300000, guid: f0173db7cd6e3d049a829a84fd4b9b5d, type: 3}
+      - {fileID: 21300000, guid: f35dba5b0e17b8d43b6f5d700be38940, type: 3}
+      - {fileID: 21300000, guid: f2ce5c003c34621478c0478c03cd0bdc, type: 3}
+      - {fileID: 21300000, guid: 811a06416b742e1488a21062801e7c05, type: 3}
     Looped: 1
     UseRightAsLeft: 1
   _moveSpeed: 1.75
   _mirrorSprites: 1
+  _disableSideUpdate: 0
   stats: {fileID: 11400000, guid: 851f12196f03c074c9dc6be84d5a234f, type: 2}
   HitBox: {fileID: 7707779755530332629}
   AttackBox: {fileID: 7707779755143674640}
-  _fieldOfView:
-    serializedVersion: 2
-    m_Bits: 64
   _points:
   - {fileID: 7707779755022610713}
   - {fileID: 7707779756831002267}
@@ -730,7 +731,6 @@ MonoBehaviour:
   - {fileID: 7707779755576628357}
   - {fileID: 7707779756178912372}
   - {fileID: 7707779756481171760}
-  _type: 0
 --- !u!1 &7707779756384536765
 GameObject:
   m_ObjectHideFlags: 0

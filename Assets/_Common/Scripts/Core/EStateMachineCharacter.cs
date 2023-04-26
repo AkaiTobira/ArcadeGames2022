@@ -70,9 +70,9 @@ namespace ESM{
         }
 
         public virtual AnimationSide GetSide(Vector3 positionChange, AnimationSide side){
-            if(positionChange.y == 0){
+            if( Mathf.Abs(positionChange.x) <= 0.01f && Mathf.Abs(positionChange.y) <= 0.01f) return side;
+            if( Mathf.Abs(positionChange.x) > 0.01f)
                 return (positionChange.x > 0) ? AnimationSide.Right : AnimationSide.Left;
-            }
             
             return (positionChange.y > 0) ? AnimationSide.Top : AnimationSide.Bottom;
         } 
@@ -86,8 +86,10 @@ namespace ESM{
 
         public override AnimationSide GetSide(Vector3 positionChange, AnimationSide side){
             if(positionChange.y == 0){
+                if(positionChange.x == 0) return side;
                 return (positionChange.x > 0) ? AnimationSide.Right : AnimationSide.Left;
             }else if(positionChange.x == 0){
+                if(positionChange.y == 0) return side;
                 return (positionChange.y > 0) ? AnimationSide.Top : AnimationSide.Bottom;
             }
             
@@ -150,7 +152,7 @@ namespace ESM{
         [SerializeField][NonReorderable] protected Image Graphicals;
         [SerializeField] private float _animationFrameDuration = 0.3f;
         [SerializeField][NonReorderable] protected AnimationType[] _animations;
-        [SerializeField][NonReorderable] float _moveSpeed = 10;
+        [SerializeField][NonReorderable] protected float _moveSpeed = 10;
         [SerializeField] bool _mirrorSprites = false;
 
         bool _stateChanged = false;
@@ -168,14 +170,14 @@ namespace ESM{
         {
             UpdateState_Internal();
             UpdateGraphics_Internal();
-            ProcessSideUpdate();
+
+            ProcessSideUpdate(GetDirectionChange());
+            _previousPosition = transform.position;
 
             _stateChanged = false;
         }
 
-        private void ProcessSideUpdate(){
-
-            Vector3 positionChange = GetDirectionChange();
+        private void ProcessSideUpdate(Vector3 positionChange){
             if(positionChange.x == 0 && positionChange.y == 0){ return; }
 
             AnimationSide side = _side;
@@ -183,7 +185,6 @@ namespace ESM{
             if(side != _side) SetAnimationFrame(0, ActiveState);
 
             SetDirectionScale();
-            _previousPosition = transform.position;
         }
 
         private void SetDirectionScale(){

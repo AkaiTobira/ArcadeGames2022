@@ -46,6 +46,7 @@ public class BS_Player : ESM.SMC_1D<BS_PlayerState>,
     private void Awake() {
         _health = _MaxHealthPoints;
         _hitBox.gameObject.SetActive(true);
+        PointsCounter.Score = 0;
     }
 /*
     public Vector2 RotateVector(Vector2 v, float angle)
@@ -108,6 +109,9 @@ public class BS_Player : ESM.SMC_1D<BS_PlayerState>,
 
     private void Shoot(){
         if(!_shoot) return;
+
+        
+        AudioSystem.PlaySample("SpaceBase_GunP", 1, true);
 
         LF_ColliderSide side = 
             Instantiate(
@@ -233,13 +237,15 @@ Debug.DrawLine(
             case BS_PlayerState.Move: break;
             case BS_PlayerState.Dead: 
                 RequestDisable(1f);
+                HighScoreRanking.LoadRanking(GameType.SpaceBase);
                 HighScoreRanking.TryAddNewRecord(PointsCounter.Score);
                 _explodeAnimation.SetActive(true);
             //    TimersManager.Instance.FireAfter(5, () => {
             //        _endScene.OnSceneLoadAsync();
             //    });
-
-                TimersManager.Instance.FireAfter(5f, 
+            
+                AudioSystem.PlaySample("SpaceBase_Explode", 1, true);
+                TimersManager.Instance.FireAfter(2f, 
                     () =>
                 Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.GameOver, GameOver.Dead)));
 

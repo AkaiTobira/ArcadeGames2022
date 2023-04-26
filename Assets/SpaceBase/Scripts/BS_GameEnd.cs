@@ -15,7 +15,7 @@ public class BS_GameEnd : MonoBehaviour, IListenToGameplayEvents
 
         if(gameplayEvent.type == GameplayEventType.GameOver){
             GameOver overType = (GameOver)gameplayEvent.parameter;
-            
+            BS_EndTextSelect._reason = overType;
             switch(overType){
                 case GameOver.Victory:
                 case GameOver.Dead:
@@ -25,7 +25,4 @@ public class BS_GameEnd : MonoBehaviour, IListenToGameplayEvents
             }
         }
     }
-
-
-
 }

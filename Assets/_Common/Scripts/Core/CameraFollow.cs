@@ -119,4 +119,13 @@ public class CameraFollow : MonoBehaviour
         additionalCameraSmoothTime = 0;
     }
 
+
+    public static void SetupSize(float size){
+        Instance.zoomOfCamera = size;
+    }
+
+    public static void Clear(){
+        Instance.zoomOfCamera = Instance.defaultSize;
+    }
+
 }

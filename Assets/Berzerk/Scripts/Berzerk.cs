@@ -33,7 +33,7 @@ public class Berzerk : ESM.SMC_8D<B_PlayerStates>, IShootable
 
     [SerializeField] BMissle _misslePrefab;
     [SerializeField] Transform[] _shootingPoints;
-
+    [SerializeField] Transform[] _navPoints;
     enum ShootingPoint{
         U,
         RU,
@@ -77,8 +77,10 @@ public class Berzerk : ESM.SMC_8D<B_PlayerStates>, IShootable
             case B_PlayerStates.Shoot:
                 _shootTimer = B_CONSTS.SHOT_ACTION_COLDOWN;
                 SpawnMissle();
+                AudioSystem.PlaySample("Berzerk_Shoot" + Random.Range(1,4), 1, true);
             break;
             case B_PlayerStates.Dead:
+                AudioSystem.PlaySample("Berzerk_PlayerDead", 1, true);
                 RequestDisable(B_CONSTS.DISABLE_AFTER);
             break;
             default : break;
@@ -88,8 +90,6 @@ public class Berzerk : ESM.SMC_8D<B_PlayerStates>, IShootable
     private void SpawnMissle(){
         
         Vector2 direction = CalculateMissleDirection();
-
-        
 
         BMissle missle = Instantiate(_misslePrefab, 
             GetShootingPoint().position, 
@@ -167,10 +167,31 @@ public class Berzerk : ESM.SMC_8D<B_PlayerStates>, IShootable
         _inputs.x = Input.GetAxisRaw("Horizontal");// + _mobileInputs.x;
         _inputs.y = Input.GetAxisRaw("Vertical");//   + _mobileInputs.y;
         _willShoot  = Input.GetKeyDown(KeyCode.Space);
-        //_shootingRequirementsMeet = Input.GetKeyDown(KeyCode.LeftShift) && _shootingTimeColdown <= 0;
+
+        _inputs.x = HitRay(0, new Vector3(_inputs.x, 0), _inputs.x);
+        _inputs.x = HitRay(1, new Vector3(_inputs.x, 0), _inputs.x);
+        if(_inputs.y > 0){
+            _inputs.y = HitRay(0, new Vector3(0, 1, 0), _inputs.y);
+            _inputs.y = HitRay(2, new Vector3(0, 1, 0), _inputs.y);
+        }else if(_inputs.y < 0){
+            _inputs.y = HitRay(1, new Vector3(0, -1, 0), _inputs.y);
+            _inputs.y = HitRay(3, new Vector3(0, -1, 0), _inputs.y);
+        }
 
         return ActiveState;
     }
+
+    private float HitRay(int navPointIndex, Vector3 direction2, float value){
+        RaycastHit2D[] hits = Physics2D.RaycastAll(_navPoints[navPointIndex].position, direction2, 0.1f);
+        Debug.DrawLine(_navPoints[navPointIndex].position, _navPoints[navPointIndex].position + (direction2 * Mathf.Abs(value)), Color.red);
+
+        for(int i = 0; i < hits.Length; i++) {
+            if(hits[i].transform.CompareTag("Enemy")) return 0;
+        }
+
+        return value;
+    }
+
 
     protected override void ProcessMove(Vector2 directions){
         ProcessMove_Horizontal(directions.x);

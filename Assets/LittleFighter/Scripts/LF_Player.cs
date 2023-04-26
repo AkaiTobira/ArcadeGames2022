@@ -156,6 +156,8 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
         LeftBottom,
     }
 
+    private float _startDelay = 8f;
+
     class HitParameters{
         public RayPoints[] RelatedDirections;
         public Vector2     Direction;
@@ -168,22 +170,22 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
             RelatedDirections = new  RayPoints[]{RayPoints.Right, RayPoints.RightUp, RayPoints.RightBottom},
             Direction = new Vector2(-1, 0),
             Layer = 64,
-            ColliderName = new string[]{"Player_Obstacle","Enviroment_Obstacle","Solid_Collider"}}},
+            ColliderName = new string[]{"Player_Obstacle","Enviroment_Obstacle"}}},
         {RayPoints.Right, new HitParameters{ 
             RelatedDirections = new  RayPoints[]{RayPoints.Right, RayPoints.RightUp, RayPoints.RightBottom},
             Direction = new Vector2(1, 0),
             Layer = 64,
-            ColliderName = new string[]{"Player_Obstacle","Enviroment_Obstacle","Solid_Collider"}}},
+            ColliderName = new string[]{"Player_Obstacle","Enviroment_Obstacle"}}},
         {RayPoints.Top, new HitParameters{ 
             RelatedDirections = new  RayPoints[]{RayPoints.Top, RayPoints.LeftUp, RayPoints.RightUp},
             Direction = new Vector2(0, 1),
             Layer = 64,
-            ColliderName = new string[]{"Player_Obstacle","Enviroment_Obstacle","Solid_Collider"}}},
+            ColliderName = new string[]{"Player_Obstacle","Enviroment_Obstacle"}}},
         {RayPoints.Bottom, new HitParameters{ 
             RelatedDirections = new  RayPoints[]{RayPoints.Bottom, RayPoints.LeftBottom, RayPoints.RightBottom},
             Direction = new Vector2(0, -1),
             Layer = 64,
-            ColliderName = new string[]{"Player_Obstacle","Enviroment_Obstacle","Solid_Collider"}}},
+            ColliderName = new string[]{"Player_Obstacle","Enviroment_Obstacle"}}},
     };
 
 
@@ -210,10 +212,10 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
     private bool _canSpecial = false;
     private bool _ishurt;
 
-    const float ATTACK_PUNCH_TIME = 0.4f;
-    const float ATTACK_KICK_TIME  = 0.75f;
+    const float ATTACK_PUNCH_TIME = 0.45f;
+    const float ATTACK_KICK_TIME  = 0.55f;
     const float ATTACK_SPECIAL_TIME  = 0.7f;
-    const float HURT_TIME = 0.35f;
+    const float HURT_TIME = 0.2f;
 
 
     private float _attackPunchTime = ATTACK_PUNCH_TIME;
@@ -234,6 +236,7 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
         ForceState(LFPlayerState.Idle, true);
         _healthPoints = _MaxHealthPoints;
         _PlayerHPBar.SetupHp(_healthPoints/_MaxHealthPoints);
+        PointsCounter.Score = 0;
     }
 
     protected override void UpdateState()
@@ -296,6 +299,9 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
             break;
             case LFPlayerState.Dead: 
                 RequestDisable(1f);
+                LF_IntroTexts.ShowGameOver();
+                AudioSystem.PlaySample("LittleFighter_GameOver", 1);
+                HighScoreRanking.LoadRanking(GameType.LittleFighter);
                 HighScoreRanking.TryAddNewRecord(PointsCounter.Score);
                 TimersManager.Instance.FireAfter(5, () => {
                     _endScene.OnSceneLoadAsync();
@@ -401,6 +407,11 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
     }
 
     private void ProcessInputs(){
+
+        _startDelay -= Time.deltaTime;
+        if(_startDelay > 0) return;
+
+
         ProcessInputsMove();
         ProcessInputsAttack();
     }

@@ -10,12 +10,12 @@ public static class SceneFlowController
     static SceneFlowController(){
 
         flow["Intro"] = new List<string>{
-            #if ASTEROIDS_GAME
+            #if T_SegmentSpawner
                 "AsteroidsMain",
             #elif BERZERK_GAME
                 "BerzerkMain",
             #elif DIGDUG_GAME
-                "DigDugMain",
+                "DigDug2Main",
             #elif FROGGER_GAME
                 "FroggerMain",
             #elif THREE_GAME
@@ -26,35 +26,60 @@ public static class SceneFlowController
                 "SpaceBaseMain",
             #elif T3_GAMES_2
                 "GameSelect2"
+            #elif TUNNEL_GAME
+                "TunnelMain"
             #endif
         };
         
+        flow["Intro1"] = new List<string>{
+            #if T_SegmentSpawner
+                "AsteroidsMain",
+            #elif BERZERK_GAME
+                "BerzerkMain",
+            #elif DIGDUG_GAME
+                "DigDug2Main",
+            #elif FROGGER_GAME
+                "FroggerMain",
+            #elif THREE_GAME
+                "GameSelect",
+            #elif LITTLE_FIGHTER_GAME
+                "LittleFighterMain",
+            #elif SPACE_BASE_GAME
+                "SpaceBaseMain",
+            #elif T3_GAMES_2
+                "GameSelect2"
+            #elif TUNNEL_GAME
+                "TunnelMain"
+            #endif
+        };
+
         flow["GameSelect"]     = new List<string>{
             "AsteroidsMain", 
             "FroggerMain", 
-            "DigDugMain"
+            "DigDug2Main"
         };
         flow["GameSelect2"]     = new List<string>{
             "SpaceBaseMain", 
             "BerzerkMain", 
-            "LittleFighterMain"
+            "LittleFighterMain",
+            "TunnelMain"
         };
         flow["Asteroids"]      = new List<string>{"AsteroidsOutro"};
         flow["AsteroidsIntro"] = new List<string>{"Asteroids"};
         flow["AsteroidsMain"]  = new List<string>{"AsteroidsIntro"};
         flow["AsteroidsOutro"] = new List<string>{"Intro"};
 
-        flow["DigDug"]         = new List<string>{
-            "DigDugOutro",
+        flow["DigDug2"]         = new List<string>{
+            "DigDug2Outro",
             "Intro",
-            "DigDug",
+            "DigDug2",
 
         };
-        flow["DigDugIntro"]    = new List<string>{"DigDug"};
-        flow["DigDugMain"]     = new List<string>{"DigDugIntro"};
-        flow["DigDugOutro"]    = new List<string>{
+        flow["DigDug2Intro"]    = new List<string>{"DigDug2"};
+        flow["DigDug2Main"]     = new List<string>{"DigDug2Intro"};
+        flow["DigDug2Outro"]    = new List<string>{
             "Intro",
-            "DigDug"};
+            "DigDug2"};
 
         flow["Frogger"]        = new List<string>{"FroggerOutro", "FroggerOutro1", "Intro"};
         flow["FroggerIntro"]   = new List<string>{"Frogger"};
@@ -64,30 +89,40 @@ public static class SceneFlowController
 
         flow["Berzerk"]        = new List<string>{
             "BerzerkOutro",
-            "Intro",
+            "Intro1",
             "Berzerk",
         };
         flow["BerzerkIntro"]   = new List<string>{"Berzerk"};
         flow["BerzerkMain"]    = new List<string>{"BerzerkIntro"};
-        flow["BerzerkOutro"]   = new List<string>{"Intro"};
+        flow["BerzerkOutro"]   = new List<string>{"Intro1"};
         
         flow["LittleFighter"]        = new List<string>{
             "LittleFighterOutro",
-            "Intro",
+            "Intro1",
             "LittleFighter",
         };
         flow["LittleFighterIntro"]   = new List<string>{"LittleFighter"};
         flow["LittleFighterMain"]    = new List<string>{"LittleFighterIntro"};
-        flow["LittleFighterOutro"]   = new List<string>{"Intro"};
+        flow["LittleFighterOutro"]   = new List<string>{"Intro1"};
 
         flow["SpaceBase"]        = new List<string>{
             "SpaceBaseOutro",
-            "Intro",
+            "Intro1",
             "SpaceBase",
         };
         flow["SpaceBaseIntro"]   = new List<string>{"SpaceBase"};
         flow["SpaceBaseMain"]    = new List<string>{"SpaceBaseIntro"};
-        flow["SpaceBaseOutro"]   = new List<string>{"Intro"};
+        flow["SpaceBaseOutro"]   = new List<string>{"Intro1"};
+
+        flow["Tunnel"]        = new List<string>{
+            "TunnelOutro",
+            "Intro1",
+            "SpaceBase",
+        };
+        flow["TunnelIntro"]   = new List<string>{"Tunnel"};
+        flow["TunnelMain"]    = new List<string>{"TunnelIntro"};
+        flow["TunnelOutro"]   = new List<string>{"Intro1"};
+
 
     }
 

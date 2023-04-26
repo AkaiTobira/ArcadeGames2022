@@ -6,11 +6,12 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class RawImageAnimator : RawAnimator
 {
-    Image _image;
+    protected Image _image;
     [SerializeField] private Sprite[] _sprites;
 
-    private void Awake() {
+    protected override void Awake() {
         _image = GetComponent<Image>();
+        base.Awake();
     }
 
     protected override void UpdateAnimation(int frame){

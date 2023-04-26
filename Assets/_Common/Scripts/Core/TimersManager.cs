@@ -35,7 +35,9 @@ public class TimersManager : IActionManager<TimeAction>
             action.ActionDuration   = time;
             action.ElapsedTime      = 0;
             action.OnActionEnd      = OnEnd;
+            action.ActionID = actionCounter;
             activeActions++;
+            actionCounter++;
             return;
         }
 
@@ -43,10 +45,12 @@ public class TimersManager : IActionManager<TimeAction>
             new TimeAction{
                 ActionDuration = time,
                 ElapsedTime = 0,
-                OnActionEnd = OnEnd
+                OnActionEnd = OnEnd,
+                ActionID = actionCounter
             }
         );
         activeActions++;
+        actionCounter++;
     }
 }
 

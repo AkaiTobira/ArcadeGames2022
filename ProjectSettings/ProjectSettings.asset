@@ -13,7 +13,7 @@ PlayerSettings:
   useOnDemandResources: 0
   accelerometerFrequency: 60
   companyName: DefaultCompany
-  productName: SecondThree
+  productName: Four1
   defaultCursor: {fileID: 0}
   cursorHotspot: {x: 0, y: 0}
   m_SplashScreenBackgroundColor: {r: 0.13725491, g: 0.12156863, b: 0.1254902, a: 1}
@@ -658,9 +658,13 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
     1: T3_GAMES_2
+    7: TUNNEL_GAME
     13: T3_GAMES_2
   additionalCompilerArguments: {}
-  platformArchitecture: {}
+  platformArchitecture:
+    Android: 2
+    Standalone: 2
+    WebGL: 2
   scriptingBackend:
     Android: 0
   il2cppCompilerConfiguration: {}

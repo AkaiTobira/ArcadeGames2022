@@ -10,12 +10,12 @@ public class PlatfromEnabler : MonoBehaviour
     {
 
 
-        #if UNITY_ANDROID
-        #else
+    //    #if UNITY_ANDROID
+    //    #else
             gameObject.SetActive(false);
-        #endif
+    //    #endif
 
-        if(forceEnabled){gameObject.SetActive(true);};
+    //    if(forceEnabled){gameObject.SetActive(true);};
 
     }
 

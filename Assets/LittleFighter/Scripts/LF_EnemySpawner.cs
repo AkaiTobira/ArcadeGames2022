@@ -12,6 +12,7 @@ public class LF_EnemySpawner : MonoBehaviour
     public static int Counter = 0;
 
     private float _increaseDelayTimer;
+    private float _startDelay = 7f;
     private int _maxSpawnedCounter = 3;
     private int _spawnedEnemyCounter = 0 ;
 
@@ -36,6 +37,10 @@ public class LF_EnemySpawner : MonoBehaviour
 
 
     private void Update() {
+
+        _startDelay -= Time.deltaTime;
+        if(_startDelay > 0) return;
+
         _increaseDelayTimer -= Time.deltaTime;
         if(_increaseDelayTimer < 0){
             _increaseDelayTimer = _increaseDelay;

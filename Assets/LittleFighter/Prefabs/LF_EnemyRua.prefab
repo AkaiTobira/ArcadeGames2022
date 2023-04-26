@@ -41,7 +41,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 1, y: 1}
-  m_SizeDelta: {x: 8, y: 8}
+  m_SizeDelta: {x: 12, y: 8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1239899939948932620
 CanvasRenderer:
@@ -71,7 +71,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f53988afeebd6b24892054cbe0a242ae, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f7a39e74f1d551a428805392e47fc6e0, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -728,73 +728,73 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graphicals: {fileID: 1239899939948932623}
-  _animationFrameDuration: 0.3
+  _animationFrameDuration: 0.085
   _animations:
   - State: 0
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: b2dd329ae45f0c348a182711fe328432, type: 3}
-      - {fileID: 21300000, guid: e553845fee1aa2841b98d440326389dd, type: 3}
+      - {fileID: 21300000, guid: f7a39e74f1d551a428805392e47fc6e0, type: 3}
+      - {fileID: 21300000, guid: 4f77a12d80e97454ab97f7ffae997bb5, type: 3}
     Looped: 1
     UseRightAsLeft: 1
   - State: 1
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: e4820b15fd3afb34ca3847167b9695aa, type: 3}
-      - {fileID: 21300000, guid: 7b109224bd2e9fc4481dce2fc46a8757, type: 3}
+      - {fileID: 21300000, guid: 7d7fef962bca8f14b84d7654ddf927e6, type: 3}
+      - {fileID: 21300000, guid: ffcdfef612b12124eb65b774f81e990e, type: 3}
     Looped: 1
     UseRightAsLeft: 1
   - State: 2
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: 17310967eb7a10b4e91053d6c8d6f4f6, type: 3}
-      - {fileID: 21300000, guid: fedb203009d21f34ea74fec071e0ba53, type: 3}
+      - {fileID: 21300000, guid: 33f7816f9f0293f448bdc66952ae3d9e, type: 3}
+      - {fileID: 21300000, guid: 66ee0f8c4c9c42f4da6a32b511a947a3, type: 3}
     Looped: 1
     UseRightAsLeft: 1
   - State: 3
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: 5e3f3a274d99fab4c8703f23023fc043, type: 3}
-      - {fileID: 21300000, guid: f45f0ad1808029d438cdfe1c7609e946, type: 3}
-      - {fileID: 21300000, guid: 21f8b754df455144fa8ea89097a8a2c5, type: 3}
-      - {fileID: 21300000, guid: e4e94f8c9fd543f4197af6e37fae95c0, type: 3}
+      - {fileID: 21300000, guid: e98b09387584c144e9ad2626e630f854, type: 3}
+      - {fileID: 21300000, guid: b311909dce78dd44f959e555b773c6bf, type: 3}
+      - {fileID: 21300000, guid: 4b73d70fadf82d446bf7c3a03daf3a50, type: 3}
+      - {fileID: 21300000, guid: 1ad8d30a34cc2ad408f3f1c044a4a98a, type: 3}
     Looped: 1
     UseRightAsLeft: 1
   - State: 4
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: c223a7d08f502db458883065cddf6c89, type: 3}
-    Looped: 1
+      - {fileID: 21300000, guid: 9b12e9fda2a0e0d46bdf627e458565c1, type: 3}
+      - {fileID: 21300000, guid: 39218cf7dbad7a34f85aaeaab1f189af, type: 3}
+    Looped: 0
     UseRightAsLeft: 1
   - State: 5
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: b2dd329ae45f0c348a182711fe328432, type: 3}
-      - {fileID: 21300000, guid: e553845fee1aa2841b98d440326389dd, type: 3}
+      - {fileID: 21300000, guid: 316ac88850298924fac6c361d31e1d45, type: 3}
+      - {fileID: 21300000, guid: 3f0f7573ba4680f4fb4f40874b93da7c, type: 3}
+      - {fileID: 21300000, guid: 33f7816f9f0293f448bdc66952ae3d9e, type: 3}
     Looped: 1
     UseRightAsLeft: 1
   - State: 6
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: b2dd329ae45f0c348a182711fe328432, type: 3}
-      - {fileID: 21300000, guid: e553845fee1aa2841b98d440326389dd, type: 3}
+      - {fileID: 21300000, guid: f7a39e74f1d551a428805392e47fc6e0, type: 3}
+      - {fileID: 21300000, guid: 4f77a12d80e97454ab97f7ffae997bb5, type: 3}
     Looped: 1
     UseRightAsLeft: 1
   _moveSpeed: 2
   _mirrorSprites: 1
+  _disableSideUpdate: 0
   stats: {fileID: 11400000, guid: 2a8d20d183534774b92da97211cf6e55, type: 2}
   HitBox: {fileID: 1239899940305988593}
   AttackBox: {fileID: 1239899940623972660}
-  _fieldOfView:
-    serializedVersion: 2
-    m_Bits: 64
   _points:
   - {fileID: 1239899940469322557}
   - {fileID: 1239899941086268607}
@@ -804,7 +804,6 @@ MonoBehaviour:
   - {fileID: 1239899939982923425}
   - {fileID: 1239899941470467664}
   - {fileID: 1239899941424567060}
-  _type: 1
 --- !u!1 &4059059084995818947
 GameObject:
   m_ObjectHideFlags: 0

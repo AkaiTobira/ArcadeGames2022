@@ -14,7 +14,10 @@ public class BS_FieldSpawner : MonoBehaviour
     }
 
     private void SpawnTiles(){
-        for(int i = 0; i < (31*31-1); i++){
+
+        Vector2 size = new Vector2( (int)(810 / 48) + 1, (int)(750 / 36) + 1 );
+
+        for(int i = 0; i < size.x * size.y; i++){
             GameObject go = Instantiate(_tile, new Vector3(), Quaternion.identity, transform);
             go.GetComponent<Image>().sprite = _floorFields[Random.Range(0,_floorFields.Length)];
         }

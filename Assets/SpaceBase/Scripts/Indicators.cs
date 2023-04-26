@@ -39,6 +39,7 @@ public class Indicators : MonoBehaviour
 
         enabled = false;
         Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.GameOver, GameOver.Victory));
+        AudioSystem.PlaySample("Frogger_Victory", 1);
     }
 
     private void EnableIndicator(MonoBehaviour mb){

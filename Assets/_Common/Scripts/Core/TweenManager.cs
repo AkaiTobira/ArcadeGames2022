@@ -47,6 +47,7 @@ public class TweenManager : IActionManager<TweenAction>
             action.ElapsedTime       = 0;
             action.Instance          = toMove;
             action.OnActionEnd       = OnEnd;
+            action.ActionID          = actionCounter++;
             activeActions++;
             return;
         }
@@ -58,10 +59,12 @@ public class TweenManager : IActionManager<TweenAction>
                 ActionDuration = time,
                 ElapsedTime = 0,
                 Instance = toMove,
+                ActionID = actionCounter,
                 OnActionEnd = OnEnd
             }
         );
         activeActions++;
+        actionCounter++;
     }
 
     #region interfaces

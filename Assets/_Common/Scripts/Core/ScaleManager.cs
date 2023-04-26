@@ -37,7 +37,7 @@ public class ScaleManager : IActionManager<ScaleAction>
         }
     }
 
-    public void ScaleBy(Transform toScale, Vector3 scaleBy, float time = 0, Action OnEnd = null){
+    public int ScaleBy(Transform toScale, Vector3 scaleBy, float time = 0, Action OnEnd = null){
         enabled = true;
         if(_actions.Count > activeActions){
             ScaleAction action       = _actions[activeActions];
@@ -47,8 +47,9 @@ public class ScaleManager : IActionManager<ScaleAction>
             action.ElapsedTime       = 0;
             action.Instance          = toScale;
             action.OnActionEnd       = OnEnd;
+            action.ActionID          = actionCounter;
             activeActions++;
-            return;
+            return actionCounter++;
         }
 
         _actions.Add(
@@ -58,35 +59,37 @@ public class ScaleManager : IActionManager<ScaleAction>
                 ActionDuration = time,
                 ElapsedTime = 0,
                 Instance = toScale,
-                OnActionEnd = OnEnd
+                OnActionEnd = OnEnd,
+                ActionID = actionCounter
             }
         );
         activeActions++;
+        return actionCounter++;
     }
 
     #region interfaces
-        public void ScaleAs(Transform toScale, Transform target, float time){
-            ScaleBy(toScale, target.localScale - toScale.localScale,  time , null);
+        public int ScaleAs(Transform toScale, Transform target, float time){
+            return ScaleBy(toScale, target.localScale - toScale.localScale,  time , null);
         }
 
-        public void ScaleAs(Transform toScale, Transform target, Action OnEnd){
-            ScaleBy(toScale, target.localScale - toScale.localScale,  0 , OnEnd);
+        public int ScaleAs(Transform toScale, Transform target, Action OnEnd){
+            return ScaleBy(toScale, target.localScale - toScale.localScale,  0 , OnEnd);
         }
 
-        public void ScaleAs(Transform toScale, Transform target, float time = 0, Action OnEnd = null){
-            ScaleBy(toScale, target.localScale - toScale.localScale,  time , OnEnd);
+        public int ScaleAs(Transform toScale, Transform target, float time = 0, Action OnEnd = null){
+            return ScaleBy(toScale, target.localScale - toScale.localScale,  time , OnEnd);
         }
 
-        public void ScaleTo(Transform toScale, Vector3 scale, float time){
-            ScaleBy(toScale,  scale - toScale.localScale ,  time , null);
+        public int ScaleTo(Transform toScale, Vector3 scale, float time){
+            return ScaleBy(toScale,  scale - toScale.localScale ,  time , null);
         }
 
-        public void ScaleTo(Transform toScale, Vector3 scale, Action OnEnd){
-            ScaleBy(toScale, scale  - toScale.localScale,  0 , OnEnd);
+        public int ScaleTo(Transform toScale, Vector3 scale, Action OnEnd){
+            return ScaleBy(toScale, scale  - toScale.localScale,  0 , OnEnd);
         }
 
-        public void ScaleTo(Transform toScale, Vector3 scale, float time, Action OnEnd){
-            ScaleBy(toScale, scale  - toScale.localScale,  time , OnEnd);
+        public int ScaleTo(Transform toScale, Vector3 scale, float time, Action OnEnd){
+            return ScaleBy(toScale, scale  - toScale.localScale,  time , OnEnd);
         }
 
     #endregion

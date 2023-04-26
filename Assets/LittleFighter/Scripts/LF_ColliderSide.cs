@@ -35,7 +35,7 @@ public class LF_ColliderSide : MonoBehaviour
                     if(_dealDamage && !side._dealDamage){
                         ITakeDamage takeDamage = side._Parent.GetComponent<ITakeDamage>();
                         IDealDamage dealDamage = _Parent.GetComponent<IDealDamage>();
-                                            Debug.Log((takeDamage == null) + " " + (dealDamage == null));
+//                                            Debug.Log((takeDamage == null) + " " + (dealDamage == null));
                         if(takeDamage != null && dealDamage != null){
                             takeDamage.TakeDamage(dealDamage.GetDamage(), _Parent);
                         }

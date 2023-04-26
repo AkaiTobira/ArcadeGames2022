@@ -17,11 +17,15 @@ public abstract class RawAnimator : MonoBehaviour{
     float _elapsedTimeSinceLastFrame = 0;
     bool _isPlaying = false;
 
-    private void Start(){
+    protected virtual void Start(){
         if(Guard.IsValid(_canvas)) CanvasSorter.AddCanvas(_canvas, _keepRelative);
     }
 
-    private void OnEnable() {
+    protected virtual void Awake() {
+        if(_fireAtEveryActivation) Restart();
+    }
+
+    protected virtual void OnEnable() {
         if(_fireAtEveryActivation) Restart();
     }
 

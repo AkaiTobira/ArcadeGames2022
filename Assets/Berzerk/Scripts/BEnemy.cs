@@ -148,11 +148,11 @@ public class BEnemy : ESM.SMC_4D<B_PlayerStates>, IShootable
         for(int i = 0; i < hits.Length; i++) {
             if(hits[i].transform.CompareTag("Obstacle")) return 0;
             if(hits[i].transform.CompareTag("Enemy") && hits[i].transform != transform) return 0;
+            if(hits[i].transform.CompareTag("Player")) return 0;
         }
 
         return value;
     }
-
 
     private void CalculateMoveDirections(){
         if(Guard.IsValid(Berzerk.Instance)){
@@ -207,10 +207,12 @@ public class BEnemy : ESM.SMC_4D<B_PlayerStates>, IShootable
             case B_PlayerStates.Shoot:
                 _shootTimer = BENEMY_CONSTS.SHOOTING_COLDOWN();
                 _canSpawnMissle = true;
+
             break;
             case B_PlayerStates.Dead:
                 RequestDisable(B_CONSTS.DISABLE_AFTER);
                 BLevelsManager.Points += 1;
+                AudioSystem.PlaySample("Berzerk_EnemyDead", 1, true);
             break;
             default : break;
         }

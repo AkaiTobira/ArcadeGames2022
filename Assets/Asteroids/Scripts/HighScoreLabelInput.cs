@@ -8,6 +8,10 @@ public class HighScoreLabelInput : MonoBehaviour, IListenToGameplayEvents
     [SerializeField] int _labelIndex;
     [SerializeField] TextMeshProUGUI _score;
 
+    [SerializeField] TextMeshProUGUI _scoreLabel;
+    [SerializeField] TextMeshProUGUI _timeLabel;
+
+
     [SerializeField] GameObject _NewHighScore;
     [SerializeField] GameObject _NoNewHighScore;
     [SerializeField] GameObject _windows;
@@ -126,12 +130,14 @@ public class HighScoreLabelInput : MonoBehaviour, IListenToGameplayEvents
 
 
     private void SetPoints(){
-        bool IsTimed = (_gameType == GameType.Frogger || _gameType == GameType.DigDug);
+        bool IsTimed =  HighScoreRanking.IsTimed(_gameType);
 
         int points = IsTimed ? TimerCount.ElapsedTime : PointsCounter.Score;
         if(Guard.IsValid(_score)){
             _score.text = IsTimed ? Fromater.FormatToTime(points) : Fromater.FormatToPoints(points);
         }
+        if(Guard.IsValid(_scoreLabel)) _scoreLabel.gameObject.SetActive(!IsTimed);
+        if(Guard.IsValid(_timeLabel)) _timeLabel.gameObject.SetActive(IsTimed);
     }
 
 

@@ -100,6 +100,9 @@ public class BS_Follower : ESM.SMC_1D<BS_PlayerState>,
         }
         _shootTimer = 2f;
 
+
+        
+        AudioSystem.PlaySample("SpaceBase_GunE", 1, true);
         LF_ColliderSide side = 
             Instantiate(
                 _missle, 
@@ -260,6 +263,8 @@ Debug.DrawLine(
                 RequestDestroy(1f);
                 PointsCounter.Score += _points;
                 _explodeAnimation.SetActive(true);
+                
+                AudioSystem.PlaySample("SpaceBase_Explode", 1, true);
             //    HighScoreRanking.TryAddNewRecord(PointsCounter.Score);
             //    TimersManager.Instance.FireAfter(5, () => {
             //        _endScene.OnSceneLoadAsync();

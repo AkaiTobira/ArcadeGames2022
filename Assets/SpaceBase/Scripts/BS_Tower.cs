@@ -87,7 +87,10 @@ public class BS_Tower : ESM.SMC_1D<BS_TowerState>,
 
     private void Shoot(){
         if(_shootTimer > 0) return;
-        _shootTimer = 2f;
+        _shootTimer = 3.5f;
+
+        
+        AudioSystem.PlaySample("SpaceBase_GunB", 1, true);
 
         LF_ColliderSide side = 
             Instantiate(
@@ -145,6 +148,8 @@ public class BS_Tower : ESM.SMC_1D<BS_TowerState>,
                 _hitBox.gameObject.SetActive(false);
                 _towerHead.gameObject.SetActive(false);
                 PointsCounter.Score += _points;
+                
+                AudioSystem.PlaySample("SpaceBase_Explode", 1, true);
                 _explodeAnimation.SetActive(true);
             //    TimersManager.Instance.FireAfter(5, () => {
             //        _endScene.OnSceneLoadAsync();

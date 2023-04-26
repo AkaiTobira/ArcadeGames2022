@@ -15,6 +15,7 @@ public enum GameplayEventType{
     PlayerDied,
     SpamWithWindow,
     SpawnFollower,
+    RecolorPlayer,
 }
 
 public static class Events{

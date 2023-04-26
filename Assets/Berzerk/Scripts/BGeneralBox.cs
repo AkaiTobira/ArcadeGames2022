@@ -9,7 +9,7 @@ public class BGeneralBox : MonoBehaviour
     [SerializeField] GameObject[] _texts;
     [SerializeField] GameObject   _getHimText;
 
-    private float _maxFillValue = 30f;
+    private float _maxFillValue = 20f;
     private float _perLevelLost = 0.9f;
     private float _minFillValue = 7.5f;
 
@@ -18,7 +18,7 @@ public class BGeneralBox : MonoBehaviour
 
     public void Setup(){
         ActivateText();
-        ElapsedTimeToChangeText = 5.0f;
+        ElapsedTimeToChangeText = 2.0f;
     }
 
     public void Adjust() {
@@ -30,12 +30,31 @@ public class BGeneralBox : MonoBehaviour
         }
     }
 
-
     private void Update() {
         
-        float maxValue = Mathf.Max( _maxFillValue - (BLevelsManager.CurrentLevel * _perLevelLost ), _minFillValue);
-        float percent  = Mathf.Min( (BLevelsManager.Timer - BGeneralBoxController.Retributed)/maxValue, 1.0f);
+        float maxValue = Mathf.Max( _maxFillValue - 
+            (
+                BLevelsManager.CurrentLevel * _perLevelLost 
+            ), _minFillValue);
 
+        float percent  = Mathf.Min( 
+            (
+                BLevelsManager.Timer - 
+                BLevelsManager.TimerAddtional -
+                BGeneralBoxController.Retributed
+            )/maxValue, 1.0f);
+
+        if(percent < 0) BGeneralBoxController.Retributed = BLevelsManager.Timer - BLevelsManager.TimerAddtional;
+/*
+        Debug.Log(
+            _maxFillValue + " " + 
+            (BLevelsManager.CurrentLevel * _perLevelLost) + " " + 
+            _minFillValue + ":" + 
+            maxValue + " - "  + 
+            BLevelsManager.Timer + " " +  BGeneralBoxController.Retributed + " :: " + percent
+            );
+        
+*/
 //        Debug.Log((1.0f - percent) +  " " + maxValue );
 
         _fillBar.fillAmount = Mathf.Max(0, (1.0f - percent));
@@ -59,7 +78,7 @@ public class BGeneralBox : MonoBehaviour
 
         ElapsedTimeToChangeText -= Time.deltaTime;
         if(ElapsedTimeToChangeText < 0){
-            ElapsedTimeToChangeText += 5f;
+            ElapsedTimeToChangeText += 2f;
             ActivateText();
         }
     }

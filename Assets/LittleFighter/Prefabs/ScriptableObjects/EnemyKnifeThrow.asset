@@ -12,16 +12,23 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 84bd9dc0310688d4e95b6183e791a436, type: 3}
   m_Name: EnemyKnifeThrow
   m_EditorClassIdentifier: 
-  Type: 0
-  MaxHealthPoints: 10
+  Type: 3
+  MaxHealthPoints: 3
   AdditionaHpPerLevel: 2
-  HitTimeDuration: 0.5
-  MoveTimeDuration: 0.5
+  Damage: 1
+  PointsAquire: 50
+  HitTimeDuration: 0.75
+  MoveTimeDuration: 6
   AttackTimeDuration: 0.5
   AttackHitboxActivationTime: 0.5
-  AttackPreparationTimeDelay: 0.5
+  AttackPreparationTimeDelay: 0.9
   AttackBreakTimeDelay: 0.5
-  hitSounds: []
-  hurtSounds: []
+  hitSounds:
+  - LittleFighter_LaskaDie
+  hurtSounds:
+  - LittleFighter_LaskaHurt
+  attackSounds:
+  - LittleFighter_LaskaShoot1
+  - LittleFighter_LaskaShoot2
   afterAttackSound: []
   beforeAttackSound: []

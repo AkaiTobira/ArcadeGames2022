@@ -40,5 +40,13 @@ public static class CUtils
         return null;
     }
 
+    public static void PrintContainer<T>(List<T> container){
+        string ss = "";
+        for(int i = 0; i < container.Count; i++) {
+            ss += i + ": " + container[i].ToString() + "\n";
+        }
+        Debug.Log(ss);
+    }
+
 
 }

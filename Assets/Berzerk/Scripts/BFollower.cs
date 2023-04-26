@@ -65,6 +65,7 @@ public class BFollower : ESM.SMC_4D<FollowerState>
 
                 ProcessMove(_inputs *  speedMultiplier);
                 
+                AudioSystem.PlaySample("Berzerk_Exterminator", 1, true);
             break;
         }
     }

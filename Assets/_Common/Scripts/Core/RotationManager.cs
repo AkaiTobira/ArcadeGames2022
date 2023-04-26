@@ -60,6 +60,7 @@ public class RotationManager : IActionManager<RotationAction>
             action.ActionDuration   = time;
             action.ElapsedTime      = 0;
             action.OnActionEnd      = OnEnd;
+            action.ActionID = actionCounter++;
             activeActions++;
             return;
         }
@@ -71,10 +72,12 @@ public class RotationManager : IActionManager<RotationAction>
                 ActionDuration = time,
                 ElapsedTime = 0,
                 Instance = toMove,
+                ActionID = actionCounter,
                 OnActionEnd = OnEnd
             }
         );
         activeActions++;
+        actionCounter++;
     }
 
     #region interfaces

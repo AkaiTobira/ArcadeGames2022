@@ -90,6 +90,8 @@ public class AudioSystem : MonoBehaviour
 	{
         if( string.IsNullOrEmpty(clipName) ) return;
 
+        Debug.Log(clipName);
+
         bool clipSelected = false;
         foreach( AudioTrack at in _musics){
             if( at._name == clipName){

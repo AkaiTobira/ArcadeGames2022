@@ -6,11 +6,12 @@ using TMPro;
 public enum GameType{
     NotLoaded,
     Asteroids,
-    DigDug,
+    DigDug2,
     Frogger,
     Berzerk,
     LittleFighter,
-    SpaceBase
+    SpaceBase,
+    Tunnel,
 }
 
 public static class HighScoreRanking{
@@ -21,14 +22,15 @@ public static class HighScoreRanking{
     private const int MAX_TIME   = 359999;
     private const int ZERO_POINT = 0;
 
-    private static Dictionary<GameType, bool> IsTimed = new Dictionary<GameType, bool>{
+    private static Dictionary<GameType, bool> _isTimed = new Dictionary<GameType, bool>{
         {GameType.NotLoaded, false},
         {GameType.Asteroids, false},
-        {GameType.DigDug, true},
+        {GameType.DigDug2, true},
         {GameType.Frogger, true},
         {GameType.Berzerk, false},
         {GameType.LittleFighter, false},
         {GameType.SpaceBase, false},
+        {GameType.Tunnel, false},
     };
 
     private static List<KeyValuePair<int, string>> _ranking = new List<KeyValuePair<int, string>>();
@@ -43,11 +45,15 @@ public static class HighScoreRanking{
             string playerName = PlayerPrefs.GetString( game.ToString() + "Rank_Name" + i.ToString(), "..........");
             int playerScore   = PlayerPrefs.GetInt   ( 
                 game.ToString() + "Rank_Score" + i.ToString(), 
-                IsTimed[_currentlyLoaded] ? MAX_TIME : ZERO_POINT);
+                _isTimed[_currentlyLoaded] ? MAX_TIME : ZERO_POINT);
 
             _ranking.Add(new KeyValuePair<int, string>(playerScore, playerName));
 //            Debug.Log(_ranking[i].Key + " " + _ranking[i].Value);
         }
+    }
+
+    public static bool IsTimed(GameType _type){
+        return _isTimed[_type];
     }
 
     public static void SaveRanking(){
@@ -71,7 +77,7 @@ public static class HighScoreRanking{
     }
 
     private static void SortRanking(){
-        if(IsTimed[_currentlyLoaded]) _ranking.Sort( (x, y) => {return x.Key - y.Key;});
+        if(_isTimed[_currentlyLoaded]) _ranking.Sort( (x, y) => {return x.Key - y.Key;});
         else _ranking.Sort( (x, y) => {return y.Key - x.Key;});
     }
 

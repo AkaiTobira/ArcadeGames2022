@@ -295,7 +295,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0.64058185, y: 0.24244788}
+  m_Offset: {x: 0.76999307, y: 0.40647125}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -306,7 +306,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 4.857801, y: 2.3501163}
+  m_Size: {x: 3.8225102, y: 1.2809353}
   m_EdgeRadius: 0
 --- !u!114 &6343875659394334563
 MonoBehaviour:
@@ -406,56 +406,55 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graphicals: {fileID: 5436822062880162173}
-  _animationFrameDuration: 0.12
+  _animationFrameDuration: 0.085
   _animations:
   - State: 0
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: be106ea4a4327ca40a855ecbaaef7d92, type: 3}
-      - {fileID: 21300000, guid: 1ff02ec62ccd8394ea06b5469d28b744, type: 3}
-      - {fileID: 21300000, guid: b5da192f28dc3d14684ecfecfde6a52d, type: 3}
-      - {fileID: 21300000, guid: a24afdb339935a04693e463cb4a2f8a0, type: 3}
+      - {fileID: 21300000, guid: 1c78182071c909d4aaf211c081f6df04, type: 3}
+      - {fileID: 21300000, guid: 849c09c376a81bb4a896df2bae4327ac, type: 3}
+      - {fileID: 21300000, guid: e74838eede53b864a9a719a5d0fd5b3f, type: 3}
+      - {fileID: 21300000, guid: 05885fd7e8be9ed45b2bc929c06d8ca0, type: 3}
     Looped: 1
     UseRightAsLeft: 1
   - State: 1
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: edcbb969bc1496f45a34509eb54af81c, type: 3}
-      - {fileID: 21300000, guid: 482dce0ef2fec7d49ae1836ad1f19b4a, type: 3}
-      - {fileID: 21300000, guid: 0392be655da37714aa58e159361def72, type: 3}
-      - {fileID: 21300000, guid: d5d67c4b94dd2ed409254da301a476b6, type: 3}
-      - {fileID: 21300000, guid: 4529c6729c7a358439ae1362d5151e5d, type: 3}
-      - {fileID: 21300000, guid: 14a26fc21709a0a42a299b5255199bb9, type: 3}
-      - {fileID: 21300000, guid: 31d110e63f8ea6b4088b4993c96161b9, type: 3}
-      - {fileID: 21300000, guid: 3aa6f76587fbee9428eb82f214db5e40, type: 3}
+      - {fileID: 21300000, guid: 75c72e7cb6e75a741add594dff515110, type: 3}
+      - {fileID: 21300000, guid: 0b8302f2318bd5240834cff4c70cfda0, type: 3}
+      - {fileID: 21300000, guid: d009332419142054388380912e711c83, type: 3}
+      - {fileID: 21300000, guid: 99b884189794e6746a310e5f7cd34b80, type: 3}
+      - {fileID: 21300000, guid: af091c02dde6adc4690696173fea741e, type: 3}
+      - {fileID: 21300000, guid: 422c705802423f34290edc04e9b95add, type: 3}
+      - {fileID: 21300000, guid: 78f5080a2b6ca0842b46f68fe1f29e9c, type: 3}
+      - {fileID: 21300000, guid: 312d8477a4992af44a2104cfa6d9f212, type: 3}
     Looped: 1
     UseRightAsLeft: 1
   - State: 2
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: 8a41a3457dcc69f479b9670bb8dbcc66, type: 3}
-      - {fileID: 21300000, guid: 5806cf37213b91b49911d28203751060, type: 3}
-      - {fileID: 21300000, guid: 3047e73df83ed6e47aa8272b46d0d353, type: 3}
-      - {fileID: 21300000, guid: 33955fb513478a9478a157c195807925, type: 3}
-      - {fileID: 21300000, guid: 3047e73df83ed6e47aa8272b46d0d353, type: 3}
-      - {fileID: 21300000, guid: 5806cf37213b91b49911d28203751060, type: 3}
-      - {fileID: 21300000, guid: 8a41a3457dcc69f479b9670bb8dbcc66, type: 3}
+      - {fileID: 21300000, guid: aae93263e374bfd4cbcd1c0a89543f2b, type: 3}
+      - {fileID: 21300000, guid: a2d35f2b153b8a3428bceb5c10a0b1bb, type: 3}
+      - {fileID: 21300000, guid: 71f33acdfa3668f48baa8c72cd606c5c, type: 3}
+      - {fileID: 21300000, guid: a2d35f2b153b8a3428bceb5c10a0b1bb, type: 3}
+      - {fileID: 21300000, guid: aae93263e374bfd4cbcd1c0a89543f2b, type: 3}
+      - {fileID: 21300000, guid: c688eca3f678119488b1129fae8ef861, type: 3}
+      - {fileID: 21300000, guid: 849c09c376a81bb4a896df2bae4327ac, type: 3}
     Looped: 0
     UseRightAsLeft: 1
   - State: 3
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: 9ad3e4f87caedb341be6e2ee44042b4e, type: 3}
-      - {fileID: 21300000, guid: 6ef6280d6c578bd4d9d234a836fe65a3, type: 3}
-      - {fileID: 21300000, guid: 851a75fd413638b408a32d2bb59fff09, type: 3}
-      - {fileID: 21300000, guid: a8519205aa6631042bbb4789ec3a3ebf, type: 3}
-      - {fileID: 21300000, guid: 6c0629dfa79b3ee45bdcf96442ac2743, type: 3}
-      - {fileID: 21300000, guid: a8519205aa6631042bbb4789ec3a3ebf, type: 3}
-      - {fileID: 21300000, guid: 851a75fd413638b408a32d2bb59fff09, type: 3}
+      - {fileID: 21300000, guid: b3f27224318ba3546ab79e22b4bc922c, type: 3}
+      - {fileID: 21300000, guid: c084066f9878d9d4095ebbe6c4dc27ab, type: 3}
+      - {fileID: 21300000, guid: be9484e3efe16164fa84ae1a342e6ed7, type: 3}
+      - {fileID: 21300000, guid: 15a4c4ebb878ec3468d144f4deb048c0, type: 3}
+      - {fileID: 21300000, guid: cb5a68fc5f24adc41b7c3e010d9759d7, type: 3}
+      - {fileID: 21300000, guid: be9484e3efe16164fa84ae1a342e6ed7, type: 3}
     Looped: 0
     UseRightAsLeft: 1
   - State: 4
@@ -468,32 +467,32 @@ MonoBehaviour:
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: a2abd63f9cf43ca4b8df3e593393bc64, type: 3}
-      - {fileID: 21300000, guid: 46683bcda260ccc408a59010c24b74ff, type: 3}
-      - {fileID: 21300000, guid: ac005de605733d542a1b16061fdb303b, type: 3}
-      - {fileID: 21300000, guid: 5e855837a17b34247aaab5ad593c1a75, type: 3}
-      - {fileID: 21300000, guid: 69885ce31819f294db4591f75b3cff13, type: 3}
-      - {fileID: 21300000, guid: 8e2d06b4f9119494084c4d07a75c0322, type: 3}
-      - {fileID: 21300000, guid: e0547778917cdb748b35815ba3f01aa4, type: 3}
-      - {fileID: 21300000, guid: aca025de628fc7a46b4735b9696b113d, type: 3}
+      - {fileID: 21300000, guid: da122bad09ca5a3428d389ca888ad53a, type: 3}
+      - {fileID: 21300000, guid: 00ef0f9e610e85f4fbbfa3be5f3ea5cd, type: 3}
+      - {fileID: 21300000, guid: 77d6b9eedcdb69e499228a09b9098bbf, type: 3}
+      - {fileID: 21300000, guid: 046b19a556b11294faada0c26b1724f5, type: 3}
+      - {fileID: 21300000, guid: 83aaeb82837ea784e81aa02d038120fc, type: 3}
+      - {fileID: 21300000, guid: 5082791864b5c724294705a1f983ca95, type: 3}
+      - {fileID: 21300000, guid: 82fe7bab502cdd745bb6ce4a93234848, type: 3}
+      - {fileID: 21300000, guid: 16674c884fef1094fb1ee953f0097901, type: 3}
     Looped: 0
     UseRightAsLeft: 1
   - State: 6
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: 5cb495d977c48d6439050109b0b484c2, type: 3}
-      - {fileID: 21300000, guid: 078becb65e48b444985831122331e8ec, type: 3}
-      - {fileID: 21300000, guid: e7c5ab808e9ea4142968341a1d0d6476, type: 3}
-      - {fileID: 21300000, guid: 64b65dbd79a9b2c489079c982fe58679, type: 3}
+      - {fileID: 21300000, guid: b9a872a231781a94295ee00977416066, type: 3}
+      - {fileID: 21300000, guid: cecfa548f6726414caee812b8d47fcb8, type: 3}
+      - {fileID: 21300000, guid: 57fec8efa2f14fd4ba0460d050052d63, type: 3}
+      - {fileID: 21300000, guid: c151b6c0ef7351947a45691c932ba89f, type: 3}
     Looped: 0
     UseRightAsLeft: 1
   - State: 7
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: e7c5ab808e9ea4142968341a1d0d6476, type: 3}
-      - {fileID: 21300000, guid: 64b65dbd79a9b2c489079c982fe58679, type: 3}
+      - {fileID: 21300000, guid: 57fec8efa2f14fd4ba0460d050052d63, type: 3}
+      - {fileID: 21300000, guid: c151b6c0ef7351947a45691c932ba89f, type: 3}
     Looped: 1
     UseRightAsLeft: 1
   _moveSpeed: 2.5
@@ -560,7 +559,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 1, y: 1}
-  m_SizeDelta: {x: 8, y: 8}
+  m_SizeDelta: {x: 12, y: 12}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5436822062880162162
 CanvasRenderer:
@@ -590,7 +589,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 5671f9baf380d8249a7685b019e59103, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 1c78182071c909d4aaf211c081f6df04, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

@@ -653,6 +653,7 @@ GameObject:
   - component: {fileID: 6968140818001962147}
   - component: {fileID: 6968140818001962146}
   - component: {fileID: 27824077068476493}
+  - component: {fileID: 2265298764580917413}
   m_Layer: 0
   m_Name: Managers
   m_TagString: Untagged
@@ -778,6 +779,8 @@ MonoBehaviour:
   - {fileID: 6968140817585212888}
   - {fileID: 6968140817439992197}
   - {fileID: 6968140817726755593}
+  - {fileID: 6968140818850735977}
+  - {fileID: 6968140818350259314}
   _clips:
   - _name: Frogger_Move
     _clip: {fileID: 8300000, guid: 6d6a9fdb4d665e94db76f4b028ab88fe, type: 3}
@@ -950,7 +953,7 @@ MonoBehaviour:
     TargetVolume: 0
     Pitch: 0
   - _name: LittleFighter_Heal
-    _clip: {fileID: 8300000, guid: be63a528d5a60464081c39f97079e310, type: 3}
+    _clip: {fileID: 8300000, guid: 96e8ec3bdc2879e4aaa22123b7da8683, type: 3}
     Volume: 0
     TargetVolume: 0
     Pitch: 0
@@ -981,6 +984,96 @@ MonoBehaviour:
     Pitch: 0
   - _name: LittleFighter_RuraAttack
     _clip: {fileID: 8300000, guid: d0d2b813b34dc934baf3bf59a1de1ebe, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: Berzerk_EnemyDead
+    _clip: {fileID: 8300000, guid: 139cb9a71225f7e4e8b25ba3172833e5, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: Berzerk_Exterminator
+    _clip: {fileID: 8300000, guid: 86d37ee2b585e8248903771e20cd8fac, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: Berzerk_PlayerDead
+    _clip: {fileID: 8300000, guid: 38ac7bdf5365f9b4d8e92038c6fdef42, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: Berzerk_Shoot1
+    _clip: {fileID: 8300000, guid: 57286fdc40fe631448f9f2f5d0a92372, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: Berzerk_Shoot2
+    _clip: {fileID: 8300000, guid: 6b5d0ffea7da3fa41be6ea2ba95f55c2, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: Berzerk_Shoot3
+    _clip: {fileID: 8300000, guid: c9b80035f4add0d4c8f171b64b6f5fd8, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_LaskaDie
+    _clip: {fileID: 8300000, guid: e9ea86e9697d12148bbf4fea2625728e, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_LaskaHurt
+    _clip: {fileID: 8300000, guid: 03d78d4fd7a625845b483df058e04442, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_LaskaShoot1
+    _clip: {fileID: 8300000, guid: 53de5c81e22bd674aa6f134fd82e1826, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_LaskaShoot2
+    _clip: {fileID: 8300000, guid: 209d645d34d02ee40968bf5379e10906, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_GameOver
+    _clip: {fileID: 8300000, guid: 96d034f51ca41e1499b3f6f631a79a8a, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_GetReady
+    _clip: {fileID: 8300000, guid: b0ee3016057d06048ab3c8385efe5e15, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: LittleFighter_Fight
+    _clip: {fileID: 8300000, guid: 5b2e8d05b0b25f14aae9ee60b42784aa, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: SpaceBase_GunB
+    _clip: {fileID: 8300000, guid: 3bb17f49d5128b945b609534f369a166, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: SpaceBase_GunP
+    _clip: {fileID: 8300000, guid: b18e595819fe038439a9747e872f89bf, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: SpaceBase_GunE
+    _clip: {fileID: 8300000, guid: aa5b2f03fa906da48a5f650440c800c5, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: SpaceBase_Explode
+    _clip: {fileID: 8300000, guid: de15414c622134f4d882c92d7f4ea851, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: Tunnel_Explode
+    _clip: {fileID: 8300000, guid: d7dc16c589dba1b418dc4933914d0246, type: 3}
     Volume: 0
     TargetVolume: 0
     Pitch: 0
@@ -1024,6 +1117,36 @@ MonoBehaviour:
     Pitch: 0
   - _name: LittleFighter_BG1
     _clip: {fileID: 8300000, guid: 0acd87116f8eaa44d9d80eb63740a366, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: Berzerk_BG
+    _clip: {fileID: 8300000, guid: 317ca65a5f09d584fb39f3dc6cda7587, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: Berzerk_BG1
+    _clip: {fileID: 8300000, guid: 309f06b2e279e874abf640b79d113ab4, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: Tunnel_BG
+    _clip: {fileID: 8300000, guid: 59c16ebe57fed9b469de16a86f2f972e, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: SpaceBase_BG
+    _clip: {fileID: 8300000, guid: e7dc93a39ba589c49aea04e02092cc88, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: SpaceBase_BG1
+    _clip: {fileID: 8300000, guid: a200425e0eb08c64c9a134c11c3e5d83, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: Tunnel_BG1
+    _clip: {fileID: 8300000, guid: 3faf2cff9df9ae644aeec70a745722a6, type: 3}
     Volume: 0
     TargetVolume: 0
     Pitch: 0
@@ -1134,6 +1257,18 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: afbbca7361a692545be27446c9fe84ee, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+--- !u!114 &2265298764580917413
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 6968140818001962153}
+  m_Enabled: 0
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 90a89f9aacfc8664faf51a27f1a6ff4d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
 --- !u!1 &6968140818350259316

@@ -10,6 +10,9 @@ public class SceneLoader : MonoBehaviour
     public void OnSceneLoad(bool playSound = false){
         if(playSound) AudioSystem.Instance.PlayEffect("Button", 1);
         SceneManager.LoadScene(SceneFlowController.GetNextScene(sceneFlowIndex));
+
+
+        Debug.Log("OnSceneLoad() :: " + SceneFlowController.GetNextScene(sceneFlowIndex));
     }
 
     IEnumerator LoadGameScene()
@@ -34,5 +37,7 @@ public class SceneLoader : MonoBehaviour
         //TimersManager.Instance.FireAfter(1.5f, () => {
             StartCoroutine(LoadGameScene());
         //});
+
+        Debug.Log("OnSceneLoadAsync() :: " + SceneFlowController.GetNextScene(sceneFlowIndex));
     }
 }

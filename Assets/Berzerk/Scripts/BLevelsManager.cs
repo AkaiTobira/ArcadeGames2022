@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using TMPro;
 
 //Must align with inspector
@@ -16,6 +17,7 @@ public class BLevelsManager : MonoBehaviour, IListenToGameplayEvents
 {
     public static int CurrentLevel = 1;
     public static float Timer = 0;
+    public static float TimerAddtional = 0;
     public static int Points = 0;
 
     private static Dictionary<BExitIndex, BExitIndex> _reverse = new Dictionary<BExitIndex, BExitIndex>{
@@ -35,10 +37,14 @@ public class BLevelsManager : MonoBehaviour, IListenToGameplayEvents
     [SerializeField] private BLevel _level;
     [SerializeField] private BFollower _follower;
     [SerializeField] private GameObject[] _playerLives;
+    [SerializeField] private Image _background;
+    [SerializeField] private Sprite[] _backgrounds;
     [SerializeField] private TextMeshProUGUI _score;
     [SerializeField] private SceneLoader _outro;
 
     private BExitIndex _followerStart = BExitIndex.Left;
+
+    private int _backgroundID = -1;
 
     public void OnGameEvent(GameplayEvent gEvent){
         if(gEvent.type == GameplayEventType.SpawnFollower){
@@ -50,6 +56,7 @@ public class BLevelsManager : MonoBehaviour, IListenToGameplayEvents
     private void Awake() {
         _instance = this;
         CurrentLevel = 1;
+        PointsCounter.Score = 0;
 
         Points = 0;
         HighScoreRanking.LoadRanking(GameType.Berzerk);
@@ -57,6 +64,7 @@ public class BLevelsManager : MonoBehaviour, IListenToGameplayEvents
         LockExit(BExitIndex.None_Max);
         _follower.SetActive(false);
         Events.Gameplay.RegisterListener(this, GameplayEventType.SpawnFollower);
+        UpdateLives();
     }
 
     private void LockExit(BExitIndex index){
@@ -82,6 +90,7 @@ public class BLevelsManager : MonoBehaviour, IListenToGameplayEvents
             return;
         }
 
+        PointsCounter.Score = Points;
         HighScoreRanking.TryAddNewRecord(Points);
         _outro.OnSceneLoad();
     }
@@ -92,10 +101,10 @@ public class BLevelsManager : MonoBehaviour, IListenToGameplayEvents
         }
     }
 
-
     private void ChangeLevelInternal(BExitIndex walkedBy){
         CurrentLevel++;
-        Timer = Mathf.Min(CurrentLevel/2.0f, 5f); 
+        TimerAddtional = Mathf.Min(CurrentLevel/2.0f, 5f); 
+        Timer = TimerAddtional;
         _level.SelectRandomLevel();
 
         LockExit(_reverse[walkedBy]);
@@ -103,10 +112,14 @@ public class BLevelsManager : MonoBehaviour, IListenToGameplayEvents
         _followerStart = _reverse[walkedBy];
         _follower.SetActive(false);
 
+        int bakcgrounId = Random.Range(0, _backgrounds.Length);
+        while(bakcgrounId == _backgroundID) bakcgrounId = Random.Range(0, _backgrounds.Length);
+        _background.sprite = _backgrounds[bakcgrounId];
+        _backgroundID = bakcgrounId;
+
         _enemies.SpawnEnemies();
         BGeneralBoxController.Instance.Setup();
     }
-
 
     public static void ChangeLevel(BExitIndex walkedBy){
         if(Guard.IsValid(_instance)) _instance.ChangeLevelInternal(walkedBy);

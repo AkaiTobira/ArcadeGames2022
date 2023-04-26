@@ -39,7 +39,7 @@ public class GameOverActivator : MonoBehaviour, IListenToGameplayEvents
                     
 
                     AudioSystem.Instance.PlayEffect("DigDug_Victory", 1);
-                    HighScoreRanking.LoadRanking(GameType.DigDug);
+                    HighScoreRanking.LoadRanking(GameType.DigDug2);
                     DigDugPlayedMaps.LockMap(LevelManager.SelectedLevel);
                     Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.SpamWithWindow));
                     /*
