@@ -5,6 +5,56 @@ using UnityEditor;
 
 public static partial class CBuild{
 #if UNITY_EDITOR
+	[MenuItem("Build/Rebuild StandaloneLinux64/AllForOne")]
+	public static void BuildAllForOneStandaloneLinux64(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildGame(Game.AllForOne, BuildTargetGroup.Standalone, BuildTarget.StandaloneLinux64);
+		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneLinux64);
+	}
+
+	[MenuItem("Build/Rebuild StandaloneWindows/AllForOne")]
+	public static void BuildAllForOneStandaloneWindows(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildGame(Game.AllForOne, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows);
+	}
+
+	[MenuItem("Build/Rebuild StandaloneWindows64/AllForOne")]
+	public static void BuildAllForOneStandaloneWindows64(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildGame(Game.AllForOne, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
+		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows64);
+	}
+
+	[MenuItem("Build/Rebuild WebGL/AllForOne")]
+	public static void BuildAllForOneWebGL(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildGame(Game.AllForOne, BuildTargetGroup.WebGL, BuildTarget.WebGL);
+		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.WebGL);
+	}
+
+	[MenuItem("Build/Rebuild Android/AllForOne")]
+	public static void BuildAllForOneAndroid(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildGame(Game.AllForOne, BuildTargetGroup.Android, BuildTarget.Android);
+		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.Android);
+	}
+
 	[MenuItem("Build/Rebuild StandaloneLinux64/Asteroids")]
 	public static void BuildAsteroidsStandaloneLinux64(){
 		FillScenes();

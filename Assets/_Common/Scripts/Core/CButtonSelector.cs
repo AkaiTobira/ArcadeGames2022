@@ -5,12 +5,22 @@ using UnityEngine;
 public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
 {
     [SerializeField] CButton[] _buttons;
+    [SerializeField] int _numberInRow = 1;
     [SerializeField] bool _isVertical = true;
+    [SerializeField] bool _isHorizontal = true;
 
     int _activeButton;
     float _reReadTime = 0.2f;
     float _elapsedTime = 0;
     float _elapsedTime1 = 0;
+
+    enum EDirection{
+        None,
+        Vertical,
+        Horizontal
+    }
+
+    EDirection _directon = EDirection.None;
 
     public void OnGameEvent(GameplayEvent gameplayEvent){
 
@@ -43,31 +53,76 @@ public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
         RemoveInactiveButtons();
 
         TimersManager.Instance.FireAfter( 0.3f, () => {
-            Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.ButtonOvervieved, _buttons[_activeButton]));
+
+            if(Guard.IsValid(this)){
+                Events.Gameplay.RiseEvent(
+                    new GameplayEvent(GameplayEventType.ButtonOvervieved, _buttons[_activeButton]));
+
+            }
 
     //        _buttons[0].ForceState(CButton.ButtonState.Hovered);
         });
 
     }
 
-    private float GetDirection(){
-        return  _isVertical ? Input.GetAxisRaw("Vertical") : Input.GetAxisRaw("Horizontal");
-    }
 
+
+    private void ProcessTransverseMove(){
+        if(_buttons.Length == 1) {
+            if(Input.GetAxisRaw("Vertical") + Input.GetAxisRaw("Horizontal") != 0){
+                Events.Gameplay.RiseEvent(
+                    new GameplayEvent(
+                        GameplayEventType.ButtonOvervieved, 
+                        _buttons[0]));
+            }
+            return;
+        }
+
+        float verticalChange = Input.GetAxisRaw("Vertical");
+        if(_elapsedTime <= 0 && Mathf.Abs(verticalChange) > 0.3f && _isVertical){
+            _elapsedTime = _reReadTime;
+
+            _activeButton = (
+                _activeButton - 
+                ((int)Mathf.Sign(verticalChange) * _numberInRow) + _buttons.Length)%(_buttons.Length);
+            
+            Events.Gameplay.RiseEvent(
+                new GameplayEvent(
+                    GameplayEventType.ButtonOvervieved, 
+                    _buttons[_activeButton]));
+
+            return;
+        }
+
+        float horizontalChange = Input.GetAxisRaw("Horizontal");
+        if(_elapsedTime <= 0 && Mathf.Abs(horizontalChange) > 0.3f && _isHorizontal){
+            _elapsedTime = _reReadTime;
+
+            _activeButton = (
+                _activeButton + 
+                ((int)Mathf.Sign(horizontalChange))+ _buttons.Length)%(_buttons.Length);
+
+
+            Events.Gameplay.RiseEvent(
+                new GameplayEvent(
+                    GameplayEventType.ButtonOvervieved, 
+                    _buttons[_activeButton]));
+
+        }
+
+
+
+
+
+
+    }
 
 
     void Update()
     {
-        float verticalChange = GetDirection();
         _elapsedTime  -= Time.deltaTime;
         _elapsedTime1 -= Time.deltaTime;
-        if(_elapsedTime <= 0 && Mathf.Abs(verticalChange) > 0.3f) {
-            _elapsedTime = _reReadTime;
-            _activeButton = (_activeButton - ((int)Mathf.Sign(verticalChange)) + _buttons.Length)%(_buttons.Length);
-            Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.ButtonOvervieved, _buttons[_activeButton]));
-
-//            Debug.Log(_buttons[_activeButton].name + " Selected");
-        }
+        ProcessTransverseMove();
 
         if(_elapsedTime1 > 0) return;
         if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.KeypadEnter)) {

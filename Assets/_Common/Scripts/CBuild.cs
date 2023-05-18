@@ -21,6 +21,7 @@ public static partial class CBuild
         SpaceBase,
         Four1,
         Tunnel,
+        AllForOne,
 
         MAX,
     }
@@ -44,6 +45,7 @@ public static partial class CBuild
 
     private static void FillScenes(){
         _scenes[Game.Asteroids] = new string[] {
+            "Assets/_Common/EOutro.unity",
             "Assets/_Common/Intro.unity",
             _paths[Game.Asteroids] + "Asteroids.unity",
             _paths[Game.Asteroids] + "AsteroidsIntro.unity",
@@ -51,6 +53,7 @@ public static partial class CBuild
             _paths[Game.Asteroids] + "AsteroidsOutro.unity",
         };
         _scenes[Game.Berzerk]   = new string[] {
+            "Assets/_Common/EOutro.unity",
             "Assets/_Common/Intro1.unity",
             _paths[Game.Berzerk] + "Berzerk.unity",
             _paths[Game.Berzerk] + "BerzerkIntro.unity",
@@ -58,6 +61,7 @@ public static partial class CBuild
             _paths[Game.Berzerk] + "BerzerkOutro.unity",
         };
         _scenes[Game.DigDug2]    = new string[] {
+            "Assets/_Common/EOutro.unity",
             "Assets/_Common/Intro.unity",
             _paths[Game.DigDug2] + "DigDug2.unity",
             _paths[Game.DigDug2] + "DigDug2Intro.unity",
@@ -65,6 +69,7 @@ public static partial class CBuild
             _paths[Game.DigDug2] + "DigDug2Outro.unity",
         };
         _scenes[Game.Frogger]   = new string[] {
+            "Assets/_Common/EOutro.unity",
             "Assets/_Common/Intro.unity",
             _paths[Game.Frogger] + "Frogger.unity",
             _paths[Game.Frogger] + "FroggerIntro.unity",
@@ -73,6 +78,7 @@ public static partial class CBuild
             _paths[Game.Frogger] + "FroggerOutro1.unity",
         };
         _scenes[Game.Three1]  = new string[] {
+            "Assets/_Common/EOutro.unity",
             "Assets/_Common/Intro.unity",
             "Assets/_Common/GameSelect.unity",
             _paths[Game.Asteroids] + "Asteroids.unity",
@@ -90,6 +96,7 @@ public static partial class CBuild
             _paths[Game.Frogger] + "FroggerOutro1.unity",
         };
         _scenes[Game.LittleFighter]   = new string[] {
+            "Assets/_Common/EOutro.unity",
             "Assets/_Common/Intro1.unity",
             _paths[Game.LittleFighter] + "LittleFighter.unity",
             _paths[Game.LittleFighter] + "LittleFighterIntro.unity",
@@ -97,6 +104,7 @@ public static partial class CBuild
             _paths[Game.LittleFighter] + "LittleFighterOutro.unity",
         };
         _scenes[Game.SpaceBase]   = new string[] {
+            "Assets/_Common/EOutro.unity",
             "Assets/_Common/Intro1.unity",
             _paths[Game.SpaceBase] + "SpaceBase.unity",
             _paths[Game.SpaceBase] + "SpaceBaseIntro.unity",
@@ -105,6 +113,7 @@ public static partial class CBuild
         };
         _scenes[Game.Four1] = new string[]{
             "Assets/_Common/Intro1.unity",
+            "Assets/_Common/EOutro.unity",
             "Assets/_Common/GameSelect2.unity",
             _paths[Game.LittleFighter] + "LittleFighter.unity",
             _paths[Game.LittleFighter] + "LittleFighterIntro.unity",
@@ -125,10 +134,45 @@ public static partial class CBuild
         };
         _scenes[Game.Tunnel]   = new string[] {
             "Assets/_Common/Intro1.unity",
+            "Assets/_Common/EOutro.unity",
             _paths[Game.Tunnel] + "Tunnel.unity",
             _paths[Game.Tunnel] + "TunnelIntro.unity",
             _paths[Game.Tunnel] + "TunnelMain.unity",
             _paths[Game.Tunnel] + "TunnelOutro.unity",
+        };
+        _scenes[Game.AllForOne] = new string[]{
+            "Assets/_Common/Intro1.unity",
+            "Assets/_Common/EOutro.unity",
+            "Assets/_Common/GameSelect3.unity",
+            _paths[Game.LittleFighter] + "LittleFighter.unity",
+            _paths[Game.LittleFighter] + "LittleFighterIntro.unity",
+            _paths[Game.LittleFighter] + "LittleFighterMain.unity",
+            _paths[Game.LittleFighter] + "LittleFighterOutro.unity",
+            _paths[Game.SpaceBase] + "SpaceBase.unity",
+            _paths[Game.SpaceBase] + "SpaceBaseIntro.unity",
+            _paths[Game.SpaceBase] + "SpaceBaseMain.unity",
+            _paths[Game.SpaceBase] + "SpaceBaseOutro.unity",
+            _paths[Game.Berzerk] + "Berzerk.unity",
+            _paths[Game.Berzerk] + "BerzerkIntro.unity",
+            _paths[Game.Berzerk] + "BerzerkMain.unity",
+            _paths[Game.Berzerk] + "BerzerkOutro.unity",
+            _paths[Game.Tunnel] + "Tunnel.unity",
+            _paths[Game.Tunnel] + "TunnelIntro.unity",
+            _paths[Game.Tunnel] + "TunnelMain.unity",
+            _paths[Game.Tunnel] + "TunnelOutro.unity",
+            _paths[Game.Asteroids] + "Asteroids.unity",
+            _paths[Game.Asteroids] + "AsteroidsIntro.unity",
+            _paths[Game.Asteroids] + "AsteroidsMain.unity",
+            _paths[Game.Asteroids] + "AsteroidsOutro.unity",
+            _paths[Game.DigDug2] + "DigDug2.unity",
+            _paths[Game.DigDug2] + "DigDug2Intro.unity",
+            _paths[Game.DigDug2] + "DigDug2Main.unity",
+            _paths[Game.DigDug2] + "DigDug2Outro.unity",
+            _paths[Game.Frogger] + "Frogger.unity",
+            _paths[Game.Frogger] + "FroggerIntro.unity",
+            _paths[Game.Frogger] + "FroggerMain.unity",
+            _paths[Game.Frogger] + "FroggerOutro.unity",
+            _paths[Game.Frogger] + "FroggerOutro1.unity",
         };
     }
 
@@ -142,6 +186,7 @@ public static partial class CBuild
         _directives[Game.LittleFighter] = new string[] {"LITTLE_FIGHTER_GAME"};
         _directives[Game.SpaceBase] = new string[] {"SPACE_BASE_GAME"};
         _directives[Game.Tunnel] = new string[] {"TUNNEL_GAME"};
+        _directives[Game.AllForOne] = new string[] { "ALL_GAMES" };
 
         _buildConfigs[BuildTarget.StandaloneLinux64] = BuildTargetGroup.Standalone;
         _buildConfigs[BuildTarget.StandaloneWindows] = BuildTargetGroup.Standalone;

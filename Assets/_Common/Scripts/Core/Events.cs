@@ -16,6 +16,7 @@ public enum GameplayEventType{
     SpamWithWindow,
     SpawnFollower,
     RecolorPlayer,
+    ReverseAnimation, //sick idea of client
 }
 
 public static class Events{

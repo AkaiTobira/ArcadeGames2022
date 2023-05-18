@@ -145,7 +145,7 @@ public class T_SegmentSpawner : MonoBehaviour
                 1
             );
 
-        if(targetColor.r < 0.1f && targetColor.g < 0.1f && targetColor.b < 0.1f){
+        if(targetColor.r < 0.25f && targetColor.g < 0.25f && targetColor.b < 0.25f){
             targetColor = Color.magenta;
         }
 

@@ -31806,7 +31806,20 @@ MonoBehaviour:
       - {fileID: 21300000, guid: ab4de88826cab1347918cf9c5e259440, type: 3}
     Looped: 1
     UseRightAsLeft: 1
-  _moveSpeed: 1
+  - State: 1
+    Sprites:
+    - Side: 2
+      Frames:
+      - {fileID: 21300000, guid: 2c391b5edb7ef6546a5e7504cea0ca3b, type: 3}
+    - Side: 4
+      Frames:
+      - {fileID: 21300000, guid: 6df5f9b21332617428fac31dcf1bd9db, type: 3}
+    - Side: 3
+      Frames:
+      - {fileID: 21300000, guid: ab4de88826cab1347918cf9c5e259440, type: 3}
+    Looped: 1
+    UseRightAsLeft: 1
+  _moveSpeed: 3
   _mirrorSprites: 0
   rayPoints:
   - {fileID: 2053864916}

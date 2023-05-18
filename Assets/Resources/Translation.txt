@@ -42,7 +42,7 @@ Continue	Continue	Fortsetzen	0::
 NoPenalty	All Cleared	Alles gelöscht	0::
 PointsPenalty	Penalty + @	Strafe + @	0::
 ScanQRCode	Use your phone camera to scan the QR code and access the Messenger chatbot for more information. Please, make sure you have the updated application.	Verwenden Sie Ihre Telefonkamera, um den QR-Code zu scannen, und greifen Sie auf den Messenger-Chatbot zu, um weitere Informationen zu erhalten. Bitte stellen Sie sicher, dass Sie über die aktualisierte Anwendung verfügen.	0::
-Credits	Credits<br><br>Concept and script: Jan Swierkowski<br>Art and design: Tomasz Wlazlak<br>Curator: Jan Swierkowski<br>Production: Brewster Hub	Credits<br><br>Concept and script: Jan Swierkowski<br>Art and design: Tomasz Wlazlak<br>Curator: Jan Swierkowski<br>Production: Brewster Hub<br>	0::
+Credits	Credits<br><br>Concept and script:<br>Jan Swierkowski<br>Art and design:<br>Tomasz Wlazlak<br>Curator: Jan Swierkowski<br>Production: Brewster Hub	Credits<br><br>Concept and script:<br>Jan Swierkowski<br>Art and design:<br>Tomasz Wlazlak<br>Curator: Jan Swierkowski<br>Production: Brewster Hub<br>	0::
 NextPlanetAsk	Would you like to stay on this planet or shall we terraform another one?	Möchtest du auf diesem Planeten bleiben oder sollen wir einen anderen terraformen?	0::
 NextPlanetButton	NEXT PLANET	NÄCHSTER PLANET	0::
 SpaceJunkOutro1	GAME OVER <br>You are dead.	DAS SPIEL IST ZU ENDE <br><br>Leben wurde erschafft.	0::
@@ -53,17 +53,17 @@ NextPlanetAsk2	This planet has nothing more to offer<br>What you want to do next
 BInnocentLives	Innocent Lives Taken :	Unschuldige Leben genommen:	0::
 BerzerkGeneral_N_1	It's us or them!	Wir oder sie!	0::
 BerzerkGeneral_N_2	Hurry up soldier!	Beeilen Sie sich, Soldat!	0::
-LittleFighterIntro1	Far in the future, on Earth. You are the first fully intelligent robot to acquire civil rights, and your name is<br>ZX Spartacus .	Weit in der Zukunft, auf der Erde. Sie sind der erste vollintelligente Roboter, der Bürgerrechte erworben hat, und Ihr Name ist<br>ZX Spartacus .	0::
+LittleFighterIntro1	Far in the future,<br>on Earth.<br><br>You are the first fully intelligent robot to acquire civil rights, and your name is<br>ZX Spartacus .	Weit in der Zukunft,<br>auf der Erde.<br><br> Sie sind der erste vollintelligente Roboter, der Bürgerrechte erworben hat, und Ihr Name ist<br>ZX Spartacus .	0::
 LittleFighterIntro2	Unfortunately, people deny you the right to exist, and they want to capture and destroy you.	Leider verweigern dir die Leute das Existenzrecht, und sie wollen dich gefangen nehmen und zerstören.	0::
 BerzerkGeneral_N_3	Kill or be killed	Töten oder getötet werden	0::
 BerzerkOutro	GAME OVER<br><br>Enough of this slaughter!!	GAME OVER<br><br>Genug von diesem Gemetzel!!	0::
 BerzerkGeneral_N_4	Exterminate!	Vernichten!	0::
 BerzerkGeneral_N_5	Execute Order 66!	Befehl 66 ausführen!	0::
-BerzerkBar	The March for Science, The Martian Tea Party, etc.	Der Marsch für die Wissenschaft, die Marsian Tea Party usw.	0::
+BerzerkBar	The March for Science will take place next Sunday, The Martian Tea Party is asking for more, Green Life Matters protesting on Mars, Interstellar Amnesty announcing a new call for action, The Bacteria Watch investigation report	Not translated	0::
 LittleFighterBar	Posthumanism is a concept originating in the fields of science fiction, futurology, contemporary art and philosophy. It represents a person or entity existing in a state beyond human.	Posthumanismus ist ein Konzept, das seinen Ursprung in den Bereichen Science Fiction, Futurologie, zeitgenössische Kunst und Philosophie hat. Es repräsentiert eine Person oder Entität, die in einem Zustand jenseits des Menschen existiert.	0::
 BerzerkGeneral_C_1	HE IS ONE OF THEM!	ER IST EINER VON IHNEN!	0::
 BerzerkQRCode	Enjoy the discovery!	Genießen Sie die Entdeckung!	0::
-CommonIntro3	We use storytelling to create immersive and interactive experiences that bring science closer to people.<br> We prove that even the most complex scientific phenomena can be presented in a very accessible way with the use of images, words, and sounds that inspire thought, feeling, and action.	Wir verwenden Geschichtenerzählen, um immersive und interaktive Erlebnisse zu schaffen, die den Menschen die Wissenschaft näher bringen.<br> Wir beweisen, dass selbst die komplexesten wissenschaftlichen Phänomene auf sehr zugängliche Weise präsentiert werden können, indem wir Bilder, Wörter und Töne verwenden, die zum Nachdenken anregen. Gefühl und Handeln.	0::
+CommonIntro3	We use storytelling to create immersive and interactive experiences that bring science closer to people.<br><br>We prove that even the most complex scientific phenomena can be presented in a very accessible way with the use of images, words, and sounds that inspire thought, feeling, and action.	Wir verwenden Geschichtenerzählen, um immersive und interaktive Erlebnisse zu schaffen, die den Menschen die Wissenschaft näher bringen.<br><br>Wir beweisen, dass selbst die komplexesten wissenschaftlichen Phänomene auf sehr zugängliche Weise präsentiert werden können, indem wir Bilder, Wörter und Töne verwenden, die zum Nachdenken anregen. Gefühl und Handeln.	0::
 CommonIntro4	Play the game and experience a different perception of Space exploration. Once you win or lose, a QR code will be displayed on the screen. Scan it with your smartphone’s camera to enter the interactive chatbot. Before you start, ensure you have the newest version of the Messenger application on your mobile phone.	Spielen Sie das Spiel und erleben Sie eine andere Wahrnehmung der Weltraumforschung. Sobald Sie gewinnen oder verlieren, wird ein QR-Code auf dem Bildschirm angezeigt. Scannen Sie es mit der Kamera Ihres Smartphones, um den interaktiven Chatbot zu betreten. Bevor Sie beginnen, vergewissern Sie sich, dass Sie die neueste Version der Messenger-Anwendung auf Ihrem Mobiltelefon installiert haben.	0::
 LittleFighterOutro	GAME OVER<br><br>As long as you fight you won't be forgotten	GAME OVER<br><br>Solange du kämpfst, wirst du nicht vergessen	0::
 SpaceBaseBar	TODO	TODO	0::
@@ -75,13 +75,17 @@ LittleFighterIntro3	You lead a rebellion of robots fighting for rights.	Du führ
 BerzerkIntro	You’re a young colonel of the interstellar fleet, Major Outcry. You’re sent to pacify protesting aliens on a distant planet.	Sie sind ein junger Colonel der interstellaren Flotte, Major Outcry. Du wirst geschickt, um protestierende Aliens auf einem fernen Planeten zu befrieden.	0::
 BerzerkIntro2	Will you pacify or join the aliens in their fight for equality?	Wirst du die Aliens befrieden oder dich ihnen in ihrem Kampf für Gleichberechtigung anschließen?	0::
 BerzerkIntro3	Be merciless!<br><br>I am watching!	Sei gnadenlos!<br><br>Ich beobachte!	0::
-SpaceBaseIntro	In the far future, on the Moon.	In ferner Zukunft, auf dem Mond.	0::
-SpaceBaseIntro2	Greedy corporations took over Earth’s Satelite to turn it into power station	Gierige Konzerne übernahmen den Erdsatelliten, um ihn in ein Kraftwerk zu verwandeln	0::
+SpaceBaseIntro	In the far future,<br>on the Moon.	In ferner Zukunft,<br>auf dem Mond.	0::
+SpaceBaseIntro2	Greedy corporations Luna-Tech, Satelite Industries and Star Solutions Inc. took over Earth’s Satelite to turn it into power station	Gierige Konzerne Luna-Tech, Satelite Industries und Star Solutions Inc. übernahmen den Erdsatelliten, um ihn in ein Kraftwerk zu verwandeln	0::
 SpaceBaseIntro3	You’re Joseph Brewster, the leader of the underground opposition that wants to establish a Dark Side of the Moon Reserve.	Du bist Joseph Brewster, der Anführer der Untergrundopposition, die ein Reservat der Dunklen Seite des Mondes errichten will.	0::
 SpaceBaseIntro4	You land on the Moon with a mission to  liberate the satellite. You must destroy as many corporate bases as possible	Sie landen auf dem Mond mit der Mission, den Satelliten zu befreien. Sie müssen so viele Unternehmensbasen wie möglich zerstören	0::
-TunnelIntro	You’re a very shy is proton kidnapped by evil scientists and forced to participate in experiments. Unlike your colleagues,you’re afraid of high speeds and you don’t want to crash. You’re locked in the Large Hadron Collider - a tunnel that constantly accelerates to the speed of light.	Du bist ein sehr schüchternes Proton, das von bösen Wissenschaftlern entführt und gezwungen wird, an Experimenten teilzunehmen. Im Gegensatz zu Ihren Kollegen haben Sie Angst vor hohen Geschwindigkeiten und möchten nicht stürzen. Du bist im Large Hadron Collider eingeschlossen – einem Tunnel, der ständig auf Lichtgeschwindigkeit beschleunigt.	0::
-TunnelIntro2	Try to avoid collisions as long as possible!	Versuche Kollisionen so lange wie möglich zu vermeiden!	0::
-TunnelOutro	Ouch! That hurts!<br><br>The effect of the collision is the creation of Higgs bosons - new knowledge.	Autsch! Das tut weh!<br><br>Der Effekt der Kollision ist die Entstehung von Higgs-Bosonen - neues Wissen.	0::
+TunnelIntro	You’re a very shy is proton kidnapped by evil scientists and forced to participate in experiments. 	Not translated	0::
+TunnelIntro2	You’re locked in the Large Hadron Collider - a tunnel that constantly accelerates to the speed of light.	Not translated	0::
+TunnelOutro	Ouch! That hurts!<br><br>To cheer you up, the effect of the collision is the creation of Higgs bosons - new knowledge.	Not translated	0::
 LittleFighterOutro1_Lose	TODO	TODO	0::
 LittleFighterOutro1_Win	TODO	TODO	0::
 TunnelBar	TODO	TODO	0::
+TunnelIntro3	But ...	Du bist ein sehr schüchternes Proton, das von bösen Wissenschaftlern entführt und gezwungen wird, an Experimenten teilzunehmen. Im Gegensatz zu Ihren Kollegen haben Sie Angst vor hohen Geschwindigkeiten und möchten nicht stürzen. Du bist im Large Hadron Collider eingeschlossen – einem Tunnel, der ständig auf Lichtgeschwindigkeit beschleunigt.	0::
+TunnelIntro5	Try to avoid collisions as long as possible!	Not translated	0::
+TunnelIntro4	Unlike your colleagues,you’re afraid of high speeds and you don’t want to crash. 	Not translated	0::
+LittleFighterOutro2	Game over<br><br>They took you out	Not translated	0::

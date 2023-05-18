@@ -8407,15 +8407,6 @@ MonoBehaviour:
     _hideTimeDuration: 1.5
     _waitingTimeDuration: 40
     _ignore: 0
-  - _image: {fileID: 1155633976}
-    _color: {r: 0, g: 0, b: 0, a: 0}
-    _autoContinue: 1
-    _hasCustomContinue: 0
-    _activateComponent: {fileID: 0}
-    _showTimeDuration: 1
-    _hideTimeDuration: 1.5
-    _waitingTimeDuration: 40
-    _ignore: 0
   _loader: {fileID: 1893794875}
   _curtain: {fileID: 1165344404}
 --- !u!114 &1893794877

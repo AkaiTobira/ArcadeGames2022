@@ -36,7 +36,6 @@ public class AlphaManipulationAnimation : ScreenAnimation
     }
 
     protected override void OnStateEnter(State nextState) {
-
         switch(CurrentState){
             case State.Hiding: 
                 if(Guard.IsValid(ActiveAnimation._activateComponent)){
@@ -44,7 +43,5 @@ public class AlphaManipulationAnimation : ScreenAnimation
                 }
                 break;
         }
-
-
     }
 }

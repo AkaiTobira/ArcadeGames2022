@@ -34,7 +34,7 @@ public class TimerCount : MonoBehaviour
             _elapsedTime += 1.0f;
             time += 1;
 
-            if(time > 600){
+            if(time > 30){
                 Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.GameOver, GameOver.TimesUp));
                 enabled = false;
                 return;

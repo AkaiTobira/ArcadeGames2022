@@ -12,6 +12,12 @@ EditorBuildSettings:
     path: Assets/_Common/GameSelect.unity
     guid: 4101815daf0c55e46831bae75480bae3
   - enabled: 1
+    path: Assets/_Common/EOutro.unity
+    guid: ce8e42c33fc72fe4db0153c9656dcfe5
+  - enabled: 1
+    path: Assets/_Common/GameSelect3.unity
+    guid: 058e82a091f208e4099374dc50b01665
+  - enabled: 1
     path: Assets/Frogger/Scenes/FroggerMain.unity
     guid: 963ed56335ba04244adbbd6ac85370a9
   - enabled: 1

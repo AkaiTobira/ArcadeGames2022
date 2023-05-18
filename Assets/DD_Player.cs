@@ -32,10 +32,8 @@ public class DD_Player : ESM.SMC_4D<DD_PlayerStates>
         Instance = this;
     }
 
-
     protected override void OnStateEnter(DD_PlayerStates enteredState)
     {
-
         switch(ActiveState){
             case DD_PlayerStates.Idle:
                 _verticalPoint = DD_Path.GetClosestVerticalPoint(transform.position);
@@ -44,15 +42,9 @@ public class DD_Player : ESM.SMC_4D<DD_PlayerStates>
                 _verticalPoint = DD_Path.GetClosestVerticalPoint(transform.position);
             break;
         }
-
     }
 
-    protected override void OnStateExit(DD_PlayerStates exitedState)
-    {
-
-    }
-
-
+    protected override void OnStateExit(DD_PlayerStates exitedState){}
 
     private (RaycastHit2D, RaycastHit2D) GetHits(int rayIndex1, int rayIndex2, Vector2 direction){
         Debug.DrawLine(rayPoints[rayIndex1].position, rayPoints[rayIndex1].position + (Vector3)direction);
@@ -76,45 +68,28 @@ public class DD_Player : ESM.SMC_4D<DD_PlayerStates>
 
     protected override void UpdateState()
     {
-
         ProcessInputsMove();
 
-        if(_inputs.x != 0){
-            Vector3 inputs = new Vector3(_inputs.x, 0);
+        if(_inputs.x != 0 && _leadingDirection == LeadingDirection.Horizontal){
+            Vector3 inputs = new Vector3(_inputs.x * 0.2f, 0);
             _horizontalPoint = DD_Path.GetNextHorizontalPoint(
                 transform.position + inputs, 
                 (_inputs.x < 0) ? ESM.AnimationSide.Left : ESM.AnimationSide.Right);
 
-        //    if(_leadingDirection == LeadingDirection.Vertical){
-        //        _horizontalPoint = DD_Path.GetClosestHorizontalPoint(transform.position);
-        //    }
-        }else{
+        }else if( _leadingDirection == LeadingDirection.Vertical ){
             _horizontalPoint = DD_Path.GetClosestHorizontalPoint(transform.position);
         }
 
 
-        if(_inputs.y != 0){
-            Vector3 inputs = new Vector3(0, _inputs.y);
+        if(_inputs.y != 0 && _leadingDirection != LeadingDirection.Horizontal){
+            Vector3 inputs = new Vector3(0, _inputs.y * 0.2f);
             _verticalPoint = DD_Path.GetNextVerticalPoint(
                 transform.position + inputs, 
-                (_inputs.y > 0) ? ESM.AnimationSide.Top : ESM.AnimationSide.Bottom );
+                (_inputs.y > 0) ? ESM.AnimationSide.Top : ESM.AnimationSide.Bottom);
 
-        //    if(_leadingDirection == LeadingDirection.Horizontal){
-        //        _verticalPoint = DD_Path.GetClosestVerticalPoint(transform.position);
-        //    }
-        }else{
+        }else if( _leadingDirection == LeadingDirection.Horizontal ){
             _verticalPoint = DD_Path.GetClosestVerticalPoint(transform.position);
         }
-
-    //    if(_inputs.x == 0){
-    //        _movePoint = new Vector2(0, _verticalPoint.y);
-    //    }else if(_inputs.y == 0){
-    //        _movePoint = new Vector2(_horizontalPoint.x, 0);
-    //    }else if(_inputs.x == 0 && _inputs.y == 0){
-    //        _movePoint = new Vector2(_horizontalPoint.x, _verticalPoint.y);
-    //    }else{
-   //         _movePoint = transform.position;
-    //    }
 
         _movePoint = new Vector2(_horizontalPoint.x, _verticalPoint.y);
 
@@ -122,6 +97,7 @@ public class DD_Player : ESM.SMC_4D<DD_PlayerStates>
 
         Vector2 moveDifference = _movePoint - (Vector2)transform.position;
 
+        /*
 
         switch(_leadingDirection){
             case LeadingDirection.None: break;
@@ -129,17 +105,20 @@ public class DD_Player : ESM.SMC_4D<DD_PlayerStates>
                 if(Mathf.Abs(moveDifference.x) < 0.01f){
                     _leadingDirection = LeadingDirection.Vertical;
                 }else{
-                    moveDifference.y = 0;
+                //    Vector2 pp = DD_Path.GetClosestVerticalPoint(transform.position);
+                //    moveDifference.y = pp.y - transform.position.y;
                 }
             break;
             case LeadingDirection.Vertical: 
                 if(Mathf.Abs(moveDifference.y) < 0.01f){
                     _leadingDirection = LeadingDirection.Horizontal;
                 }else{
-                    moveDifference.x = 0;
+                //    Vector2 pp = DD_Path.GetClosestVerticalPoint(transform.position);
+                //    moveDifference.x = pp.x - transform.position.x;
                 }
             break;
         }
+        */
 
         if(_inputs.magnitude > 0 && moveDifference.magnitude > 0.05f) ProcessMove(moveDifference.normalized / _moveSpeed);
     }
@@ -155,7 +134,6 @@ public class DD_Player : ESM.SMC_4D<DD_PlayerStates>
             break;
         }
 
-
         return ActiveState;
     }
 
@@ -165,11 +143,34 @@ public class DD_Player : ESM.SMC_4D<DD_PlayerStates>
         _inputs.y = Input.GetAxisRaw("Vertical");
         _shoot    = Input.GetKeyDown(KeyCode.Space);
 
-
         switch(_leadingDirection){
             case LeadingDirection.None:
-                if(_inputs.x != 0) _leadingDirection = LeadingDirection.Horizontal;
-                else if(_inputs.y != 0) _leadingDirection = LeadingDirection.Vertical;
+
+                if(_inputs.x != 0){
+                    _horizontalPoint = DD_Path.GetNextHorizontalPoint(
+                        transform.position, 
+                        (_inputs.x < 0) ? ESM.AnimationSide.Left : ESM.AnimationSide.Right);
+                    _verticalPoint = DD_Path.GetClosestVerticalPoint(transform.position);
+                }
+
+                else if(_inputs.y != 0){
+                    _verticalPoint = DD_Path.GetNextVerticalPoint(
+                        transform.position, 
+                        (_inputs.y < 0) ? ESM.AnimationSide.Top : ESM.AnimationSide.Bottom);
+                    _horizontalPoint = DD_Path.GetClosestHorizontalPoint(transform.position);
+                }
+
+                _movePoint = new Vector2(_horizontalPoint.x, _verticalPoint.y);
+                _debugPoints[1].position = _movePoint;
+                Vector2 moveDifference = _movePoint - (Vector2)transform.position;
+
+
+
+                if(moveDifference.magnitude < 0.1f){
+                    if(_inputs.x != 0)      _leadingDirection = LeadingDirection.Horizontal;
+                    else if(_inputs.y != 0) _leadingDirection = LeadingDirection.Vertical;
+                }
+
                 break;
             case LeadingDirection.Horizontal:
                 if(_inputs.x == 0) _leadingDirection = LeadingDirection.None;

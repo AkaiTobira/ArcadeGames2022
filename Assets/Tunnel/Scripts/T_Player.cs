@@ -6,8 +6,8 @@ using UnityEngine.UI;
 
 public class T_Player : MonoBehaviour, IListenToGameplayEvents
 {
-
     [SerializeField] SceneLoader _nextScene;
+    [SerializeField] GameObject _endAnimation;
     [SerializeField] float _maxRotationSpeed = 150f;
     [SerializeField] float _rotationFriction = 0.1f;
     [SerializeField] float _accelerationRotate = 0.5f;
@@ -23,7 +23,6 @@ public class T_Player : MonoBehaviour, IListenToGameplayEvents
 
     protected float _movePenalty = 1;
     private Transform _currentSegment;
-
     private float pointProgress = 0;
 
     private void Awake() {
@@ -39,7 +38,6 @@ public class T_Player : MonoBehaviour, IListenToGameplayEvents
             _currentSegment = paras.Value;
         }
     }
-
 
     private void AddPoints(){
         pointProgress += Time.deltaTime * 6 * T_SegmentSpawner.MULTIPLER;
@@ -97,7 +95,10 @@ public class T_Player : MonoBehaviour, IListenToGameplayEvents
         if(other.tag.Contains("Enemy")){
             T_Segment.Stop = true;
 
+            other.gameObject.SetActive(false);
             transform.GetChild(0).GetComponent<Image>().enabled = false;
+            transform.GetChild(2).gameObject.SetActive(true);
+            _endAnimation.SetActive(true);
             AudioSystem.PlaySample("Tunnel_Explode");
             HighScoreRanking.LoadRanking(GameType.Tunnel);
             HighScoreRanking.TryAddNewRecord(PointsCounter.Score);

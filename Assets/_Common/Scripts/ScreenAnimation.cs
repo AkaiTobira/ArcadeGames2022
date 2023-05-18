@@ -27,9 +27,9 @@ public abstract class ScreenAnimation : MonoBehaviour, IListenToGameplayEvents{
         Inactive,
     }
 
-    [SerializeField][NonReorderable] protected List<Screen> _screens;
-
+    [SerializeField] protected List<Screen> _screens;
     [SerializeField] private SceneLoader _loader;
+    [SerializeField] private RectTransform _startingPoint;
 
     int _currentIndex = 0;
     float _elapsedTime = 0;
@@ -37,18 +37,25 @@ public abstract class ScreenAnimation : MonoBehaviour, IListenToGameplayEvents{
     
     protected State CurrentState = State.Showing;
     protected Screen ActiveAnimation;
-
+    int _direction = 1;
     public virtual void OnGameEvent(GameplayEvent gameplayEvent){
         if(gameplayEvent.type == GameplayEventType.ContinueAnimation){
             if(CurrentState == State.Waiting) SetState(State.Hiding, ActiveAnimation._hideTimeDuration);
+            _direction = 1;
+        }else if(gameplayEvent.type == GameplayEventType.ReverseAnimation){
+            if(CurrentState == State.Waiting) SetState(State.Hiding, ActiveAnimation._hideTimeDuration);
+            _direction = -1;
         }
     }
+
+
 
     void Start(){
 
         Events.Gameplay.RegisterListener(this, GameplayEventType.ContinueAnimation);
+        Events.Gameplay.RegisterListener(this, GameplayEventType.ReverseAnimation);
 
-        Vector3 position = _screens[0]._image.transform.position;
+        Vector3 position = _startingPoint.position;
 
         for(int i = 0; i < _screens.Count; i++) {
             _screens[i]._image.gameObject.SetActive(false);
@@ -85,11 +92,11 @@ public abstract class ScreenAnimation : MonoBehaviour, IListenToGameplayEvents{
                     }
                 #endif
 
-                if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.touchCount > 0){
-                    SetState(State.Hiding, ActiveAnimation._hideTimeDuration);
+//                if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.touchCount > 0){
+//                    SetState(State.Hiding, ActiveAnimation._hideTimeDuration);
 //                    Debug.Log("Next Event");
-                    return;
-                }
+//                    return;
+//                }
 
                 if(_elapsedTime <= 0){
                     if(_screens[_currentIndex]._autoContinue) SetState(State.Hiding, ActiveAnimation._hideTimeDuration);
@@ -102,28 +109,62 @@ public abstract class ScreenAnimation : MonoBehaviour, IListenToGameplayEvents{
                 }
                 break;
             case State.SceneSwitch:
-                ChangeScreen();
+                ChangeScreen(_direction);
                 break;
         }
     }
 
-    private void ChangeScreen(){
+    private void ChangeScreen(int change){
+
+        if(change > 0){
+            if(GetNextScreen()) return;
+        }else{
+            if(GetPreviousScreen()) return;
+        }
+
+        ActiveAnimation._image.gameObject.SetActive(false);
+        ActiveAnimation = _screens[_currentIndex];
+        ActiveAnimation._image.transform.position = _startingPoint.position;
+        ActiveAnimation._image.gameObject.SetActive(true);
+        SetState(State.Showing, ActiveAnimation._showTimeDuration);
+    }
+
+    private bool GetPreviousScreen(){
+
+        while(_currentIndex >= 0 ) {
+            _currentIndex--;
+            if(_currentIndex < 0) break;
+            if(!_screens[_currentIndex]._ignore) break;
+        }
+
+        _direction = 1;
+        if(_currentIndex < 0){
+            _currentIndex = -1;
+            return GetNextScreen();
+        }
+
+        return false;
+    }
+
+
+    private bool GetNextScreen(){
+
         while(_currentIndex < _screens.Count ) {
             _currentIndex++;
             if(_currentIndex >= _screens.Count) break;
             if(!_screens[_currentIndex]._ignore) break;
         }
-        
+
+
         if(_currentIndex >= _screens.Count){
             _loader?.OnSceneLoadAsync();
             CurrentState = State.Inactive;
-            return;
+            return true;
         }
-        ActiveAnimation._image.gameObject.SetActive(false);
-        ActiveAnimation = _screens[_currentIndex];
-        ActiveAnimation._image.gameObject.SetActive(true);
-        SetState(State.Showing, ActiveAnimation._showTimeDuration);
+
+        return false;
     }
+
 
     private void SetState(State nextState, float time){
         OnStateExit(CurrentState);
