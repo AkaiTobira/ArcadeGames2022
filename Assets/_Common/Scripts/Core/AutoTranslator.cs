@@ -16,7 +16,47 @@ public static class AutoTranslator
     static  Dictionary<SupportedLanguages, Dictionary<string, string>> _translation = 
         new Dictionary<SupportedLanguages, Dictionary<string, string>>();
 
+    static Dictionary<SupportedLanguages, string> _folders = 
+    new Dictionary<SupportedLanguages, string>{
+        {SupportedLanguages.UK, "Default"},
+        {SupportedLanguages.DE, "De"}, 
+    };
+
+    static Dictionary<GameType, string > _gameFolders = new Dictionary<GameType, string>{
+        {GameType.Asteroids, "Asteroids"},
+        {GameType.NotLoaded, "Common"},
+        {GameType.Berzerk,   "Berzerk"},
+        {GameType.DigDug2,   "DigDug2"},
+        {GameType.Frogger,   "Frogger"},
+        {GameType.LittleFighter, "LittleFighter"},
+        {GameType.SpaceBase, "SpaceBase"},
+        {GameType.Tunnel,    "Tunnel"}
+    };
+
+
+
     public static SupportedLanguages Language;
+
+    public static Sprite[] LoadImage(GameType game, int FolderID){
+        Sprite[] sprite = Resources.LoadAll<Sprite>("Translation/" + AutoTranslator.GetFolder(false, game) + "/" + FolderID.ToString());
+
+        if(sprite.Length == 0){
+            sprite = Resources.LoadAll<Sprite>("Translation/" + AutoTranslator.GetFolder(true, game) + "/" + FolderID.ToString());
+        }
+
+        Resources.UnloadUnusedAssets();
+
+        return sprite;
+    }
+
+
+    private static string GetFolder(bool Default, GameType type){
+        if(Default){
+            return _gameFolders[type] + "/" + _folders[SupportedLanguages.UK];
+        }
+
+        return _gameFolders[type] + "/" + _folders[Language];
+    }
 
     #if UNITY_EDITOR
         private static HashSet<string> _notFoundTranslations = new HashSet<string>();

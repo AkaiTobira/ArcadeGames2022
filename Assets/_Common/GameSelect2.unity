@@ -2434,7 +2434,10 @@ MonoBehaviour:
   - {fileID: 434514063}
   - {fileID: 382897611}
   - {fileID: 205139714}
+  _numberInRow: 1
   _isVertical: 1
+  _isHorizontal: 1
+  _forceActivationOnStart: 1
 --- !u!114 &494070710
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -17,6 +17,7 @@ public enum GameplayEventType{
     SpawnFollower,
     RecolorPlayer,
     ReverseAnimation, //sick idea of client
+    UpdateButtonGraphics,
 }
 
 public static class Events{

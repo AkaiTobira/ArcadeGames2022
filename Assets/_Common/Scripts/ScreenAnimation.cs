@@ -171,6 +171,14 @@ public abstract class ScreenAnimation : MonoBehaviour, IListenToGameplayEvents{
         CurrentState = nextState;
         _elapsedTime     = time;
         _elapsedTime_max = time;
+
+        if(nextState == State.Waiting){
+            if(Guard.IsValid(_screens[_currentIndex]._image)){
+                CButtonSelector selector = _screens[_currentIndex]._image.GetComponentInChildren<CButtonSelector>();
+                if(Guard.IsValid(selector)) selector.Enable();
+            }
+        }
+
         OnStateEnter(CurrentState);
     }
 

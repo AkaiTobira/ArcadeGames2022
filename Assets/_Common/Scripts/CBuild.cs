@@ -10,6 +10,8 @@ using System.IO;
 public static partial class CBuild
 {
 
+
+
     #if UNITY_EDITOR
     private enum Game{
         Asteroids,
@@ -22,21 +24,131 @@ public static partial class CBuild
         Four1,
         Tunnel,
         AllForOne,
+        SixGames,
+        DigDug,
 
         MAX,
     }
 
     static string _buildFolder = "_Build/";
 
-    static Dictionary<Game, string> _paths = new Dictionary<Game, string>(){
-        {Game.Asteroids, "Assets/Asteroids/Scenes/"},
-        {Game.Berzerk, "Assets/Berzerk/Scenes/"},
-        {Game.DigDug2, "Assets/DigDug2/Scenes/"},
-        {Game.Frogger, "Assets/Frogger/Scenes/"},
-        {Game.LittleFighter, "Assets/LittleFighter/Scenes/"},
-        {Game.SpaceBase, "Assets/SpaceBase/Scenes/"},
-        {Game.Tunnel, "Assets/Tunnel/Scenes/"}
-    };
+    class PathConstructor{
+        List<string> elements = new List<string>();
+
+        static Dictionary<Game, string> _paths = new Dictionary<Game, string>(){
+            {Game.Asteroids, "Assets/Asteroids/Scenes/"},
+            {Game.Berzerk, "Assets/Berzerk/Scenes/"},
+            {Game.DigDug2, "Assets/DigDug2/Scenes/"},
+            {Game.Frogger, "Assets/Frogger/Scenes/"},
+            {Game.LittleFighter, "Assets/LittleFighter/Scenes/"},
+            {Game.SpaceBase, "Assets/SpaceBase/Scenes/"},
+            {Game.Tunnel, "Assets/Tunnel/Scenes/"},
+            {Game.DigDug, "Assets/DigDug/Scenes/"}
+        };
+
+        public PathConstructor(int introType){
+            AddIntroType(introType);
+            elements.Add("Assets/_Common/EOutro.unity");
+        }
+
+        private void AddIntroType(int type){
+            switch(type){
+                case 0: elements.Add("Assets/_Common/Intro.unity"); break;
+                case 1: elements.Add("Assets/_Common/Intro1.unity"); break;
+                case 2: elements.Add("Assets/_Common/Intro2.unity"); break;
+                case 3: elements.Add("Assets/_Common/Intro3.unity"); break;
+            }
+        }
+
+        public PathConstructor AddGameSelect(int type){
+            switch(type){
+                case 3: elements.Add("Assets/_Common/GameSelect.unity"); break;
+                case 4: elements.Add("Assets/_Common/GameSelect2.unity"); break;
+                case 6: elements.Add("Assets/_Common/GameSelect4.unity"); break;
+                case 7: elements.Add("Assets/_Common/GameSelect3.unity"); break;
+            }
+
+            return this;
+        }
+
+        public PathConstructor AddAsteroids(){
+            elements.Add(_paths[Game.Asteroids] + "Asteroids.unity");
+            elements.Add(_paths[Game.Asteroids] + "AsteroidsIntro.unity");
+            elements.Add(_paths[Game.Asteroids] + "AsteroidsMain.unity");
+            elements.Add(_paths[Game.Asteroids] + "AsteroidsOutro.unity");
+
+            return this;
+        }
+
+        public PathConstructor AddBerzerk(){
+            elements.Add(_paths[Game.Berzerk] + "Berzerk.unity");
+            elements.Add(_paths[Game.Berzerk] + "BerzerkIntro.unity");
+            elements.Add(_paths[Game.Berzerk] + "BerzerkMain.unity");
+            elements.Add(_paths[Game.Berzerk] + "BerzerkOutro.unity");
+
+            return this;
+        }
+
+        public PathConstructor AddDigDug2(){
+            elements.Add(_paths[Game.DigDug2] + "DigDug2.unity");
+            elements.Add(_paths[Game.DigDug2] + "DigDug2Intro.unity");
+            elements.Add(_paths[Game.DigDug2] + "DigDug2Main.unity");
+            elements.Add(_paths[Game.DigDug2] + "DigDug2Outro.unity");
+
+            return this;
+        }
+
+        public PathConstructor AddDigDug(){
+            elements.Add(_paths[Game.DigDug] + "DigDug.unity");
+            elements.Add(_paths[Game.DigDug] + "DigDugIntro.unity");
+            elements.Add(_paths[Game.DigDug] + "DigDugMain.unity");
+            elements.Add(_paths[Game.DigDug] + "DigDugOutro.unity");
+
+            return this;
+        }
+
+        public PathConstructor AddFrogger(){
+            elements.Add(_paths[Game.Frogger] + "Frogger.unity");
+            elements.Add(_paths[Game.Frogger] + "FroggerIntro.unity");
+            elements.Add(_paths[Game.Frogger] + "FroggerMain.unity");
+            elements.Add(_paths[Game.Frogger] + "FroggerOutro.unity");
+            elements.Add(_paths[Game.Frogger] + "FroggerOutro1.unity");
+
+            return this;
+        }
+
+        public PathConstructor AddLittleFighter(){
+            elements.Add(_paths[Game.LittleFighter] + "LittleFighter.unity");
+            elements.Add(_paths[Game.LittleFighter] + "LittleFighterIntro.unity");
+            elements.Add(_paths[Game.LittleFighter] + "LittleFighterMain.unity");
+            elements.Add(_paths[Game.LittleFighter] + "LittleFighterOutro.unity");
+
+            return this;
+        }
+
+
+        public PathConstructor AddSpaceBase(){
+            elements.Add(_paths[Game.SpaceBase] + "SpaceBase.unity");
+            elements.Add(_paths[Game.SpaceBase] + "SpaceBaseIntro.unity");
+            elements.Add(_paths[Game.SpaceBase] + "SpaceBaseMain.unity");
+            elements.Add(_paths[Game.SpaceBase] + "SpaceBaseOutro.unity");
+
+            return this;
+        }
+
+        public PathConstructor AddTunnel(){
+            elements.Add(_paths[Game.Tunnel] + "Tunnel.unity");
+            elements.Add(_paths[Game.Tunnel] + "TunnelIntro.unity");
+            elements.Add(_paths[Game.Tunnel] + "TunnelMain.unity");
+            elements.Add(_paths[Game.Tunnel] + "TunnelOutro.unity");
+
+            return this;
+        }
+
+        public string[] Construct(){
+            return elements.ToArray();
+        }
+    }
 
     static Dictionary<Game, string[]> _directives = new Dictionary<Game, string[]>();
     static Dictionary<Game, string[]> _scenes = new Dictionary<Game, string[]>();
@@ -44,149 +156,94 @@ public static partial class CBuild
     static Dictionary<BuildTarget, BuildTargetGroup> _buildConfigs = new Dictionary<BuildTarget, BuildTargetGroup>();
 
     private static void FillScenes(){
-        _scenes[Game.Asteroids] = new string[] {
-            "Assets/_Common/EOutro.unity",
-            "Assets/_Common/Intro.unity",
-            _paths[Game.Asteroids] + "Asteroids.unity",
-            _paths[Game.Asteroids] + "AsteroidsIntro.unity",
-            _paths[Game.Asteroids] + "AsteroidsMain.unity",
-            _paths[Game.Asteroids] + "AsteroidsOutro.unity",
-        };
-        _scenes[Game.Berzerk]   = new string[] {
-            "Assets/_Common/EOutro.unity",
-            "Assets/_Common/Intro1.unity",
-            _paths[Game.Berzerk] + "Berzerk.unity",
-            _paths[Game.Berzerk] + "BerzerkIntro.unity",
-            _paths[Game.Berzerk] + "BerzerkMain.unity",
-            _paths[Game.Berzerk] + "BerzerkOutro.unity",
-        };
-        _scenes[Game.DigDug2]    = new string[] {
-            "Assets/_Common/EOutro.unity",
-            "Assets/_Common/Intro.unity",
-            _paths[Game.DigDug2] + "DigDug2.unity",
-            _paths[Game.DigDug2] + "DigDug2Intro.unity",
-            _paths[Game.DigDug2] + "DigDug2Main.unity",
-            _paths[Game.DigDug2] + "DigDug2Outro.unity",
-        };
-        _scenes[Game.Frogger]   = new string[] {
-            "Assets/_Common/EOutro.unity",
-            "Assets/_Common/Intro.unity",
-            _paths[Game.Frogger] + "Frogger.unity",
-            _paths[Game.Frogger] + "FroggerIntro.unity",
-            _paths[Game.Frogger] + "FroggerMain.unity",
-            _paths[Game.Frogger] + "FroggerOutro.unity",
-            _paths[Game.Frogger] + "FroggerOutro1.unity",
-        };
-        _scenes[Game.Three1]  = new string[] {
-            "Assets/_Common/EOutro.unity",
-            "Assets/_Common/Intro.unity",
-            "Assets/_Common/GameSelect.unity",
-            _paths[Game.Asteroids] + "Asteroids.unity",
-            _paths[Game.Asteroids] + "AsteroidsIntro.unity",
-            _paths[Game.Asteroids] + "AsteroidsMain.unity",
-            _paths[Game.Asteroids] + "AsteroidsOutro.unity",
-            _paths[Game.DigDug2] + "DigDug2.unity",
-            _paths[Game.DigDug2] + "DigDug2Intro.unity",
-            _paths[Game.DigDug2] + "DigDug2Main.unity",
-            _paths[Game.DigDug2] + "DigDug2Outro.unity",
-            _paths[Game.Frogger] + "Frogger.unity",
-            _paths[Game.Frogger] + "FroggerIntro.unity",
-            _paths[Game.Frogger] + "FroggerMain.unity",
-            _paths[Game.Frogger] + "FroggerOutro.unity",
-            _paths[Game.Frogger] + "FroggerOutro1.unity",
-        };
-        _scenes[Game.LittleFighter]   = new string[] {
-            "Assets/_Common/EOutro.unity",
-            "Assets/_Common/Intro1.unity",
-            _paths[Game.LittleFighter] + "LittleFighter.unity",
-            _paths[Game.LittleFighter] + "LittleFighterIntro.unity",
-            _paths[Game.LittleFighter] + "LittleFighterMain.unity",
-            _paths[Game.LittleFighter] + "LittleFighterOutro.unity",
-        };
-        _scenes[Game.SpaceBase]   = new string[] {
-            "Assets/_Common/EOutro.unity",
-            "Assets/_Common/Intro1.unity",
-            _paths[Game.SpaceBase] + "SpaceBase.unity",
-            _paths[Game.SpaceBase] + "SpaceBaseIntro.unity",
-            _paths[Game.SpaceBase] + "SpaceBaseMain.unity",
-            _paths[Game.SpaceBase] + "SpaceBaseOutro.unity",
-        };
-        _scenes[Game.Four1] = new string[]{
-            "Assets/_Common/Intro1.unity",
-            "Assets/_Common/EOutro.unity",
-            "Assets/_Common/GameSelect2.unity",
-            _paths[Game.LittleFighter] + "LittleFighter.unity",
-            _paths[Game.LittleFighter] + "LittleFighterIntro.unity",
-            _paths[Game.LittleFighter] + "LittleFighterMain.unity",
-            _paths[Game.LittleFighter] + "LittleFighterOutro.unity",
-            _paths[Game.SpaceBase] + "SpaceBase.unity",
-            _paths[Game.SpaceBase] + "SpaceBaseIntro.unity",
-            _paths[Game.SpaceBase] + "SpaceBaseMain.unity",
-            _paths[Game.SpaceBase] + "SpaceBaseOutro.unity",
-            _paths[Game.Berzerk] + "Berzerk.unity",
-            _paths[Game.Berzerk] + "BerzerkIntro.unity",
-            _paths[Game.Berzerk] + "BerzerkMain.unity",
-            _paths[Game.Berzerk] + "BerzerkOutro.unity",
-            _paths[Game.Tunnel] + "Tunnel.unity",
-            _paths[Game.Tunnel] + "TunnelIntro.unity",
-            _paths[Game.Tunnel] + "TunnelMain.unity",
-            _paths[Game.Tunnel] + "TunnelOutro.unity",
-        };
-        _scenes[Game.Tunnel]   = new string[] {
-            "Assets/_Common/Intro1.unity",
-            "Assets/_Common/EOutro.unity",
-            _paths[Game.Tunnel] + "Tunnel.unity",
-            _paths[Game.Tunnel] + "TunnelIntro.unity",
-            _paths[Game.Tunnel] + "TunnelMain.unity",
-            _paths[Game.Tunnel] + "TunnelOutro.unity",
-        };
-        _scenes[Game.AllForOne] = new string[]{
-            "Assets/_Common/Intro1.unity",
-            "Assets/_Common/EOutro.unity",
-            "Assets/_Common/GameSelect3.unity",
-            _paths[Game.LittleFighter] + "LittleFighter.unity",
-            _paths[Game.LittleFighter] + "LittleFighterIntro.unity",
-            _paths[Game.LittleFighter] + "LittleFighterMain.unity",
-            _paths[Game.LittleFighter] + "LittleFighterOutro.unity",
-            _paths[Game.SpaceBase] + "SpaceBase.unity",
-            _paths[Game.SpaceBase] + "SpaceBaseIntro.unity",
-            _paths[Game.SpaceBase] + "SpaceBaseMain.unity",
-            _paths[Game.SpaceBase] + "SpaceBaseOutro.unity",
-            _paths[Game.Berzerk] + "Berzerk.unity",
-            _paths[Game.Berzerk] + "BerzerkIntro.unity",
-            _paths[Game.Berzerk] + "BerzerkMain.unity",
-            _paths[Game.Berzerk] + "BerzerkOutro.unity",
-            _paths[Game.Tunnel] + "Tunnel.unity",
-            _paths[Game.Tunnel] + "TunnelIntro.unity",
-            _paths[Game.Tunnel] + "TunnelMain.unity",
-            _paths[Game.Tunnel] + "TunnelOutro.unity",
-            _paths[Game.Asteroids] + "Asteroids.unity",
-            _paths[Game.Asteroids] + "AsteroidsIntro.unity",
-            _paths[Game.Asteroids] + "AsteroidsMain.unity",
-            _paths[Game.Asteroids] + "AsteroidsOutro.unity",
-            _paths[Game.DigDug2] + "DigDug2.unity",
-            _paths[Game.DigDug2] + "DigDug2Intro.unity",
-            _paths[Game.DigDug2] + "DigDug2Main.unity",
-            _paths[Game.DigDug2] + "DigDug2Outro.unity",
-            _paths[Game.Frogger] + "Frogger.unity",
-            _paths[Game.Frogger] + "FroggerIntro.unity",
-            _paths[Game.Frogger] + "FroggerMain.unity",
-            _paths[Game.Frogger] + "FroggerOutro.unity",
-            _paths[Game.Frogger] + "FroggerOutro1.unity",
-        };
+        _scenes[Game.Asteroids] = 
+            new PathConstructor(1)
+                                    .AddAsteroids()
+                                    .Construct();
+        _scenes[Game.Berzerk]   =             
+            new PathConstructor(1)
+                                    .AddBerzerk()
+                                    .Construct();
+        _scenes[Game.DigDug]    =             
+            new PathConstructor(3)
+                                    .AddDigDug()
+                                    .Construct();
+        _scenes[Game.DigDug2]    =             
+            new PathConstructor(1)
+                                    .AddDigDug2()
+                                    .Construct();
+        _scenes[Game.Frogger]   = 
+            new PathConstructor(1)
+                                    .AddFrogger()
+                                    .Construct();
+        _scenes[Game.Three1]  = 
+            new PathConstructor(1)
+                                    .AddGameSelect(3)
+                                    .AddAsteroids()
+                                    .AddDigDug2()
+                                    .AddFrogger()
+                                    .Construct();
+        _scenes[Game.LittleFighter]   = 
+            new PathConstructor(1)
+                                    .AddLittleFighter()
+                                    .Construct();
+
+        _scenes[Game.SpaceBase]   = 
+            new PathConstructor(1)
+                                    .AddSpaceBase()
+                                    .Construct();
+
+        _scenes[Game.Four1] = 
+            new PathConstructor(1)
+                                    .AddGameSelect(4)
+                                    .AddLittleFighter()
+                                    .AddSpaceBase()
+                                    .AddBerzerk()
+                                    .AddTunnel()
+                                    .Construct();
+
+        _scenes[Game.Tunnel] = 
+            new PathConstructor(1)
+                                    .AddTunnel()
+                                    .Construct();
+        
+        _scenes[Game.AllForOne] = 
+            new PathConstructor(1)
+                .AddGameSelect(7)
+                .AddLittleFighter()
+                .AddAsteroids()
+                .AddBerzerk()
+                .AddSpaceBase()
+                .AddTunnel()
+                .AddFrogger()
+                .AddDigDug2()
+                .Construct();
+
+        _scenes[Game.SixGames] =
+            new PathConstructor(3)
+                .AddGameSelect(6)
+                .AddLittleFighter()
+                .AddAsteroids()
+                .AddBerzerk()
+                .AddSpaceBase()
+                .AddFrogger()
+                .AddDigDug2()
+                .Construct();
     }
 
     private static void FillDirectives(){
-        _directives[Game.Asteroids] = new string[] {"ASTEROIDS_GAME"};
-        _directives[Game.Berzerk]   = new string[] {"BERZERK_GAME"};
-        _directives[Game.DigDug2]    = new string[] {"DigDug2_GAME"};
-        _directives[Game.Frogger]   = new string[] {"FROGGER_GAME"};
-        _directives[Game.Three1]  = new string[] {"THREE_GAME"};
-        _directives[Game.Four1] = new string[] { "T3_GAMES_2" };
+        _directives[Game.Asteroids]     = new string[] {"ASTEROIDS_GAME"};
+        _directives[Game.Berzerk]       = new string[] {"BERZERK_GAME"};
+        _directives[Game.DigDug2]       = new string[] {"DIGDUG2_GAME"};
+        _directives[Game.Frogger]       = new string[] {"FROGGER_GAME"};
+        _directives[Game.Three1]        = new string[] {"THREE_GAME"};
+        _directives[Game.Four1]         = new string[] { "T3_GAMES_2" };
         _directives[Game.LittleFighter] = new string[] {"LITTLE_FIGHTER_GAME"};
-        _directives[Game.SpaceBase] = new string[] {"SPACE_BASE_GAME"};
-        _directives[Game.Tunnel] = new string[] {"TUNNEL_GAME"};
-        _directives[Game.AllForOne] = new string[] { "ALL_GAMES" };
+        _directives[Game.SpaceBase]     = new string[] {"SPACE_BASE_GAME"};
+        _directives[Game.Tunnel]        = new string[] {"TUNNEL_GAME"};
+        _directives[Game.AllForOne]     = new string[] { "ALL_GAMES" };
+        _directives[Game.SixGames]      = new string[] { "SIX_GAMES", "INTRO3", "SKIP_EU_OUTRO" };
+        _directives[Game.DigDug]        = new string[] { "DIGDUG_GAME", "INTRO3", "SKIP_EU_OUTRO"};
 
         _buildConfigs[BuildTarget.StandaloneLinux64] = BuildTargetGroup.Standalone;
         _buildConfigs[BuildTarget.StandaloneWindows] = BuildTargetGroup.Standalone;

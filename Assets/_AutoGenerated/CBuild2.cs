@@ -155,6 +155,56 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.Android);
 	}
 
+	[MenuItem("Build/Rebuild StandaloneLinux64/DigDug")]
+	public static void BuildDigDugStandaloneLinux64(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildGame(Game.DigDug, BuildTargetGroup.Standalone, BuildTarget.StandaloneLinux64);
+		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneLinux64);
+	}
+
+	[MenuItem("Build/Rebuild StandaloneWindows/DigDug")]
+	public static void BuildDigDugStandaloneWindows(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildGame(Game.DigDug, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows);
+	}
+
+	[MenuItem("Build/Rebuild StandaloneWindows64/DigDug")]
+	public static void BuildDigDugStandaloneWindows64(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildGame(Game.DigDug, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
+		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows64);
+	}
+
+	[MenuItem("Build/Rebuild WebGL/DigDug")]
+	public static void BuildDigDugWebGL(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildGame(Game.DigDug, BuildTargetGroup.WebGL, BuildTarget.WebGL);
+		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.WebGL);
+	}
+
+	[MenuItem("Build/Rebuild Android/DigDug")]
+	public static void BuildDigDugAndroid(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildGame(Game.DigDug, BuildTargetGroup.Android, BuildTarget.Android);
+		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.Android);
+	}
+
 	[MenuItem("Build/Rebuild StandaloneLinux64/DigDug2")]
 	public static void BuildDigDug2StandaloneLinux64(){
 		FillScenes();
@@ -352,6 +402,56 @@ public static partial class CBuild{
 
 		long time = GetCurrentTime();
 		BuildGame(Game.LittleFighter, BuildTargetGroup.Android, BuildTarget.Android);
+		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.Android);
+	}
+
+	[MenuItem("Build/Rebuild StandaloneLinux64/SixGames")]
+	public static void BuildSixGamesStandaloneLinux64(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildGame(Game.SixGames, BuildTargetGroup.Standalone, BuildTarget.StandaloneLinux64);
+		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneLinux64);
+	}
+
+	[MenuItem("Build/Rebuild StandaloneWindows/SixGames")]
+	public static void BuildSixGamesStandaloneWindows(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildGame(Game.SixGames, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows);
+	}
+
+	[MenuItem("Build/Rebuild StandaloneWindows64/SixGames")]
+	public static void BuildSixGamesStandaloneWindows64(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildGame(Game.SixGames, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
+		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows64);
+	}
+
+	[MenuItem("Build/Rebuild WebGL/SixGames")]
+	public static void BuildSixGamesWebGL(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildGame(Game.SixGames, BuildTargetGroup.WebGL, BuildTarget.WebGL);
+		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.WebGL);
+	}
+
+	[MenuItem("Build/Rebuild Android/SixGames")]
+	public static void BuildSixGamesAndroid(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildGame(Game.SixGames, BuildTargetGroup.Android, BuildTarget.Android);
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.Android);
 	}
 

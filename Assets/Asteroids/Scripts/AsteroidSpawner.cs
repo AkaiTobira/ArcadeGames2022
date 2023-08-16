@@ -1,4 +1,3 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -10,6 +9,9 @@ public class AsteroidSpawner : MonoBehaviour, IListenToGameplayEvents
 
     public static int AsteroidCount = 0;
     int generation = 0;
+    int needToSpawn = 0;
+
+    float timer = 1.5f;
 
     ValidSizes _types = new ValidSizes{
         Sizes={
@@ -18,40 +20,37 @@ public class AsteroidSpawner : MonoBehaviour, IListenToGameplayEvents
             Asteroid.EAsteroidSize.EAS_SMALL,
         }
     };
-
     private void OnEnable() {
         AsteroidCount = 0;
         PointsCounter.Score = 0;
     }
-
-
     private void Start() {
         Events.Gameplay.RegisterListener(this, GameplayEventType.ResizeAsteroids);
     }
-
     public void OnGameEvent(GameplayEvent gameplayEvent){
-
         if(enabled == false) return;
-
         if(gameplayEvent.type == GameplayEventType.ResizeAsteroids){
-
             _types = (ValidSizes)gameplayEvent.parameter;
         }
     }
 
 
     private void Update() {
-        if(AsteroidCount <= 2) SpawnAsteroids();
+        Debug.Log(AsteroidCount + " "  + needToSpawn);
+        if(AsteroidCount + needToSpawn <= 2) {
+            needToSpawn = 5 + Random.Range(0, 4); 
+            generation += 1;
+        }
+        timer -= Time.deltaTime;
+        if(timer < 0 && needToSpawn > 0) SpawnAsteroid();
     }
 
-    private void SpawnAsteroids(){
-
+    private void SpawnAsteroid(){
+        timer = 1.5f;
 
         List<int> indexes = new List<int>();
         for(int i = 0; i < _positions.Length; i++) indexes.Add(i);
         ShuffleList(indexes);
-
-        int numberOfAsteroids = 5 + Random.Range(0, 4);
 
         if(_types.Sizes.Count == 0) return;
         for(int i = 0; i < indexes.Count; i++) {
@@ -61,18 +60,20 @@ public class AsteroidSpawner : MonoBehaviour, IListenToGameplayEvents
                 _asteroidPrefab, 
                 _positions[indexes[i]].transform.position, 
                 Quaternion.identity).GetComponent<Asteroid>();
-            
 
             Asteroid.EAsteroidSize type = _types.Sizes[ UnityEngine.Random.Range(0, _types.Sizes.Count)];
+            asteroid.Setup(
+                new Vector3(
+                    Random.Range(-1.0f, 1.0f), 
+                    Random.Range(-1.0f, 1.0f), 
+                    0).normalized, 
+                type, 
+                generation);
 
-            asteroid.Setup( new Vector3( Random.Range(-1.0f, 1.0f), Random.Range(-1.0f, 1.0f), 0).normalized, type, generation);
             (asteroid.transform as RectTransform).SetParent(transform);
-
-            numberOfAsteroids -= 1;
-            if(numberOfAsteroids < 0) break;
+            needToSpawn -= 1;
+            return;
         }
-
-        generation += 1;
     }
 
     private void ShuffleList(List<int> list){
@@ -85,6 +86,4 @@ public class AsteroidSpawner : MonoBehaviour, IListenToGameplayEvents
             }
         }
     }
-
-
 }

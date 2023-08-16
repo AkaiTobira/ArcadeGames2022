@@ -7341,6 +7341,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _play: {fileID: 507353540}
   _backgroundMusicName: 
+  _type: 7
 --- !u!114 &1893794877
 MonoBehaviour:
   m_ObjectHideFlags: 0

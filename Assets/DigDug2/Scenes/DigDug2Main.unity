@@ -7290,6 +7290,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   sceneName: DigDugIntro
+  sceneFlowIndex: 0
 --- !u!114 &1893794876
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7304,6 +7305,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _play: {fileID: 507353540}
   _backgroundMusicName: DigDug_BG1
+  _type: 2
 --- !u!1 &1896436818
 GameObject:
   m_ObjectHideFlags: 0

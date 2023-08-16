@@ -23,12 +23,14 @@ public class T_Segment : MonoBehaviour
     bool _setupPlayerInfo;
 
     public static bool Stop = false;
+    public static float RotationSpeed = 0;
 
     int _activeScaleAtionID = -1;
 
 
     void Awake(){
         _beginScale = scalePerTime;
+        RotationSpeed = rotationSpeed;
     }
 
     void Update()

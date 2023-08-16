@@ -33,10 +33,13 @@ public class HighScoreLabelInput : MonoBehaviour, IListenToGameplayEvents
 
     private void Awake() {
         HighScoreRanking.LoadRanking(_gameType);
+        SetPoints();
+
     }
 
     private void Start() {
-        
+        SetPoints();
+
         if(_ignoreSetup) {
             //HighScoreRanking.LoadRanking(_gameType);
             SetPoints();
@@ -85,6 +88,7 @@ public class HighScoreLabelInput : MonoBehaviour, IListenToGameplayEvents
             }
 
             enabled = false;
+            SetPoints();
             Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.RefreshRanking));
         }
 
@@ -94,6 +98,7 @@ public class HighScoreLabelInput : MonoBehaviour, IListenToGameplayEvents
             _labelIndex = HighScoreRanking.HasNewRecord();
             if(_labelIndex == -1) return;
 
+            SetPoints();
             HandleWindowsInput();
         }
     }
@@ -130,6 +135,7 @@ public class HighScoreLabelInput : MonoBehaviour, IListenToGameplayEvents
 
 
     private void SetPoints(){
+// /        Debug.LogWarning("SetPoints");
         bool IsTimed =  HighScoreRanking.IsTimed(_gameType);
 
         int points = IsTimed ? TimerCount.ElapsedTime : PointsCounter.Score;
@@ -139,7 +145,6 @@ public class HighScoreLabelInput : MonoBehaviour, IListenToGameplayEvents
         if(Guard.IsValid(_scoreLabel)) _scoreLabel.gameObject.SetActive(!IsTimed);
         if(Guard.IsValid(_timeLabel)) _timeLabel.gameObject.SetActive(IsTimed);
     }
-
 
     private void HandleWindowsInput(){
         _windows.SetActive(true);

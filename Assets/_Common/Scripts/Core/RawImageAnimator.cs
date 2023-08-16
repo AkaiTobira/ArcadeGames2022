@@ -22,4 +22,9 @@ public class RawImageAnimator : RawAnimator
     {
         return _sprites.Length;
     }
+
+    public override void SetSprites(Sprite[] sprites)
+    {
+        _sprites = sprites;
+    }
 }

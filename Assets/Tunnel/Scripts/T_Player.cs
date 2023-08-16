@@ -47,7 +47,7 @@ public class T_Player : MonoBehaviour, IListenToGameplayEvents
         }
     }
 
-    private void Update() {
+    protected virtual void Update() {
         if(T_Segment.Stop) return;
 
         AddPoints();
@@ -77,7 +77,7 @@ public class T_Player : MonoBehaviour, IListenToGameplayEvents
     }
 
 
-    private void ProcessMove_Horizontal(float horizontal){
+    protected virtual void ProcessMove_Horizontal(float horizontal){
         if(horizontal != 0) 
             calcRotationSpeed = calcRotationSpeed + (Mathf.Sign(horizontal) *  _accelerationRotate * Time.deltaTime);
             if(Mathf.Abs(calcRotationSpeed) > _maxRotationSpeed) calcRotationSpeed = Mathf.Sign(calcRotationSpeed) * _maxRotationSpeed;

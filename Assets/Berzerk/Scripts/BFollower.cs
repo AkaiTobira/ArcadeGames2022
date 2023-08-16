@@ -15,7 +15,7 @@ public class BFollower : ESM.SMC_4D<FollowerState>
 
     private void OnEnable() {
         _isDead = false;
-        ForceState(FollowerState.Move, true);
+        ForceState(FollowerState.Move, false);
     }
 
     protected override void OnStateEnter(FollowerState enteredState)
@@ -23,6 +23,7 @@ public class BFollower : ESM.SMC_4D<FollowerState>
         switch (enteredState) {
             case FollowerState.Move:
                 GetComponent<BoxCollider2D>().enabled = true;
+                _isDead = false;
                 break;
             case FollowerState.Dead:
                 GetComponent<BoxCollider2D>().enabled = false;
@@ -39,7 +40,7 @@ public class BFollower : ESM.SMC_4D<FollowerState>
     {
         switch (ActiveState) {
             case FollowerState.Move:
-                if(_isDead) return FollowerState.Dead;
+            //    if(_isDead) return FollowerState.Dead;
                 break;
         }
 
@@ -58,6 +59,7 @@ public class BFollower : ESM.SMC_4D<FollowerState>
     {
         switch(ActiveState){
             case FollowerState.Move:
+                if(_isDead) return;
                 
                 _inputs = (Berzerk.Instance.transform.position - transform.position).normalized;
 

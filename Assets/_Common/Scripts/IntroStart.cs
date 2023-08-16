@@ -7,5 +7,6 @@ public class IntroStart : MonoBehaviour
     void Start()
     {
         AudioSystem.Instance.PlayMusic("Intro_BG", 0);
+        CButton_GameDependent.SetActiveGameType(GameType.NotLoaded);
     }
 }

@@ -51,6 +51,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 480efda01d991574bbef89f0a5134897, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  pointsRestored: 10
 --- !u!222 &1149088348694443011
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -81,7 +82,7 @@ MonoBehaviour:
       m_Calls: []
   m_Sprite: {fileID: 21300000, guid: edaac96ec7c6812489e18b492f06e8d2, type: 3}
   m_Type: 0
-  m_PreserveAspect: 0
+  m_PreserveAspect: 1
   m_FillCenter: 1
   m_FillMethod: 4
   m_FillAmount: 1
@@ -140,7 +141,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: -0.43307495, y: 4.59906}
+  m_Offset: {x: -0.41778564, y: 9.086578}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0, y: 0}
@@ -151,7 +152,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 10.258118, y: 10.36438}
+  m_Size: {x: 14.888062, y: 12.865662}
   m_EdgeRadius: 0
 --- !u!114 &6583771667168066101
 MonoBehaviour:

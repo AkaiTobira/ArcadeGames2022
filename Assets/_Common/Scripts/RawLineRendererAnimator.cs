@@ -21,4 +21,9 @@ public class RawLineRendererAnimator : RawAnimator
     {
         return _textures.Length;
     }
+
+    public override void SetSprites(Sprite[] sprites)
+    {
+        throw new System.NotImplementedException();
+    }
 }

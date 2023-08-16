@@ -8,6 +8,7 @@ public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
     [SerializeField] int _numberInRow = 1;
     [SerializeField] bool _isVertical = true;
     [SerializeField] bool _isHorizontal = true;
+    [SerializeField] bool _forceActivationOnStart = false;
 
     int _activeButton;
     float _reReadTime = 0.2f;
@@ -28,11 +29,15 @@ public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
             CButton button = gameplayEvent.parameter as CButton;
             if(Guard.IsValid(button)){
 
+                int currentActiveButton = _activeButton;
+
                 for(int i = 0; i < _buttons.Length; i++) {
                     if(button == _buttons[i]) _activeButton = i;
                 }
 
-                AudioSystem.Instance.PlayEffect("ButtonChange", 1);
+//                Debug.Log(currentActiveButton + " " + _activeButton);
+
+                if(currentActiveButton != _activeButton) AudioSystem.Instance.PlayEffect("ButtonChange", 1);
             }
         }
     }
@@ -51,21 +56,17 @@ public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
         Events.Gameplay.RegisterListener(this, GameplayEventType.ButtonOvervieved);
         
         RemoveInactiveButtons();
-
-        TimersManager.Instance.FireAfter( 0.3f, () => {
-
-            if(Guard.IsValid(this)){
-                Events.Gameplay.RiseEvent(
-                    new GameplayEvent(GameplayEventType.ButtonOvervieved, _buttons[_activeButton]));
-
-            }
-
-    //        _buttons[0].ForceState(CButton.ButtonState.Hovered);
-        });
-
+        if(_forceActivationOnStart) TimersManager.Instance.FireAfter( 0.3f, Enable );
     }
 
-
+    public void Enable(){
+        if(Guard.IsValid(this)){
+            Events.Gameplay.RiseEvent(
+                new GameplayEvent(
+                    GameplayEventType.ButtonOvervieved, 
+                    _buttons[_activeButton]));
+        }
+    }
 
     private void ProcessTransverseMove(){
         if(_buttons.Length == 1) {
@@ -82,6 +83,8 @@ public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
         if(_elapsedTime <= 0 && Mathf.Abs(verticalChange) > 0.3f && _isVertical){
             _elapsedTime = _reReadTime;
 
+            int currentActiveButton = _activeButton;
+
             _activeButton = (
                 _activeButton - 
                 ((int)Mathf.Sign(verticalChange) * _numberInRow) + _buttons.Length)%(_buttons.Length);
@@ -91,12 +94,16 @@ public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
                     GameplayEventType.ButtonOvervieved, 
                     _buttons[_activeButton]));
 
+
+            if(currentActiveButton != _activeButton) AudioSystem.Instance.PlayEffect("ButtonChange", 1);
             return;
         }
 
         float horizontalChange = Input.GetAxisRaw("Horizontal");
         if(_elapsedTime <= 0 && Mathf.Abs(horizontalChange) > 0.3f && _isHorizontal){
             _elapsedTime = _reReadTime;
+
+            int currentActiveButton = _activeButton;
 
             _activeButton = (
                 _activeButton + 
@@ -108,15 +115,9 @@ public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
                     GameplayEventType.ButtonOvervieved, 
                     _buttons[_activeButton]));
 
+            if(currentActiveButton != _activeButton) AudioSystem.Instance.PlayEffect("ButtonChange", 1);
         }
-
-
-
-
-
-
     }
-
 
     void Update()
     {

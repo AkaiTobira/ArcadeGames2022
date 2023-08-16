@@ -1052,11 +1052,7 @@ MonoBehaviour:
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: e92befe8fde8dc14bb3fe4d50ed4c12d, type: 3}
-      - {fileID: 21300000, guid: 98b27860da2af8d4b84639722df1a954, type: 3}
-      - {fileID: 21300000, guid: c64ac0cab36a50747968110d60bcd58a, type: 3}
-      - {fileID: 21300000, guid: ad79249c3172d92449fbe59de5fdbf1c, type: 3}
-      - {fileID: 21300000, guid: ac1539ad29a921f40b19182fdefa5507, type: 3}
+      - {fileID: 21300000, guid: 9b54f86d71d539744a82f4405e480b88, type: 3}
     Looped: 0
     UseRightAsLeft: 0
   _moveSpeed: 10
@@ -1083,6 +1079,8 @@ MonoBehaviour:
   - {fileID: 7295539397618670809}
   - {fileID: 3384046830351063620}
   _additionalAnimation: {fileID: 0}
+  _background: {fileID: 4477359678107123894}
+  _destoryedBase: {fileID: 21300000, guid: c64f25268f6128747903ede023568ff5, type: 3}
   _points: 1500
   _explodeAnimation: {fileID: 4477359678564302205}
 --- !u!1 &4477359677645077518

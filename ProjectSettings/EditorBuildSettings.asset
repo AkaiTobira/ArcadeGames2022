@@ -9,6 +9,9 @@ EditorBuildSettings:
     path: Assets/_Common/Intro.unity
     guid: cbea8d47102c30d4687b710c1ba6f1a5
   - enabled: 1
+    path: Assets/_Common/Intro3.unity
+    guid: 114ffd9ee1673d74e8f0382be052a385
+  - enabled: 1
     path: Assets/_Common/GameSelect.unity
     guid: 4101815daf0c55e46831bae75480bae3
   - enabled: 1
@@ -17,6 +20,9 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Common/GameSelect3.unity
     guid: 058e82a091f208e4099374dc50b01665
+  - enabled: 1
+    path: Assets/_Common/GameSelect4.unity
+    guid: 17580d9275589fc428078ca0d301cb75
   - enabled: 1
     path: Assets/Frogger/Scenes/FroggerMain.unity
     guid: 963ed56335ba04244adbbd6ac85370a9
@@ -48,13 +54,13 @@ EditorBuildSettings:
     path: Assets/Asteroids/Scenes/AsteroidsMain.unity
     guid: 3a7d1b423a0568d4390f5042fe4b2d60
   - enabled: 1
-    path: Assets/Asteroids/Scenes/AsteroidsIntro.unity
+    path: Assets/Asteroids/Scenes/Localized/EN/EN_AsteroidsIntro.unity
     guid: 36161114147714e47a030c304c17cdae
   - enabled: 1
     path: Assets/Asteroids/Scenes/Asteroids.unity
     guid: 86495b1c45a235b449d0a868873ae064
   - enabled: 1
-    path: Assets/Asteroids/Scenes/AsteroidsOutro.unity
+    path: Assets/Asteroids/Scenes/Localized/EN/EN_AsteroidsOutro.unity
     guid: c639f9c59bc49164a9039cd505b37ae8
   - enabled: 1
     path: Assets/DigDug2/Scenes/DigDug2Main.unity
@@ -110,4 +116,19 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/_Common/Intro1.unity
     guid: 551d4e9d438af064f80bddbf4e1f1448
+  - enabled: 1
+    path: Assets/_Common/Intro2.unity
+    guid: 06004b81564b1794394d2c4d67531f56
+  - enabled: 1
+    path: Assets/DigDug/Scenes/DigDugOutro.unity
+    guid: 570390e5b1cacab459ed4c0d32933657
+  - enabled: 1
+    path: Assets/DigDug/Scenes/DigDugMain.unity
+    guid: 2bf908e100a06e84ca18f4c677d3ecdf
+  - enabled: 1
+    path: Assets/DigDug/Scenes/DigDugIntro.unity
+    guid: 9f7c0f445a471394faebcdd7511d128e
+  - enabled: 1
+    path: Assets/DigDug/Scenes/DigDug.unity
+    guid: f012f4f9e6ab73a488eb324805e9243b
   m_configObjects: {}

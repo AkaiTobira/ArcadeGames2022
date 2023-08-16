@@ -11286,7 +11286,7 @@ MonoBehaviour:
     _showTimeDuration: 0.2
     _hideTimeDuration: 0.2
     _waitingTimeDuration: 120
-    _ignore: 0
+    _ignore: 1
   - _image: {fileID: 1821240734}
     _color: {r: 0, g: 0, b: 0, a: 0}
     _autoContinue: 1

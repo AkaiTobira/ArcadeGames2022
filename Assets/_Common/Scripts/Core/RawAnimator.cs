@@ -87,5 +87,6 @@ public abstract class RawAnimator : MonoBehaviour{
 
     protected abstract int GetFramesCount();
 
+    public abstract void SetSprites(Sprite[] sprites);
 }
 

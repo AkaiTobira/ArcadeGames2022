@@ -9266,7 +9266,7 @@ MonoBehaviour:
     _showTimeDuration: 0.2
     _hideTimeDuration: 0.2
     _waitingTimeDuration: 120
-    _ignore: 0
+    _ignore: 1
   _loader: {fileID: 1893794875}
   _startingPoint: {fileID: 489423921}
   _center: {fileID: 944933947}

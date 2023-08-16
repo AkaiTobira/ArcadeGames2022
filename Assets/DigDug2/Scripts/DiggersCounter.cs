@@ -16,7 +16,8 @@ public class DiggersCounter : MonoBehaviour
 
     void Start(){
         enabled = false;
-        TimersManager.Instance.FireAfter(10, () => {enabled = true;});
+        TimersManager.Instance.FireAfter(10, () => {
+            if(Guard.IsValid(this)) enabled = true;});
     }
 
     // Update is called once per frame

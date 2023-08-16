@@ -7,6 +7,7 @@ public class LanguageSelect : MonoBehaviour
 {
     [SerializeField] Sprite[] _sprites;
     [SerializeField] Image _image;
+    [SerializeField] Button _button;
 
     float _readBreak = 0.2f;
     float _elapsedTime;
@@ -25,6 +26,10 @@ public class LanguageSelect : MonoBehaviour
             _elapsedTime = _readBreak;
 
             ChangeLanguage((int)Mathf.Sign(horizontalValue));
+        }
+
+        if(Input.GetKeyDown(KeyCode.Space)){
+            Events.Gameplay.RiseEvent(GameplayEventType.ContinueAnimation);
         }
     }
 

@@ -10490,7 +10490,7 @@ MonoBehaviour:
     _showTimeDuration: 1
     _hideTimeDuration: 1
     _waitingTimeDuration: 120
-    _ignore: 0
+    _ignore: 1
   - _image: {fileID: 411060866}
     _color: {r: 0, g: 0, b: 0, a: 0}
     _autoContinue: 1

@@ -7,7 +7,7 @@ using TMPro;
 
 public abstract class CButtonHandler : CMonoBehaviour, IPointerDownHandler, IPointerUpHandler, IListenToGameplayEvents
 {
-    [SerializeField] GameObject _overwievedFrame;
+    [SerializeField] protected GameObject _overwievedFrame;
     private bool _overview;
 
     protected virtual void Awake() {
@@ -85,10 +85,10 @@ public class CButton : CButtonHoverableHandler, IPointerUpHandler, IListenToGame
     [SerializeField] private bool _interactable;
     [SerializeField] private string _buttonText;
     [SerializeField] string _audioTap;
-    [SerializeField] Sprite _pressed;
-    [SerializeField] Sprite _hover;
-    [SerializeField] Sprite _inactive;
-    [SerializeField] Sprite _active;
+    [SerializeField] protected Sprite _pressed;
+    [SerializeField] protected Sprite _hover;
+    [SerializeField] protected Sprite _inactive;
+    [SerializeField] protected Sprite _active;
     [SerializeField] TextMeshProUGUI _buttonName;
     [NonReorderable][SerializeField] private TextColor[] _textColorTilt;
 
@@ -113,7 +113,7 @@ public class CButton : CButtonHoverableHandler, IPointerUpHandler, IListenToGame
     private bool _isInside;
 
 
-    void Start() {
+    protected virtual void Start() {
         ButtonText = _buttonText;
         Overwiev = false;
 

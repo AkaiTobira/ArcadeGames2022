@@ -335,7 +335,12 @@ MonoBehaviour:
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: 352ad506d304a0a4ab338b0530d199bc, type: 3}
+      - {fileID: 21300000, guid: b52c5daa52297ab4b80767a08ac8fee2, type: 3}
+      - {fileID: 21300000, guid: 2fb3d97938b0c6b4497e110fd6071fa9, type: 3}
+      - {fileID: 21300000, guid: cd856764ee1728b4191cf96099d04fdc, type: 3}
+      - {fileID: 21300000, guid: e2684caca2021fc4a942d1f5b03eee84, type: 3}
+      - {fileID: 21300000, guid: c6b6940c36264c249a77482425fab8f4, type: 3}
+      - {fileID: 21300000, guid: 214dd6cc46bcd1145a70efb31e8446e8, type: 3}
     Looped: 0
     UseRightAsLeft: 0
   _moveSpeed: 1

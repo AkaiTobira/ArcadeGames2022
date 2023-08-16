@@ -154,6 +154,7 @@ namespace ESM{
         [SerializeField][NonReorderable] protected AnimationType[] _animations;
         [SerializeField][NonReorderable] protected float _moveSpeed = 10;
         [SerializeField] bool _mirrorSprites = false;
+        [SerializeField] bool _ignoreSpriteDirectionClear = false;
 
         bool _stateChanged = false;
         protected StateType ActiveState;
@@ -188,6 +189,11 @@ namespace ESM{
         }
 
         private void SetDirectionScale(){
+            if(_ignoreSpriteDirectionClear && 
+                (_side == AnimationSide.Top ||
+                _side == AnimationSide.Bottom || 
+                _side == AnimationSide.Common)) return;
+
             Vector3 scale = Graphicals.transform.localScale;
             scale.x = Mathf.Abs(scale.x) * GetScaleMultiplier();
             Graphicals.transform.localScale = scale;
@@ -341,7 +347,7 @@ namespace ESM{
 
         public AnimationSide GetFacingDirection(){ return _side; }
 
-        private AnimationSide ReverseDirection(AnimationSide side){
+        protected AnimationSide ReverseDirection(AnimationSide side){
             switch(side){
                 case AnimationSide.Common: return AnimationSide.Common;
                 case AnimationSide.Left: return AnimationSide.Right;

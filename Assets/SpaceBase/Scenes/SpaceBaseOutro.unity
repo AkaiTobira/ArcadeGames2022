@@ -1312,7 +1312,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!114 &220515741
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8434,7 +8434,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -25.700012, y: 0}
+  m_AnchoredPosition: {x: -25.699951, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1435144448
@@ -10027,6 +10027,7 @@ MonoBehaviour:
   _numberInRow: 1
   _isVertical: 1
   _isHorizontal: 1
+  _forceActivationOnStart: 0
 --- !u!114 &1596862626
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11204,7 +11205,7 @@ MonoBehaviour:
     _showTimeDuration: 1
     _hideTimeDuration: 1
     _waitingTimeDuration: 120
-    _ignore: 0
+    _ignore: 1
   - _image: {fileID: 1596862626}
     _color: {r: 0, g: 0, b: 0, a: 0}
     _autoContinue: 1
@@ -12005,7 +12006,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2015841738
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12788,6 +12789,7 @@ GameObject:
   - component: {fileID: 2141651562}
   - component: {fileID: 2141651561}
   - component: {fileID: 2141651563}
+  - component: {fileID: 2141651564}
   m_Layer: 5
   m_Name: Block (3)
   m_TagString: Untagged
@@ -12837,7 +12839,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 8d716d6b8e859a949b3b4db82f5f9568, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 36d2e2d327f24be4b990eb81b8c4af4b, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -12869,6 +12871,20 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _victoryText: {fileID: 2015841737}
   _loseText: {fileID: 220515740}
+--- !u!114 &2141651564
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141651559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a24397f5bf50d0142afb1ffed5ef0e69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FolderID: 4
+  game: 6
 --- !u!1 &2143189280
 GameObject:
   m_ObjectHideFlags: 0

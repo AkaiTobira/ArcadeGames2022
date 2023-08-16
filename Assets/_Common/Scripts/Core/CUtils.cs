@@ -48,5 +48,20 @@ public static class CUtils
         Debug.Log(ss);
     }
 
+    public static Color GetRandomColor(float minR, float minG, float minB){
+        return new Color(
+            Random.Range(minR, 1),
+            Random.Range(minG, 1),
+            Random.Range(minB, 1)
+        );
+    }
+
+    public static Color GetRandomColor(float min, float max){
+        return new Color(
+            Random.Range(min, max),
+            Random.Range(min, max),
+            Random.Range(min, max)
+        );
+    }
 
 }

@@ -10,8 +10,8 @@ public class BS_EndTextSelect : MonoBehaviour {
     [SerializeField] GameObject _loseText;
 
     private void Awake() {
-        _victoryText.SetActive(_reason == GameOver.Victory);
-        _loseText.SetActive(_reason == GameOver.Dead);
+    //    _victoryText.SetActive(_reason == GameOver.Victory);
+    //    _loseText.SetActive(_reason == GameOver.Dead);
     }
 
 }

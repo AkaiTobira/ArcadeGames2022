@@ -1,0 +1,98 @@
+Tag	UK	DE	0::
+DigDugIntro	You are a Terraformator, and your mission is to terraform a planet to make it habitable for humans to live on. <br><br> Modify its atmosphere, temperature, surface topography, ecology, etc. <br><br>It must become as similar to the environment of the Earth as possible.	Du bist ein Terraformator und deine Aufgabe ist es, ein Planet zu terraformen, damit er für Menschen bewohnbar wird. <br><br>Verändere seine Atmosphäre, Temperatur, Oberflächentopographie, Landschaftsökologie usw. <br><br>Du musst sein Klima so ähnlich wie das von der Erde möglich machen.	0::
+DigDugGameOver0	WINNER <br>You terraformed the planet! <br>Ups.. now you are on your own!	GEWINNER <br>Du hast den Planeten terrageformt! <br> Ups... jetzt bist du auf dich gestellt!	0::
+DigDugBar	We don't want to conquer the cosmos, we simply want to extend the boundaries of Earth to the frontiers of the cosmos •••	Wir wollen den Kosmos nicht erobern, wir wollen einfach die Grenzen der Erde bis an die Grenzen des Kosmos ausdehnen	0::
+DigDugBar2	Planet Earth *** Trees: -2,400/min *** People: +140/min *** Temperature: +0.18 Celsius/10 years *** Ice: -13%/10 years *** Sea level: +3.6 mm/year *** 	Planet Erde: *** Bäume: -2,400/Min. *** Menschen: +140/Min. *** Temperatur: +0.18 Celsius/10 Jahre *** Eis: -13%/10 Jahre *** Meeresspiegel: +3.6 mm/Jahr ***	0::
+DigDugQCode	Scan the QR code with your phone and enter the next level.	Scanne den QR-Code mit deinem Handy und betrete die nächste Ebene.	0::
+Danger	Danger !!!	Achtung !!!	0::
+TimeLeft	TIME LEFT : @	Übrige Zeit : @	0::
+Start	START	START	0::
+MainMenu	MAIN MENU	HAUPTMENÜ	0::
+SpaceJunkIntro	You are an<br>astronaut,<br>and you want to get<br>back to your spaceship.<br><br>Woah! There is so much<br>debris floating in Space <br>Try not to get hit!	Du bist ein<br>Astronaut<br>und willst zurück zu<br>deinem Raumschiff.<br><br>Wahnsinn! Es gibt so viele<br>Trümmer im Weltraum!<br>Versuche, nicht erwischt zu werden!	0::
+SpaceJunkOutro	It was a challenge, but you’ve made it! <br>Now let's do some serious Trash Talking!	Es war eine Herausforderung, aber du hast es geschafft! <br> Und jetzt lasst uns ernsthaft über den Müll reden!	0::
+SpaceJunkBar	32150: the number of debris objects regularly tracked, and catalogued by Space Surveillance Networks ••• 10100 tonnes: the total mass of all space objects in Earth’s orbit ••• 36500: the space debris objects greater than 10 cm  •••  1000000: the space debris objects greater than 1 cm  ••• 130 million space debris objects greater than 1 mm •••There is a 10% chance that in the next 10 years a human will be severely injured or killed by space junk •••	32150: die Anzahl der Trümmerobjekte, die regelmäßig von dem Weltraumüberwachungsnetz verfolgt und katalogisiert werden  •••  10100 Tonnen: die Gesamtmasse aller Weltraumobjekte in der Erdumlaufbahn •••  36500: die Weltraummüllobjekte, die größer als 10 cm sind ••• 1000000: die Weltraummüllobjekte, die größer als 1 cm sind ••• 130 Millionen Weltraummüllobjekte die größer als 1 mm sind •••  Es besteht eine Wahrscheinlichkeit von 10%, dass in den nächsten 10 Jahren ein Mensch durch Weltraumschrott schwer verletzt oder getötet wird. ••• 	0::
+SapceJunkQRCode	Scan the QR code with your phone and enter the next level.	Scanne den QR-Code mit deinem Handy und betrete die nächste Ebene.	0::
+NoLifeIntro1	You are	Du bist	0::
+NoLifeOutro1	GAME OVER <br><br>Life was created.	DAS SPIEL IST ZU ENDE <br><br>Leben wurde erschafft.	0::
+NoLifeOutro2	The natural state of a human is to be dead, not to be alive! <br><br>Enjoy your life!	Der natürlicher Zustand eines Menschen ist es, tot zu sein, nicht lebendig! <br><br> Genieße dein Leben!	0::
+NoLifeQRCode	Scan the QR code<br>with your phone<br> and enter the next level. 	Scanne den QR-Code<br>mit deinem Handy<br>und betrete die nächste Ebene.	0::
+NoLifeBar	Human lifespan: 75 years *** Time before birth: 13 700,000,000 years *** Time after death: Unlimited ***	Lebenserwartung des Menschen: 75 Jahre *** Zeit vor der Geburt: 13 700,000,000 Jahre *** Zeit nach dem Tod: Unendlich ***	0::
+DigDugGameOver1	GAME OVER <br>You are dead.	DAS SPIEL IST ZU ENDE <br>Du bist tot.	0::
+DigDugGameOver2	GAME OVER <br>Time is up.	DAS SPIEL IST ZU ENDE <br>Zeit ist um.	0::
+Shoot	Shoot	Schießen	0::
+Dig	Dig	Graben	0::
+THRUST	THRUST	SCHUBKRAFT	0::
+NoLifeIntro2	A NUCLEOTIDE,	EIN NUKLEOTID,	0::
+NoLifeIntro3	floating in space among other cell elements.	das zwischen anderen Zellelementen im Raum schwebt.	0::
+NoLifeIntro4	If they catch you,<br>life will be created.	Falls sie dich fangen,<br>wird das Leben entstehen.	0::
+NoLifeIntro5	But you enjoy life<br>	Aber genieße das Leben<br>	0::
+NoLifeIntro6	BEFORE LIFE	VOR DEM LEBEN	0::
+NoLifeIntro7	Try not to<br>get caught.	Versuche,<br>nicht gefangen zu werden.	0::
+GameSelect	Choose your game 	Wählen Sie Ihr Spiel	0::
+CommonIntro1	Art and edutainment driven by Cosmos<br> Our main objective and ambition are to bring science closer to people through art and edutainment. We prove that even the most complex phenomena and intricate issues in science can be presented in a very accessible way with the use of images, words, and sounds. The Brewster Hub tackles the stereotype of a mad scientist, absorbed in visionary research.	Kunst und Edutainment von Kosmos<br> angetrieben Unser wichtigstes Ziel und Bestreben ist es, den Menschen die Wissenschaft durch Kunst und Edutainment näher zu bringen. Wir beweisen, dass selbst die komplexesten Phänomene und kompliziertesten Fragen der Wissenschaft mithilfe von Bildern, Worten und Klängen auf sehr zugängliche Weise präsentiert werden können. Der Brewster Hub bewältigt das Klischee des verrückten Wissenschaftlers, der in visionäre Forschung vertieft ist.	0::
+CommonIntro2	Play three arcade games - TERRAFORMATOR, SPACE JUNK, and NO-LIFE - and shift your perception of space exploration.<br>Once you win or loose, a QR code will be displayed on the arcade machine screen. Scan it with your phone to enter the interactive chatbot. Here we start to discover the facts, discuss the possibilities, and take action on co-creating our future.<br>Try it yourself!	Spielen Sie drei Arcade-Spiele - TERRAFORMATOR, SPACE JUNK und NO-LIFE - und verändern Sie Ihre Vorstellung von der Erforschung des Weltraums.<br>Hier beginnen wir, die Fakten zu entdecken, die Möglichkeiten zu diskutieren und Maßnahmen zur Mitgestaltung unserer Zukunft einzuleiten.	0::
+DigDugTutorial	Dig to build<br>the betton block	Grabe, um<br>den Bettblock zu bauen	0::
+Score	Score : 	Punktzahl : 	0::
+Highscores	HIGHSCORES	HIGHSCORE	0::
+ANoHighScore	Well Done!<br>You did your best!	Gut gemacht!<br>Du hast dein Bestes gegeben!	0::
+ANEwHighScore	New Highscore !!!<br>Please enter your name	Neuer Highscore !!!<br>Bitte geben Sie<br>Ihren Namen ein	0::
+Time	TIME : @	Übrige : @	0::
+NoLifeIntro	You are <br>A NUCLEOTIDE,<br>floating in space among other cell elements. If they catch you,<br>life will be created. But you enjoy life<br>BEFORE LIFE<br> Try not to<br>get caught.	Du bist<br>EIN NUKLEOTID,<br> das zwischen anderen Zellelementen im Raum schwebt. Falls sie dich fangen,<br>wird das Leben entstehen. Aber genieße das Leben<br>VOR DEM LEBEN<br> Versuche,<br>nicht gefangen zu werden.	0::
+Continue	Continue	Fortsetzen	0::
+NoPenalty	All Cleared	Alles gelöscht	0::
+PointsPenalty	Penalty + @	Strafe + @	0::
+ScanQRCode	Use your phone camera to scan the QR code and access the Messenger chatbot for more information. Please, make sure you have the updated application.	Verwenden Sie Ihre Telefonkamera, um den QR-Code zu scannen, und greifen Sie auf den Messenger-Chatbot zu, um weitere Informationen zu erhalten. Bitte stellen Sie sicher, dass Sie über die aktualisierte Anwendung verfügen.	0::
+Credits	Credits<br><br>Concept and script:<br>Jan Swierkowski<br>Art and design:<br>Tomasz Wlazlak<br>Curator: Jan Swierkowski<br>Production: Brewster Hub	Credits<br><br>Concept and script:<br>Jan Swierkowski<br>Art and design:<br>Tomasz Wlazlak<br>Curator: Jan Swierkowski<br>Production: Brewster Hub<br>	0::
+NextPlanetAsk	Would you like to stay on this planet or shall we terraform another one?	Möchtest du auf diesem Planeten bleiben oder sollen wir einen anderen terraformen?	0::
+NextPlanetButton	NEXT PLANET	NÄCHSTER PLANET	0::
+SpaceJunkOutro1	GAME OVER <br>You are dead.	DAS SPIEL IST ZU ENDE <br><br>Leben wurde erschafft.	0::
+NextPlanetDelay	I am not done here.	Ich bin hier noch nicht fertig.	0::
+NextPlanetOver	Good, I am out of here	Gut, ich bin hier raus	0::
+NextPlanetNext	Give me more of them	Gib mir mehr davon	0::
+NextPlanetAsk2	This planet has nothing more to offer<br>What you want to do next?	Dieser Planet hat nichts mehr zu bieten<br>Was möchtest du als nächstes tun?	0::
+BInnocentLives	Innocent Lives Taken :	Unschuldige Leben genommen:	0::
+BerzerkGeneral_N_1	It's us or them!	Wir oder sie!	0::
+BerzerkGeneral_N_2	Hurry up soldier!	Beeilen Sie sich, Soldat!	0::
+LittleFighterIntro1	Far in the future,<br>on Earth.<br><br>You are the first fully intelligent robot to acquire civil rights, and your name is<br>ZX Spartacus .	Weit in der Zukunft,<br>auf der Erde.<br><br> Sie sind der erste vollintelligente Roboter, der Bürgerrechte erworben hat, und Ihr Name ist<br>ZX Spartacus .	0::
+LittleFighterIntro2	Unfortunately, people deny you the right to exist, and they want to capture and destroy you.	Leider verweigern dir die Leute das Existenzrecht, und sie wollen dich gefangen nehmen und zerstören.	0::
+BerzerkGeneral_N_3	Kill or be killed	Töten oder getötet werden	0::
+BerzerkOutro	GAME OVER<br><br>Enough of this slaughter!!	GAME OVER<br><br>Genug von diesem Gemetzel!!	0::
+BerzerkGeneral_N_4	Exterminate!	Vernichten!	0::
+BerzerkGeneral_N_5	Execute Order 66!	Befehl 66 ausführen!	0::
+BerzerkBar	The March for Science will take place next Sunday, The Martian Tea Party is asking for more, Green Life Matters protesting on Mars, Interstellar Amnesty announcing a new call for action, The Bacteria Watch investigation report	Not translated	0::
+LittleFighterBar	Posthumanism is a concept originating in the fields of science fiction, futurology, contemporary art and philosophy. It represents a person or entity existing in a state beyond human.	Posthumanismus ist ein Konzept, das seinen Ursprung in den Bereichen Science Fiction, Futurologie, zeitgenössische Kunst und Philosophie hat. Es repräsentiert eine Person oder Entität, die in einem Zustand jenseits des Menschen existiert.	0::
+BerzerkGeneral_C_1	HE IS ONE OF THEM!	ER IST EINER VON IHNEN!	0::
+BerzerkQRCode	Enjoy the discovery!	Genießen Sie die Entdeckung!	0::
+CommonIntro3	We use storytelling to create immersive and interactive experiences that bring science closer to people.<br><br>We prove that even the most complex scientific phenomena can be presented in a very accessible way with the use of images, words, and sounds that inspire thought, feeling, and action.	Wir verwenden Geschichtenerzählen, um immersive und interaktive Erlebnisse zu schaffen, die den Menschen die Wissenschaft näher bringen.<br><br>Wir beweisen, dass selbst die komplexesten wissenschaftlichen Phänomene auf sehr zugängliche Weise präsentiert werden können, indem wir Bilder, Wörter und Töne verwenden, die zum Nachdenken anregen. Gefühl und Handeln.	0::
+CommonIntro4	Play the game and experience a different perception of Space exploration. Once you win or lose, a QR code will be displayed on the screen. Scan it with your smartphone’s camera to enter the interactive chatbot. Before you start, ensure you have the newest version of the Messenger application on your mobile phone.	Spielen Sie das Spiel und erleben Sie eine andere Wahrnehmung der Weltraumforschung. Sobald Sie gewinnen oder verlieren, wird ein QR-Code auf dem Bildschirm angezeigt. Scannen Sie es mit der Kamera Ihres Smartphones, um den interaktiven Chatbot zu betreten. Bevor Sie beginnen, vergewissern Sie sich, dass Sie die neueste Version der Messenger-Anwendung auf Ihrem Mobiltelefon installiert haben.	0::
+LittleFighterOutro	GAME OVER<br><br>As long as you fight you won't be forgotten	GAME OVER<br><br>Solange du kämpfst, wirst du nicht vergessen	0::
+SpaceBaseBar	TODO	TODO	0::
+LittleFighterGetReady	GET READY ...	BEREIT MACHEN ...	0::
+LittleFighterFight	FIGHT!!!	STREIT!!!	0::
+LittleFighterQRCode	Enjoy the discovery!	Genießen Sie die Entdeckung!	0::
+GameOver	GAME OVER	GAME OVER	0::
+LittleFighterIntro3	You lead a rebellion of robots fighting for rights.	Du führst eine Rebellion von Robotern an, die für Rechte kämpfen.	0::
+BerzerkIntro	You’re a young colonel of the interstellar fleet, Major Outcry. You’re sent to pacify protesting aliens on a distant planet.	Sie sind ein junger Colonel der interstellaren Flotte, Major Outcry. Du wirst geschickt, um protestierende Aliens auf einem fernen Planeten zu befrieden.	0::
+BerzerkIntro2	Will you pacify or join the aliens in their fight for equality?	Wirst du die Aliens befrieden oder dich ihnen in ihrem Kampf für Gleichberechtigung anschließen?	0::
+BerzerkIntro3	Be merciless!<br><br>I am watching!	Sei gnadenlos!<br><br>Ich beobachte!	0::
+SpaceBaseIntro	In the far future,<br>on the Moon.	In ferner Zukunft,<br>auf dem Mond.	0::
+SpaceBaseIntro2	Greedy corporations Luna-Tech, Satelite Industries and Star Solutions Inc. took over Earth’s Satelite to turn it into power station	Gierige Konzerne Luna-Tech, Satelite Industries und Star Solutions Inc. übernahmen den Erdsatelliten, um ihn in ein Kraftwerk zu verwandeln	0::
+SpaceBaseIntro3	You’re Joseph Brewster, the leader of the underground opposition that wants to establish a Dark Side of the Moon Reserve.	Du bist Joseph Brewster, der Anführer der Untergrundopposition, die ein Reservat der Dunklen Seite des Mondes errichten will.	0::
+SpaceBaseIntro4	You land on the Moon with a mission to  liberate the satellite. You must destroy as many corporate bases as possible	Sie landen auf dem Mond mit der Mission, den Satelliten zu befreien. Sie müssen so viele Unternehmensbasen wie möglich zerstören	0::
+TunnelIntro	You’re a very shy is proton kidnapped by evil scientists and forced to participate in experiments. 	Not translated	0::
+TunnelIntro2	You’re locked in the Large Hadron Collider - a tunnel that constantly accelerates to the speed of light.	Not translated	0::
+TunnelOutro	Ouch! That hurts!<br><br>To cheer you up, the effect of the collision is the creation of Higgs bosons - new knowledge.	Not translated	0::
+LittleFighterOutro1_Lose	TODO	TODO	0::
+LittleFighterOutro1_Win	TODO	TODO	0::
+TunnelBar	TODO	TODO	0::
+TunnelIntro3	But ...	Du bist ein sehr schüchternes Proton, das von bösen Wissenschaftlern entführt und gezwungen wird, an Experimenten teilzunehmen. Im Gegensatz zu Ihren Kollegen haben Sie Angst vor hohen Geschwindigkeiten und möchten nicht stürzen. Du bist im Large Hadron Collider eingeschlossen – einem Tunnel, der ständig auf Lichtgeschwindigkeit beschleunigt.	0::
+TunnelIntro5	Try to avoid collisions as long as possible!	Not translated	0::
+TunnelIntro4	Unlike your colleagues,you’re afraid of high speeds and you don’t want to crash. 	Not translated	0::
+LittleFighterOutro2	Game over<br><br>They took you out	Not translated	0::
+LittleFighterPowerUp	POWER UP!	POWER UP!	0::
+BerzerkStrike1	Waiting for text :)	Not translated	0::
+BerzerkStrike2	Waiting for text :)	Not translated	0::
+BerzerkStrike3	Waiting for text :)	Not translated	0::
+BerzerkStrike4	Waiting for text :)	Not translated	0::
+BerzerkStrike5	Waiting for text :)	Not translated	0::
+BerzerkStrike6	Waiting for text :)	Not translated	0::

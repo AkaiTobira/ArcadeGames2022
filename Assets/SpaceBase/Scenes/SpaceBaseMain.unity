@@ -7340,6 +7340,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _play: {fileID: 507353540}
   _backgroundMusicName: SpaceBase_BG
+  _type: 6
 --- !u!1 &1896436818
 GameObject:
   m_ObjectHideFlags: 0

@@ -3453,7 +3453,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4940932428591877529, guid: 4c96a5591e831bb478a599d9edaf76ad, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: -1.6
+      value: -1.6000004
       objectReference: {fileID: 0}
     - target: {fileID: 4940932428591877529, guid: 4c96a5591e831bb478a599d9edaf76ad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6098,6 +6098,7 @@ MonoBehaviour:
   _numberInRow: 1
   _isVertical: 1
   _isHorizontal: 1
+  _forceActivationOnStart: 0
 --- !u!114 &1177301157
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10998,7 +10999,7 @@ MonoBehaviour:
     _showTimeDuration: 0.2
     _hideTimeDuration: 0.2
     _waitingTimeDuration: 120
-    _ignore: 0
+    _ignore: 1
   - _image: {fileID: 1177301157}
     _color: {r: 0, g: 0, b: 0, a: 0}
     _autoContinue: 1
@@ -11799,7 +11800,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2015841738
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12731,6 +12732,7 @@ GameObject:
   - component: {fileID: 2141651560}
   - component: {fileID: 2141651562}
   - component: {fileID: 2141651561}
+  - component: {fileID: 2141651563}
   m_Layer: 5
   m_Name: Block (3)
   m_TagString: Untagged
@@ -12779,7 +12781,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: fc72e21cb683b4c4ca328a223e7d356c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: a4d13b7158aae2440a3a3081f9939d15, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -12797,6 +12799,20 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2141651559}
   m_CullTransparentMesh: 1
+--- !u!114 &2141651563
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2141651559}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: a24397f5bf50d0142afb1ffed5ef0e69, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  FolderID: 3
+  game: 4
 --- !u!1 &2143189280
 GameObject:
   m_ObjectHideFlags: 0

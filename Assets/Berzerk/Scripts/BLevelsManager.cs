@@ -119,6 +119,7 @@ public class BLevelsManager : MonoBehaviour, IListenToGameplayEvents
 
         _enemies.SpawnEnemies();
         BGeneralBoxController.Instance.Setup();
+        B_StrikeTextManager.SpawnText();
     }
 
     public static void ChangeLevel(BExitIndex walkedBy){

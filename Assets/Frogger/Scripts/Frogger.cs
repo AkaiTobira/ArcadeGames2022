@@ -14,6 +14,7 @@ public class Frogger : MonoBehaviour
 
     bool isDead;
     float deadTime = 3f;
+    float resetTime = 1.5f;
     float elapsedDeadTime = 0.0f;
 
 
@@ -172,10 +173,26 @@ public class Frogger : MonoBehaviour
 
     IEnumerator Reset(){
         isAlreadyHandled = true;
-        while(isMoving || isDead) yield return null;
+        isDead          = true;
+        elapsedDeadTime   = 0;
+
+    //    AudioSystem.Instance.PlayEffect("Frogger_Lost", 1, true);
+        GetComponent<Image>().sprite = animations[3];
+
+        while(isMoving || isDead){
+            while(elapsedDeadTime < resetTime * 1.5f){
+                if(elapsedDeadTime > resetTime){
+                    transform.position = startInstancePosition;
+                    GetComponent<Image>().sprite = animations[0];
+                }
+                yield return new WaitForEndOfFrame();
+                elapsedDeadTime += Time.deltaTime;
+
+            }
+            isDead = false;
+        }
         if(DoNotRespawn) yield break;
-        transform.position = startInstancePosition;
-        AudioSystem.Instance.PlayEffect("Frogger_Lost", 1, true);
+
         isAlreadyHandled = false;
     }
 

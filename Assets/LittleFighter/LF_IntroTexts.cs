@@ -6,16 +6,16 @@ public class LF_IntroTexts : MonoBehaviour
 {
     [SerializeField] RectTransform _getReadyText;
     [SerializeField] RectTransform _fightText;
+    [SerializeField] RectTransform _powerText;
     [SerializeField] RectTransform _gameOverText;
+
+    [SerializeField] Transform _beginPoint;
     [SerializeField] Transform _endPoint;
     [SerializeField] Transform _middlePoint;
 
 
     static private LF_IntroTexts instance;
-
-    private void Awake() {
-        instance = this;
-    }
+    private void Awake() { instance = this; }
 
     void Start()
     {
@@ -38,5 +38,17 @@ public class LF_IntroTexts : MonoBehaviour
 
     public static void ShowGameOver(){
         TweenManager.Instance.TweenTo( instance._gameOverText, instance._middlePoint, 0.3f);
+    }
+
+    public static void ShowPowerUp(){
+        instance._powerText.transform.position = instance._beginPoint.transform.position;
+        TweenManager.Instance.TweenTo(
+            instance._powerText, instance.transform, 0.3f,
+            () => {
+                TimersManager.Instance.FireAfter(1, ()=> {
+                    TweenManager.Instance.TweenTo(instance._powerText, instance._endPoint, 0.3f);
+                });
+            }
+        );
     }
 }

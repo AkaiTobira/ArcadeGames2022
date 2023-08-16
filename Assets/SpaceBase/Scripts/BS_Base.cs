@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class BS_Base : ESM.SMC_1D<BS_TowerState>,
     ITakeDamage,
@@ -13,6 +14,8 @@ public class BS_Base : ESM.SMC_1D<BS_TowerState>,
     [SerializeField] int _MaxHealthPoints = 30;
     [SerializeField] GameObject[] _parts;
     [SerializeField] GameObject   _additionalAnimation;
+    [SerializeField] Image _background;
+    [SerializeField] Sprite _destoryedBase;
     [SerializeField] int _points;
     [SerializeField] GameObject _explodeAnimation;
 
@@ -99,6 +102,8 @@ public class BS_Base : ESM.SMC_1D<BS_TowerState>,
                     ITakeDamage damage = _parts[i].GetComponent<ITakeDamage>();
                     damage?.TakeDamage(999);
                 }
+
+                _background.sprite = _destoryedBase;
 
             break;
         }

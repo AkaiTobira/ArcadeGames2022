@@ -4,13 +4,29 @@ using UnityEngine;
 using TMPro;
 
 [RequireComponent(typeof(TextMeshProUGUI))]
-public class AutoTranslatorUnit : CMonoBehaviour, IListenToGameplayEvents
-{
+public class AutoTranslatorUnit : AutoTranslatorUnitBase{
+
     [SerializeField] string textTag;
     TextMeshProUGUI _text;
 
-    void Awake() {
+    protected override void Initialize(){
         _text = GetComponent<TextMeshProUGUI>();
+    }
+
+    protected override void Refresh(){
+        _text.font = TextAssets.GetFont();
+        _text.text = AutoTranslator.Translate(textTag);
+        _text.ForceMeshUpdate(false, true);
+    }
+}
+
+public abstract class AutoTranslatorUnitBase : CMonoBehaviour, IListenToGameplayEvents
+{
+
+    protected abstract void Initialize();
+
+    void Awake() {
+        Initialize();
         Events.Gameplay.RegisterListener(this, GameplayEventType.LocalizationUpdate);
     }
 
@@ -25,10 +41,8 @@ public class AutoTranslatorUnit : CMonoBehaviour, IListenToGameplayEvents
     public void OnGameEvent(GameplayEvent gameEvent){
         if(!Guard.IsValid(gameObject)) return;
 
-        if(gameEvent.type == GameplayEventType.LocalizationUpdate){
-            _text.font = TextAssets.GetFont();
-            _text.text = AutoTranslator.Translate(textTag);
-            _text.ForceMeshUpdate(false, true);
-        }
+        if(gameEvent.type == GameplayEventType.LocalizationUpdate) Refresh();
     }
+
+    protected abstract void Refresh();
 }

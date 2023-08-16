@@ -5,7 +5,8 @@ using UnityEngine;
 
 public enum ConflictSide{
     Player,
-    AI,
+    AI_1,
+    AI_2
 }
 
 public class LF_ColliderSide : MonoBehaviour
@@ -52,6 +53,10 @@ public class LF_ColliderSide : MonoBehaviour
                 }
             }
         }
+    }
+
+    public MonoBehaviour GetParent(){
+        return _Parent;
     }
 
     public void SetParent(MonoBehaviour mb){
