@@ -183,7 +183,7 @@ public class DD_Player2 : ESM.SMC_4D<DD_PlayerStates>
     private void ProcessInputsMove(){
         _inputs.x = Input.GetAxisRaw("Horizontal");
         _inputs.y = Input.GetAxisRaw("Vertical");
-        _shoot    = Input.GetKeyDown(KeyCode.Space);
+        _shoot    = Input.GetKeyDown(KeyCode.N);
 
         if(_moveDirection == AnimationSide.Common){
             if(_inputs.x != 0) _moveDirection = (_inputs.x < 0) ? AnimationSide.Left : AnimationSide.Right;

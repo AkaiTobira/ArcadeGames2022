@@ -314,7 +314,7 @@ public class BEnemy : ESM.SMC_4D<B_PlayerStates>, IShootable
 
         //_isDead = Input.GetKeyDown(KeyCode.F);
 
-        //_shootingRequirementsMeet = Input.GetKeyDown(KeyCode.LeftShift) && _shootingTimeColdown <= 0;
+        //_shootingRequirementsMeet = Input.GetKeyDown(KeyCode.M) && _shootingTimeColdown <= 0;
         return ActiveState;
     }
 

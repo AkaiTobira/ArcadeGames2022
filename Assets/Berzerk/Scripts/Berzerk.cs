@@ -166,7 +166,7 @@ public class Berzerk : ESM.SMC_8D<B_PlayerStates>, IShootable
 
         _inputs.x = Input.GetAxisRaw("Horizontal");// + _mobileInputs.x;
         _inputs.y = Input.GetAxisRaw("Vertical");//   + _mobileInputs.y;
-        _willShoot  = Input.GetKeyDown(KeyCode.Space);
+        _willShoot  = Input.GetKeyDown(KeyCode.N);
 
         _inputs.x = HitRay(0, new Vector3(_inputs.x, 0), _inputs.x);
         _inputs.x = HitRay(1, new Vector3(_inputs.x, 0), _inputs.x);

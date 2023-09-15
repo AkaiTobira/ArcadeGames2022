@@ -140,8 +140,8 @@ public class BS_Player : ESM.SMC_1D<BS_PlayerState>,
 
     private void ProcessInputsMove(){
         _inputs.x = Input.GetAxisRaw("Horizontal");
-        _inputs.y = Input.GetKey(KeyCode.LeftShift) ? 1.0f : 0.0f;
-        _shoot    = Input.GetKeyDown(KeyCode.Space);
+        _inputs.y = Input.GetKey(KeyCode.M) ? 1.0f : 0.0f;
+        _shoot    = Input.GetKeyDown(KeyCode.N);
     }
 
     private void RotateTowerHead(){

@@ -199,7 +199,7 @@ namespace DigDug{
             Vector3 aa = DD_NavMesh.GetNextPathPoint(transform.position, DD_Player3.Instance.transform.position);
     //        Debug.Log(aa + " " + transform.position + " : " + (aa - transform.position));
             _inputs = aa - transform.position;
-        //    _shoot    = Input.GetKeyDown(KeyCode.Space);
+        //    _shoot    = Input.GetKeyDown(KeyCode.N);
             if(Mathf.Abs(_inputs.x) < 0.5f) _inputs.x = 0;
             if(Mathf.Abs(_inputs.y) < 0.5f) _inputs.y = 0;
 

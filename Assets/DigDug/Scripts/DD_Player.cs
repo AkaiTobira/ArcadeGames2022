@@ -136,7 +136,7 @@ public class DD_Player : ESM.SMC_4D<DD_PlayerStates>
     private void ProcessInputsMove(){
         _inputs.x = Input.GetAxisRaw("Horizontal");
         _inputs.y = Input.GetAxisRaw("Vertical");
-        _shoot    = Input.GetKeyDown(KeyCode.Space);
+        _shoot    = Input.GetKeyDown(KeyCode.N);
 
 
         if(_fDirection == AnimationSide.Left || _fDirection == AnimationSide.Right){

@@ -19,8 +19,8 @@ public static class LF_PlayerInput{
 
     private static List<(KeyCode, long)> _scanned = new List<(KeyCode, long)>();
     private static List<KeyCode> _keys = new List<KeyCode>{
-        KeyCode.Space,
-        KeyCode.LeftShift,
+        KeyCode.N,
+        KeyCode.M,
     };
 
     private static long GetCurrentTime(){
@@ -454,9 +454,9 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
     private void ProcessInputsAttack(){
         LF_PlayerInput.Scan();
 
-        _canSpecial = LF_PlayerInput.GetPressed(new KeyCode[] { KeyCode.Space, KeyCode.LeftShift });
-        _canPunch   = LF_PlayerInput.GetPressed(KeyCode.Space);
-        _canKick    = LF_PlayerInput.GetPressed(KeyCode.LeftShift);
+        _canSpecial = LF_PlayerInput.GetPressed(new KeyCode[] { KeyCode.N, KeyCode.M });
+        _canPunch   = LF_PlayerInput.GetPressed(KeyCode.N);
+        _canKick    = LF_PlayerInput.GetPressed(KeyCode.M);
     }
 
     private GameObject IsHit(

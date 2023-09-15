@@ -434,7 +434,7 @@ namespace DigDug{
                     break;
             }
 
-            _shootingRequirementsMeet = Input.GetKeyDown(KeyCode.LeftShift) && _shootingTimeColdown <= 0;
+            _shootingRequirementsMeet = Input.GetKeyDown(KeyCode.M) && _shootingTimeColdown <= 0;
 
 
             return ActiveState;
@@ -444,7 +444,7 @@ namespace DigDug{
         private void ProcessInputsMove(){
             _inputs.x = Input.GetAxisRaw("Horizontal");
             _inputs.y = Input.GetAxisRaw("Vertical");
-            _shoot    = Input.GetKeyDown(KeyCode.Space);
+            _shoot    = Input.GetKeyDown(KeyCode.N);
 
             switch(_pressedDirection){
                 case AnimationSide.Common:

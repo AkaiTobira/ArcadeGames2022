@@ -97,7 +97,7 @@ public class BlocksManager : MonoBehaviour
     }
 
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.Tab)){
+        if(Input.GetKeyDown(KeyCode.B)){
             LoadLevel();
         }
     }

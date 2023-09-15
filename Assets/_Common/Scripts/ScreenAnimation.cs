@@ -92,7 +92,7 @@ public abstract class ScreenAnimation : MonoBehaviour, IListenToGameplayEvents{
                     }
                 #endif
 
-//                if(Input.GetKeyDown(KeyCode.Space) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.touchCount > 0){
+//                if(Input.GetKeyDown(KeyCode.N) || Input.GetKeyDown(KeyCode.KeypadEnter) || Input.touchCount > 0){
 //                    SetState(State.Hiding, ActiveAnimation._hideTimeDuration);
 //                    Debug.Log("Next Event");
 //                    return;

@@ -115,7 +115,7 @@ public class Asteroids : WallThrought
     }
 
     private void ProccesShooting(){
-        if(Input.GetKeyDown(KeyCode.Space)){
+        if(Input.GetKeyDown(KeyCode.N)){
             Shoot();
         }
     }

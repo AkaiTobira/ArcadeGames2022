@@ -28,7 +28,7 @@ public class LanguageSelect : MonoBehaviour
             ChangeLanguage((int)Mathf.Sign(horizontalValue));
         }
 
-        if(Input.GetKeyDown(KeyCode.Space)){
+        if(Input.GetKeyDown(KeyCode.N)){
             Events.Gameplay.RiseEvent(GameplayEventType.ContinueAnimation);
         }
     }
