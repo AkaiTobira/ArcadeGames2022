@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
+[ExecuteInEditMode]
 [RequireComponent(typeof(Image))]
 public class AutoTranslatorImage : AutoTranslatorUnitBase
 {
@@ -15,6 +16,7 @@ public class AutoTranslatorImage : AutoTranslatorUnitBase
     }
 
     protected override void Refresh(){
+        Debug.Log("Refresh");
         _image.sprite = AutoTranslator.LoadImage(game, FolderID)[0];
     }
 }

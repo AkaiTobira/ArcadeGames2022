@@ -15623,6 +15623,7 @@ MonoBehaviour:
     UseRightAsLeft: 0
   _moveSpeed: 2
   _mirrorSprites: 0
+  _ignoreSpriteDirectionClear: 0
   _misslePrefab: {fileID: 8884426621438522888, guid: 009171e42670dbf46bf3f80c2682b973, type: 3}
   _shootingPoints:
   - {fileID: 582742779}
@@ -35054,6 +35055,7 @@ MonoBehaviour:
     UseRightAsLeft: 0
   _moveSpeed: 2.1
   _mirrorSprites: 0
+  _ignoreSpriteDirectionClear: 0
 --- !u!61 &2135537998
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -17,7 +17,8 @@ public class TextAssets : MonoBehaviour
     }
 
     public static TMP_FontAsset GetFont(){
-        return instance._text[(int)AutoTranslator.Language];
+        if(Guard.IsValid(instance)) return instance._text[(int)AutoTranslator.Language];
+        return null;
     }
 
     public static TextAsset Translations => instance?._textFile;

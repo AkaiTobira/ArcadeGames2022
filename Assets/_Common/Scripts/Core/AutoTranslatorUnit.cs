@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
+[ExecuteInEditMode]
 [RequireComponent(typeof(TextMeshProUGUI))]
 public class AutoTranslatorUnit : AutoTranslatorUnitBase{
 
@@ -19,13 +20,18 @@ public class AutoTranslatorUnit : AutoTranslatorUnitBase{
         _text.ForceMeshUpdate(false, true);
     }
 }
-
+[ExecuteInEditMode]
 public abstract class AutoTranslatorUnitBase : CMonoBehaviour, IListenToGameplayEvents
 {
 
     protected abstract void Initialize();
 
-    void Awake() {
+    public void ForceRefresh(){
+        Initialize();
+        Refresh();
+    }
+
+    public void Awake() {
         Initialize();
         Events.Gameplay.RegisterListener(this, GameplayEventType.LocalizationUpdate);
     }

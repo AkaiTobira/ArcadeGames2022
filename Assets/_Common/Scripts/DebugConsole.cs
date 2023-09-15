@@ -10,6 +10,7 @@
              static string myLog = "";
              private string output;
              private string stack;
+             private bool display = false;
      
              void OnEnable()
              {
@@ -20,7 +21,12 @@
              {
                  Application.logMessageReceived -= Log;
              }
-     
+            private void Update() {
+               
+                if(Input.GetKeyDown(KeyCode.T)){ display = !display; }
+            }
+
+
              public void Log(string logString, string stackTrace, LogType type)
              {
                  output = logString;
@@ -36,7 +42,9 @@
              {
                  //if (!Application.isEditor) //Do not display in editor ( or you can use the UNITY_EDITOR macro to also disable the rest)
                  {
-                     myLog = GUI.TextArea(new Rect(10, 10, Screen.width /2, Screen.height /2), myLog);
+
+                if(display) myLog = GUI.TextArea(new Rect(10, 10, Screen.width /2, Screen.height /2), myLog);
+                else {myLog = GUI.TextArea(new Rect(-1000,-1000, 1, 1), myLog);}
                  }
              }
      //#endif

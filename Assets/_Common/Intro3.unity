@@ -5351,6 +5351,10 @@ PrefabInstance:
       propertyPath: textTag
       value: ChoseLang
       objectReference: {fileID: 0}
+    - target: {fileID: 8399176668758781644, guid: 83dded3c8640f264ab753ef364294bc6, type: 3}
+      propertyPath: m_Enabled
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 8399176668911796416, guid: 83dded3c8640f264ab753ef364294bc6, type: 3}
       propertyPath: m_Pivot.x
       value: 0.5
@@ -8822,10 +8826,6 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 0}
     m_Modifications:
-    - target: {fileID: 2265298764580917413, guid: a61fb5fb65043604a86243b32968506a, type: 3}
-      propertyPath: m_Enabled
-      value: 0
-      objectReference: {fileID: 0}
     - target: {fileID: 6968140818001962151, guid: a61fb5fb65043604a86243b32968506a, type: 3}
       propertyPath: m_RootOrder
       value: 0

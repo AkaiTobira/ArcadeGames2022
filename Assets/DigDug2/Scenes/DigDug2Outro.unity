@@ -2555,6 +2555,7 @@ MonoBehaviour:
   _numberInRow: 1
   _isVertical: 0
   _isHorizontal: 1
+  _forceActivationOnStart: 0
 --- !u!114 &411060870
 MonoBehaviour:
   m_ObjectHideFlags: 0
