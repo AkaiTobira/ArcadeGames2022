@@ -19,5 +19,13 @@ public class MainMenu : MonoBehaviour
             AudioSystem.Instance.PlayMusic(_backgroundMusicName, 1);
         });
 
+        continueButtonPressed = false;
+    }
+
+
+    bool continueButtonPressed = false;
+
+    void Update(){
+        if(Input.GetKey(KeyCode.C) && !continueButtonPressed){ _play.onClick.Invoke(); continueButtonPressed = true; }
     }
 }

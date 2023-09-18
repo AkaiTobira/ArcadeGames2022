@@ -27,7 +27,5 @@ public class MainMenuEscape : MonoBehaviour
                 SceneManager.LoadScene(SceneFlowController.GetActiveIntro(), LoadSceneMode.Single);
                 loadDelay = 0.5f;
         }
-
-        loadDelay -= Time.deltaTime;
     }
 }
