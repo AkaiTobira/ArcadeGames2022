@@ -16,7 +16,6 @@ public class AutoTranslatorImage : AutoTranslatorUnitBase
     }
 
     protected override void Refresh(){
-        Debug.Log("Refresh");
         _image.sprite = AutoTranslator.LoadImage(game, FolderID)[0];
     }
 }

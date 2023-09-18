@@ -12789,7 +12789,6 @@ GameObject:
   - component: {fileID: 2141651562}
   - component: {fileID: 2141651561}
   - component: {fileID: 2141651563}
-  - component: {fileID: 2141651564}
   m_Layer: 5
   m_Name: Block (3)
   m_TagString: Untagged
@@ -12871,20 +12870,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _victoryText: {fileID: 2015841737}
   _loseText: {fileID: 220515740}
---- !u!114 &2141651564
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2141651559}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a24397f5bf50d0142afb1ffed5ef0e69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FolderID: 4
-  game: 6
 --- !u!1 &2143189280
 GameObject:
   m_ObjectHideFlags: 0

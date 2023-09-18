@@ -126,7 +126,7 @@ public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
         ProcessTransverseMove();
 
         if(_elapsedTime1 > 0) return;
-        if(Input.GetKeyDown(KeyCode.N) || Input.GetKeyDown(KeyCode.KeypadEnter)) {
+        if(Input.GetKeyDown(KeyCode.N) || Input.GetKeyDown(KeyCode.C)) {
 //            Debug.Log(_buttons[_activeButton].name + " PointDown");
             _buttons[_activeButton].OnPointerDown(null);
             _elapsedTime1 = _reReadTime;

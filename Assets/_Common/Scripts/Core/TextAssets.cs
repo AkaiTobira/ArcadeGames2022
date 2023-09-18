@@ -13,7 +13,9 @@ public class TextAssets : MonoBehaviour
         if(instance == null){
             instance = this;
             DontDestroyOnLoad(this);
-        } 
+        }else{
+            Destroy(this);
+        }
     }
 
     public static TMP_FontAsset GetFont(){

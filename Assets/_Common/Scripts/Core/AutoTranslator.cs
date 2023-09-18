@@ -3,6 +3,8 @@ using System;
 using System.Linq;
 using System.Collections.Generic;
 using System.IO;
+using UnityEditor;
+using UnityEngine.SceneManagement;
 //using System.Runtime.Serialization.Formatters.Binary;
 public enum SupportedLanguages{
     UK,
@@ -23,39 +25,54 @@ public static class AutoTranslator
     };
 
     static Dictionary<GameType, string > _gameFolders = new Dictionary<GameType, string>{
-        {GameType.Asteroids, "Asteroids"},
-        {GameType.NotLoaded, "Common"},
-        {GameType.Berzerk,   "Berzerk"},
-        {GameType.DigDug2,   "DigDug2"},
-        {GameType.Frogger,   "Frogger"},
+        {GameType.Asteroids,     "Asteroids"},
+        {GameType.NotLoaded,     "_Intro" },
+        {GameType.Berzerk,       "Berzerk"},
+        {GameType.DigDug2,       "DigDug2"},
+        {GameType.Frogger,       "Frogger"},
         {GameType.LittleFighter, "LittleFighter"},
-        {GameType.SpaceBase, "SpaceBase"},
-        {GameType.Tunnel,    "Tunnel"}
+        {GameType.SpaceBase,     "SpaceBase"},
+        {GameType.Tunnel,        "Tunnel"}
     };
 
-
-
     public static SupportedLanguages Language;
+    public static Sprite[] LoadImage(GameType game, int FolderID, int language = -1){
 
-    public static Sprite[] LoadImage(GameType game, int FolderID){
-        Sprite[] sprite = Resources.LoadAll<Sprite>("Translation/" + AutoTranslator.GetFolder(false, game) + "/" + FolderID.ToString());
+#if UNITY_EDITOR
 
-        if(sprite.Length == 0){
-            sprite = Resources.LoadAll<Sprite>("Translation/" + AutoTranslator.GetFolder(true, game) + "/" + FolderID.ToString());
+        string shortenPath = $"Assets/_Localization/{GetFolder(false, game, language)}/{FolderID}";
+        string[] guids = AssetDatabase.FindAssets("t:Sprite", new string[]{ shortenPath });
+        if(guids.Length == 0){
+            shortenPath = $"Assets/_Localization/{GetFolder(true, game, language)}/{FolderID}";
+            guids = AssetDatabase.FindAssets("t:Sprite", new string[]{ shortenPath });
+            if(guids.Length == 0){
+                Debug.LogError($"Missing pictures with id {FolderID} for game {game} at {shortenPath}");
+            }
         }
 
-        Resources.UnloadUnusedAssets();
+        
+        Sprite[] newSprites = new Sprite[guids.Length];
 
-        return sprite;
+        Debug.Log(SceneManager.GetActiveScene().name + " " +  newSprites.Length + " " + shortenPath);
+
+        for (int i = 0; i < newSprites.Length; i++) {
+            string path = AssetDatabase.GUIDToAssetPath(guids[i]);
+            newSprites[i] = AssetDatabase.LoadAssetAtPath<Sprite>(path);
+        }
+
+        return newSprites;
+#else
+        return null;
+#endif
     }
 
 
-    private static string GetFolder(bool Default, GameType type){
+    private static string GetFolder(bool Default, GameType type, int language){
         if(Default){
             return _gameFolders[type] + "/" + _folders[SupportedLanguages.UK];
         }
 
-        return _gameFolders[type] + "/" + _folders[Language];
+        return _gameFolders[type] + "/" + _folders[language == -1 ? Language : (SupportedLanguages)language];
     }
 
     #if UNITY_EDITOR

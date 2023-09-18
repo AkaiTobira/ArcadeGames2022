@@ -2026,7 +2026,6 @@ GameObject:
   - component: {fileID: 562079818}
   - component: {fileID: 562079817}
   - component: {fileID: 562079820}
-  - component: {fileID: 562079821}
   m_Layer: 5
   m_Name: Block (1)
   m_TagString: Untagged
@@ -2114,20 +2113,6 @@ MonoBehaviour:
   _sprites:
   - {fileID: 21300000, guid: 798174bea46c16d4080176bedc603369, type: 3}
   - {fileID: 21300000, guid: 62856dfca68ffb346bc896918dbebd6b, type: 3}
---- !u!114 &562079821
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 562079816}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bafddbeaa63c83e46aa2e3333b44ae0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FolderID: 1
-  game: 4
 --- !u!1 &595001268
 GameObject:
   m_ObjectHideFlags: 0
@@ -2614,7 +2599,6 @@ GameObject:
   - component: {fileID: 731522998}
   - component: {fileID: 731522997}
   - component: {fileID: 731522999}
-  - component: {fileID: 731523000}
   m_Layer: 5
   m_Name: Block
   m_TagString: Untagged
@@ -2702,20 +2686,6 @@ MonoBehaviour:
   _sprites:
   - {fileID: 21300000, guid: bbdf1097c0df8a741b71f00844c7aeb8, type: 3}
   - {fileID: 21300000, guid: 00a0044ebd4269140961952df4dc013d, type: 3}
---- !u!114 &731523000
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 731522995}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bafddbeaa63c83e46aa2e3333b44ae0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FolderID: 0
-  game: 4
 --- !u!1 &747674791
 GameObject:
   m_ObjectHideFlags: 0
@@ -4384,7 +4354,6 @@ GameObject:
   - component: {fileID: 1115329859}
   - component: {fileID: 1115329858}
   - component: {fileID: 1115329860}
-  - component: {fileID: 1115329861}
   m_Layer: 5
   m_Name: Block (2)
   m_TagString: Untagged
@@ -4472,20 +4441,6 @@ MonoBehaviour:
   _sprites:
   - {fileID: 21300000, guid: 16380316fdec5fc4ba606d8c7d6b02cb, type: 3}
   - {fileID: 21300000, guid: fb5adbfec4cf06843a979f8e0fa2395b, type: 3}
---- !u!114 &1115329861
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1115329856}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bafddbeaa63c83e46aa2e3333b44ae0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FolderID: 2
-  game: 4
 --- !u!1 &1127307178
 GameObject:
   m_ObjectHideFlags: 0

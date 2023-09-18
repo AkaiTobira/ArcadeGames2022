@@ -10,8 +10,6 @@ using System.IO;
 public static partial class CBuild
 {
 
-
-
     #if UNITY_EDITOR
     private enum Game{
         Asteroids,

@@ -17,7 +17,8 @@ public class CanvasSorter : MonoBehaviour
     private void Awake() {
         if(!Guard.IsValid(Sorter)) {
             Sorter = this;
-        }
+            DontDestroyOnLoad(this);
+        }else Destroy(this);
     }
 
     public static void AddCanvas(Canvas canvas, int keepRelative = 0){

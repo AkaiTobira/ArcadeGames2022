@@ -1189,7 +1189,6 @@ GameObject:
   - component: {fileID: 264903548}
   - component: {fileID: 264903547}
   - component: {fileID: 264903546}
-  - component: {fileID: 264903549}
   m_Layer: 5
   m_Name: Block (2)
   m_TagString: Untagged
@@ -1257,20 +1256,6 @@ RectTransform:
   m_AnchoredPosition: {x: 84.3, y: 83.05496}
   m_SizeDelta: {x: 42.6624, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &264903549
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 264903545}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a24397f5bf50d0142afb1ffed5ef0e69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FolderID: 1
-  game: 2
 --- !u!1001 &265789430
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -2922,7 +2907,6 @@ GameObject:
   - component: {fileID: 597438183}
   - component: {fileID: 597438182}
   - component: {fileID: 597438181}
-  - component: {fileID: 597438184}
   m_Layer: 5
   m_Name: Block (3)
   m_TagString: Untagged
@@ -2990,20 +2974,6 @@ RectTransform:
   m_AnchoredPosition: {x: -2.21, y: 83.05496}
   m_SizeDelta: {x: 42.6624, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &597438184
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 597438180}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a24397f5bf50d0142afb1ffed5ef0e69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FolderID: 2
-  game: 2
 --- !u!1 &597840186
 GameObject:
   m_ObjectHideFlags: 0
@@ -5742,7 +5712,6 @@ GameObject:
   - component: {fileID: 1218564821}
   - component: {fileID: 1218564819}
   - component: {fileID: 1218564820}
-  - component: {fileID: 1218564823}
   m_Layer: 5
   m_Name: Block (4)
   m_TagString: Untagged
@@ -5859,20 +5828,6 @@ RectTransform:
   m_AnchoredPosition: {x: 44, y: 83.05496}
   m_SizeDelta: {x: 42.6624, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &1218564823
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1218564818}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bafddbeaa63c83e46aa2e3333b44ae0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FolderID: 4
-  game: 2
 --- !u!1 &1228015335
 GameObject:
   m_ObjectHideFlags: 0
@@ -7788,7 +7743,6 @@ GameObject:
   - component: {fileID: 1459406731}
   - component: {fileID: 1459406733}
   - component: {fileID: 1459406732}
-  - component: {fileID: 1459406734}
   m_Layer: 5
   m_Name: Block (1)
   m_TagString: Untagged
@@ -7855,20 +7809,6 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1459406730}
   m_CullTransparentMesh: 1
---- !u!114 &1459406734
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 1459406730}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: a24397f5bf50d0142afb1ffed5ef0e69, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FolderID: 0
-  game: 2
 --- !u!1 &1468803804
 GameObject:
   m_ObjectHideFlags: 0
@@ -10208,7 +10148,6 @@ GameObject:
   - component: {fileID: 2034440540}
   - component: {fileID: 2034440538}
   - component: {fileID: 2034440539}
-  - component: {fileID: 2034440542}
   m_Layer: 5
   m_Name: Block (5)
   m_TagString: Untagged
@@ -10319,20 +10258,6 @@ RectTransform:
   m_AnchoredPosition: {x: 44, y: 118.7}
   m_SizeDelta: {x: 42.6624, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
---- !u!114 &2034440542
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2034440537}
-  m_Enabled: 0
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: bafddbeaa63c83e46aa2e3333b44ae0f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  FolderID: 3
-  game: 2
 --- !u!1 &2067181643
 GameObject:
   m_ObjectHideFlags: 0

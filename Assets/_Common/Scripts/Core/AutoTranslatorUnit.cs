@@ -26,7 +26,7 @@ public abstract class AutoTranslatorUnitBase : CMonoBehaviour, IListenToGameplay
 
     protected abstract void Initialize();
 
-    public void ForceRefresh(){
+    public virtual void ForceRefresh(){
         Initialize();
         Refresh();
     }

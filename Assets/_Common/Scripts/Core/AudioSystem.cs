@@ -32,12 +32,12 @@ public class AudioSystem : MonoBehaviour
 
 	private void Awake()
 	{
-		if (Instance == null)
+		if (!Guard.IsValid(Instance))
 		{
 			Instance = this;
 	    	DontDestroyOnLoad(gameObject);
     	}
-		else if (Instance != this)
+		else
 		{
 			Destroy(gameObject);
 		}
