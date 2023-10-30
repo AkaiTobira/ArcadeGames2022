@@ -697,9 +697,11 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _sprites:
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 21300000, guid: b1dc14933faefec4f918538c32d01cc4, type: 3}
+  - {fileID: 21300000, guid: 9bda458bae4494e42bd4a73d30d10f0b, type: 3}
+  - {fileID: 21300000, guid: 0140d056d485ba34cb96bf05e703c382, type: 3}
   _image: {fileID: 5217077104800953015}
+  _button: {fileID: 0}
 --- !u!114 &1479336596226603951
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -712,6 +714,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 8586800e38bc8254d804e04a28b8586e, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  _enable: 0
 --- !u!1 &5217077104939318130
 GameObject:
   m_ObjectHideFlags: 0

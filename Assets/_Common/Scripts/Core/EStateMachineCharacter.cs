@@ -347,6 +347,22 @@ namespace ESM{
 
         public AnimationSide GetFacingDirection(){ return _side; }
 
+        protected Vector2 DirectionToVector2(AnimationSide side){
+            switch(side){
+                case AnimationSide.Common: return Vector2.zero;
+                case AnimationSide.Left: return Vector2.left;
+                case AnimationSide.Right: return Vector2.right;
+                case AnimationSide.Top: return Vector2.up;
+                case AnimationSide.Bottom: return Vector2.down;
+                case AnimationSide.LeftTop: return new Vector2(-1, 1);
+                case AnimationSide.RightBottom: return new Vector2(1, 1);
+                case AnimationSide.LeftBottom: return new Vector2(-1, -1);
+                case AnimationSide.RightTop: return new Vector2(1, 1);
+            }
+
+            return Vector2.zero;
+        }
+
         protected AnimationSide ReverseDirection(AnimationSide side){
             switch(side){
                 case AnimationSide.Common: return AnimationSide.Common;

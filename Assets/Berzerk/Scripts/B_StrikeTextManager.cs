@@ -38,9 +38,9 @@ public class B_StrikeTextManager : MonoBehaviour
     }
 
     private void SpawnTransparent(){
-
+        if(AutoTranslator.Language == SupportedLanguages.ES) return;
         timer = 0;
-        Debug.LogWarning(_isTransparentActive);
+       // Debug.LogWarning(_isTransparentActive);
 
         //if(_isTransparentActive) {
             //MarkTransparentAsInactive();

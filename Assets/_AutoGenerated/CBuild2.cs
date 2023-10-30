@@ -5,7 +5,7 @@ using UnityEditor;
 
 public static partial class CBuild{
 #if UNITY_EDITOR
-	[MenuItem("Build/Rebuild StandaloneLinux64/AllForOne")]
+	[MenuItem("Build/Rebuild/StandaloneLinux64/AllForOne")]
 	public static void BuildAllForOneStandaloneLinux64(){
 		FillScenes();
 		FillDirectives();
@@ -15,7 +15,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneLinux64);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows/AllForOne")]
+	[MenuItem("Build/Rebuild/StandaloneWindows/AllForOne")]
 	public static void BuildAllForOneStandaloneWindows(){
 		FillScenes();
 		FillDirectives();
@@ -25,7 +25,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows64/AllForOne")]
+	[MenuItem("Build/Rebuild/StandaloneWindows64/AllForOne")]
 	public static void BuildAllForOneStandaloneWindows64(){
 		FillScenes();
 		FillDirectives();
@@ -35,7 +35,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows64);
 	}
 
-	[MenuItem("Build/Rebuild WebGL/AllForOne")]
+	[MenuItem("Build/Rebuild/WebGL/AllForOne")]
 	public static void BuildAllForOneWebGL(){
 		FillScenes();
 		FillDirectives();
@@ -45,7 +45,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.WebGL);
 	}
 
-	[MenuItem("Build/Rebuild Android/AllForOne")]
+	[MenuItem("Build/Rebuild/Android/AllForOne")]
 	public static void BuildAllForOneAndroid(){
 		FillScenes();
 		FillDirectives();
@@ -55,7 +55,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.Android);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneLinux64/Asteroids")]
+	[MenuItem("Build/Rebuild/StandaloneLinux64/Asteroids")]
 	public static void BuildAsteroidsStandaloneLinux64(){
 		FillScenes();
 		FillDirectives();
@@ -65,7 +65,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneLinux64);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows/Asteroids")]
+	[MenuItem("Build/Rebuild/StandaloneWindows/Asteroids")]
 	public static void BuildAsteroidsStandaloneWindows(){
 		FillScenes();
 		FillDirectives();
@@ -75,7 +75,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows64/Asteroids")]
+	[MenuItem("Build/Rebuild/StandaloneWindows64/Asteroids")]
 	public static void BuildAsteroidsStandaloneWindows64(){
 		FillScenes();
 		FillDirectives();
@@ -85,7 +85,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows64);
 	}
 
-	[MenuItem("Build/Rebuild WebGL/Asteroids")]
+	[MenuItem("Build/Rebuild/WebGL/Asteroids")]
 	public static void BuildAsteroidsWebGL(){
 		FillScenes();
 		FillDirectives();
@@ -95,7 +95,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.WebGL);
 	}
 
-	[MenuItem("Build/Rebuild Android/Asteroids")]
+	[MenuItem("Build/Rebuild/Android/Asteroids")]
 	public static void BuildAsteroidsAndroid(){
 		FillScenes();
 		FillDirectives();
@@ -105,7 +105,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.Android);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneLinux64/Berzerk")]
+	[MenuItem("Build/Rebuild/StandaloneLinux64/Berzerk")]
 	public static void BuildBerzerkStandaloneLinux64(){
 		FillScenes();
 		FillDirectives();
@@ -115,7 +115,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneLinux64);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows/Berzerk")]
+	[MenuItem("Build/Rebuild/StandaloneWindows/Berzerk")]
 	public static void BuildBerzerkStandaloneWindows(){
 		FillScenes();
 		FillDirectives();
@@ -125,7 +125,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows64/Berzerk")]
+	[MenuItem("Build/Rebuild/StandaloneWindows64/Berzerk")]
 	public static void BuildBerzerkStandaloneWindows64(){
 		FillScenes();
 		FillDirectives();
@@ -135,7 +135,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows64);
 	}
 
-	[MenuItem("Build/Rebuild WebGL/Berzerk")]
+	[MenuItem("Build/Rebuild/WebGL/Berzerk")]
 	public static void BuildBerzerkWebGL(){
 		FillScenes();
 		FillDirectives();
@@ -145,7 +145,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.WebGL);
 	}
 
-	[MenuItem("Build/Rebuild Android/Berzerk")]
+	[MenuItem("Build/Rebuild/Android/Berzerk")]
 	public static void BuildBerzerkAndroid(){
 		FillScenes();
 		FillDirectives();
@@ -155,7 +155,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.Android);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneLinux64/DigDug")]
+	[MenuItem("Build/Rebuild/StandaloneLinux64/DigDug")]
 	public static void BuildDigDugStandaloneLinux64(){
 		FillScenes();
 		FillDirectives();
@@ -165,7 +165,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneLinux64);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows/DigDug")]
+	[MenuItem("Build/Rebuild/StandaloneWindows/DigDug")]
 	public static void BuildDigDugStandaloneWindows(){
 		FillScenes();
 		FillDirectives();
@@ -175,7 +175,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows64/DigDug")]
+	[MenuItem("Build/Rebuild/StandaloneWindows64/DigDug")]
 	public static void BuildDigDugStandaloneWindows64(){
 		FillScenes();
 		FillDirectives();
@@ -185,7 +185,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows64);
 	}
 
-	[MenuItem("Build/Rebuild WebGL/DigDug")]
+	[MenuItem("Build/Rebuild/WebGL/DigDug")]
 	public static void BuildDigDugWebGL(){
 		FillScenes();
 		FillDirectives();
@@ -195,7 +195,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.WebGL);
 	}
 
-	[MenuItem("Build/Rebuild Android/DigDug")]
+	[MenuItem("Build/Rebuild/Android/DigDug")]
 	public static void BuildDigDugAndroid(){
 		FillScenes();
 		FillDirectives();
@@ -205,7 +205,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.Android);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneLinux64/DigDug2")]
+	[MenuItem("Build/Rebuild/StandaloneLinux64/DigDug2")]
 	public static void BuildDigDug2StandaloneLinux64(){
 		FillScenes();
 		FillDirectives();
@@ -215,7 +215,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneLinux64);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows/DigDug2")]
+	[MenuItem("Build/Rebuild/StandaloneWindows/DigDug2")]
 	public static void BuildDigDug2StandaloneWindows(){
 		FillScenes();
 		FillDirectives();
@@ -225,7 +225,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows64/DigDug2")]
+	[MenuItem("Build/Rebuild/StandaloneWindows64/DigDug2")]
 	public static void BuildDigDug2StandaloneWindows64(){
 		FillScenes();
 		FillDirectives();
@@ -235,7 +235,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows64);
 	}
 
-	[MenuItem("Build/Rebuild WebGL/DigDug2")]
+	[MenuItem("Build/Rebuild/WebGL/DigDug2")]
 	public static void BuildDigDug2WebGL(){
 		FillScenes();
 		FillDirectives();
@@ -245,7 +245,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.WebGL);
 	}
 
-	[MenuItem("Build/Rebuild Android/DigDug2")]
+	[MenuItem("Build/Rebuild/Android/DigDug2")]
 	public static void BuildDigDug2Android(){
 		FillScenes();
 		FillDirectives();
@@ -255,7 +255,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.Android);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneLinux64/Four1")]
+	[MenuItem("Build/Rebuild/StandaloneLinux64/Four1")]
 	public static void BuildFour1StandaloneLinux64(){
 		FillScenes();
 		FillDirectives();
@@ -265,7 +265,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneLinux64);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows/Four1")]
+	[MenuItem("Build/Rebuild/StandaloneWindows/Four1")]
 	public static void BuildFour1StandaloneWindows(){
 		FillScenes();
 		FillDirectives();
@@ -275,7 +275,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows64/Four1")]
+	[MenuItem("Build/Rebuild/StandaloneWindows64/Four1")]
 	public static void BuildFour1StandaloneWindows64(){
 		FillScenes();
 		FillDirectives();
@@ -285,7 +285,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows64);
 	}
 
-	[MenuItem("Build/Rebuild WebGL/Four1")]
+	[MenuItem("Build/Rebuild/WebGL/Four1")]
 	public static void BuildFour1WebGL(){
 		FillScenes();
 		FillDirectives();
@@ -295,7 +295,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.WebGL);
 	}
 
-	[MenuItem("Build/Rebuild Android/Four1")]
+	[MenuItem("Build/Rebuild/Android/Four1")]
 	public static void BuildFour1Android(){
 		FillScenes();
 		FillDirectives();
@@ -305,7 +305,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.Android);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneLinux64/Frogger")]
+	[MenuItem("Build/Rebuild/StandaloneLinux64/Frogger")]
 	public static void BuildFroggerStandaloneLinux64(){
 		FillScenes();
 		FillDirectives();
@@ -315,7 +315,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneLinux64);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows/Frogger")]
+	[MenuItem("Build/Rebuild/StandaloneWindows/Frogger")]
 	public static void BuildFroggerStandaloneWindows(){
 		FillScenes();
 		FillDirectives();
@@ -325,7 +325,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows64/Frogger")]
+	[MenuItem("Build/Rebuild/StandaloneWindows64/Frogger")]
 	public static void BuildFroggerStandaloneWindows64(){
 		FillScenes();
 		FillDirectives();
@@ -335,7 +335,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows64);
 	}
 
-	[MenuItem("Build/Rebuild WebGL/Frogger")]
+	[MenuItem("Build/Rebuild/WebGL/Frogger")]
 	public static void BuildFroggerWebGL(){
 		FillScenes();
 		FillDirectives();
@@ -345,7 +345,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.WebGL);
 	}
 
-	[MenuItem("Build/Rebuild Android/Frogger")]
+	[MenuItem("Build/Rebuild/Android/Frogger")]
 	public static void BuildFroggerAndroid(){
 		FillScenes();
 		FillDirectives();
@@ -355,7 +355,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.Android);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneLinux64/LittleFighter")]
+	[MenuItem("Build/Rebuild/StandaloneLinux64/LittleFighter")]
 	public static void BuildLittleFighterStandaloneLinux64(){
 		FillScenes();
 		FillDirectives();
@@ -365,7 +365,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneLinux64);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows/LittleFighter")]
+	[MenuItem("Build/Rebuild/StandaloneWindows/LittleFighter")]
 	public static void BuildLittleFighterStandaloneWindows(){
 		FillScenes();
 		FillDirectives();
@@ -375,7 +375,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows64/LittleFighter")]
+	[MenuItem("Build/Rebuild/StandaloneWindows64/LittleFighter")]
 	public static void BuildLittleFighterStandaloneWindows64(){
 		FillScenes();
 		FillDirectives();
@@ -385,7 +385,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows64);
 	}
 
-	[MenuItem("Build/Rebuild WebGL/LittleFighter")]
+	[MenuItem("Build/Rebuild/WebGL/LittleFighter")]
 	public static void BuildLittleFighterWebGL(){
 		FillScenes();
 		FillDirectives();
@@ -395,7 +395,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.WebGL);
 	}
 
-	[MenuItem("Build/Rebuild Android/LittleFighter")]
+	[MenuItem("Build/Rebuild/Android/LittleFighter")]
 	public static void BuildLittleFighterAndroid(){
 		FillScenes();
 		FillDirectives();
@@ -405,7 +405,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.Android);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneLinux64/SixGames")]
+	[MenuItem("Build/Rebuild/StandaloneLinux64/SixGames")]
 	public static void BuildSixGamesStandaloneLinux64(){
 		FillScenes();
 		FillDirectives();
@@ -415,7 +415,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneLinux64);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows/SixGames")]
+	[MenuItem("Build/Rebuild/StandaloneWindows/SixGames")]
 	public static void BuildSixGamesStandaloneWindows(){
 		FillScenes();
 		FillDirectives();
@@ -425,7 +425,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows64/SixGames")]
+	[MenuItem("Build/Rebuild/StandaloneWindows64/SixGames")]
 	public static void BuildSixGamesStandaloneWindows64(){
 		FillScenes();
 		FillDirectives();
@@ -435,7 +435,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows64);
 	}
 
-	[MenuItem("Build/Rebuild WebGL/SixGames")]
+	[MenuItem("Build/Rebuild/WebGL/SixGames")]
 	public static void BuildSixGamesWebGL(){
 		FillScenes();
 		FillDirectives();
@@ -445,7 +445,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.WebGL);
 	}
 
-	[MenuItem("Build/Rebuild Android/SixGames")]
+	[MenuItem("Build/Rebuild/Android/SixGames")]
 	public static void BuildSixGamesAndroid(){
 		FillScenes();
 		FillDirectives();
@@ -455,7 +455,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.Android);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneLinux64/SpaceBase")]
+	[MenuItem("Build/Rebuild/StandaloneLinux64/SpaceBase")]
 	public static void BuildSpaceBaseStandaloneLinux64(){
 		FillScenes();
 		FillDirectives();
@@ -465,7 +465,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneLinux64);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows/SpaceBase")]
+	[MenuItem("Build/Rebuild/StandaloneWindows/SpaceBase")]
 	public static void BuildSpaceBaseStandaloneWindows(){
 		FillScenes();
 		FillDirectives();
@@ -475,7 +475,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows64/SpaceBase")]
+	[MenuItem("Build/Rebuild/StandaloneWindows64/SpaceBase")]
 	public static void BuildSpaceBaseStandaloneWindows64(){
 		FillScenes();
 		FillDirectives();
@@ -485,7 +485,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows64);
 	}
 
-	[MenuItem("Build/Rebuild WebGL/SpaceBase")]
+	[MenuItem("Build/Rebuild/WebGL/SpaceBase")]
 	public static void BuildSpaceBaseWebGL(){
 		FillScenes();
 		FillDirectives();
@@ -495,7 +495,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.WebGL);
 	}
 
-	[MenuItem("Build/Rebuild Android/SpaceBase")]
+	[MenuItem("Build/Rebuild/Android/SpaceBase")]
 	public static void BuildSpaceBaseAndroid(){
 		FillScenes();
 		FillDirectives();
@@ -505,7 +505,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.Android);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneLinux64/Three1")]
+	[MenuItem("Build/Rebuild/StandaloneLinux64/Three1")]
 	public static void BuildThree1StandaloneLinux64(){
 		FillScenes();
 		FillDirectives();
@@ -515,7 +515,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneLinux64);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows/Three1")]
+	[MenuItem("Build/Rebuild/StandaloneWindows/Three1")]
 	public static void BuildThree1StandaloneWindows(){
 		FillScenes();
 		FillDirectives();
@@ -525,7 +525,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows64/Three1")]
+	[MenuItem("Build/Rebuild/StandaloneWindows64/Three1")]
 	public static void BuildThree1StandaloneWindows64(){
 		FillScenes();
 		FillDirectives();
@@ -535,7 +535,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows64);
 	}
 
-	[MenuItem("Build/Rebuild WebGL/Three1")]
+	[MenuItem("Build/Rebuild/WebGL/Three1")]
 	public static void BuildThree1WebGL(){
 		FillScenes();
 		FillDirectives();
@@ -545,7 +545,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.WebGL);
 	}
 
-	[MenuItem("Build/Rebuild Android/Three1")]
+	[MenuItem("Build/Rebuild/Android/Three1")]
 	public static void BuildThree1Android(){
 		FillScenes();
 		FillDirectives();
@@ -555,7 +555,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.Android);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneLinux64/Tunnel")]
+	[MenuItem("Build/Rebuild/StandaloneLinux64/Tunnel")]
 	public static void BuildTunnelStandaloneLinux64(){
 		FillScenes();
 		FillDirectives();
@@ -565,7 +565,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneLinux64);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows/Tunnel")]
+	[MenuItem("Build/Rebuild/StandaloneWindows/Tunnel")]
 	public static void BuildTunnelStandaloneWindows(){
 		FillScenes();
 		FillDirectives();
@@ -575,7 +575,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows64/Tunnel")]
+	[MenuItem("Build/Rebuild/StandaloneWindows64/Tunnel")]
 	public static void BuildTunnelStandaloneWindows64(){
 		FillScenes();
 		FillDirectives();
@@ -585,7 +585,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows64);
 	}
 
-	[MenuItem("Build/Rebuild WebGL/Tunnel")]
+	[MenuItem("Build/Rebuild/WebGL/Tunnel")]
 	public static void BuildTunnelWebGL(){
 		FillScenes();
 		FillDirectives();
@@ -595,7 +595,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.WebGL);
 	}
 
-	[MenuItem("Build/Rebuild Android/Tunnel")]
+	[MenuItem("Build/Rebuild/Android/Tunnel")]
 	public static void BuildTunnelAndroid(){
 		FillScenes();
 		FillDirectives();
@@ -605,7 +605,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.Android);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneLinux64/All")]
+	[MenuItem("Build/Rebuild/StandaloneLinux64/All")]
 	public static void BuildStandaloneLinux64All(){
 		FillScenes();
 		FillDirectives();
@@ -615,7 +615,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneLinux64);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows/All")]
+	[MenuItem("Build/Rebuild/StandaloneWindows/All")]
 	public static void BuildStandaloneWindowsAll(){
 		FillScenes();
 		FillDirectives();
@@ -625,7 +625,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows);
 	}
 
-	[MenuItem("Build/Rebuild StandaloneWindows64/All")]
+	[MenuItem("Build/Rebuild/StandaloneWindows64/All")]
 	public static void BuildStandaloneWindows64All(){
 		FillScenes();
 		FillDirectives();
@@ -635,7 +635,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.StandaloneWindows64);
 	}
 
-	[MenuItem("Build/Rebuild WebGL/All")]
+	[MenuItem("Build/Rebuild/WebGL/All")]
 	public static void BuildWebGLAll(){
 		FillScenes();
 		FillDirectives();
@@ -645,7 +645,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.WebGL);
 	}
 
-	[MenuItem("Build/Rebuild Android/All")]
+	[MenuItem("Build/Rebuild/Android/All")]
 	public static void BuildAndroidAll(){
 		FillScenes();
 		FillDirectives();
@@ -655,7 +655,7 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, BuildTarget.Android);
 	}
 
-	[MenuItem("Build/Rebuild All")]
+	[MenuItem("Build/Rebuild/All")]
 	public static void BuildAllPlatforms(){
 		FillScenes();
 		FillDirectives();

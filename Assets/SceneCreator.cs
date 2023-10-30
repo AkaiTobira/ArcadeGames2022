@@ -14,15 +14,12 @@ public class SceneCreator : MonoBehaviour
 
     private static List<string> GetActiveScenesPaths(){
         List<string> paths = new List<string>();
-        foreach (UnityEditor.EditorBuildSettingsScene S in UnityEditor.EditorBuildSettings.scenes)
-        {
-            if (S.enabled)
-            {
-                string name = S.path.Substring(S.path.LastIndexOf('/')+1);
-                name = name.Substring(0,name.Length-6);
-                paths.Add(S.path);
-            }
+
+        string[] files = Directory.GetFiles("Assets", "*.unity", SearchOption.AllDirectories);
+        for(int i = 0; i<files.Length; i++){
+            paths.Add(files[i].Replace('\\', '/'));
         }
+
 
         return paths;
     }
@@ -82,7 +79,7 @@ public class SceneCreator : MonoBehaviour
         Debug.Log(debugLog);
     }
 
-    [MenuItem("Build/Generate Localized Scenes")]
+    [MenuItem("Build/Generate/Localized Scenes")]
     static async void SaveActiveScene(){
         List<string> paths = GetActiveScenesPaths();
 

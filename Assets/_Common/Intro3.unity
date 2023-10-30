@@ -2374,7 +2374,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -72.5, y: 0}
+  m_AnchoredPosition: {x: -72.50003, y: 0}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &591700636
@@ -2397,7 +2397,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d53dfc8a026ddaf4fbdda4c404eae748, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9d17f6ce8a4fddd4698db12e04a583e0, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -2456,6 +2456,14 @@ MonoBehaviour:
   FolderID: 0
   game: 0
   _sprites:
+  - Sprites:
+    - {fileID: 21300000, guid: e8a4e32bc028ca041a5c4f27db658184, type: 3}
+    - {fileID: 21300000, guid: 71917262118fcc44e919755235d08a2b, type: 3}
+    - {fileID: 21300000, guid: 9f5f11e27c202f1489c9d395772a0219, type: 3}
+    - {fileID: 21300000, guid: bf61494cc3c26ff418f22a070b307b0b, type: 3}
+    - {fileID: 21300000, guid: e62995cc3ba3f274a9ade8c67a359cc5, type: 3}
+    - {fileID: 21300000, guid: 3fa3cea0483cc034b850c96a166469f0, type: 3}
+    - {fileID: 21300000, guid: f3e9ca8a0042bfd4e825012294297a0a, type: 3}
   - Sprites:
     - {fileID: 21300000, guid: e8a4e32bc028ca041a5c4f27db658184, type: 3}
     - {fileID: 21300000, guid: 71917262118fcc44e919755235d08a2b, type: 3}
@@ -3086,7 +3094,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -72.80005, y: 71.599976}
+  m_AnchoredPosition: {x: -72.80008, y: 71.599976}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &731522997
@@ -3142,6 +3150,7 @@ MonoBehaviour:
   FolderID: 0
   game: 0
   _sprites:
+  - {fileID: 21300000, guid: e8a4e32bc028ca041a5c4f27db658184, type: 3}
   - {fileID: 21300000, guid: e8a4e32bc028ca041a5c4f27db658184, type: 3}
   - {fileID: 21300000, guid: e8a4e32bc028ca041a5c4f27db658184, type: 3}
 --- !u!1 &737693253
@@ -3720,7 +3729,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 02252ce3221126b4cba3a5a5c1ae7661, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 9d17f6ce8a4fddd4698db12e04a583e0, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3753,8 +3762,9 @@ MonoBehaviour:
   FolderID: 5
   game: 0
   _sprites:
-  - {fileID: 21300000, guid: 442be3fd88684d3478833f88530e49ff, type: 3}
-  - {fileID: 21300000, guid: 02252ce3221126b4cba3a5a5c1ae7661, type: 3}
+  - {fileID: 21300000, guid: 9d17f6ce8a4fddd4698db12e04a583e0, type: 3}
+  - {fileID: 21300000, guid: 9d17f6ce8a4fddd4698db12e04a583e0, type: 3}
+  - {fileID: 21300000, guid: 9d17f6ce8a4fddd4698db12e04a583e0, type: 3}
 --- !u!1001 &888612231
 PrefabInstance:
   m_ObjectHideFlags: 0
@@ -5198,7 +5208,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: d33de167d5fd5a149b1b477ebd34bbe2, type: 3}
+  m_Sprite: {fileID: 21300000, guid: f1f62de1bdaf661448b64919d05b9747, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -5233,6 +5243,7 @@ MonoBehaviour:
   _sprites:
   - {fileID: 21300000, guid: 4d8ab472e2ef77d498b4a676633cdfe4, type: 3}
   - {fileID: 21300000, guid: d33de167d5fd5a149b1b477ebd34bbe2, type: 3}
+  - {fileID: 21300000, guid: f1f62de1bdaf661448b64919d05b9747, type: 3}
 --- !u!1 &1165344403
 GameObject:
   m_ObjectHideFlags: 0
@@ -6071,7 +6082,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 99eb21c908b7e464189087249f3d485f, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 037a306ddfe20134da28018fea0d3f50, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -6106,6 +6117,7 @@ MonoBehaviour:
   _sprites:
   - {fileID: 21300000, guid: 42fd889f28106764295e788741d5a504, type: 3}
   - {fileID: 21300000, guid: 99eb21c908b7e464189087249f3d485f, type: 3}
+  - {fileID: 21300000, guid: 037a306ddfe20134da28018fea0d3f50, type: 3}
 --- !u!1 &1303481081
 GameObject:
   m_ObjectHideFlags: 0

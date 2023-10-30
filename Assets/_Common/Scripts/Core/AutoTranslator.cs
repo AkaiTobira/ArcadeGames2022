@@ -9,6 +9,7 @@ using UnityEngine.SceneManagement;
 public enum SupportedLanguages{
     UK,
     DE,
+    ES,
 
     MAX_COUNT,
 }
@@ -21,7 +22,8 @@ public static class AutoTranslator
     static Dictionary<SupportedLanguages, string> _folders = 
     new Dictionary<SupportedLanguages, string>{
         {SupportedLanguages.UK, "Default"},
-        {SupportedLanguages.DE, "De"}, 
+        {SupportedLanguages.DE, "De"},
+        {SupportedLanguages.ES, "Es"},
     };
 
     static Dictionary<GameType, string > _gameFolders = new Dictionary<GameType, string>{
@@ -35,7 +37,7 @@ public static class AutoTranslator
         {GameType.Tunnel,        "Tunnel"}
     };
 
-    public static SupportedLanguages Language;
+    public static SupportedLanguages Language = SupportedLanguages.UK;
     public static Sprite[] LoadImage(GameType game, int FolderID, int language = -1){
 
 #if UNITY_EDITOR

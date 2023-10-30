@@ -138,7 +138,8 @@ public static class SceneFlowController
         flow["DigDugOutro"]    = new List<string>{
             GetActiveOutrio(),
             "DigDugMain",
-            GetGameSelect(),};
+            GetGameSelect(),
+        };
 
         flow["Frogger"]        = new List<string>{
             "FroggerOutro", 
@@ -160,6 +161,8 @@ public static class SceneFlowController
             GetActiveIntro(),
             "Berzerk",
         };
+
+
         flow["BerzerkIntro"]   = new List<string>{"Berzerk"};
         flow["BerzerkMain"]    = new List<string>{"BerzerkIntro"};
         flow["BerzerkOutro"]   = new List<string>{

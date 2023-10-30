@@ -15,6 +15,6 @@ public class PointsCounter : MonoBehaviour
 
     void Update()
     {
-        _text.text = "SCORE : " +  Score.ToString().PadLeft(8, '0');
+        _text.text = AutoTranslator.Translate("Score") + " " +  Score.ToString().PadLeft(8, '0');
     }
 }

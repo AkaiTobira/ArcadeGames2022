@@ -23,7 +23,9 @@
              }
             private void Update() {
                
-                if(Input.GetKeyDown(KeyCode.T)){ display = !display; }
+                if(Input.GetKeyDown(KeyCode.T)){ 
+                    myLog = "";
+                    display = !display; }
             }
 
 

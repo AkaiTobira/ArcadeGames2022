@@ -28,7 +28,7 @@ public static class BlocksManager_Levels{
                 "XXXXXXXXXXXXXXXXX",
                 "XXXXXXXXXXXXXXXXX",
             },
-            */
+            
             new string[]{
                 "                 ",
                 "XXXX XXXXXXXXXXXX",
@@ -39,6 +39,21 @@ public static class BlocksManager_Levels{
                 "XXXXXXXXXXXXXXXXX",
                 "XXX XXXXXXXXX2 XX",
                 "XXX XXXXXXXXX22XX",
+                "XXXXXXXXXXXXXXXXX",
+                "XXXXXXXXXXXXXXXXX",
+            
+            },
+            */
+            new string[]{
+                "                 ",
+                "XXXX XXXXXXXXXXXX",
+                "XXXX XXXXXXX    X",
+                "XXXXXXXXXX   XX X",
+                "XXXX XXXXXXX    X",
+                "XXXXRXXXXXXXXXXXX",
+                "XXXXXXXXXXXXXXXXX",
+                "XXX XXXXXXX 1 XXX",
+                "XXX XXXXXXXXXXXXX",
                 "XXXXXXXXXXXXXXXXX",
                 "XXXXXXXXXXXXXXXXX",
             

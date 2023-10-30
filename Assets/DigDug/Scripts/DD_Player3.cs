@@ -38,7 +38,7 @@ namespace DigDug{
             }
 
             if(_keepDirection){
-                if(Vector2.SqrMagnitude(_points[1,1] - (Vector2)transform.position) < 0.1f ){
+                if(Vector2.SqrMagnitude(_points[1,1] - (Vector2)transform.position) < 0.05f ){
                     _keepDirection = false;
                     _lastMoveDirection = _pressedDirection;
                 }

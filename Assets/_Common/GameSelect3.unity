@@ -254,7 +254,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 45b8c351cf9dd94479a752e55713d47b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 25f04f63e05ec7b4896254226a039679, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -3056,7 +3056,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: f5d23b65f8599384d9d581e00487d445, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 25f04f63e05ec7b4896254226a039679, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -4465,7 +4465,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 45b8c351cf9dd94479a752e55713d47b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 25f04f63e05ec7b4896254226a039679, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -5873,7 +5873,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 45b8c351cf9dd94479a752e55713d47b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 25f04f63e05ec7b4896254226a039679, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1
@@ -9415,13 +9415,13 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _overwievedFrame: {fileID: 577679760}
-  _interactable: 0
+  _interactable: 1
   _buttonText: 
   _audioTap: 
-  _pressed: {fileID: 21300000, guid: 45b8c351cf9dd94479a752e55713d47b, type: 3}
-  _hover: {fileID: 21300000, guid: 45b8c351cf9dd94479a752e55713d47b, type: 3}
-  _inactive: {fileID: 21300000, guid: 45b8c351cf9dd94479a752e55713d47b, type: 3}
-  _active: {fileID: 21300000, guid: 45b8c351cf9dd94479a752e55713d47b, type: 3}
+  _pressed: {fileID: 21300000, guid: b8e5bd227d7284e4fb0f1349dc47ea23, type: 3}
+  _hover: {fileID: 21300000, guid: b8e5bd227d7284e4fb0f1349dc47ea23, type: 3}
+  _inactive: {fileID: 21300000, guid: b8e5bd227d7284e4fb0f1349dc47ea23, type: 3}
+  _active: {fileID: 21300000, guid: b8e5bd227d7284e4fb0f1349dc47ea23, type: 3}
   _buttonName: {fileID: 0}
   _textColorTilt: []
   _images:
@@ -9435,6 +9435,18 @@ MonoBehaviour:
       - m_Target: {fileID: 494070712}
         m_TargetAssemblyTypeName: SoundPlay, Assembly-CSharp
         m_MethodName: PlaySound
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 1604872221}
+        m_TargetAssemblyTypeName: SceneLoader, Assembly-CSharp
+        m_MethodName: OnSceneLoadAsync
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -11565,7 +11577,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 45b8c351cf9dd94479a752e55713d47b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 25f04f63e05ec7b4896254226a039679, type: 3}
   m_Type: 0
   m_PreserveAspect: 1
   m_FillCenter: 1

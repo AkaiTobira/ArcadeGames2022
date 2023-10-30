@@ -227,6 +227,7 @@ public static partial class CBuild
                 .AddTunnel()
                 .AddFrogger()
                 .AddDigDug2()
+                .AddDigDug()
                 .Construct();
 
         _scenes[Game.SixGames] =
@@ -327,7 +328,7 @@ public static partial class CBuild
 #region "UnityDisplay"
 
 
-    [MenuItem("Build/Generate Interface")]
+    [MenuItem("Build/Generate/Interface")]
     public static void GenerateInterface(){
 
         #if UNITY_EDITOR
@@ -402,7 +403,7 @@ public static partial class CBuild
     }
 
     private static string ConstructInterfaceEtiquiete(string prefix, string suffix = null){
-        string output = "\t[MenuItem(" + '"' + "Build/Rebuild " + prefix;   ;
+        string output = "\t[MenuItem(" + '"' + "Build/Rebuild/" + prefix;   ;
         if(!string.IsNullOrEmpty(suffix)){
             output += "/" + suffix;
         }
