@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
-public abstract class ScreenAnimation : MonoBehaviour, IListenToGameplayEvents{
+public abstract class ScreenAnimation : CMonoBehaviour, IListenToGameplayEvents{
 
     [Serializable]
     protected class Screen{
@@ -74,6 +74,9 @@ public abstract class ScreenAnimation : MonoBehaviour, IListenToGameplayEvents{
 
     void Update()
     {
+    //    if(_lockAtLastScreen && _currentIndex == )
+
+
         _elapsedTime -= Time.deltaTime;
         OnStateUpdate();
 
@@ -157,7 +160,12 @@ public abstract class ScreenAnimation : MonoBehaviour, IListenToGameplayEvents{
 
 
         if(_currentIndex >= _screens.Count){
-            _loader?.OnSceneLoadAsync();
+
+            CallInTime(0.5f, () => {
+                if(Guard.IsValid(_loader)) _loader?.OnSceneLoadAsync();
+            });
+
+
             CurrentState = State.Inactive;
             return true;
         }

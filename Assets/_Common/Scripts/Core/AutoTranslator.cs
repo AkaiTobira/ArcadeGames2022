@@ -37,7 +37,7 @@ public static class AutoTranslator
         {GameType.Tunnel,        "Tunnel"}
     };
 
-    public static SupportedLanguages Language = SupportedLanguages.UK;
+    public static SupportedLanguages Language = SupportedLanguages.ES;
     public static Sprite[] LoadImage(GameType game, int FolderID, int language = -1){
 
 #if UNITY_EDITOR

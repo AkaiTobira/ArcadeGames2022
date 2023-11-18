@@ -4,148 +4,6 @@ using UnityEngine;
 using ESM;
 
 namespace DigDug{
-    public abstract class DD_MoveCore<T> : ESM.SMC_4D<T>
-    where T : System.Enum
-    {
-        [SerializeField] Transform[] rayPoints;
-        [SerializeField] LayerMask   _blockslayerMask;
-        [SerializeField] Transform[] _debugPoints;
-
-        protected Vector2 _direction = new Vector2();
-        bool _keepDirection = false;
-        Vector2[,] _points = new Vector2[3,3];
-        protected Vector2 _inputs = new Vector2();
-        protected AnimationSide _pressedDirection  = AnimationSide.Common;
-        protected AnimationSide _lastMoveDirection = AnimationSide.Common;
-
-        protected override void UpdateState(){
-            if(_debugPoints.Length == 0) return; 
-            for(int i = 0; i < 3; i++) {
-                for(int j = 0; j < 3; j++) {
-                    _debugPoints[i * 3 + j].position = _points[i,j];
-                }
-            }
-        }
-
-        protected void CalculateDirections(){
-
-            if(_lastMoveDirection != _pressedDirection){
-                if(AreAligned(_pressedDirection, _lastMoveDirection)){
-                    _lastMoveDirection = _pressedDirection;
-                }else{
-                    _keepDirection = true;
-                }
-            }
-
-            if(_keepDirection){
-                if(Vector2.SqrMagnitude(_points[1,1] - (Vector2)transform.position) < 0.05f ){
-                    _keepDirection = false;
-                    _lastMoveDirection = _pressedDirection;
-                }
-            }
-
-            Vector2 movePoint = GetPoint(_lastMoveDirection);
-            Vector2 moveDistance = movePoint - (Vector2)transform.position;
-            if(Vector2.SqrMagnitude(moveDistance) < 0.01f) _direction = Vector2.zero;
-            else{ _direction = moveDistance.normalized; }
-        }
-
-        protected (RaycastHit2D, RaycastHit2D) GetHits(int rayIndex1, int rayIndex2, Vector2 direction){
-            float distance = 0.075f;
-            Debug.DrawLine(rayPoints[rayIndex1].position, rayPoints[rayIndex1].position + ((Vector3)direction * distance), Color.magenta);
-            Debug.DrawLine(rayPoints[rayIndex2].position, rayPoints[rayIndex2].position + ((Vector3)direction * distance), Color.magenta);
-
-
-
-            return (Physics2D.Raycast(
-                        rayPoints[rayIndex1].position,
-                        direction, 
-                        distance,
-                        _blockslayerMask), 
-                    Physics2D.Raycast(
-                        rayPoints[rayIndex2].position,
-                        direction, 
-                        distance,
-                        _blockslayerMask));
-        }
-
-        protected void UpdateMove(){
-            FillPoints();
-            if(_inputs.sqrMagnitude > 0){
-                CalculateDirections();
-
-                ProcessMove( (_direction.normalized / _moveSpeed) * GetMoveModifier());
-            }
-        }
-
-        protected virtual float GetMoveModifier(){
-            return 1f;
-        }
-
-        private void FillPoints(){
-            const float distance = 1.3f;
-
-            Vector2[] horizonatl = new Vector2[]{
-                DD_Path.GetClosestHorizontalPoint(transform.position - new Vector3(distance,0)),
-                DD_Path.GetClosestHorizontalPoint(transform.position),
-                DD_Path.GetClosestHorizontalPoint(transform.position + new Vector3(distance,0)),
-            };
-
-            Vector2[] vertialcs = new Vector2[]{
-                DD_Path.GetClosestVerticalPoint(transform.position - new Vector3(0,distance)),
-                DD_Path.GetClosestVerticalPoint(transform.position),
-                DD_Path.GetClosestVerticalPoint(transform.position + new Vector3(0,distance)),
-            };
-
-            for(int i = 0; i < horizonatl.Length; i++) {
-                for(int j = 0; j < vertialcs.Length; j++){
-                    _points[i,j].x = horizonatl[i].x;
-                    _points[i,j].y = vertialcs[j].y;
-                }
-            }
-        }
-        private bool AreAligned(ESM.AnimationSide _pressed, ESM.AnimationSide _last){
-            switch(_pressed){
-                case ESM.AnimationSide.Common:
-                    switch(_last){
-                        case ESM.AnimationSide.Common: return true;
-                        default: return false;
-                    }
-                case ESM.AnimationSide.Bottom:
-                    switch(_last){
-                        case ESM.AnimationSide.Top: return true;
-                        default: return false;
-                    }
-                case ESM.AnimationSide.Top:
-                    switch(_last){
-                        case ESM.AnimationSide.Bottom: return true;
-                        default: return false;
-                    }
-                case ESM.AnimationSide.Left:
-                    switch(_last){
-                        case ESM.AnimationSide.Right: return true;
-                        default: return false;
-                    }
-                case ESM.AnimationSide.Right:
-                    switch(_last){
-                        case ESM.AnimationSide.Left: return true;
-                        default: return false;
-                    }
-            }
-            return false;
-        }
-        private Vector2 GetPoint(ESM.AnimationSide side){
-            switch(side){
-                case ESM.AnimationSide.Common: return _points[1,1];
-                case ESM.AnimationSide.Bottom: return _points[1,0];
-                case ESM.AnimationSide.Top:    return _points[1,2];
-                case ESM.AnimationSide.Left:   return _points[0,1];
-                case ESM.AnimationSide.Right:  return _points[2,1];
-            }
-
-            return _points[1,1];
-        }
-    }
 
     public interface IPumpableEnemy{
         bool IsDead();
@@ -164,7 +22,7 @@ namespace DigDug{
 
         const float SHOT_ACTION_LANDED_COLDOWN = 1.0f;
         const float SHOT_ACTION_NONLANDED_COLDOWN = 0.5f;
-        const float SHOT_PUMP_ACTION_COLDOWN = 0.5f;
+        const float SHOT_PUMP_ACTION_COLDOWN = 0.75f;
         const float SHOT_LANDING_TIME = 0.5f;
         const float DISTANCE_OF_SHOOT = 2.5f;
         const int MAX_PUMPING = 3;
@@ -184,13 +42,41 @@ namespace DigDug{
         IPumpableEnemy _pumpableEnemy = null;
 
 
-
-        bool _lockMoving = false;
-        bool _lockRotation = false;
         protected bool _shoot;
         private float _stateDuration;
 
         private void Awake() { Instance = this; }
+
+        private void ProcessInputsMove(){
+            _inputs.x = Input.GetAxisRaw("Horizontal");
+            _inputs.y = Input.GetAxisRaw("Vertical");
+            _shoot    = Input.GetKeyDown(KeyCode.N);
+
+            switch(_pressedDirection){
+                case AnimationSide.Common:
+                    if(_inputs.x < 0) _pressedDirection = AnimationSide.Left;
+                    if(_inputs.x > 0) _pressedDirection = AnimationSide.Right;
+                    if(_inputs.y > 0) _pressedDirection = AnimationSide.Top;
+                    if(_inputs.y < 0) _pressedDirection = AnimationSide.Bottom;
+                return;
+                case AnimationSide.Left:
+                    if(_inputs.x == 0) _pressedDirection = AnimationSide.Common;
+                    if(_inputs.x > 0)  _pressedDirection = AnimationSide.Right;
+                return;
+                case AnimationSide.Right:
+                    if(_inputs.x == 0) _pressedDirection = AnimationSide.Common;
+                    if(_inputs.x < 0)  _pressedDirection = AnimationSide.Left;
+                return;
+                case AnimationSide.Top:
+                    if(_inputs.y == 0) _pressedDirection = AnimationSide.Common;
+                    if(_inputs.y < 0)  _pressedDirection = AnimationSide.Bottom;
+                return;
+                case AnimationSide.Bottom:
+                    if(_inputs.y == 0) _pressedDirection = AnimationSide.Common;
+                    if(_inputs.y > 0)  _pressedDirection = AnimationSide.Top;
+                return;
+            }
+        }
 
         protected override void OnStateEnter(DD_PlayerStates enteredState)
         {
@@ -210,6 +96,18 @@ namespace DigDug{
             Debug.Log("Player -> Damage Taken");
         }
 
+        LineRenderer GetLineRenderer(){
+        //    if(Guard.IsValid(_pumpableEnemy) && !_pumpableEnemy.IsDead()){
+       //         _shootLineRenderer.SetPosition(1,_shootLineRenderer.GetPosition(0));
+
+                return _landedShootLineRendrer;
+        //    }
+
+        //    _landedShootLineRendrer.SetPosition(1,_landedShootLineRendrer.GetPosition(0));
+        //    return _shootLineRenderer;
+        }
+
+
         protected override void OnStateExit(DD_PlayerStates exitedState){
 
             if(exitedState == DD_PlayerStates.Shooting){
@@ -219,7 +117,48 @@ namespace DigDug{
 
         protected override float GetMoveModifier()
         {
-            return ((ActiveState == DD_PlayerStates.Digging)? 0.3f : 1f);
+            return (ActiveState == DD_PlayerStates.Digging)? 0.4f : 1f;
+        }
+
+
+        private void TurnOffShooting(){
+            _shootingFailed = false;
+            _pumpableEnemy  = null;
+        }
+
+        private void ProcessShooting(){
+
+            if(Guard.IsValid(_pumpableEnemy)) return;
+
+            _shootingRequirementsMeet = false;
+            
+            if(!_shootingFailed){
+                _shootingTimeColdown = SHOT_PUMP_ACTION_COLDOWN;
+                _shootingTimeElapsed = SHOT_ACTION_NONLANDED_COLDOWN;
+                _shootingFailed = true;
+                _lineShootingTimeElapsed = SHOT_LANDING_TIME;
+
+                AudioSystem.Instance.PlayEffect("DigDug_Shoot", 1);
+            }
+
+            Vector3 direction     = GetShootingDirectionAndUpdateShotingStartPoint();
+            RaycastHit2D[] hits = Physics2D.RaycastAll(_startingPoint, direction, DISTANCE_OF_SHOOT, _enemyLayer);
+            _startingPoint.z = 0;
+
+            for(int i = 0; i < (hits?.Length ?? 0); i++ ){
+                LF_ColliderSide side = hits[i].collider.GetComponent<LF_ColliderSide>();
+                if(Guard.IsValid(side)) _pumpableEnemy = side.GetParent().GetComponent<IPumpableEnemy>();
+                if(Guard.IsValid(_pumpableEnemy)){
+                    if(_pumpableEnemy.CanBePumped()){
+                        _pumpableEnemy.Pump();
+                        _shootingTimeElapsed = SHOT_ACTION_LANDED_COLDOWN;
+                        _shootingTimeColdown = SHOT_PUMP_ACTION_COLDOWN;
+                        return;
+                    }else{
+                        _pumpableEnemy = null;
+                    }
+                }
+            }
         }
 
         protected override void UpdateState()
@@ -227,7 +166,6 @@ namespace DigDug{
             _shootingTimeElapsed -= Time.deltaTime;
             _shootingTimeColdown -= Time.deltaTime;
             _lineShootingTimeElapsed -= Time.deltaTime;
-
 
             switch(ActiveState){
                 case DD_PlayerStates.Idle: 
@@ -259,16 +197,6 @@ namespace DigDug{
             base.UpdateState();
         }   
 
-        LineRenderer GetLineRenderer(){
-        //    if(Guard.IsValid(_pumpableEnemy) && !_pumpableEnemy.IsDead()){
-       //         _shootLineRenderer.SetPosition(1,_shootLineRenderer.GetPosition(0));
-
-                return _landedShootLineRendrer;
-        //    }
-
-        //    _landedShootLineRendrer.SetPosition(1,_landedShootLineRendrer.GetPosition(0));
-        //    return _shootLineRenderer;
-        }
 
 
         private void ProcessShootingVisuals(){
@@ -298,66 +226,20 @@ namespace DigDug{
                 GetLineRenderer().SetPosition(1, _landingPoint);
             }
         }
-
-        private void ProcessShooting(){
-
-            if(Guard.IsValid(_pumpableEnemy)) return;
-
-            _lockMoving   = true;
-            _lockRotation = true;
-            
-            if(!_shootingFailed){
-                _shootingTimeColdown = SHOT_PUMP_ACTION_COLDOWN;
-                _shootingTimeElapsed = SHOT_ACTION_NONLANDED_COLDOWN;
-                _shootingFailed = true;
-                _lineShootingTimeElapsed = SHOT_LANDING_TIME;
-
-                AudioSystem.Instance.PlayEffect("DigDug_Shoot", 1);
-            }
-
-
-            Vector3 direction     = GetShootingDirectionAndUpdateShotingStartPoint();
-
-            RaycastHit2D[] hits = Physics2D.RaycastAll(_startingPoint, direction, DISTANCE_OF_SHOOT, _enemyLayer);
-            _startingPoint.z = 0;
-
-            for(int i = 0; i < (hits?.Length ?? 0); i++ ){
-                LF_ColliderSide side = hits[i].collider.GetComponent<LF_ColliderSide>();
-                if(Guard.IsValid(side)) _pumpableEnemy = side.GetParent().GetComponent<IPumpableEnemy>();
-                if(Guard.IsValid(_pumpableEnemy)){
-                    if(_pumpableEnemy.CanBePumped()){
-                        _pumpableEnemy.Pump();
-                        _shootingTimeElapsed = SHOT_ACTION_LANDED_COLDOWN;
-                        return;
-                    }else{
-                        _pumpableEnemy = null;
-                    }
-                }
-            }
-
-        }
-
         private Vector3 GetShootingDirectionAndUpdateShotingStartPoint(){
             Vector3 direction = new Vector3();
-
+            _startingPoint = Graphicals.transform.GetChild(0).transform.position;
             switch (GetFacingDirection()) {
                 case ESM.AnimationSide.Left:
-                    _startingPoint = Graphicals.transform.GetChild(0).transform.position;
                     direction = Vector3.left;
                     break;
                 case ESM.AnimationSide.Right:
-                
-                    _startingPoint = Graphicals.transform.GetChild(0).transform.position;
                     direction = Vector3.right;
                     break;
                 case ESM.AnimationSide.Top:
-                
-                    _startingPoint = Graphicals.transform.GetChild(1).transform.position;
                     direction = Vector3.up;
                     break;
-                case ESM.AnimationSide.Bottom:
-                
-                    _startingPoint = Graphicals.transform.GetChild(2).transform.position;
+                case ESM.AnimationSide.Bottom:    
                     direction = Vector3.down;
                     break;
             }
@@ -372,13 +254,6 @@ namespace DigDug{
             _shootingTimeColdown = SHOT_PUMP_ACTION_COLDOWN;
             _shootingTimeElapsed = SHOT_ACTION_LANDED_COLDOWN;
             _pumpableEnemy.Pump();
-        }
-
-        private void TurnOffShooting(){
-            _shootingFailed = false;
-            _lockMoving     = false;
-            _pumpableEnemy  = null;
-            _lockRotation   = false;
         }
 
         private bool WillBeDigging(){
@@ -420,7 +295,6 @@ namespace DigDug{
                     if(_shootingRequirementsMeet) return DD_PlayerStates.Shooting;
                     if(_inputs.magnitude <= 0) return DD_PlayerStates.Idle;
                     if(WillBeDigging()) return DD_PlayerStates.Digging;
-                    
                 break;
                 case DD_PlayerStates.Digging:
                     if(_stateDuration <= 0) {
@@ -436,41 +310,7 @@ namespace DigDug{
 
             _shootingRequirementsMeet = Input.GetKeyDown(KeyCode.M) && _shootingTimeColdown <= 0;
 
-
             return ActiveState;
         }
-
-
-        private void ProcessInputsMove(){
-            _inputs.x = Input.GetAxisRaw("Horizontal");
-            _inputs.y = Input.GetAxisRaw("Vertical");
-            _shoot    = Input.GetKeyDown(KeyCode.N);
-
-            switch(_pressedDirection){
-                case AnimationSide.Common:
-                    if(_inputs.x < 0) _pressedDirection = AnimationSide.Left;
-                    if(_inputs.x > 0) _pressedDirection = AnimationSide.Right;
-                    if(_inputs.y > 0) _pressedDirection = AnimationSide.Top;
-                    if(_inputs.y < 0) _pressedDirection = AnimationSide.Bottom;
-                return;
-                case AnimationSide.Left:
-                    if(_inputs.x == 0) _pressedDirection = AnimationSide.Common;
-                    if(_inputs.x > 0)  _pressedDirection = AnimationSide.Right;
-                return;
-                case AnimationSide.Right:
-                    if(_inputs.x == 0) _pressedDirection = AnimationSide.Common;
-                    if(_inputs.x < 0)  _pressedDirection = AnimationSide.Left;
-                return;
-                case AnimationSide.Top:
-                    if(_inputs.y == 0) _pressedDirection = AnimationSide.Common;
-                    if(_inputs.y < 0)  _pressedDirection = AnimationSide.Bottom;
-                return;
-                case AnimationSide.Bottom:
-                    if(_inputs.y == 0) _pressedDirection = AnimationSide.Common;
-                    if(_inputs.y > 0)  _pressedDirection = AnimationSide.Top;
-                return;
-            }
-        }
     }
-
 }

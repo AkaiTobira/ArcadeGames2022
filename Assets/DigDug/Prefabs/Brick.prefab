@@ -358,6 +358,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainBrick: {fileID: 4096778083713318271}
+  _points: 1
 --- !u!1 &832954782195432062
 GameObject:
   m_ObjectHideFlags: 0
@@ -374,7 +375,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &3837806493349958281
 RectTransform:
   m_ObjectHideFlags: 0
@@ -401,10 +402,10 @@ BoxCollider2D:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 832954782195432062}
-  m_Enabled: 0
+  m_Enabled: 1
   m_Density: 1
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
+  m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
   m_Offset: {x: -0.098890305, y: 0.101472855}
@@ -668,7 +669,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1008488606381919819
 RectTransform:
   m_ObjectHideFlags: 0
@@ -962,37 +963,42 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   Graphicals: {fileID: 9008595428868199493}
-  _animationFrameDuration: 0.3
+  _animationFrameDuration: 0.06
   _animations:
   - State: 0
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: d68f7623dd2d1d64aaa2e806058b1432, type: 3}
+      - {fileID: 21300000, guid: be1951e141acf9c49a0579b79851ace1, type: 3}
     Looped: 0
     UseRightAsLeft: 0
   - State: 1
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: d68f7623dd2d1d64aaa2e806058b1432, type: 3}
-    Looped: 0
+      - {fileID: 21300000, guid: be1951e141acf9c49a0579b79851ace1, type: 3}
+      - {fileID: 21300000, guid: 1bb8ed119aeee484ab4a286669e7d93a, type: 3}
+    Looped: 1
     UseRightAsLeft: 0
   - State: 2
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: d68f7623dd2d1d64aaa2e806058b1432, type: 3}
-    Looped: 0
+      - {fileID: 21300000, guid: 1bb8ed119aeee484ab4a286669e7d93a, type: 3}
+    Looped: 1
     UseRightAsLeft: 0
   - State: 3
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: d68f7623dd2d1d64aaa2e806058b1432, type: 3}
+      - {fileID: 21300000, guid: 253a51e4d0ceb6d43b62edb4748e1479, type: 3}
+      - {fileID: 21300000, guid: f5cc9ad85759bdb449c7929b718e8af9, type: 3}
+      - {fileID: 21300000, guid: 6fb835028db66a04483d6a546447b914, type: 3}
+      - {fileID: 21300000, guid: 1ee116ded7526144eb82ddf9fe68dee3, type: 3}
+      - {fileID: 21300000, guid: afbe91b8492e9cf418bb319c404d7383, type: 3}
     Looped: 0
     UseRightAsLeft: 0
-  _moveSpeed: 1
+  _moveSpeed: 2
   _mirrorSprites: 0
   _ignoreSpriteDirectionClear: 0
   rayStart: {fileID: 6976244322187189243}
@@ -1268,6 +1274,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainBrick: {fileID: 4096778083713318271}
+  _points: 3
 --- !u!1 &3540734710693719911
 GameObject:
   m_ObjectHideFlags: 0
@@ -1384,6 +1391,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainBrick: {fileID: 4096778083713318271}
+  _points: 3
 --- !u!1 &3540734710728153286
 GameObject:
   m_ObjectHideFlags: 0
@@ -1500,6 +1508,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainBrick: {fileID: 4096778083713318271}
+  _points: 0
 --- !u!1 &3540734710901958454
 GameObject:
   m_ObjectHideFlags: 0
@@ -1694,6 +1703,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainBrick: {fileID: 4096778083713318271}
+  _points: 3
 --- !u!1 &3540734711016377008
 GameObject:
   m_ObjectHideFlags: 0
@@ -1810,6 +1820,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainBrick: {fileID: 4096778083713318271}
+  _points: 3
 --- !u!1 &3540734711042701524
 GameObject:
   m_ObjectHideFlags: 0
@@ -1876,6 +1887,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: fa870dd7ca723ba43a645f1e0060ee2f, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  passWeight: 2
   _layout: {fileID: 3540734710901958452}
   _digPoints:
   - {fileID: 0}
@@ -1886,6 +1898,12 @@ MonoBehaviour:
   _brickCenter: {fileID: 3540734710901958453}
   _rock: {fileID: 1941106395770186162}
   _uiGui: {fileID: 306666844073912075}
+  _colors:
+  - {r: 1, g: 1, b: 1, a: 1}
+  - {r: 0.41509432, g: 0.41509432, b: 0.41509432, a: 1}
+  - {r: 0.2264151, g: 0.2264151, b: 0.2264151, a: 1}
+  - {r: 0.16981131, g: 0.13857244, b: 0.13857244, a: 1}
+  - {r: 0.09433961, g: 0, b: 0, a: 1}
 --- !u!223 &450909702428809224
 Canvas:
   m_ObjectHideFlags: 0
@@ -2023,6 +2041,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainBrick: {fileID: 4096778083713318271}
+  _points: 3
 --- !u!1 &3540734711152269028
 GameObject:
   m_ObjectHideFlags: 0
@@ -2139,6 +2158,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainBrick: {fileID: 4096778083713318271}
+  _points: 3
 --- !u!1 &3540734711168825884
 GameObject:
   m_ObjectHideFlags: 0
@@ -2255,6 +2275,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainBrick: {fileID: 4096778083713318271}
+  _points: 3
 --- !u!1 &3540734711322358337
 GameObject:
   m_ObjectHideFlags: 0
@@ -2371,6 +2392,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainBrick: {fileID: 4096778083713318271}
+  _points: 1
 --- !u!1 &3540734711688760458
 GameObject:
   m_ObjectHideFlags: 0
@@ -2487,6 +2509,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainBrick: {fileID: 4096778083713318271}
+  _points: 3
 --- !u!1 &3540734711753684601
 GameObject:
   m_ObjectHideFlags: 0
@@ -2603,6 +2626,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainBrick: {fileID: 4096778083713318271}
+  _points: 3
 --- !u!1 &3723537197475840761
 GameObject:
   m_ObjectHideFlags: 0
@@ -3066,8 +3090,12 @@ MonoBehaviour:
   _uiMaskLayer:
     serializedVersion: 2
     m_Bits: 32
+  _solidMaskLayer:
+    serializedVersion: 2
+    m_Bits: 64
   _distanceA: 0
   _distanceB: 0
+  _shadowMovefactor: 0.5
 --- !u!1 &5224624729705145589
 GameObject:
   m_ObjectHideFlags: 0
@@ -3533,6 +3561,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainBrick: {fileID: 4096778083713318271}
+  _points: 0
 --- !u!1 &6024279898205725787
 GameObject:
   m_ObjectHideFlags: 0
@@ -3649,6 +3678,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainBrick: {fileID: 4096778083713318271}
+  _points: 1
 --- !u!1 &6197228603654459788
 GameObject:
   m_ObjectHideFlags: 0
@@ -4005,8 +4035,12 @@ MonoBehaviour:
   _uiMaskLayer:
     serializedVersion: 2
     m_Bits: 32
+  _solidMaskLayer:
+    serializedVersion: 2
+    m_Bits: 64
   _distanceA: 0
   _distanceB: 0
+  _shadowMovefactor: 0.5
 --- !u!1 &7129882400909641181
 GameObject:
   m_ObjectHideFlags: 0
@@ -4109,7 +4143,7 @@ MonoBehaviour:
       - {fileID: 21300000, guid: 5c2ee1e5ea12768439309f76dc02fd3a, type: 3}
     Looped: 0
     UseRightAsLeft: 1
-  _moveSpeed: 1
+  _moveSpeed: 2
   _mirrorSprites: 0
   _ignoreSpriteDirectionClear: 0
   rayPoints:
@@ -4125,8 +4159,12 @@ MonoBehaviour:
   _uiMaskLayer:
     serializedVersion: 2
     m_Bits: 32
+  _solidMaskLayer:
+    serializedVersion: 2
+    m_Bits: 64
   _distanceA: 10
   _distanceB: 1
+  _shadowMovefactor: 0.5
 --- !u!1 &7169450630901520355
 GameObject:
   m_ObjectHideFlags: 0
@@ -4714,3 +4752,4 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _mainBrick: {fileID: 4096778083713318271}
+  _points: 1

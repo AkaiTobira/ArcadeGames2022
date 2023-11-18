@@ -5,6 +5,7 @@ using UnityEngine;
 public class DD_BrickPart : MonoBehaviour
 {
     [SerializeField] public DD_BrickController _mainBrick;
+    [SerializeField] private int _points;
 
 
     private void OnTriggerEnter2D(Collider2D other) {
@@ -14,6 +15,7 @@ public class DD_BrickPart : MonoBehaviour
         if(other.name.Contains("Box")) return;
 
         gameObject.SetActive(false);
+        PointsCounter.Score += _points;
     }
 
 }

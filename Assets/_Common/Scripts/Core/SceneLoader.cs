@@ -4,6 +4,8 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class SceneLoader : MonoBehaviour
 {
+ //   private static bool _canLoadNextScene = true;
+
     [SerializeField] string sceneName;
     [SerializeField] int sceneFlowIndex;
 
@@ -17,6 +19,9 @@ public class SceneLoader : MonoBehaviour
 
     IEnumerator LoadGameScene()
     {
+      //  if(!_canLoadNextScene) yield break;
+
+     //   _canLoadNextScene = false;
         yield return new WaitForSecondsRealtime(1f);
 
         Debug.Log(SceneFlowController.GetNextScene(sceneFlowIndex));
@@ -30,6 +35,7 @@ public class SceneLoader : MonoBehaviour
 
         Resources.UnloadUnusedAssets();
         asyncLoad.allowSceneActivation = true;
+     //   _canLoadNextScene = true;
     }
 
     public void OnSceneLoadAsync(){

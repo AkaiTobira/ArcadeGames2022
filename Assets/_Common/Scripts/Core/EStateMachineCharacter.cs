@@ -142,7 +142,6 @@ namespace ESM{
         where StateType : System.Enum
     {};
 
-
     // base for public interface
     public abstract class SMC<StateType, AnimationType> : CMonoBehaviour
     where StateType : System.Enum

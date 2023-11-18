@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 
@@ -98,13 +100,24 @@ public class Queue<T>{
 
 
 namespace DigDug {
-    public class DD_NavMesh : MonoBehaviour
+    public class DD_NavMesh : CMonoBehaviour
     {
-        Vector3[] points;
-        int[,] neighbourMatrix;
-        DD_BrickController[] bricks;
+        //List<Vector3> points;
+
+        [Serializable]
+        class AdditionalNavPoint{
+            [SerializeField] public DD_NavPoint dD_NavPoint;
+            [SerializeField] public DD_NavPoint leftPoint;
+            [SerializeField] public DD_NavPoint topPoint;
+            [SerializeField] public DD_NavPoint rightPoint;
+            [SerializeField] public DD_NavPoint bottomPoint;
+        }
+
+        List<List<int>> neighbourMatrix;
+        List<DD_NavPoint> bricks;
 
         [SerializeField] Transform bricksParent;
+        [SerializeField] List<AdditionalNavPoint> additionalNavPoints;
 
         private static DD_NavMesh instance;
 
@@ -115,47 +128,84 @@ namespace DigDug {
             int horizontalSize = transform.GetChild(1).childCount; 
 
             int size = verticalSize * horizontalSize;
-            points = new Vector3[size];
-            neighbourMatrix = new int[size, 4];
-
+          //  points = new List<Vector3>();
+            neighbourMatrix = new List<List<int>>();
+/*
             for(int i = 0; i < verticalSize; i++) {
+                Vector3 point = new Vector3();
                 for(int j = 0; j < horizontalSize; j++){
-                    points[i* horizontalSize + j].x =  transform.GetChild(0).GetChild(i).position.x;
-                    points[i* horizontalSize + j].y =  transform.GetChild(1).GetChild(j).position.y;
+                    point.x =  transform.GetChild(0).GetChild(i).position.x;
+                    point.y =  transform.GetChild(1).GetChild(j).position.y;
                 }
+                points.Add(point);
             }
-
+*/
             for(int i = 0; i< size; i++){
-                neighbourMatrix[i, 0] = (i - horizontalSize < 0)                 ? -1 : i - horizontalSize;
-                neighbourMatrix[i, 1] = (i + horizontalSize >= size)             ? -1 : i + horizontalSize;
-                neighbourMatrix[i, 2] = (i % horizontalSize == 0)                ? -1 : i - 1;
-                neighbourMatrix[i, 3] = (i % horizontalSize == horizontalSize-1) ? -1 : i + 1;
+                neighbourMatrix.Add( new List<int>{
+                    (i - horizontalSize < 0)                 ? -1 : i - horizontalSize,
+                    (i + horizontalSize >= size)             ? -1 : i + horizontalSize,
+                    (i % horizontalSize == 0)                ? -1 : i - 1,
+                    (i % horizontalSize == horizontalSize-1) ? -1 : i + 1,
+                });
             }
 
-            bricks = bricksParent.GetComponentsInChildren<DD_BrickController>(true);
+            bricks = bricksParent.GetComponentsInChildren<DD_NavPoint>(true).ToList();
 
-            for(int i = 0; i < bricks.Length; i++){
-                for( int j = 0; j < bricks.Length-1; j++){
+            for(int i = 0; i < bricks.Count; i++){
+                for( int j = 0; j < bricks.Count-1; j++){
                     if(Mathf.Abs(bricks[i].transform.position.x - bricks[j].transform.position.x) < 0.01f){
                         if(Mathf.Abs(bricks[i].transform.position.y - bricks[j].transform.position.y) < 0.01f){
                             continue;
                         }else if(bricks[i].transform.position.y > bricks[j].transform.position.y){
-                            DD_BrickController temp = bricks[i];
+                            DD_NavPoint temp = bricks[i];
                             bricks[i] = bricks[j];
                             bricks[j] = temp;
                         }
                     }else if(bricks[i].transform.position.x > bricks[j].transform.position.x){
-                        DD_BrickController temp = bricks[i];
+                        DD_NavPoint temp = bricks[i];
                         bricks[i] = bricks[j];
                         bricks[j] = temp;
                     }
                 }
             }
 
-            for(int i = 0; i < bricks.Length; i++){
-                bricks[i]._uiGui.text = i.ToString();
+            for(int i = 0; i < bricks.Count; i++){
+                DD_BrickController brick = bricks[i] as DD_BrickController;
+                if(Guard.IsValid(brick)){
+                    brick._uiGui.text = i.ToString();
+                    brick.Recolor(i, verticalSize, horizontalSize);
+                }
             }
 
+            for(int i = 0; i < additionalNavPoints.Count; i++){
+                AdditionalNavPoint navPoint = additionalNavPoints[i];
+                List<int> neigbours = new List<int>{-1,-1,-1,-1};
+                for(int j = 0; j < bricks.Count; j++){
+                    if(navPoint.rightPoint  == bricks[j]) {
+                        neigbours[3] = j;
+                        neighbourMatrix[j][2] = bricks.Count;
+                    }
+                    if(navPoint.leftPoint   == bricks[j]) {
+                        neigbours[2] = j;
+                        neighbourMatrix[j][3] = bricks.Count;
+                    }
+                    if(navPoint.topPoint    == bricks[j]){
+                        neigbours[0] = j;
+                        neighbourMatrix[j][1] = bricks.Count;
+                    }
+                    if(navPoint.bottomPoint == bricks[j]) {
+                        neigbours[1] = j; 
+                        neighbourMatrix[j][0] = bricks.Count;
+                    }
+                }
+                bricks.Add(navPoint.dD_NavPoint);
+                neighbourMatrix.Add(neigbours);
+            }
+
+            CallNextFrame( ()=>{
+                Debug.Log(bricks[0].transform.position + " " + bricks[1].transform.position + " " + bricks[neighbourMatrix[0][1]].transform.position);
+
+            });
 
     //        string bassed = "";
     //        for(int i = 0; i <size; i++){
@@ -170,11 +220,20 @@ namespace DigDug {
             GetNextPathPoint_internal(Vector3.down, Vector3.down);
         }
 
+        public static Vector3 GetClosestPointExt(Vector3 point){
+            if(Guard.IsValid(instance)){
+                return instance.bricks[instance.GetClosestPoint(point)].transform.position;
+            }
+
+            return point;
+        }
+
+
         private int GetClosestPoint(Vector3 point){
             
             int found = -1;
             float distance = 9999999;
-            for(int i = 0; i < bricks.Length; i++) {
+            for(int i = 0; i < bricks.Count; i++) {
                 float dis = Vector3.Distance(point, bricks[i].transform.position);
                 if(distance > dis){
                     found = i;
@@ -184,8 +243,6 @@ namespace DigDug {
 
             return found;
         }
-
-
 
         public Vector3 GetNextPathPoint_internal(Vector3 start, Vector3 target){
 
@@ -210,7 +267,7 @@ namespace DigDug {
 
                 for(int i = 0; i < 4; i++){
     //                Debug.Log(point);
-                    int n_index = neighbourMatrix[point, i];
+                    int n_index = neighbourMatrix[point][i];
                     if( n_index != -1){
 
                         float cost = _pathCost[point] + bricks[n_index].GetWalkWeight() + (Vector3.Distance(target, bricks[n_index].transform.position) * 0.2f);
@@ -220,12 +277,10 @@ namespace DigDug {
                             _pathCost[n_index] = cost;
 
 
-                            queue.Push(cost, neighbourMatrix[point, i]);
+                            queue.Push(cost, neighbourMatrix[point][i]);
                         }
                     };
                 }
-
-
             }
             return new Vector3();
         }   
@@ -259,11 +314,7 @@ namespace DigDug {
             if(Guard.IsValid(instance)){
                 return instance.GetNextPathPoint_internal(start, target);
             }
-
             return start;
         }
-
     }
-
-
 }

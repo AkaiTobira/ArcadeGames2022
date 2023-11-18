@@ -11294,7 +11294,7 @@ MonoBehaviour:
     _hideTimeDuration: 0.2
     _waitingTimeDuration: 120
     _ignore: 0
-  _loader: {fileID: 0}
+  _loader: {fileID: 1893794875}
   _startingPoint: {fileID: 171664920}
   _curtain: {fileID: 194214666}
 --- !u!1 &1896436818

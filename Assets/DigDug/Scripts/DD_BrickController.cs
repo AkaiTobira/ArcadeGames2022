@@ -4,7 +4,8 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public class DD_BrickController : CMonoBehaviour
+
+public class DD_BrickController : DD_NavPoint
 {
     [SerializeField] GridLayoutGroup _layout;
     [SerializeField] GameObject[] _digPoints;
@@ -12,7 +13,7 @@ public class DD_BrickController : CMonoBehaviour
     [SerializeField] Transform _brickCenter;
     [SerializeField] Transform _rock;
     [SerializeField] public TextMeshProUGUI _uiGui;
-    
+    [SerializeField] public Color[] _colors;     
 
 
     void Start()
@@ -58,7 +59,6 @@ public class DD_BrickController : CMonoBehaviour
         transform.GetChild(3 + id).gameObject.SetActive(true);
     }
 
-
     public void SwitchBoxColliders(Transform parent, bool value){
         for(int i = 0; i < parent.childCount; i++) {
             Transform child = parent.GetChild(i);
@@ -71,7 +71,7 @@ public class DD_BrickController : CMonoBehaviour
         }
     }
 
-    public float GetWalkWeight(){
+    public override float GetWalkWeight(){
         float value = 0;
 
         for(int i = 0; i < _brickFrame.childCount; i++) {
@@ -87,8 +87,40 @@ public class DD_BrickController : CMonoBehaviour
         return value;
     }
 
+    public void Recolor(int id, int verticalSize, int horizontalSize){
+        if(id < horizontalSize) return;
 
+        int spheres = verticalSize/_colors.Length;
+        int alpha   = 0;
 
+        for(int i = horizontalSize; i <= verticalSize*horizontalSize; i += horizontalSize){
+            if(id<i){
+                int colorID = Mathf.Min((int)(alpha/spheres), _colors.Length-1);
+
+                for(int j = 0; j < _brickFrame.childCount; j++){
+                    for(int k = 0; k < _brickFrame.GetChild(j).childCount; k++){
+                        _brickFrame.GetChild(j).GetChild(k).GetComponent<Image>().color = _colors[colorID];
+                    }
+                }
+
+                for(int j = 0; j < _brickCenter.childCount; j++){
+                    _brickCenter.GetChild(j).GetComponent<Image>().color = _colors[colorID];
+                }
+
+                return;   
+            }
+            alpha += 1;
+        }
+    }
+
+    private void Update() {
+
+        bool shouldBeActiveMoveBlock = false;
+        for(int j = 0; j < _brickCenter.childCount; j++){
+            shouldBeActiveMoveBlock |= _brickCenter.GetChild(j).gameObject.activeInHierarchy;
+        }
+        transform.GetChild(7).gameObject.SetActive(shouldBeActiveMoveBlock);
+    }
 
     public Vector3 GetClosetDigPoint(){
 

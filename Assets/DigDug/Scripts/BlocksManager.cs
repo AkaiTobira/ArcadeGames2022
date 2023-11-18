@@ -45,13 +45,13 @@ public static class BlocksManager_Levels{
             },
             */
             new string[]{
-                "                 ",
+                "             1   ",
+                "XXXX XXXXXXRRRRRR",
                 "XXXX XXXXXXXXXXXX",
-                "XXXX XXXXXXX    X",
-                "XXXXXXXXXX   XX X",
+                "XXXXXXXRXX   XX X",
                 "XXXX XXXXXXX    X",
                 "XXXXRXXXXXXXXXXXX",
-                "XXXXXXXXXXXXXXXXX",
+                "XXXXXXXXXRXXXXXXX",
                 "XXX XXXXXXX 1 XXX",
                 "XXX XXXXXXXXXXXXX",
                 "XXXXXXXXXXXXXXXXX",
