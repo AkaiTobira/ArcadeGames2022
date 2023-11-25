@@ -8,6 +8,7 @@ public class MainMenuEscape : MonoBehaviour
     float loadDelay = 0.5f;
 
     private static MainMenuEscape _instance;
+    private string startSceneName;
 
     private void OnEnable() {
         if(!Guard.IsValid(_instance)){
@@ -16,15 +17,16 @@ public class MainMenuEscape : MonoBehaviour
         }else{
             Destroy(this);
         }
-    }
 
+        startSceneName = SceneFlowController.GetLocalizedSceneName(SceneFlowController.GetActiveIntro());
+    }
 
     void Update()
     {
         if(loadDelay < 0) return;
         if( Input.GetKeyDown(KeyCode.V) && 
-            SceneFlowController.GetActiveIntro() != SceneManager.GetActiveScene().name){
-                SceneManager.LoadScene(SceneFlowController.GetActiveIntro(), LoadSceneMode.Single);
+            startSceneName != SceneManager.GetActiveScene().name){
+                SceneManager.LoadScene(startSceneName, LoadSceneMode.Single);
                 loadDelay = 0.5f;
         }
     }

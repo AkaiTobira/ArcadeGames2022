@@ -16,7 +16,6 @@ public class T_Player : MonoBehaviour, IListenToGameplayEvents
 
     [SerializeField] float calcRotationSpeed = 0;
     [SerializeField] Vector3 movePoint;
-    [SerializeField] Vector3 forcedOffset = new Vector3();
 
     public static int NumberOfMissles = 0;
 

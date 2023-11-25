@@ -230,8 +230,8 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
     const string SOUND_PLAYER_SPECIAL = "LittleFighter_PlayerSpecial";
     const string SOUND_PLAYER_HEAL = "LittleFighter_Heal";
 
-
-    private void Awake() {
+    protected override void Awake() {
+        base.Awake();
         Player = this;
         ForceState(LFPlayerState.Idle, true);
         _healthPoints = _MaxHealthPoints;

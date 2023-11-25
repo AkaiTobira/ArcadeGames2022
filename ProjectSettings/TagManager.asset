@@ -13,6 +13,7 @@ TagManager:
   - PlayerObstacle
   - Sight
   - PickupBox
+  - Obstacle2
   layers:
   - Default
   - TransparentFX

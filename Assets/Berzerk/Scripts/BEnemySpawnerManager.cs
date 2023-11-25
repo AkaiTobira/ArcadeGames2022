@@ -6,7 +6,9 @@ public class BEnemySpawnerManager : CMonoBehaviour
 {
     [SerializeField] BEnemySpawner[] _spawners;
 
-    private void Awake() {
+    protected override void Awake() {
+        base.Awake();
+
         CallAfterFixedUpdate(() => {
             SpawnEnemies();
         });

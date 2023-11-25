@@ -8,7 +8,9 @@ public static class SceneFlowController
     private static Dictionary<string, List<string>> flow = new Dictionary<string, List<string>>();
 
     public static string GetActiveIntro(){
-        #if INTRO3
+        #if INTRO4
+            return "DigDugMain";
+        #elif INTRO3
             return "Intro3";
         #elif INTRO2
                 return "Intro2";
@@ -41,6 +43,23 @@ public static class SceneFlowController
 
     static SceneFlowController(){
 
+        //DigDug has reversed flow, need to be fixed when combined with othergames
+        flow["DigDugMain"]   = new List<string>{ "DigDugIntro0"};
+        flow["DigDugIntro0"] = new List<string>{ "DigDugIntro" };
+        flow["DigDug"]       = new List<string>{
+            "DigDugOutro",
+            "DigDugMain",
+            "DigDug",
+        };
+        flow["DigDugIntro"]  = new List<string>{"DigDug"};
+        flow["DigDugOutro"]  = new List<string>{
+            "DigDugMain",
+            "DigDugMain",
+            "DigDugMain"};
+
+
+        #if DIGDUG_GAME
+        #else
 
         flow[GetActiveIntro()] = new List<string>{
             #if T_SegmentSpawner
@@ -65,10 +84,10 @@ public static class SceneFlowController
                 "GameSelect3"
             #elif SIX_GAMES
                 "GameSelect4"
-            #elif DIGDUG_GAME
-                "DigDugMain"
-            #endif
+            #endif    
+
         };
+        #endif
 
         flow["GameSelect"]     = new List<string>{
             "AsteroidsMain", 
@@ -127,30 +146,18 @@ public static class SceneFlowController
             "DigDug2Main",
             GetGameSelect(),};
 
-
-        flow["DigDug"]         = new List<string>{
-            "DigDugOutro",
-            GetActiveIntro(),
-            "DigDug",
-        };
-        flow["DigDugIntro"]    = new List<string>{"DigDug"};
-        flow["DigDugMain"]     = new List<string>{"DigDugIntro"};
-        flow["DigDugOutro"]    = new List<string>{
-            GetActiveOutrio(),
-            "DigDugMain",
-            GetGameSelect(),
-        };
-
         flow["Frogger"]        = new List<string>{
             "FroggerOutro", 
             "FroggerOutro1",             
             GetActiveIntro()
             };
+
         flow["FroggerIntro"]   = new List<string>{"Frogger"};
         flow["FroggerMain"]    = new List<string>{"FroggerIntro"};
         flow["FroggerOutro"]   = new List<string>{GetActiveOutrio(),
             "FroggerMain",
             GetGameSelect(),};
+
         flow["FroggerOutro1"]  = new List<string>{GetActiveOutrio(),
             "FroggerMain",
             GetGameSelect(),
@@ -161,7 +168,6 @@ public static class SceneFlowController
             GetActiveIntro(),
             "Berzerk",
         };
-
 
         flow["BerzerkIntro"]   = new List<string>{"Berzerk"};
         flow["BerzerkMain"]    = new List<string>{"BerzerkIntro"};
@@ -207,9 +213,7 @@ public static class SceneFlowController
             GetActiveOutrio(),
             "TunnelMain",
             GetGameSelect()};
-        flow["EOutro"]        = new List<string>{            
-            GetActiveIntro(),
-            };
+        flow["EOutro"]        = new List<string>{ GetActiveIntro() };
     }
 
     public static string GetNextScene(int index){
@@ -219,6 +223,10 @@ public static class SceneFlowController
     //    Debug.Log("Loading Scene : " + SceneManager.GetActiveScene().name);
 
         return TryLocalizeScene(flow[activeSceneName][index]);
+    }
+
+    public static string GetLocalizedSceneName(string sceneName){
+        return TryLocalizeScene(sceneName);
     }
 
     private static string ParseSceneName(){

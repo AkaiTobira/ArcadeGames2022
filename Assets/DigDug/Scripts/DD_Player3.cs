@@ -2,8 +2,19 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ESM;
+using UnityEngine.UI;
+using System.Threading;
 
 namespace DigDug{
+
+    public enum DD_PlayerStates{
+        Idle,
+        Moving,
+        Shooting,
+        Digging,
+        Dead
+    }
+
 
     public interface IPumpableEnemy{
         bool IsDead();
@@ -24,13 +35,16 @@ namespace DigDug{
         const float SHOT_ACTION_NONLANDED_COLDOWN = 0.5f;
         const float SHOT_PUMP_ACTION_COLDOWN = 0.75f;
         const float SHOT_LANDING_TIME = 0.5f;
-        const float DISTANCE_OF_SHOOT = 2.5f;
+        const float DISTANCE_OF_SHOOT = 1.5f;
         const int MAX_PUMPING = 3;
 
         [SerializeField] LineRenderer _shootLineRenderer;
         [SerializeField] LineRenderer _landedShootLineRendrer;
 
         [SerializeField] LayerMask _enemyLayer;
+        [SerializeField] LayerMask _rockLayer;
+
+        [SerializeField] Transform[] _points;
 
         bool _shootingRequirementsMeet = false;
         bool _shootingFailed           = false;
@@ -43,9 +57,38 @@ namespace DigDug{
 
 
         protected bool _shoot;
+        private bool _isDead;
         private float _stateDuration;
 
-        private void Awake() { Instance = this; }
+        [SerializeField] Color[] playerColors;
+
+        protected override void Awake() { 
+            Graphicals.GetComponent<UnityEngine.UI.Image>().color = playerColors[DD_PlayerSelector.PlayerSelected];
+            
+            base.Awake(); 
+            Instance = this; 
+        }
+
+        private void OnEnable() {
+            Setup();
+        }
+
+        public void Setup(){
+            _shootingRequirementsMeet = false;
+            _shootingFailed           = false;
+            _shoot                    = false;
+            _isDead                   = false;
+            _shootingTimeColdown      = 0;
+            _shootingTimeElapsed      = 0;
+            _lineShootingTimeElapsed  = 0;
+            _stateDuration            = 0;
+            _landingPoint             = new Vector3();
+            _startingPoint            = new Vector3();
+            _pumpableEnemy            = null;
+
+            _lastHorizontalDirection = AnimationSide.Left;
+        
+        }
 
         private void ProcessInputsMove(){
             _inputs.x = Input.GetAxisRaw("Horizontal");
@@ -78,6 +121,35 @@ namespace DigDug{
             }
         }
 
+
+        protected override void UpdateMove()
+        {
+            /*
+            for(int j = 0; j < rayPoints.Length; j++){
+                RaycastHit2D[] raycastHit2s = Physics2D.RaycastAll( rayPoints[j].position, _inputs, 0.8f, _rockLayer); 
+            
+                Debug.DrawLine(Graphicals.transform.position, Graphicals.transform.position + (Vector3)_inputs * 0.8f, Color.cyan);
+                Debug.DrawLine(rayPoints[0].position, rayPoints[0].position + (Vector3)_inputs * 0.8f, Color.cyan);
+                Debug.DrawLine(rayPoints[1].position, rayPoints[1].position + (Vector3)_inputs * 0.8f, Color.magenta);
+                Debug.DrawLine(rayPoints[2].position, rayPoints[2].position + (Vector3)_inputs * 0.8f, Color.red);
+                Debug.DrawLine(rayPoints[3].position, rayPoints[3].position + (Vector3)_inputs * 0.8f, Color.blue);
+            
+                if(Mathf.Abs(_inputs.x)== 0 || Mathf.Abs(_inputs.y)== 0 ){
+
+                string ss = "";
+                for(int i = 0; i < raycastHit2s.Length; i++){
+                    ss += raycastHit2s[i].collider.name + ":" + raycastHit2s[i].collider.tag + " ";
+                    if(raycastHit2s[i].collider.tag.Contains("cle2")) return;
+               }
+            Debug.Log(ss);
+            
+                }
+
+            }
+            */
+            base.UpdateMove();
+        }
+
         protected override void OnStateEnter(DD_PlayerStates enteredState)
         {
             switch(ActiveState){
@@ -89,18 +161,31 @@ namespace DigDug{
                     ProcessInputsMove();
                     _stateDuration = DIGGING_TIME;
                 break;
+                case DD_PlayerStates.Shooting:
+                    AudioSystem.PlaySample("DigDug_Shoot");
+                break;
+                case DD_PlayerStates.Dead:
+                    RequestDisable(2);
+                    AudioSystem.PlaySample("DigDug_PlayerDie");
+                    TimersManager.Instance.FireAfter(5, () => Events.Gameplay.RiseEvent(GameplayEventType.GameOver));
+                    TimersManager.Instance.FireAfter(4, () => AlphaManipolator.Show());
+                break;
             }
         }
 
         public void TakeDamage(int amount, MonoBehaviour source){
-            Debug.Log("Player -> Damage Taken");
+            _isDead = true;
         }
 
         LineRenderer GetLineRenderer(){
         //    if(Guard.IsValid(_pumpableEnemy) && !_pumpableEnemy.IsDead()){
        //         _shootLineRenderer.SetPosition(1,_shootLineRenderer.GetPosition(0));
 
+            if(Guard.IsValid(_pumpableEnemy)){
                 return _landedShootLineRendrer;
+            }
+
+            return _shootLineRenderer;
         //    }
 
         //    _landedShootLineRendrer.SetPosition(1,_landedShootLineRendrer.GetPosition(0));
@@ -147,7 +232,10 @@ namespace DigDug{
 
             for(int i = 0; i < (hits?.Length ?? 0); i++ ){
                 LF_ColliderSide side = hits[i].collider.GetComponent<LF_ColliderSide>();
-                if(Guard.IsValid(side)) _pumpableEnemy = side.GetParent().GetComponent<IPumpableEnemy>();
+                if(Guard.IsValid(side)) {
+                    GetLineRenderer().SetPosition(1, GetLineRenderer().GetPosition(0)); 
+                    _pumpableEnemy = side.GetParent().GetComponent<IPumpableEnemy>();
+                }
                 if(Guard.IsValid(_pumpableEnemy)){
                     if(_pumpableEnemy.CanBePumped()){
                         _pumpableEnemy.Pump();
@@ -288,21 +376,25 @@ namespace DigDug{
         {
             switch(ActiveState){
                 case DD_PlayerStates.Idle:
+                    if(_isDead) return DD_PlayerStates.Dead;
                     if(_shootingRequirementsMeet) return DD_PlayerStates.Shooting;
                     if(_inputs.magnitude > 0) return DD_PlayerStates.Moving;
                 break;
                 case DD_PlayerStates.Moving:
+                    if(_isDead) return DD_PlayerStates.Dead;
                     if(_shootingRequirementsMeet) return DD_PlayerStates.Shooting;
                     if(_inputs.magnitude <= 0) return DD_PlayerStates.Idle;
                     if(WillBeDigging()) return DD_PlayerStates.Digging;
                 break;
                 case DD_PlayerStates.Digging:
+                    if(_isDead) return DD_PlayerStates.Dead;
                     if(_stateDuration <= 0) {
                         if(WillBeDigging() && _inputs.magnitude > 0) return DD_PlayerStates.Digging;
                         return DD_PlayerStates.Moving;
                     }
                 break;
                 case DD_PlayerStates.Shooting:
+                    if(_isDead) return DD_PlayerStates.Dead;
                     //if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
                     if(_shootingTimeElapsed <= 0) return DD_PlayerStates.Idle;
                     break;

@@ -21,7 +21,9 @@ public class BS_Base : ESM.SMC_1D<BS_TowerState>,
 
     private int _health;
 
-    private void Awake() {
+
+    protected override void Awake() {
+        base.Awake();
         _health = _MaxHealthPoints;
         _hitBox.gameObject.SetActive(true);
     }

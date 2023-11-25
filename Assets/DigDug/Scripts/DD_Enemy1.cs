@@ -21,43 +21,61 @@ namespace DigDug{
         [SerializeField] Transform _pumpPoint;
         [SerializeField] LayerMask _uiMaskLayer;
         [SerializeField] LayerMask _solidMaskLayer;
+        [SerializeField] GameObject _attackBox;
         [SerializeField] float _distanceA;
         [SerializeField] float _distanceB;
+        [SerializeField] float _distanceC = 0.9f;
         [SerializeField] float _shadowMovefactor = 0.5f;
 
-        private static AnimationSide[] _possibleDirections = { 
-            AnimationSide.Top, 
-            AnimationSide.Right, 
-            AnimationSide.Bottom, 
-            AnimationSide.Left};
-
-        protected bool _shoot;
         int _pumpingStacks = 0;
 
         float _stateDuration;
         float _elapsedPumpTime  = 0;
         float _playerFollowTime = 0;
+        float _playerRushTime = 50;
+        float _ignoreDamage = 0.5f;
+        float _doNothing = 0.5f;
+
+        bool _cantStopThere = false;
+        bool _isPursuingPlayer = false;
+
         AnimationSide _lookDirection;
-        AnimationSide _lastLookDirection;
         
         Transform _forceRunAway;
-        List<AnimationSide> _lookDirectionQueue = new List<AnimationSide>();
         
-        private void OnEnable() {
-            _lookDirection = GetFacingDirection();
+        private void OnEnable() { Setup(); }
+
+        public void Setup(){
+            _lookDirection = AnimationSide.Right; //GetFacingDirection();
+            _stateDuration = 0;
             _pumpingStacks = 0;
+            _ignoreDamage = 0.5f;
+            _doNothing = 0.5f;
+            _playerFollowTime = 0;
+            _elapsedPumpTime  = 0;
+
             transform.position = transform.parent.position;
+            _playerRushTime = Mathf.Max(50 - DD_BlocksManager.GetCurrentLevel(), 20);
+            _attackBox.SetActive(true);
+
+            _cantStopThere = false;
+            _isPursuingPlayer = false;
+
+            ForceState(DD_EnemyStates.Idle, true);
+        
         }
 
         public void TakeDamage(int amount, MonoBehaviour source){
-            Debug.Log("Enemy -> Take Damage");
+
+            CMonoBehaviour cMono = source as CMonoBehaviour;
+            Debug.Log(source.transform.parent.name + "/" + source.name + " " + transform.parent.name + "/" + name);
+          //  if(Guard.IsValid(cMono)){
+           //     Debug.Log(GetNameWithParent() + " -> Take Damage from " + cMono.GetNameWithParent());
             
-            Pump();
-            CallNextFrame(() => {
-                if(Guard.IsValid(this)){
-                    if(_pumpingStacks < MAX_PUMPING) TakeDamage(amount, source);
-                }
-            });
+                if(source.name.Contains("Rock") && _ignoreDamage < 0){
+                    _pumpingStacks =  MAX_PUMPING - 1;
+             //   }
+            }
         }
 
         public int GetDamage(){
@@ -69,7 +87,7 @@ namespace DigDug{
         {
             switch(ActiveState){
                 case DD_EnemyStates.Idle:
-                    _lookDirection = AnimationSide.Right;
+    //                _lookDirection = AnimationSide.Right;
                 break;
                 case DD_EnemyStates.Moving:
                 break;
@@ -78,8 +96,12 @@ namespace DigDug{
                     _stateDuration = SHADOWWALKS_TIME;
                 break;
                 case DD_EnemyStates.Dead:
-                    RequestDisable(1.0f);
+                    _attackBox.SetActive(false);
+                    RequestDisable(0.6f);
                     PointsCounter.Score += 1000;
+                    AudioSystem.PlaySample("DigDug_EnemyDie");
+
+                    DD_GameController.NumberOfEnemies --;
                 break;
             }
         }
@@ -109,6 +131,7 @@ namespace DigDug{
         }
 
         protected override void UpdateState(){
+            _doNothing -= Time.deltaTime;
             switch(ActiveState){
                 case DD_EnemyStates.Idle: 
                     ProcessInputsMove();
@@ -138,8 +161,9 @@ namespace DigDug{
         public void Pump(){
             if(_pumpingStacks > MAX_PUMPING) return;
             
-            _pumpingStacks += 1;
+            
             SetAnimationFrame(_pumpingStacks, DD_EnemyStates.Hurt);
+            _pumpingStacks += 1;
             AudioSystem.Instance.PlayEffect("DigDug_Pump", 1);
 
             if(_pumpingStacks >= MAX_PUMPING) Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.EnemyHasBeenMurdered, this));
@@ -173,17 +197,22 @@ namespace DigDug{
 
         protected override DD_EnemyStates CheckStateTransitions()
         {
+            if(_doNothing > 0) return ActiveState;
+
             switch(ActiveState){
                 case DD_EnemyStates.Idle:
+                    if(_pumpingStacks == MAX_PUMPING - 1) return DD_EnemyStates.Dead;
                     if(_pumpingStacks != 0) return DD_EnemyStates.Hurt;
                     if(_inputs.magnitude > 0) return DD_EnemyStates.Moving;
                 break;
                 case DD_EnemyStates.Moving:
+                    if(_pumpingStacks == MAX_PUMPING - 1) return DD_EnemyStates.Dead;
                     if(_pumpingStacks != 0) return DD_EnemyStates.Hurt;
                     if(_inputs.magnitude <= 0) return DD_EnemyStates.Idle;
                     if(WillBeDigging()) return DD_EnemyStates.ShadowMoving;
                 break;
                 case DD_EnemyStates.ShadowMoving:
+                    if(_pumpingStacks == MAX_PUMPING - 1) return DD_EnemyStates.Dead;
                     if(_pumpingStacks != 0) return DD_EnemyStates.Hurt;
                     if(_stateDuration <= 0) {
                         if(WillBeDigging() && _inputs.magnitude > 0) return DD_EnemyStates.ShadowMoving;
@@ -205,102 +234,140 @@ namespace DigDug{
         public bool IsDead(){ return ActiveState == DD_EnemyStates.Dead; }
         public bool CanBeShoot(){ return ActiveState != DD_EnemyStates.ShadowMoving; }
 
-        private Vector3 GetNextPoint(){
+        private bool IsFacingWall(AnimationSide side){
+            Vector3 center = _pumpPoint.transform.position;
 
-            if(_playerFollowTime > 0){
-                return DD_NavMesh.GetNextPathPoint(transform.position, DD_Player3.Instance.transform.position);
-            }
+        //    Debug.DrawLine(center, center + (Vector3)DirectionToVector2(side) * _distanceA, UnityEngine.Color.green);
+            RaycastHit2D[] hit2D2 = Physics2D.RaycastAll(center, DirectionToVector2(side), _distanceA, _solidMaskLayer);
 
-            Vector3 center = Graphicals.transform.position;
-            
-            RaycastHit2D[] hit2D = Physics2D.RaycastAll(center, DirectionToVector2(_lookDirection), _distanceA, _uiMaskLayer);;
-            Debug.DrawLine(center, center + (Vector3)DirectionToVector2(_lookDirection) * _distanceA, UnityEngine.Color.green);
-            RaycastHit2D[] hit2D2 = Physics2D.RaycastAll(center, DirectionToVector2(_lookDirection), _distanceA, _solidMaskLayer);;
-            
-            bool selectNewDirection = false;
+         //   string a = hit2D2.Length.ToString()+ " : " + transform.parent.name+"/"+name +" : " + center + " " + side + "\n";
+         //   for(int o = 0; o < hit2D2.Length; o++){
+         //       RaycastHit2D raycast = hit2D2[o];
+          //      a += raycast.collider.transform.parent.name + "/" + raycast.collider.name + ":" + raycast.point +  " " + DirectionToVector2(side) + " " + Vector2.Distance(raycast.point, center) + "\n";
+           // }
+           // Debug.Log(a);
+
+            string raycastHits = hit2D2.Length.ToString() + " " + center+ "\n";
             for(int i = 0; i < hit2D2.Length; i++){
                 RaycastHit2D raycast = hit2D2[i];
-                if(raycast.collider.name.Contains("MoveBlock") && Vector2.Distance(raycast.point, center) < 1){
-                    selectNewDirection = true;
-                    break;
+
+                //raycastHits += raycast.collider.transform.parent.name+"/"+raycast.collider.name + ":" + raycast.point + "::" + raycast.collider.transform.position +"\n ";
+                if((raycast.collider.name.Contains("MoveBlock") || raycast.collider.name.Contains("Bricker")) && Vector2.Distance(raycast.point, center) < _distanceC){
+
+                 //   raycastHits += transform.parent.name+"//"+name + " :" +side + "::" + raycast.point + " " + center + " "  + raycast.collider.transform.parent.name + "//" + raycast.collider.name + DirectionToVector2(side) + " " + Vector2.Distance(raycast.point, center);
+                 //   Debug.Log(raycastHits);
+                    return true;
                 }
             }
 
-            if(!selectNewDirection)
-            for(int i = 0; i < hit2D.Length; i++){
-                RaycastHit2D raycast = hit2D[i];
-//                Debug.Log(_lookDirection + " " +raycast.collider.name + " " + raycast.collider.name.Contains("Brick") + " " + Vector2.Distance(raycast.collider.transform.position, center) + " "  + (Vector2.Distance(raycast.collider.transform.position, center) < _distanceB));
-                Debug.DrawLine(raycast.point, center, (Vector2.Distance(raycast.point, center) < _distanceB) ? UnityEngine.Color.green : UnityEngine.Color.red);
+          //  Debug.Log(raycastHits);
+            return false;
+        }
 
-                //convert distance to only dimensional check like (x1 - x2 < r or y1 - y2 < r)
 
-            //    bool distance = Math.Abs(raycast.collider.transform.position.x - center.x )
 
-                if(raycast.collider.tag.Contains("GameCon")){
-                    if(_playerFollowTime <= 0){
-                        _playerFollowTime = 6;
-                        return DD_NavMesh.GetNextPathPoint(transform.position, DD_Player3.Instance.transform.position);
-                    }
-                }
-                else if(raycast.collider.name.Contains("Exit")){
-                    if(Vector3.Distance(transform.position, raycast.collider.transform.position)<3){
-                        _forceRunAway = raycast.collider.transform;
-                    };
-                    return raycast.collider.transform.position;
-                }
+        private Vector3 GetNextPoint(){
+//            Debug.Log(_lookDirection);
+            _cantStopThere = !DD_NavMesh.CanStopThere(transform.position);
+            if(_playerFollowTime > 0 || (_isPursuingPlayer && _cantStopThere)){ 
+                return DD_NavMesh.GetNextPathPoint(transform.position, DD_Player3.Instance.transform.position); 
+            }
+
+            _isPursuingPlayer = false;
+//            Debug.Log("First");
+            Vector3 center = Graphicals.transform.position;
+            bool selectNewDirection = IsFacingWall(_lookDirection);
+            //Debug.Log("Need new direction : " + selectNewDirection);
+            if(!selectNewDirection){
+                Vector3 point = new Vector3();
+                if(UpdateNavePoint_SawObjects(ref point)) return point;
+            }
+
+            if(_playerRushTime < 0){
+                _playerRushTime = Mathf.Max(50 - DD_BlocksManager.GetCurrentLevel(), 20);
+                _playerFollowTime = 6;
+                _isPursuingPlayer = true;
+
+                AudioSystem.PlaySample("DigDug_Danger");
             }
 
             if(Guard.IsValid(_forceRunAway)){ return _forceRunAway.transform.position;}
+            if(selectNewDirection){ return UpdateNavePoint_PathBlocking(); }
 
-            if(selectNewDirection){
-                AnimationSide currentAnimation = _lookDirection;
-                _lookDirection = GetNextAnimationSide();
-                Debug.Log(_lookDirection);
-            }else{
-                _lastLookDirection = _lookDirection;
-                _lookDirectionQueue = new List<AnimationSide>();
-                return DD_NavMesh.GetNextPathPoint(transform.position, transform.position + (Vector3)DirectionToVector2(_lookDirection)*_distanceA );
+            //Debug.Log("END" + " " + transform.position + (Vector3)DirectionToVector2(_lookDirection)*_distanceB);
+            return DD_NavMesh.GetNextPathPoint(
+                            transform.position, 
+                            transform.position + (Vector3)DirectionToVector2(_lookDirection)*_distanceB);
+        }
+
+        private bool UpdateNavePoint_SawObjects(ref Vector3 endingPoint){
+            Vector3 center = Graphicals.transform.position;
+            RaycastHit2D[] hit2D = Physics2D.RaycastAll(center, DirectionToVector2(_lookDirection), _distanceA, _uiMaskLayer);
+            for(int i = 0; i < hit2D.Length; i++){
+                RaycastHit2D raycast = hit2D[i];
+                Debug.DrawLine(raycast.point, center, (Vector2.Distance(raycast.point, center) < _distanceB) ? UnityEngine.Color.green : UnityEngine.Color.red);
+                if(raycast.collider.tag.Contains("GameCon")){
+                    if(_playerFollowTime <= 0){
+                        _playerFollowTime = 6;
+                        _isPursuingPlayer = true;
+                        endingPoint = DD_NavMesh.GetNextPathPoint(transform.position, DD_Player3.Instance.transform.position);
+                        return true;
+                    }
+                }else if(raycast.collider.name.Contains("Exit")){
+                    if(Vector3.Distance(transform.position, raycast.collider.transform.position) < 3){
+                        _forceRunAway = raycast.collider.transform;
+              //          Debug.Log("Run away!");
+                    };
+                    endingPoint = raycast.collider.transform.position;
+                    return true;
+                }
             }
 
+            return false;
+        }
+
+
+        private Vector3 UpdateNavePoint_PathBlocking(){
+            Vector3 center = Graphicals.transform.position;
+            List<AnimationSide> directionList = GetDirectionList();
+         //   string listOfDirections = _lookDirection + " :: " + directionList[0] + directionList[1] + directionList[2];
+         //   Debug.Log(listOfDirections);
+            for(int i = 0; i < directionList.Count; i++){
+                if(!IsFacingWall(directionList[i])){
+                    _lookDirection = directionList[i];
+                    return DD_NavMesh.GetNextPathPoint(
+                        transform.position, 
+                        transform.position + (Vector3)DirectionToVector2(_lookDirection)*_distanceB);
+                }
+            }
             return center;
         }
 
-        private AnimationSide GetNextAnimationSide(){
-            if(_lookDirectionQueue.Count != 0){
-                AnimationSide animationSide = _lookDirectionQueue[0];
-                _lookDirectionQueue.RemoveAt(0);
-                return animationSide;
-            }
-            if(_lookDirectionQueue.Count < 10){
-                switch(_lastLookDirection){
-                    case AnimationSide.Right:
-                    case AnimationSide.Left:
-                        _lookDirectionQueue.Add(AnimationSide.Top);
-                        _lookDirectionQueue.Add(AnimationSide.Bottom);
-                    break;
-                    case AnimationSide.Top:
-                    case AnimationSide.Bottom:
-                        _lookDirectionQueue.Add(AnimationSide.Right);
-                        _lookDirectionQueue.Add(AnimationSide.Left);
-                    break;
-                }
-
-                _lookDirectionQueue.Add(ReverseDirection(_lastLookDirection));
+        private List<AnimationSide> GetDirectionList(){
+            switch(_lookDirection){
+                case AnimationSide.Right:
+                case AnimationSide.Left:
+                    return new List<AnimationSide>{
+                        AnimationSide.Top, AnimationSide.Bottom, ReverseDirection(_lookDirection)
+                    };
+                case AnimationSide.Top:
+                case AnimationSide.Bottom:
+                    return new List<AnimationSide>{
+                        AnimationSide.Right, AnimationSide.Left, ReverseDirection(_lookDirection)
+                    };
             }
 
-            return _lookDirection;
+            return new List<AnimationSide> {_lookDirection};
         }
-
-        private AnimationSide GetRandomAnimationSide(){
-            int t = UnityEngine.Random.Range(0, 4);
-            return _possibleDirections[t];
-        }
-
 
         private void ProcessInputsMove(){
             _playerFollowTime -= Time.deltaTime;
+            _playerRushTime   -= Time.deltaTime;
+            _ignoreDamage     -= Time.deltaTime;
             
             Vector3 nextNavPoint = GetNextPoint();
+         //   Debug.Log("CALL" + nextNavPoint);
+
             _inputs = nextNavPoint - transform.position;
             if(Mathf.Abs(_inputs.x) < 0.4f) _inputs.x = 0;
             if(Mathf.Abs(_inputs.y) < 0.4f) _inputs.y = 0;

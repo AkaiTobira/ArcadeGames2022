@@ -6,7 +6,6 @@ public class SceneLoader : MonoBehaviour
 {
  //   private static bool _canLoadNextScene = true;
 
-    [SerializeField] string sceneName;
     [SerializeField] int sceneFlowIndex;
 
     public void OnSceneLoad(bool playSound = false){

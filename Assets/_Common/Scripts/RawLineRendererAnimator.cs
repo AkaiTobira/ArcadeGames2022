@@ -8,8 +8,9 @@ public class RawLineRendererAnimator : RawAnimator
     [SerializeField] LineRenderer _lineRenderer;
     [SerializeField] Texture[] _textures;
 
-    void Awake()
+    protected override void Awake()
     {
+    //    base.Awake();
         _lineRenderer = GetComponent<LineRenderer>();
     }
 

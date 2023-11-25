@@ -4558,7 +4558,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68e75c62e17d0154eb98abe65ba00c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Intro
   sceneFlowIndex: 1
 --- !u!1 &289884702 stripped
 GameObject:
@@ -4797,7 +4796,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68e75c62e17d0154eb98abe65ba00c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Intro
   sceneFlowIndex: 1
 --- !u!114 &309487455
 MonoBehaviour:
@@ -9354,7 +9352,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68e75c62e17d0154eb98abe65ba00c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Berzerk
   sceneFlowIndex: 2
 --- !u!224 &492243727
 RectTransform:
@@ -13043,7 +13040,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68e75c62e17d0154eb98abe65ba00c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: DigDug
   sceneFlowIndex: 2
 --- !u!224 &780431728
 RectTransform:
@@ -15518,7 +15514,8 @@ MonoBehaviour:
     UseRightAsLeft: 0
   _moveSpeed: 2
   _mirrorSprites: 0
-  _ignoreSpriteDirectionClear: 0
+  _keepHDirectionWhenMoveV: 1
+  _useCustomScaleSet: 0
   _misslePrefab: {fileID: 8884426621438522888, guid: 009171e42670dbf46bf3f80c2682b973, type: 3}
   _shootingPoints:
   - {fileID: 582742779}
@@ -21673,6 +21670,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playSoundOnStart: 0
   _playMusicOnStart: 0
+  _playSoundOnEnable: 0
+  _playMusicOnEnable: 0
   _soundName: Button
   _musicName: 
   _volume: 1
@@ -26307,7 +26306,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68e75c62e17d0154eb98abe65ba00c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: BerzerkOutro
   sceneFlowIndex: 0
 --- !u!114 &1651030864
 MonoBehaviour:
@@ -28846,10 +28844,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'INNOCENT LIVES TAKEN :'
+  m_text: BINNOCENTLIVES
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: 6d1940ce90148f84e9529fa3d527a40d, type: 2}
-  m_sharedMaterial: {fileID: 2677013293550427843, guid: 6d1940ce90148f84e9529fa3d527a40d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -28873,7 +28871,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 1.7
+  m_fontSize: 2.35
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -30020,7 +30018,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68e75c62e17d0154eb98abe65ba00c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: 
   sceneFlowIndex: 0
 --- !u!114 &1893794876
 MonoBehaviour:
@@ -30036,6 +30033,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playSoundOnStart: 0
   _playMusicOnStart: 1
+  _playSoundOnEnable: 0
+  _playMusicOnEnable: 0
   _soundName: 
   _musicName: Berzerk_BG1
   _volume: 0.25
@@ -32491,7 +32490,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68e75c62e17d0154eb98abe65ba00c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: BerzerkOutro
   sceneFlowIndex: 0
 --- !u!1 &2036244516 stripped
 GameObject:
@@ -34158,12 +34156,10 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: 'Main Menu
-
-'
+  m_text: MAINMENU
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c302362db6948814fb7385596de9924d, type: 2}
-  m_sharedMaterial: {fileID: -3636404267484409240, guid: c302362db6948814fb7385596de9924d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
+  m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -34187,7 +34183,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 3
+  m_fontSize: 2.45
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -34905,7 +34901,8 @@ MonoBehaviour:
     UseRightAsLeft: 0
   _moveSpeed: 2.1
   _mirrorSprites: 0
-  _ignoreSpriteDirectionClear: 0
+  _keepHDirectionWhenMoveV: 1
+  _useCustomScaleSet: 0
 --- !u!61 &2135537998
 BoxCollider2D:
   m_ObjectHideFlags: 0

@@ -4,9 +4,11 @@ using UnityEngine;
 
 public class IntroStart : MonoBehaviour
 {
+    [SerializeField] GameType gameType = GameType.NotLoaded;
+
     void Start()
     {
         AudioSystem.Instance.PlayMusic("Intro_BG", 0);
-        CButton_GameDependent.SetActiveGameType(GameType.NotLoaded);
+        CButton_GameDependent.SetActiveGameType(gameType);
     }
 }

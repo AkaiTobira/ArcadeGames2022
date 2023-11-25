@@ -32,7 +32,10 @@ public class RotationManager : IActionManager<RotationAction>
 {
     public static RotationManager Instance;
 
-    void Awake() {
+
+    protected override void Awake() {
+        base.Awake();
+        
         if(Instance == null){
             Instance = this;
             enabled = false;

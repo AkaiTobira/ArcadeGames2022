@@ -10,7 +10,8 @@ public abstract class CButtonHandler : CMonoBehaviour, IPointerDownHandler, IPoi
     [SerializeField] protected GameObject _overwievedFrame;
     private bool _overview;
 
-    protected virtual void Awake() {
+    protected override void Awake() {
+        base.Awake();
         Events.Gameplay.RegisterListener(this, GameplayEventType.ButtonOvervieved);
     }
 

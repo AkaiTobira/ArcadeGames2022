@@ -31,7 +31,9 @@ public abstract class AutoTranslatorUnitBase : CMonoBehaviour, IListenToGameplay
         Refresh();
     }
 
-    public void Awake() {
+
+    protected override void Awake() {
+        base.Awake();
         Initialize();
         Events.Gameplay.RegisterListener(this, GameplayEventType.LocalizationUpdate);
     }

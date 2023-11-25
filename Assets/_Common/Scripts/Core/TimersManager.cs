@@ -17,7 +17,9 @@ public class TimersManager : IActionManager<TimeAction>
 {
     public static TimersManager Instance;
 
-    void Awake() {
+    protected override void Awake() {
+        base.Awake();
+
         if(Instance == null){
             Instance = this;
             enabled = false;

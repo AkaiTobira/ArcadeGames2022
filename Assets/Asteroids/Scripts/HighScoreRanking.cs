@@ -12,6 +12,7 @@ public enum GameType{
     LittleFighter,
     SpaceBase,
     Tunnel,
+    DigDug,
 }
 
 public static class HighScoreRanking{
@@ -31,6 +32,7 @@ public static class HighScoreRanking{
         {GameType.LittleFighter, false},
         {GameType.SpaceBase, false},
         {GameType.Tunnel, false},
+        {GameType.DigDug, false},
     };
 
     private static List<KeyValuePair<int, string>> _ranking = new List<KeyValuePair<int, string>>();

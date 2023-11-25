@@ -50,7 +50,9 @@ public class Berzerk : ESM.SMC_8D<B_PlayerStates>, IShootable
     #endregion
 
 
-    private void Awake() {
+
+    protected override void Awake() {
+        base.Awake();
         Instance = this;
     }
 

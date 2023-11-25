@@ -33,7 +33,8 @@ public class BS_Tower : ESM.SMC_1D<BS_TowerState>,
 
     [SerializeField] float _towerRotation = 60;
 
-    private void Awake() {
+    protected override void Awake() {
+        base.Awake();
         _health = _MaxHealthPoints;
         _hitBox.gameObject.SetActive(true);
     }

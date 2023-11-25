@@ -8,6 +8,10 @@ using UnityEngine;
 
 namespace ESM{
 
+    class CONST{
+        public const float FLOAT_PRECISION = 0.00001f;
+    }
+
     public enum AnimationSide{
         Common, // Common for all directions 
         Left,
@@ -70,8 +74,8 @@ namespace ESM{
         }
 
         public virtual AnimationSide GetSide(Vector3 positionChange, AnimationSide side){
-            if( Mathf.Abs(positionChange.x) <= 0.01f && Mathf.Abs(positionChange.y) <= 0.01f) return side;
-            if( Mathf.Abs(positionChange.x) > 0.01f)
+            if( Mathf.Abs(positionChange.x) <= CONST.FLOAT_PRECISION && Mathf.Abs(positionChange.y) <= CONST.FLOAT_PRECISION) return side;
+            if( Mathf.Abs(positionChange.x) > CONST.FLOAT_PRECISION)
                 return (positionChange.x > 0) ? AnimationSide.Right : AnimationSide.Left;
             
             return (positionChange.y > 0) ? AnimationSide.Top : AnimationSide.Bottom;
@@ -153,7 +157,8 @@ namespace ESM{
         [SerializeField][NonReorderable] protected AnimationType[] _animations;
         [SerializeField][NonReorderable] protected float _moveSpeed = 10;
         [SerializeField] bool _mirrorSprites = false;
-        [SerializeField] bool _ignoreSpriteDirectionClear = false;
+        [SerializeField] bool _keepHDirectionWhenMoveV = true;
+        [SerializeField] bool _useCustomScaleSet = false;
 
         bool _stateChanged = false;
         protected StateType ActiveState;
@@ -183,16 +188,23 @@ namespace ESM{
             AnimationSide side = _side;
             _side = _animations[Convert.ToInt32(ActiveState)].GetSide(positionChange, _side);
             if(side != _side) SetAnimationFrame(0, ActiveState);
+            
+            if(NeedScaleChange()){
+                if(_useCustomScaleSet) CustomDirectionScaleSet(GetScaleMultiplier());
+                else SetDirectionScale();
+            }
+        }
 
-            SetDirectionScale();
+        protected virtual void CustomDirectionScaleSet(float scaleMultipler){}
+        private bool NeedScaleChange(){
+            return !
+                (!_keepHDirectionWhenMoveV && 
+                (_side == AnimationSide.Top ||
+                _side == AnimationSide.Bottom || 
+                _side == AnimationSide.Common));
         }
 
         private void SetDirectionScale(){
-            if(_ignoreSpriteDirectionClear && 
-                (_side == AnimationSide.Top ||
-                _side == AnimationSide.Bottom || 
-                _side == AnimationSide.Common)) return;
-
             Vector3 scale = Graphicals.transform.localScale;
             scale.x = Mathf.Abs(scale.x) * GetScaleMultiplier();
             Graphicals.transform.localScale = scale;
@@ -212,7 +224,10 @@ namespace ESM{
             return scaleMultipler;
         }
 
-        protected virtual Vector3 GetDirectionChange(){ return transform.position - _previousPosition;}
+        protected virtual Vector3 GetDirectionChange(){ 
+            Debug.Log(GetNameWithParent() + " " + (transform.position.x-_previousPosition.x) + " " + (transform.position.y-_previousPosition.y));
+            return transform.position - _previousPosition;
+            }
 
     #region "Animations"
         private void UpdateGraphics_Internal(){
@@ -231,12 +246,15 @@ namespace ESM{
 
         protected void SetAnimationFrame(int frame, StateType state){
             _animationCurrentFrame = frame;
-
             int animationIndex = Convert.ToInt32(state);
 
             Sprite[] spritesheet = _animations[animationIndex].GetSprites(_side);
             if(spritesheet.Length > 0){
-                Graphicals.sprite = spritesheet[_animationCurrentFrame];
+                if(spritesheet.Length > frame){
+                    Graphicals.sprite = spritesheet[_animationCurrentFrame];
+                }else{
+                    Debug.LogError("No frame (" + frame + ") in spritesheet (" + animationIndex + ")(" + _side +") spritesheer lenght is (" + spritesheet.Length +")");
+                }
             }else{
                 Debug.LogError("No animation spritesheet for " + animationIndex + " _side " + _side );
             }
@@ -301,6 +319,7 @@ namespace ESM{
 
             ActiveState = state;
             OnStateEnter(state);
+            SetNewAnimation();
         }
 
         protected abstract void OnStateEnter(StateType enteredState);
@@ -367,8 +386,8 @@ namespace ESM{
                 case AnimationSide.Common: return AnimationSide.Common;
                 case AnimationSide.Left: return AnimationSide.Right;
                 case AnimationSide.Right: return AnimationSide.Left;
-                case AnimationSide.Top: return AnimationSide.Top;
-                case AnimationSide.Bottom: return AnimationSide.Bottom;
+                case AnimationSide.Top: return AnimationSide.Bottom;
+                case AnimationSide.Bottom: return AnimationSide.Top;
                 case AnimationSide.LeftTop: return AnimationSide.RightTop;
                 case AnimationSide.RightBottom: return AnimationSide.LeftBottom;
                 case AnimationSide.LeftBottom: return AnimationSide.RightBottom;

@@ -120,10 +120,26 @@ namespace DigDug {
         [SerializeField] List<AdditionalNavPoint> additionalNavPoints;
 
         private static DD_NavMesh instance;
+        private static bool _initialized;
 
-        private void Start() {
-            instance = this;
 
+        public static void InitializeNavMesh(){
+            if(Guard.IsValid(instance)){
+                instance.InitializeNavMeshInternal();
+            }
+        }
+
+        private Vector2 GetSize_Internal(){
+            return new Vector2(transform.GetChild(1).childCount,transform.GetChild(0).childCount);
+        }
+
+        public static Vector2 GetSize(){
+            if(Guard.IsValid(instance)) return instance.GetSize_Internal();
+            return new Vector2();
+        }
+
+        private void InitializeNavMeshInternal(){
+            
             int verticalSize   = transform.GetChild(0).childCount;
             int horizontalSize = transform.GetChild(1).childCount; 
 
@@ -151,29 +167,30 @@ namespace DigDug {
 
             bricks = bricksParent.GetComponentsInChildren<DD_NavPoint>(true).ToList();
 
+/*
             for(int i = 0; i < bricks.Count; i++){
                 for( int j = 0; j < bricks.Count-1; j++){
                     if(Mathf.Abs(bricks[i].transform.position.x - bricks[j].transform.position.x) < 0.01f){
                         if(Mathf.Abs(bricks[i].transform.position.y - bricks[j].transform.position.y) < 0.01f){
                             continue;
-                        }else if(bricks[i].transform.position.y > bricks[j].transform.position.y){
+                        }else if(bricks[i].transform.position.y < bricks[j].transform.position.y){
                             DD_NavPoint temp = bricks[i];
                             bricks[i] = bricks[j];
                             bricks[j] = temp;
                         }
-                    }else if(bricks[i].transform.position.x > bricks[j].transform.position.x){
+                    }else if(bricks[i].transform.position.x < bricks[j].transform.position.x){
                         DD_NavPoint temp = bricks[i];
                         bricks[i] = bricks[j];
                         bricks[j] = temp;
                     }
                 }
             }
+            */
 
             for(int i = 0; i < bricks.Count; i++){
                 DD_BrickController brick = bricks[i] as DD_BrickController;
                 if(Guard.IsValid(brick)){
                     brick._uiGui.text = i.ToString();
-                    brick.Recolor(i, verticalSize, horizontalSize);
                 }
             }
 
@@ -202,8 +219,9 @@ namespace DigDug {
                 neighbourMatrix.Add(neigbours);
             }
 
+            _initialized = true;
             CallNextFrame( ()=>{
-                Debug.Log(bricks[0].transform.position + " " + bricks[1].transform.position + " " + bricks[neighbourMatrix[0][1]].transform.position);
+//                Debug.Log(bricks[0].transform.position + " " + bricks[1].transform.position + " " + bricks[neighbourMatrix[0][1]].transform.position);
 
             });
 
@@ -220,14 +238,55 @@ namespace DigDug {
             GetNextPathPoint_internal(Vector3.down, Vector3.down);
         }
 
+        private void Start() {
+            instance = this;
+
+        }
+
         public static Vector3 GetClosestPointExt(Vector3 point){
-            if(Guard.IsValid(instance)){
+            if(Guard.IsValid(instance) && _initialized){
                 return instance.bricks[instance.GetClosestPoint(point)].transform.position;
             }
 
             return point;
         }
 
+        public static bool CanStopThere(Vector3 point){
+            if(Guard.IsValid(instance) && _initialized){
+                return instance.CanStopThere_Internal(point);
+            }
+            
+            return false;
+        }
+
+        private bool CanStopThere_Internal(Vector3 point){
+            int brickIndex = GetClosestPoint(point);
+
+            
+
+            if(brickIndex > 0){
+                if(Vector2.Distance(point, bricks[brickIndex].transform.position) < 0.4f)
+                return bricks[brickIndex].GetWalkWeight() <= 2;
+            }
+            return false;
+        }
+
+        public static bool IsRock(Vector3 point){
+            if(Guard.IsValid(instance) && _initialized){
+                return instance.IsRock_Internal(point);
+            }
+            
+            return true;
+        }
+
+        private bool IsRock_Internal(Vector3 point){
+            int brickIndex = GetClosestPoint(point);
+
+            if(brickIndex > 0){
+                return bricks[brickIndex].GetWalkWeight() > 100;
+            }
+            return false;
+        }
 
         private int GetClosestPoint(Vector3 point){
             
@@ -282,7 +341,8 @@ namespace DigDug {
                     };
                 }
             }
-            return new Vector3();
+
+            return start;
         }   
 
         Vector3 ReconstructPath(Dictionary<int, int> _pathConections, int target, int source){
@@ -311,7 +371,7 @@ namespace DigDug {
 
 
         public static Vector3 GetNextPathPoint(Vector3 start, Vector3 target){
-            if(Guard.IsValid(instance)){
+            if(Guard.IsValid(instance) && _initialized){
                 return instance.GetNextPathPoint_internal(start, target);
             }
             return start;

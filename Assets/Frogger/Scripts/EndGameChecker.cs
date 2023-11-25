@@ -17,7 +17,8 @@ public class EndGameChecker : CUpdateMonoBehaviour, IListenToGameplayEvents
 
     int HealthPoints = 2;
 
-    void Awake() {
+    protected override void Awake() {
+        base.Awake();
         AudioSystem.Instance.PlayMusic("Frogger_BG", 1);
         HighScoreRanking.LoadRanking(GameType.Frogger);
         HealthPoints = 2;

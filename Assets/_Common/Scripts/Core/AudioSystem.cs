@@ -17,127 +17,171 @@ public class AudioTrack{
 
 public class AudioSystem : MonoBehaviour
 {
-    public static AudioSystem Instance = null;
+        public static AudioSystem Instance = null;
 
-    [Header("Oneshots")]
-    [SerializeField] private List<AudioSource> _effectsPLayers = new List<AudioSource>();
-    [NonReorderable][SerializeField] private List<AudioTrack> _clips;
-    public float LowPitchRange = 0.95f;
-	public float HighPitchRange = 1.05f;
+        [Header("Oneshots")]
+        [SerializeField] private List<AudioSource> _effectsPlayers = new List<AudioSource>();
+        [NonReorderable][SerializeField] private List<AudioTrack> _clips;
+        public float LowPitchRange = 0.95f;
+        public float HighPitchRange = 1.05f;
 
-    [Header("BG Music")]
-    [NonReorderable][SerializeField] private List<AudioTrack> _musics;
-	[SerializeField] private AudioSource MusicSource;
+        [Header("BG Music")]
+        [NonReorderable][SerializeField] private List<AudioTrack> _musics;
+        [SerializeField] private AudioSource MusicSource;
+        //Don't play if MAX is set
+        [SerializeField] private string PlayOnAwake;
 
+        private string[] _audioBackgroundClipNames;
+        private float _audioBackgroundVolume;
+        private AudioTrack _nextToPlay;
+        private void Awake()
+        {
+            if (Instance == null)
+            {
+                Instance = this;
+                DontDestroyOnLoad(gameObject);
 
-	private void Awake()
-	{
-		if (!Guard.IsValid(Instance))
-		{
-			Instance = this;
-	    	DontDestroyOnLoad(gameObject);
-    	}
-		else
-		{
-			Destroy(gameObject);
-		}
-	}
-
-    private List<AudioTrack> _BGMusicToPlay = new List<AudioTrack>();
-
-    public static void PlaySample(string clipName, float volume = 1.0f, bool randomPitch = false){
-        if(Guard.IsValid(Instance)){
-            Instance.PlayEffect(clipName, volume, randomPitch);
+                MusicSource.loop = false;
+                if(PlayOnAwake != "") PlayMusic(PlayOnAwake, 1);
+            }
+            else if (Instance != this)
+            {
+                Destroy(gameObject);
+            }
         }
-    }
 
-	public void PlayEffect(string clipName, float volume = 1.0f, bool randomPitch=false)
-	{
-        if( string.IsNullOrEmpty(clipName) ) return;
+        #region ExternalInterface
+            public static void PlaySample(string clipName, float volume = 1.0f, bool randomPitch = false){
+                if(Guard.IsValid(Instance)){
+                    Instance.PlayEffect(clipName, volume, randomPitch);
+                }
+            }
+            public static void PlayBackground(string clipName, float volume){
+                if(Guard.IsValid(Instance)){
+                    Instance.PlayMusic(clipName, volume);
+                }
+            }
 
-        bool clipSelected = false;
-        foreach( AudioTrack at in _clips){
+            public static void PlayBackgrounds(string[] clipName, float volume){
+                if(Guard.IsValid(Instance)){
+                    Instance.PlayMusic(clipName, volume);
+                }
+            }
 
-            if( at._name == clipName){
-                clipSelected = true;
+            public static void ChangeBackgroundMusicVolume(float volume){
+                if(Guard.IsValid(Instance)){
+                    Instance._audioBackgroundVolume = volume;
+                }
+            }
 
-                for( int i = 0; i < _effectsPLayers.Count; i++){
-                    if( _effectsPLayers[i].isPlaying ) continue;
-                    
-                    if( randomPitch ){
-                        float pitch = Random.Range(LowPitchRange, HighPitchRange);
-                        _effectsPLayers[i].pitch = pitch;
+            public static float GetSoundDuration(string clipName){
+                if(Guard.IsValid(Instance)) return Instance.GetSoundDurationInternal(clipName);
+                return 0;
+            }
+
+        #endregion
+
+        private float GetSoundDurationInternal(string clipName){
+            List<AudioTrack> sounds = new List<AudioTrack>();
+            sounds.AddRange(_musics);
+            sounds.AddRange(_clips);
+            for(int i = 0; i < sounds.Count; i++){
+                AudioTrack track = sounds[i];
+                if(track._name == clipName && track._clip != null){
+                    return track._clip.length;
+                }
+            }
+
+            return 0;
+        }
+
+
+        public void PlayEffect(string clipName, float volume = 1.0f, bool randomPitch=false)
+        {
+            bool clipSelected = false;
+            foreach( AudioTrack at in _clips){
+//                Debug.Log(at._callName + " " + clipName);
+                if( at._name == clipName){
+                    clipSelected = true;
+
+                    for( int i = 0; i < _effectsPlayers.Count; i++){
+                        if( _effectsPlayers[i].isPlaying ) continue;
+                        
+                        if( randomPitch ){
+                            float pitch = UnityEngine.Random.Range(LowPitchRange, HighPitchRange);
+                            _effectsPlayers[i].pitch = pitch;
+                        }
+                        _effectsPlayers[i].clip   = at._clip;
+                        _effectsPlayers[i].volume = volume;
+                        _effectsPlayers[i].Play();
+                        return;
                     }
-                    _effectsPLayers[i].clip   = at._clip;
-                    _effectsPLayers[i].volume = volume;
-                    _effectsPLayers[i].Play();
-                    return;
+
+                //    Debug.Log(at._callName + " " + clipName + " found but not played");
+                }
+            }
+
+            if( !clipSelected ){
+                UnityEngine.Debug.LogError("Didn't found Oneshot Sound=" + clipName );
+            }
+        }
+
+        public void PlayMusic(string[] clipNames, float volume){
+            _audioBackgroundClipNames = clipNames;
+            _audioBackgroundVolume    = volume;
+            PlayMusicInternal();
+        }
+
+        private void PlayMusicInternal(){
+            int randomSelectedBackgroundClip = UnityEngine.Random.Range(0, _audioBackgroundClipNames.Length);
+            string nextToPlay = _audioBackgroundClipNames[randomSelectedBackgroundClip];
+
+            for(int i = 0; i < _musics.Count; i++){
+                AudioTrack track = _musics[i];
+                if(nextToPlay == track._name){
+                    _nextToPlay = track;
                 }
             }
         }
-        if( !clipSelected ){
-            Debug.LogError("Didn't found Oneshot Sound=" + clipName );
+
+        public void PlayMusic(string clipName, float volume)
+        {
+//            Debug.Log("PlayMusicCalled");
+            _audioBackgroundClipNames = new string[] {clipName};
+            _audioBackgroundVolume    = volume;
+            PlayMusicInternal();
         }
-	}
 
-    public static void PlayBackground(string clipName, float volume){
-        if(Guard.IsValid(Instance)){
-            Instance.PlayMusic(clipName, volume);
-        }
-    }
-
-	public void PlayMusic(string clipName, float volume)
-	{
-        if( string.IsNullOrEmpty(clipName) ) return;
-
-        Debug.Log(clipName);
-
-        bool clipSelected = false;
-        foreach( AudioTrack at in _musics){
-            if( at._name == clipName){
-                clipSelected = true;
-
-                if( MusicSource.isPlaying ){
-                    MusicSource.clip   = at._clip;
-                    at.TargetVolume = volume;
-                    _BGMusicToPlay.Add( at );
-                }else{
-                    MusicSource.clip   = at._clip;
-                    MusicSource.volume = volume;
-                    MusicSource.Play();
-                }
+        private void AdjustTheVolume(float targetVolume){
+            float volumeDifference = targetVolume - MusicSource.volume;
+            float musicChange = Mathf.Sign(targetVolume - MusicSource.volume) * 2f * Time.deltaTime;
+            if(Mathf.Abs(volumeDifference) <= Mathf.Abs(musicChange)){
+                MusicSource.volume = targetVolume;
+                return;
             }
+
+            MusicSource.volume += musicChange;
         }
-        if( !clipSelected ){
-            Debug.LogError("Didn't found BGMusic=" + clipName );
-        }
-	}
 
 
-    void Update() {
-        if(_BGMusicToPlay.Count != 0){
-            if(MusicSource.isPlaying){
-                if( _BGMusicToPlay[0]._clip == MusicSource.clip ){
-                    float musicChange = Mathf.Sign(_BGMusicToPlay[0].TargetVolume - MusicSource.volume) * 2f * Time.deltaTime;
+        void Update() {
+            //Debug.Log(MusicSource.isPlaying);
+            if(_nextToPlay == null) return;
+            if(!MusicSource.isPlaying){
+                if(MusicSource.clip == _nextToPlay._clip) PlayMusicInternal();
 
-                    MusicSource.volume = (musicChange < 0) ?
-                        Mathf.Max( _BGMusicToPlay[0].TargetVolume, MusicSource.volume + musicChange ) :
-                        Mathf.Min( _BGMusicToPlay[0].TargetVolume, MusicSource.volume + musicChange );
-
-                    if( Mathf.Abs( _BGMusicToPlay[0].TargetVolume - MusicSource.volume ) <= 0.001f ){
-                        if(_BGMusicToPlay[0].TargetVolume <= 0.01f) MusicSource.Stop();
-                        _BGMusicToPlay.RemoveAt(0);
-                    }
-                }else{
-                    if( MusicSource.volume >= 0){
-                        MusicSource.volume = Mathf.Max( 0, MusicSource.volume - (2f* Time.deltaTime) );
-                    }
-                }
-            }else{
-                MusicSource.clip   = _BGMusicToPlay[0]._clip;
-                MusicSource.volume = 0;
+                MusicSource.clip = _nextToPlay._clip;
                 MusicSource.Play();
+            }else{
+                if(MusicSource.clip == _nextToPlay._clip){
+                    if(MusicSource.volume != _audioBackgroundVolume) AdjustTheVolume(_audioBackgroundVolume);
+                }else{
+                    if(MusicSource.volume != 0) AdjustTheVolume(0);
+                    else{
+                        MusicSource.clip = _nextToPlay._clip;
+                        MusicSource.Play();
+                    }
+                }
             }
         }
     }
-}

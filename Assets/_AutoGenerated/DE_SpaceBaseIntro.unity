@@ -8462,7 +8462,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 68e75c62e17d0154eb98abe65ba00c71, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  sceneName: Berzerk
   sceneFlowIndex: 0
 --- !u!114 &1893794877
 MonoBehaviour:
@@ -8531,6 +8530,8 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _playSoundOnStart: 0
   _playMusicOnStart: 1
+  _playSoundOnEnable: 0
+  _playMusicOnEnable: 0
   _soundName: 
   _musicName: SpaceBase_BG
   _volume: 1

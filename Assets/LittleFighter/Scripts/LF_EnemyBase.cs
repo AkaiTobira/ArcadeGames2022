@@ -58,7 +58,8 @@ where StateType : System.Enum
         _canStartAttack = true;
     }
 
-    protected virtual void Awake() {
+    protected override void Awake() {
+        base.Awake();
         LF_EnemySpawner.Counter ++;
         _startDelay = 0;
     }

@@ -2,14 +2,17 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using ESM;
+using Unity.Mathematics;
+using TMPro;
 
 namespace DigDug{
     public abstract class DD_MoveCore<T> : ESM.SMC_4D<T>
     where T : System.Enum
     {
-        [SerializeField] Transform[] rayPoints;
-        [SerializeField] LayerMask   _blockslayerMask;
+        [SerializeField] protected Transform[] rayPoints;
+        [SerializeField] protected LayerMask   _blockslayerMask;
         [SerializeField] Transform[] _debugPoints;
+        [SerializeField] TextMeshProUGUI uGUI;
 
         protected Vector2 _direction = new Vector2();
         bool _keepDirection = false;
@@ -18,7 +21,7 @@ namespace DigDug{
         protected AnimationSide _pressedDirection  = AnimationSide.Common;
         protected AnimationSide _lastMoveDirection = AnimationSide.Common;
 
-        private AnimationSide _lastHorizontalDirection = AnimationSide.Common;
+        protected AnimationSide _lastHorizontalDirection = AnimationSide.Common;
 
         protected override void UpdateState(){
             if(_debugPoints.Length == 0) return; 
@@ -130,27 +133,53 @@ namespace DigDug{
             return false;
         }
 
-        protected override void Update()
-        {
-            base.Update();
 
-            if(_inputs.magnitude > 0){
-                if(Mathf.Abs(_inputs.x) > 0 && Mathf.Abs(_direction.y) < 0.25)
-                    _lastHorizontalDirection = _inputs.x < 0 ? AnimationSide.Left : AnimationSide.Right;
+        private const float TIME_TO_CHANGE= 0;
+        float timeToChangeHorizontalDirection = TIME_TO_CHANGE;
+        float zRotationChange = 0;
 
-                float zRotationChange = 0;
-                if(_direction.y > 0.25f)      zRotationChange = _lastHorizontalDirection == AnimationSide.Left ?  -90: 90;
-                else if(_direction.y < -0.25f) zRotationChange = _lastHorizontalDirection == AnimationSide.Left ?  90:-90;
-                if(Vector2.SqrMagnitude(_direction) < 0.01f) zRotationChange = 0;
+        Vector2 _lastHorizontalPlace = new Vector2();
+        float   _lastScaleMultiplier = 0;
+        bool enabledY;
+        float distance = 0;
 
-                Vector3 beforeRotationPositon = Graphicals.transform.position;
-                Vector3 rotation2 = new Vector3(0,0,zRotationChange);
-                Graphicals.transform.rotation = Quaternion.Euler(rotation2);
-                Graphicals.transform.position = beforeRotationPositon;
-            }
+        private void AddToDebugLog(string s, bool flush = false){
+            if(!Guard.IsValid(uGUI)) return;
+            if(flush) uGUI.text = "";
+            uGUI.text += s;
+
+            Vector3 scale = uGUI.transform.localScale;
+            scale.x = Mathf.Abs(1) * Mathf.Sign(_lastScaleMultiplier);
+            uGUI.transform.localScale = scale;
         }
 
-        protected void UpdateMove(){
+        protected override void CustomDirectionScaleSet(float scaleMultipler)
+        {
+            Vector3 transformPosition = Graphicals.transform.position;
+            if(_lastScaleMultiplier != scaleMultipler){
+                distance = Mathf.Abs(_lastHorizontalPlace.x - transformPosition.x);
+                if(Mathf.Abs(_lastHorizontalPlace.x - transformPosition.x) > 0.05f){
+                    _lastScaleMultiplier = scaleMultipler;
+                    _lastHorizontalPlace = transformPosition;
+                }
+            }else{ _lastHorizontalPlace = transformPosition; }
+
+            enabledY = Mathf.Abs(_direction.y) > 0.2f;
+            zRotationChange = 0;
+            if(enabledY){
+                if(_direction.y > 0) zRotationChange = 90  * _lastScaleMultiplier;
+                if(_direction.y < 0) zRotationChange = -90 * _lastScaleMultiplier;
+            }
+
+            Vector3 rotation2 = new Vector3(0,0,zRotationChange);
+            Vector3 scale = Graphicals.transform.localScale;
+            scale.x = Mathf.Abs(scale.x) * _lastScaleMultiplier;
+            Graphicals.transform.localScale = scale;
+            Graphicals.transform.rotation = Quaternion.Euler(rotation2);
+            Graphicals.transform.position = transformPosition;
+        }
+
+        protected virtual void UpdateMove(){
             FillPoints();
             if(_inputs.sqrMagnitude > 0){
                 CalculateDirections();
@@ -161,11 +190,20 @@ namespace DigDug{
 
         private Vector2 GetPoint(ESM.AnimationSide side){
             switch(side){
-                case ESM.AnimationSide.Common: return _points[1,1];
-                case ESM.AnimationSide.Bottom: return _points[1,0];
-                case ESM.AnimationSide.Top:    return _points[1,2];
-                case ESM.AnimationSide.Left:   return _points[0,1];
-                case ESM.AnimationSide.Right:  return _points[2,1];
+                case ESM.AnimationSide.Common: 
+                    return _points[1,1];
+                case ESM.AnimationSide.Bottom: 
+                    if(!DD_NavMesh.IsRock(_points[1, 0])) return _points[1,0];
+                break;
+                case ESM.AnimationSide.Top:    
+                    if(!DD_NavMesh.IsRock(_points[1, 2])) return _points[1,2];
+                break;
+                case ESM.AnimationSide.Left:   
+                    if(!DD_NavMesh.IsRock(_points[0, 1])) return _points[0,1];
+                break;
+                case ESM.AnimationSide.Right:      
+                    if(!DD_NavMesh.IsRock(_points[2, 1])) return _points[2,1];
+                break;
             }
 
             return _points[1,1];

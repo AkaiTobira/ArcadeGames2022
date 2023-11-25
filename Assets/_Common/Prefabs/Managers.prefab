@@ -777,13 +777,14 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: d1d668d3e17bb644195c273f939da8ef, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _effectsPLayers:
+  _effectsPlayers:
   - {fileID: 6968140817519168068}
   - {fileID: 6968140817585212888}
   - {fileID: 6968140817439992197}
   - {fileID: 6968140817726755593}
   - {fileID: 6968140818850735977}
   - {fileID: 6968140818350259314}
+  - {fileID: 6968140817113531724}
   _clips:
   - _name: Frogger_Move
     _clip: {fileID: 8300000, guid: 6d6a9fdb4d665e94db76f4b028ab88fe, type: 3}
@@ -1080,6 +1081,41 @@ MonoBehaviour:
     Volume: 0
     TargetVolume: 0
     Pitch: 0
+  - _name: DigDug_EnemyDie
+    _clip: {fileID: 8300000, guid: 17216b4842adbf3428f660ea0c634833, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: DigDug_PlayerDie
+    _clip: {fileID: 8300000, guid: 681ba4929ae7017478144a24b71b81ce, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: DigDug_Collect
+    _clip: {fileID: 8300000, guid: 92f0b9ee7247dd74589da2936a967776, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: DigDug_ShadowMove
+    _clip: {fileID: 8300000, guid: 6d1d9c5dacdb7d44fa2712bee9a989f8, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: DigDug_Rock
+    _clip: {fileID: 8300000, guid: 1470510f514d4304fb4c917512c0f935, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: DigDug_Shoot
+    _clip: {fileID: 8300000, guid: 6e1830342ee78444bb595ce1c2a22f95, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: DigDug_LevelWin
+    _clip: {fileID: 8300000, guid: 8b1a4339d84b30946a240cf05c7bd52f, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
   LowPitchRange: 0.95
   HighPitchRange: 1.05
   _musics:
@@ -1153,7 +1189,23 @@ MonoBehaviour:
     Volume: 0
     TargetVolume: 0
     Pitch: 0
+  - _name: DigDug_BG
+    _clip: {fileID: 8300000, guid: 98014b1a262fb36438564d9e33f77784, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: DigDug_BG1
+    _clip: {fileID: 8300000, guid: f627bd5c60f065b46baaee9c7c312de1, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
+  - _name: DigDug_BG2
+    _clip: {fileID: 8300000, guid: f517de05dd7940a47ac38cfc65e25aba, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
   MusicSource: {fileID: 6968140818001962146}
+  PlayOnAwake: 
 --- !u!82 &6968140818001962146
 AudioSource:
   m_ObjectHideFlags: 0

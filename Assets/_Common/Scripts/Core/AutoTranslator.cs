@@ -34,10 +34,11 @@ public static class AutoTranslator
         {GameType.Frogger,       "Frogger"},
         {GameType.LittleFighter, "LittleFighter"},
         {GameType.SpaceBase,     "SpaceBase"},
-        {GameType.Tunnel,        "Tunnel"}
+        {GameType.Tunnel,        "Tunnel"},
+        {GameType.DigDug,        "DigDug"},
     };
 
-    public static SupportedLanguages Language = SupportedLanguages.ES;
+    public static SupportedLanguages Language = SupportedLanguages.UK;
     public static Sprite[] LoadImage(GameType game, int FolderID, int language = -1){
 
 #if UNITY_EDITOR
@@ -97,8 +98,6 @@ public static class AutoTranslator
 
         return _translation[Language][untranslated].Replace("@", value).Replace("\n", "<br>");
     }
-
-
 
     private static void SaveFile(string untranslated)
     {

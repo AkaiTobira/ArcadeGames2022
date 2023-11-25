@@ -21,7 +21,6 @@ public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
         Horizontal
     }
 
-    EDirection _directon = EDirection.None;
 
     public void OnGameEvent(GameplayEvent gameplayEvent){
 

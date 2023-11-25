@@ -3,7 +3,16 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
+using DigDug;
 
+public enum DD_BrickState{
+    Enemy1,
+    Enemy2,
+    Enemy3,
+    Empty,
+    Full,
+    Rock,
+}
 
 public class DD_BrickController : DD_NavPoint
 {
@@ -15,6 +24,7 @@ public class DD_BrickController : DD_NavPoint
     [SerializeField] public TextMeshProUGUI _uiGui;
     [SerializeField] public Color[] _colors;     
 
+    private DD_BrickState state;
 
     void Start()
     {
@@ -23,10 +33,71 @@ public class DD_BrickController : DD_NavPoint
         });
     }
 
-    public void Setup(){
-        EnableChildren(_brickCenter);
-        EnableChildren(_brickFrame);
-        SwitchBoxColliders(_brickCenter, true);
+    private void SwitchChildren(Transform parent, bool enable){
+        for(int i = 0; i < parent.childCount; i++) {
+            Transform child = parent.GetChild(i);
+            SwitchChildren(child, enable);
+        }
+
+        parent.gameObject.SetActive(enable);
+    }
+
+    private void SwitchCenterObj(bool enable){
+        SwitchChildren(_brickCenter, enable);
+    }
+    private void SwitchCenterBox(bool enable){
+        SwitchBoxColliders(_brickCenter, enable);
+    }
+    private void SwitchFrameObj(bool enableRight, bool enableTop){
+        _brickFrame.gameObject.SetActive(enableRight || enableTop);
+        SwitchChildren(_brickFrame.GetChild(0), enableRight);
+        SwitchChildren(_brickFrame.GetChild(1), enableTop);
+    }
+    private void SwitchFrameBox(bool enableRight, bool enableTop){
+        SwitchBoxColliders(_brickFrame.GetChild(0), enableRight);
+        SwitchBoxColliders(_brickFrame.GetChild(1), enableTop);
+    }
+
+    public void Setup(DD_BrickState brickState, bool rightEnabled, bool topEnabled){
+//        Debug.Log(name + " " + brickState);
+        for(int i = 0; i< transform.childCount; i++){
+            transform.GetChild(i).gameObject.SetActive(false);
+        }
+        
+        SwitchFrameObj(rightEnabled, topEnabled);      
+        state = brickState;
+
+        switch(brickState){
+            case DD_BrickState.Empty:
+                SwitchFrameBox(rightEnabled, topEnabled);
+                SwitchCenterBox(false);
+                SwitchCenterObj(false);
+            break;
+            case DD_BrickState.Full: 
+                SwitchFrameBox(rightEnabled, topEnabled);
+                SwitchCenterBox(true);
+                SwitchCenterObj(true);
+            break;
+            case DD_BrickState.Rock:
+                SwitchFrameBox(rightEnabled, topEnabled);
+                SwitchCenterBox(false);
+                SwitchCenterObj(true);
+                MakeRock(); 
+            break;
+            case DD_BrickState.Enemy1:
+            case DD_BrickState.Enemy2:
+            case DD_BrickState.Enemy3: 
+                SwitchFrameBox(rightEnabled, topEnabled);
+                SwitchCenterBox(false);
+                SwitchCenterObj(false);
+            
+                MakeEnemy((int)brickState); 
+            break;
+        }
+
+        //for(int i = 2; i < transform.childCount; i++){
+        //    transform.GetChild(i).gameObject.SetActive(false);
+        //}
     }
 
     private void EnableChildren(Transform parent){
@@ -51,12 +122,21 @@ public class DD_BrickController : DD_NavPoint
     }
 
     public void MakeRock(){
-        SwitchBoxColliders(_brickCenter, false);
+        
+        transform.GetChild(2).position = transform.position;
         transform.GetChild(2).gameObject.SetActive(true);
+
+        DD_RockHandler rock = transform.GetChild(2).GetComponent<DD_RockHandler>();
+        rock.Setup();
     }
 
     public void MakeEnemy(int id){
+
+        DD_GameController.NumberOfEnemies ++;
+        transform.GetChild(3 + id).position = transform.position;
         transform.GetChild(3 + id).gameObject.SetActive(true);
+        DD_Enemy1 enemy = transform.GetChild(3+id).GetComponent<DD_Enemy1>();
+        enemy.Setup();
     }
 
     public void SwitchBoxColliders(Transform parent, bool value){
@@ -66,9 +146,7 @@ public class DD_BrickController : DD_NavPoint
         }
 
         BoxCollider2D box = parent.GetComponent<BoxCollider2D>();
-        if(Guard.IsValid(box)){
-            box.enabled = value;
-        }
+        if(Guard.IsValid(box)){ box.enabled = value; }
     }
 
     public override float GetWalkWeight(){
@@ -119,7 +197,8 @@ public class DD_BrickController : DD_NavPoint
         for(int j = 0; j < _brickCenter.childCount; j++){
             shouldBeActiveMoveBlock |= _brickCenter.GetChild(j).gameObject.activeInHierarchy;
         }
-        transform.GetChild(7).gameObject.SetActive(shouldBeActiveMoveBlock);
+    //    transform.GetChild(7).gameObject.SetActive(shouldBeActiveMoveBlock);
+        transform.GetChild(6).gameObject.SetActive(shouldBeActiveMoveBlock);
     }
 
     public Vector3 GetClosetDigPoint(){

@@ -7,6 +7,9 @@ public class SoundPlay : MonoBehaviour
 
     [SerializeField] bool _playSoundOnStart;
     [SerializeField] bool _playMusicOnStart;
+    [SerializeField] bool _playSoundOnEnable;
+    [SerializeField] bool _playMusicOnEnable;
+    
     [SerializeField] string _soundName;
     [SerializeField] string _musicName;
 
@@ -18,12 +21,18 @@ public class SoundPlay : MonoBehaviour
         if(_playSoundOnStart) PlaySound();
     }
 
+    private void OnEnable(){
+        if(_playMusicOnEnable) PlayMusic();
+        if(_playSoundOnEnable) PlaySound();
+    }
+
     public void PlaySound(){
-        AudioSystem.Instance.PlayEffect(_soundName, _volume);
+        AudioSystem.PlaySample(_soundName, _volume);
+        //AudioSystem.Instance.PlayEffect(_soundName, _volume);
     }
 
     public void PlayMusic(){
-        AudioSystem.Instance.PlayMusic(_musicName, _volume);
+        AudioSystem.PlayBackground(_musicName, _volume);
+        //AudioSystem.Instance.PlayMusic(_musicName, _volume);
     }
-
 }

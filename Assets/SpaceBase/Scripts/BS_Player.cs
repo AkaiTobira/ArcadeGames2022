@@ -43,7 +43,9 @@ public class BS_Player : ESM.SMC_1D<BS_PlayerState>,
 
     protected GameObject _aimedTarget;
 
-    private void Awake() {
+
+    protected override void Awake() {
+        base.Awake();
         _health = _MaxHealthPoints;
         _hitBox.gameObject.SetActive(true);
         PointsCounter.Score = 0;

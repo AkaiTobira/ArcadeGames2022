@@ -27,7 +27,9 @@ public class ScaleManager : IActionManager<ScaleAction>
 {
     public static ScaleManager Instance;
 
-    void Awake() {
+    protected override void Awake() {
+        base.Awake();
+
         if(Instance == null){
             Instance = this;
             enabled = false;
