@@ -277,8 +277,8 @@ public static partial class CBuild
     }
 
 
-    private static void PrintTimeFormatted(long time, BuildTarget target){
-        UnityEngine.Debug.Log(target.ToString() + "::BuildFinished takes :" + 
+    private static void PrintTimeFormatted(long time, string target){
+        UnityEngine.Debug.Log(target + "::BuildFinished takes :" + 
         ((int)(time/3600)).ToString().PadLeft(2,'0') + ":" + 
         ((int)((time%3600)/60)).ToString().PadLeft(2,'0')  + ":" + 
         ((int)(time%60)).ToString().PadLeft(2,'0'));
@@ -295,6 +295,15 @@ public static partial class CBuild
 
         for(Game gameId = Game.Asteroids; gameId < Game.MAX; gameId++){
             BuildGame(gameId, targetGroup, platform);
+        }
+    }
+
+    private static void BuildForAllPlayfroms(Game game){
+        FillScenes();
+        FillDirectives();
+
+        foreach( KeyValuePair<BuildTarget, BuildTargetGroup> config in _buildConfigs){
+            BuildGame(game, config.Value, config.Key);
         }
     }
 
@@ -375,11 +384,10 @@ public static partial class CBuild
                 foreach( KeyValuePair<BuildTarget, BuildTargetGroup> config in _buildConfigs){
                     file.WriteLine(ConstructStaticMetod(g, config.Value, config.Key));
                 }
+
+                file.WriteLine(ConstructBuildAllStaticMetod(g));
             }
 
-            foreach( KeyValuePair<BuildTarget, BuildTargetGroup> config in _buildConfigs){
-                file.WriteLine(ConstructBuildAllStaticMetod(config.Value, config.Key));
-            }
 
             file.WriteLine(ConstuctBuildAllStaticMetodInternal());
             file.WriteLine("#endif\n}\n");
@@ -390,19 +398,19 @@ public static partial class CBuild
     }
 
     private static string ConstructStaticMetod(Game game, BuildTargetGroup targetGroup, BuildTarget target){
-        string output = ConstructInterfaceEtiquiete(target.ToString(), game.ToString());
+        string output = ConstructInterfaceEtiquiete(game.ToString(), target.ToString());
         output += ConstructFunctionName(game.ToString() + target.ToString());
         output += ConstructCommonBlock();
         output += "\t\tBuildGame(Game." + game.ToString() +", BuildTargetGroup." + targetGroup.ToString() + ", BuildTarget." + target.ToString() + ");\n";  
         return output + ConstructTimerBlock2(target);
     }
 
-    private static string ConstructBuildAllStaticMetod(BuildTargetGroup targetGroup, BuildTarget target){
-        string output = ConstructInterfaceEtiquiete(target.ToString(), "All");
-        output += ConstructFunctionName(target.ToString() + "All");
+    private static string ConstructBuildAllStaticMetod(Game game){
+        string output = ConstructInterfaceEtiquiete(game.ToString(), "All");
+        output += ConstructFunctionName(game.ToString() + "All");
         output += ConstructCommonBlock();
-        output += "\t\tBuildAll(BuildTargetGroup." + targetGroup.ToString() + ", BuildTarget." + target.ToString() + ");\n";  
-        return output + ConstructTimerBlock2(target);
+        output += "\t\tBuildForAllPlayfroms(Game." + game.ToString() +");\n";  
+        return output + ConstructTimerBlock2(game);
     }
 
     private static string ConstuctBuildAllStaticMetodInternal(){
@@ -436,7 +444,11 @@ public static partial class CBuild
     }
 
     private static string ConstructTimerBlock2(BuildTarget target){
-        return "\t\tPrintTimeFormatted(GetCurrentTime() - time, BuildTarget." + target.ToString() + ");\n\t}\n";
+        return "\t\tPrintTimeFormatted(GetCurrentTime() - time, " + '"' + target.ToString() + '"' + ");\n\t}\n";
+    }
+
+    private static string ConstructTimerBlock2(Game target){
+        return "\t\tPrintTimeFormatted(GetCurrentTime() - time, " + '"' + target.ToString() + '"' + ");\n\t}\n";
     }
 
 #endregion

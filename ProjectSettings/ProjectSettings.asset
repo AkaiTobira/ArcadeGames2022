@@ -658,7 +658,7 @@ PlayerSettings:
   webGLDecompressionFallback: 0
   scriptingDefineSymbols:
     1: DIGDUG_GAME;INTRO4;SKIP_EU_OUTRO
-    7: DIGDUG_GAME
+    7: DIGDUG_GAME;INTRO4;SKIP_EU_OUTRO
     13: DIGDUG_GAME;INTRO4;SKIP_EU_OUTRO
   additionalCompilerArguments: {}
   platformArchitecture:

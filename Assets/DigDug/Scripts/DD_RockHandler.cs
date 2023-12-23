@@ -8,14 +8,17 @@ namespace DigDug{
         StartMoving,
         Moving,
         Break,
+        WaitForPlayerLeave,
     }
 
     public class DD_RockHandler : ESM.SMC_1D<RockStates>, IDealDamage
     {
-        [SerializeField] Transform rayStart;
+        [SerializeField] Transform[] rayStart;
         [SerializeField] LayerMask _layer;
         [SerializeField] float _rayLenght;
+        [SerializeField] float _rayLenght2;
         [SerializeField] BoxCollider2D _collider;
+        [SerializeField] GameObject _damageBox;
 
 
 
@@ -25,13 +28,14 @@ namespace DigDug{
         }
 
         const float IDLE_DELAY = 0.5f;
-        const float MOVE_DELAY = 1.25f;
+        const float MOVE_DELAY = 0.5f;
 
         float idleDelay = IDLE_DELAY;
         float moveDelay = MOVE_DELAY;
 
         public void Setup(){
             ForceState(RockStates.Idle, true);
+            _damageBox.SetActive(false);
         }
 
         public int GetDamage(){ 
@@ -43,14 +47,18 @@ namespace DigDug{
                 case RockStates.Idle:
                     idleDelay = IDLE_DELAY;
                     _collider.enabled = true;
+                    _damageBox.SetActive(false);
                 break;
                 case RockStates.StartMoving:
                     moveDelay = MOVE_DELAY;
+                break;
+                case RockStates.WaitForPlayerLeave:
                     AudioSystem.PlaySample("DigDug_Rock", 2);
                 break;
                 case RockStates.Moving:
                     transform.parent.GetComponent<DD_BrickController>().DisableCenter();
                     GetComponent<Rigidbody2D>().simulated = true;
+                    _damageBox.SetActive(true);
                 break;
                 case RockStates.Break:
                     RequestDisable(0.5f);
@@ -78,7 +86,7 @@ namespace DigDug{
         {
             switch(ActiveState){
                 case RockStates.Idle: 
-                    if(CanStartMoving() && idleDelay <= 0) return RockStates.StartMoving;
+                    if(CanStartMoving() && idleDelay <= 0) return RockStates.WaitForPlayerLeave;
                     break;
                 case RockStates.StartMoving:
                     if(moveDelay < 0) return RockStates.Moving;
@@ -88,14 +96,37 @@ namespace DigDug{
                     break;
                 case RockStates.Break:
                     break;
+                case RockStates.WaitForPlayerLeave:
+                    if(PlayerMovedAway()) return RockStates.StartMoving;
+                break;
             }
 
             return ActiveState;
         }
 
+        private bool PlayerMovedAway(){
+
+            for(int i = 0; i < rayStart.Length; i++){
+                RaycastHit2D[] hit = Physics2D.RaycastAll(rayStart[i].position, Vector2.down, _rayLenght2, _layer);
+                Debug.DrawLine(rayStart[i].position, rayStart[i].position + Vector3.down * _rayLenght2, Color.magenta);
+
+        //            string debug = hit.Length.ToString();
+        //            for(int i = 0; i < hit.Length; i++) {
+        //                debug += hit[i].collider.name + " : ";
+        //            }
+        //            Debug.Log(debug);
+
+                for(int j = 0; j < hit.Length; j++){
+                    if(hit[j].collider.tag.Contains("GameCon")) return false;
+                }
+            }
+
+            return true;
+        }
+
         private bool CanStartMoving(){
-                RaycastHit2D[] hit = Physics2D.RaycastAll(rayStart.position, Vector2.down, _rayLenght, _layer);
-                Debug.DrawLine(rayStart.position, rayStart.position + Vector3.down * _rayLenght, Color.magenta);
+                RaycastHit2D[] hit = Physics2D.RaycastAll(rayStart[0].position, Vector2.down, _rayLenght, _layer);
+                Debug.DrawLine(rayStart[0].position, rayStart[0].position + Vector3.down * _rayLenght, Color.magenta);
 
     //            string debug = hit.Length.ToString();
     //            for(int i = 0; i < hit.Length; i++) {

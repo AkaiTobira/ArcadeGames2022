@@ -22,11 +22,11 @@ public static class DD_Levels{
                 "XXXXXXXXXXXXXXXXX",
                 "XXX 1 XXXXXXXXXXX",
                 "XXXX XXXXXXXXXXXX",
-                "XXXRXXXX 1 XXXXXX",
+                "XXXRXXXX S XXXXXX",
                 "XXXXXXXXXXXXXXXXX",
                 "XXX XXXXXXXXX  XX",
                 "XXX1XXXXXXXXX  XX",
-                "XXX XXXXXXXXXXXXX",
+                "XXX XXXXXXXXX1 XX",
                 "XXXXXXXXXXXXXXXXX",
             },new string[] {
                 "                 ",
@@ -34,7 +34,7 @@ public static class DD_Levels{
                 "XXXXXXXXXXXXXXXXX",
                 "XXX 1 XXXXXXXXXXX",
                 "XXXX XXXXXXXX   X",
-                "XXXXXXXX   XX 2 X",
+                "XXXXXXXS   XX 2 X",
                 "XXXXXXXXXXXXXXXXX",
                 "XXX XXXXXXXXX  XX",
                 "XXX2XXXXXXXXX  XX",
@@ -46,11 +46,11 @@ public static class DD_Levels{
                 "XXXXXXXXXXXXXXXXX",
                 "XXX 3 XXRRR XXXXX",
                 "XXXX XXXXXXXXXXXX",
-                "XXXRX    3   XXXX",
+                "XXXRX    S   XXXX",
                 "XXXXXXXXXXXXXXXXX",
                 "XXX XXXXXXXXX  XX",
                 "XXX3   XXXXXX  XX",
-                "XXX XXXXXXXXXXXXX",
+                "XXX XXXXXXXXX 3XX",
                 "XXXXXXXXXXXXXXXXX",
             },
             new string[]{
@@ -59,9 +59,9 @@ public static class DD_Levels{
                 "XXXXXXXXXXXXXXXXX",
                 "X  1  1  1  1   X",
                 "XXXXXXXXXXXXXXXXX",
-                "XXXXXXXX   XXRXXX",
-                "XXXXXXXX   XXRXXX",
-                "XXX XXXXRRRXX  XX",
+                "XXXXXXXX   XXXXXX",
+                "XXXXXXXX S XXRXXX",
+                "XXX XXXXRRRX X XX",
                 "XXX XXXXXXXXX  XX",
                 "XXXXXXXX 1 XXXXXX",
                 "XXXXXXXX   XXXXXX"
@@ -72,7 +72,7 @@ public static class DD_Levels{
                 "XXXX XXXXXXXXRRXR",
                 "RRRRRRRRXX   XX X",
                 "XXXXXXXXX  X    X",
-                "XXXRRRRX   RRRRXX",
+                "XXXRRRR S  RRRRXX",
                 "XXXXXXXXXRXXXXXXX",
                 "XXX 1  XXXX 1  XX",
                 "XXX XX XXXX XX XX",
@@ -81,7 +81,7 @@ public static class DD_Levels{
             },new string[]{
                 "                 ",
                 "XXXX XXXXXXXXXXXX",
-                "XXXX XXXXXXRRRRRR",
+                "XXX S XXXXXRRRRRR",
                 "RRRRRRRRXX XXXXXX",
                 "XXXXXXXXXX  3   X",
                 "X      XXXXRRRRXX",
@@ -95,7 +95,7 @@ public static class DD_Levels{
                 "XXXX XXXXX XXXXXX",
                 "X XXXXXXXXXXXXXRR",
                 "R2RRRRRRXX    XXX",
-                "X XXXXXX   1  XXX",
+                "X XXXXXX   S  XXX",
                 "XXXXXXXXXXXRR RXX",
                 "XXXX  XXXRXXX XXX",
                 "XXX 3  XXXXXX XXX",
@@ -104,9 +104,9 @@ public static class DD_Levels{
                 "XXXXXXXXXXXXXXXXX",
             },new string[]{
                 "                 ",
+                "XXXXXXXXXXSXXXXXX",
                 "XXXXXXXXXX XXXXXX",
-                "XXXXXXXXXX XXXXXX",
-                "XXX   XXX3   XXX",
+                "XXX   XXX3   XXXX",
                 "XXXXX3XXXX   3XXX",
                 "XRRRRX XXXXRRRRXX",
                 "XXXXXX XXXXXXXXXX",
@@ -118,8 +118,8 @@ public static class DD_Levels{
                 "                 ",
                 "XXXXXXXXXXXXXXXXX",
                 "XXX  XXXXX XXXXXX",
-                "XX    XXX2 XXXXX",
-                "XX  X2XXXX    XXX",
+                "XX    XXX2 XXXXXX",
+                "XX S  XXXX    XXX",
                 "XRRRRXXXXXX RRRXX",
                 "XXXXXX XX   XXXXX",
                 "X   2X XXXX 2XXXX",
@@ -130,7 +130,7 @@ public static class DD_Levels{
                 "                 ",
                 "XXXXXXXXXXXXXXXXX",
                 "XXX  XXXXX XXXXXX",
-                "XX    XXX2 XXXXX",
+                "XX    XXX2 XXSXXX",
                 "XX  X2XXXX      X",
                 "XRRRRXXXXXX RRR X",
                 "XXXXXX XX   XXX X",
@@ -141,8 +141,8 @@ public static class DD_Levels{
             },new string[]{
                 "                 ",
                 "XXXXXXXXXXXXXXXXX",
-                "XXX  2XXXX XX  XX",
-                "XXXXXXXRRX2 XXXXX",
+                "XXX  2XXXX   S XX",
+                "XXXXXXXRRX  XXXXX",
                 "XX  X2XXXX   1XXX",
                 "XR2RRXX   X RRRXX",
                 "XXXXXX XX  3XXXXX",
@@ -152,15 +152,15 @@ public static class DD_Levels{
                 "XXXXXXXXXXXXXXXXX",
             },new string[]{
                 "                 ",
-                "RXRRRRRRR RRRRRXRR",
+                "RXRRRRRRR RRRRRXR",
                 "X XXXXXXX XXXXX3X",
                 "X3 3 3        3 X",
-                "RR  RRRRRR   RRRR",
+                "RX  XRRRRR   XXRR",
                 "XR2RRXXXXXX RRRXX",
-                "XXR XX X   3XXXXX",
+                "XXRXXX X   3XXXXX",
                 "XXX XX XX   2XX X",
-                "X   XXRRRRX XX  X",
-                "XXX 1XX  1     XX",
+                "X   XXXXXXX XX  X",
+                "XXX 1XX   S    XX",
                 "XXXXXXXXXXXXXXXXX",
             }
         };
@@ -185,7 +185,8 @@ public class DD_BlocksManager : MonoBehaviour
         {'1', DD_BrickState.Enemy1},
         {'2', DD_BrickState.Enemy2},
         {'3', DD_BrickState.Enemy3},
-        {'R', DD_BrickState.Rock}
+        {'R', DD_BrickState.Rock},
+        {'S', DD_BrickState.PlayerPosition},
     };
 
     void Start(){
@@ -224,11 +225,15 @@ public class DD_BlocksManager : MonoBehaviour
 
     void LoadLevel(){
         string[] level = DD_Levels.GetLevel(currentLevel);
+
+
+
         for(int i = 0; i < level.Length; i++) {
             string row = level[i];
             for(int j = 0; j < row.Length; j++){
                 DD_BrickController brick = transform.GetChild(i * row.Length + j).GetComponent<DD_BrickController>();
-                
+                DD_GameController.ActiveEnemies.Remove(brick);
+
                 bool right = j == 0 ;
                 if(j > 0) right |= !IsEmpty(row[j]) || !IsEmpty(row[j-1]);
 
@@ -247,7 +252,7 @@ public class DD_BlocksManager : MonoBehaviour
     }
 
     private bool IsEmpty(char c){
-        return c == '1' || c == '2' || c == '3' || c == ' ';
+        return c == '1' || c == '2' || c == '3' || c == ' ' || c == 'S';
     }
 
     private bool IsNotEmpty(char c){
@@ -256,6 +261,7 @@ public class DD_BlocksManager : MonoBehaviour
 #if UNITY_EDITOR
     private void Update() {
         if(Input.GetKeyDown(KeyCode.B)){
+            currentLevel++;
             LoadLevel();
         }
     }

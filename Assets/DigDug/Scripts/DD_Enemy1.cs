@@ -31,39 +31,50 @@ namespace DigDug{
 
         float _stateDuration;
         float _elapsedPumpTime  = 0;
-        float _playerFollowTime = 0;
-        float _playerRushTime = 50;
         float _ignoreDamage = 0.5f;
         float _doNothing = 0.5f;
+        private Vector3 _targetPoint = new Vector3();
 
-        bool _cantStopThere = false;
-        bool _isPursuingPlayer = false;
 
-        AnimationSide _lookDirection;
-        
-        Transform _forceRunAway;
-        
+        DD_EnemyBrain brain = null;
+
+        public float  GetTileDistanceMultipler(){ return _distanceC; }
+
+        public float GetDistanceToWall(){ return _distanceB; }
+
         private void OnEnable() { Setup(); }
 
         public void Setup(){
-            _lookDirection = AnimationSide.Right; //GetFacingDirection();
             _stateDuration = 0;
             _pumpingStacks = 0;
             _ignoreDamage = 0.5f;
             _doNothing = 0.5f;
-            _playerFollowTime = 0;
             _elapsedPumpTime  = 0;
 
             transform.position = transform.parent.position;
-            _playerRushTime = Mathf.Max(50 - DD_BlocksManager.GetCurrentLevel(), 20);
             _attackBox.SetActive(true);
 
-            _cantStopThere = false;
-            _isPursuingPlayer = false;
+            Debug.Log(transform.parent.name);
+
+            DD_GameController.ActiveEnemies.Add(transform.parent.GetComponent<DD_BrickController>());
 
             ForceState(DD_EnemyStates.Idle, true);
         
+            brain = new DD_EnemyBrain(
+                new Dictionary<DD_EnemyActions, AI.FSM.IState<DD_EnemyActions>>(){
+                    {DD_EnemyActions.Idle,         new DD_EnemyIdle(this, 0.5f)},//new DD_EnemyIdle()},
+                    {DD_EnemyActions.Walking,      new DD_EnemyWalking(this, _uiMaskLayer, _solidMaskLayer)},//new DD_EnemyWalking()},
+                    {DD_EnemyActions.ShadowMoving, new DD_EnemyShadowWalking(this, 1.5f)},//new DD_EnemyShadowWalking()},
+                    {DD_EnemyActions.ToExit,       new DD_EnemyToExit(this, _uiMaskLayer)},//new DD_EnemyToExit()},
+                    {DD_EnemyActions.AfterPlayer,  new DD_EnemyPlayerPursit(this, 7f, _uiMaskLayer)},//new DD_EnemyPlayerPursit()},
+                    {DD_EnemyActions.RanAway,      new DD_EnemyRunedAway(this)}
+                },
+                DD_EnemyActions.Idle
+            );
+            _targetPoint = brain.GetNextPoint();
+            RequestEnable();
         }
+
 
         public void TakeDamage(int amount, MonoBehaviour source){
 
@@ -92,7 +103,7 @@ namespace DigDug{
                 case DD_EnemyStates.Moving:
                 break;
                 case DD_EnemyStates.ShadowMoving:
-                    ProcessInputsMove();
+                    
                     _stateDuration = SHADOWWALKS_TIME;
                 break;
                 case DD_EnemyStates.Dead:
@@ -101,7 +112,7 @@ namespace DigDug{
                     PointsCounter.Score += 1000;
                     AudioSystem.PlaySample("DigDug_EnemyDie");
 
-                    DD_GameController.NumberOfEnemies --;
+                    DD_GameController.ActiveEnemies.Remove(transform.parent.GetComponent<DD_BrickController>());
                 break;
             }
         }
@@ -118,20 +129,44 @@ namespace DigDug{
         }
 
         private void UpdateState_Move(bool inputMoveUpdate = true){
-            if(Guard.IsValid(_forceRunAway)){
-                ProcessMove((_forceRunAway.transform.position - transform.position).normalized);
-                if((_forceRunAway.transform.position - transform.position).magnitude < 1){
-                    RequestDisable(0.1f);
-                    _forceRunAway = null;
-                }
-            }else{
-                if(inputMoveUpdate) ProcessInputsMove();
-                UpdateMove();
+            ProcessInputsMove();
+
+            if(hasRunAway()){ 
+                DD_GameController.ActiveEnemies.Remove(transform.parent.GetComponent<DD_BrickController>());
+                RequestDisable(0.1f); 
             }
+
+
+      //      if(Guard.IsValid(_forceRunAway)){
+        //        ProcessMove((_forceRunAway.transform.position - transform.position).normalized);
+       //         if((_forceRunAway.transform.position - transform.position).magnitude < 1){
+        //            RequestDisable(0.1f);
+        //            _forceRunAway = null;
+        //        }
+     //       }else{
+            //    if(inputMoveUpdate) ProcessInputsMove();
+                UpdateMove();
+           // }
+        }
+
+        protected override void UpdateMove(){
+
+        //    if(_inputs.sqrMagnitude > 0){
+
+                _direction = GetPoint(AnimationSide.Common) - (Vector2)transform.position;
+
+//                Debug.Log(_direction + " " + Vector2.Distance(GetPoint(AnimationSide.Common), (Vector2)transform.position));
+
+                ProcessMove( (_direction.normalized / _moveSpeed) * GetMoveModifier() * DD_GameController.SpeedMultiplier);
+        //    }
         }
 
         protected override void UpdateState(){
             _doNothing -= Time.deltaTime;
+            brain.Update();
+            
+            AddToDebugLog(brain.GetActiveState().ToString(), true);
+
             switch(ActiveState){
                 case DD_EnemyStates.Idle: 
                     ProcessInputsMove();
@@ -209,13 +244,13 @@ namespace DigDug{
                     if(_pumpingStacks == MAX_PUMPING - 1) return DD_EnemyStates.Dead;
                     if(_pumpingStacks != 0) return DD_EnemyStates.Hurt;
                     if(_inputs.magnitude <= 0) return DD_EnemyStates.Idle;
-                    if(WillBeDigging()) return DD_EnemyStates.ShadowMoving;
+                    if(isShadowWalking()) return DD_EnemyStates.ShadowMoving;
                 break;
                 case DD_EnemyStates.ShadowMoving:
                     if(_pumpingStacks == MAX_PUMPING - 1) return DD_EnemyStates.Dead;
                     if(_pumpingStacks != 0) return DD_EnemyStates.Hurt;
                     if(_stateDuration <= 0) {
-                        if(WillBeDigging() && _inputs.magnitude > 0) return DD_EnemyStates.ShadowMoving;
+                        if(isShadowWalking() && _inputs.magnitude > 0) return DD_EnemyStates.ShadowMoving;
                         return DD_EnemyStates.Moving;
                     }
                 break;
@@ -231,146 +266,36 @@ namespace DigDug{
             return ActiveState;
         }
 
+        private bool isShadowWalking(){
+
+            return WillBeDigging() || brain.GetState().GetType() == typeof(DD_EnemyShadowWalking);
+        }
+
+        private bool hasRunAway(){
+
+            return brain.GetState().GetType() == typeof(DD_EnemyRunedAway);
+        }
+
         public bool IsDead(){ return ActiveState == DD_EnemyStates.Dead; }
         public bool CanBeShoot(){ return ActiveState != DD_EnemyStates.ShadowMoving; }
 
-        private bool IsFacingWall(AnimationSide side){
-            Vector3 center = _pumpPoint.transform.position;
+        public AnimationSide GetDirection(){ return GetFacingDirection();}
 
-        //    Debug.DrawLine(center, center + (Vector3)DirectionToVector2(side) * _distanceA, UnityEngine.Color.green);
-            RaycastHit2D[] hit2D2 = Physics2D.RaycastAll(center, DirectionToVector2(side), _distanceA, _solidMaskLayer);
-
-         //   string a = hit2D2.Length.ToString()+ " : " + transform.parent.name+"/"+name +" : " + center + " " + side + "\n";
-         //   for(int o = 0; o < hit2D2.Length; o++){
-         //       RaycastHit2D raycast = hit2D2[o];
-          //      a += raycast.collider.transform.parent.name + "/" + raycast.collider.name + ":" + raycast.point +  " " + DirectionToVector2(side) + " " + Vector2.Distance(raycast.point, center) + "\n";
-           // }
-           // Debug.Log(a);
-
-            string raycastHits = hit2D2.Length.ToString() + " " + center+ "\n";
-            for(int i = 0; i < hit2D2.Length; i++){
-                RaycastHit2D raycast = hit2D2[i];
-
-                //raycastHits += raycast.collider.transform.parent.name+"/"+raycast.collider.name + ":" + raycast.point + "::" + raycast.collider.transform.position +"\n ";
-                if((raycast.collider.name.Contains("MoveBlock") || raycast.collider.name.Contains("Bricker")) && Vector2.Distance(raycast.point, center) < _distanceC){
-
-                 //   raycastHits += transform.parent.name+"//"+name + " :" +side + "::" + raycast.point + " " + center + " "  + raycast.collider.transform.parent.name + "//" + raycast.collider.name + DirectionToVector2(side) + " " + Vector2.Distance(raycast.point, center);
-                 //   Debug.Log(raycastHits);
-                    return true;
-                }
-            }
-
-          //  Debug.Log(raycastHits);
-            return false;
+        protected override Vector2 GetPoint(AnimationSide side)
+        {
+            return _targetPoint;
         }
 
-
-
-        private Vector3 GetNextPoint(){
-//            Debug.Log(_lookDirection);
-            _cantStopThere = !DD_NavMesh.CanStopThere(transform.position);
-            if(_playerFollowTime > 0 || (_isPursuingPlayer && _cantStopThere)){ 
-                return DD_NavMesh.GetNextPathPoint(transform.position, DD_Player3.Instance.transform.position); 
-            }
-
-            _isPursuingPlayer = false;
-//            Debug.Log("First");
-            Vector3 center = Graphicals.transform.position;
-            bool selectNewDirection = IsFacingWall(_lookDirection);
-            //Debug.Log("Need new direction : " + selectNewDirection);
-            if(!selectNewDirection){
-                Vector3 point = new Vector3();
-                if(UpdateNavePoint_SawObjects(ref point)) return point;
-            }
-
-            if(_playerRushTime < 0){
-                _playerRushTime = Mathf.Max(50 - DD_BlocksManager.GetCurrentLevel(), 20);
-                _playerFollowTime = 6;
-                _isPursuingPlayer = true;
-
-                AudioSystem.PlaySample("DigDug_Danger");
-            }
-
-            if(Guard.IsValid(_forceRunAway)){ return _forceRunAway.transform.position;}
-            if(selectNewDirection){ return UpdateNavePoint_PathBlocking(); }
-
-            //Debug.Log("END" + " " + transform.position + (Vector3)DirectionToVector2(_lookDirection)*_distanceB);
-            return DD_NavMesh.GetNextPathPoint(
-                            transform.position, 
-                            transform.position + (Vector3)DirectionToVector2(_lookDirection)*_distanceB);
-        }
-
-        private bool UpdateNavePoint_SawObjects(ref Vector3 endingPoint){
-            Vector3 center = Graphicals.transform.position;
-            RaycastHit2D[] hit2D = Physics2D.RaycastAll(center, DirectionToVector2(_lookDirection), _distanceA, _uiMaskLayer);
-            for(int i = 0; i < hit2D.Length; i++){
-                RaycastHit2D raycast = hit2D[i];
-                Debug.DrawLine(raycast.point, center, (Vector2.Distance(raycast.point, center) < _distanceB) ? UnityEngine.Color.green : UnityEngine.Color.red);
-                if(raycast.collider.tag.Contains("GameCon")){
-                    if(_playerFollowTime <= 0){
-                        _playerFollowTime = 6;
-                        _isPursuingPlayer = true;
-                        endingPoint = DD_NavMesh.GetNextPathPoint(transform.position, DD_Player3.Instance.transform.position);
-                        return true;
-                    }
-                }else if(raycast.collider.name.Contains("Exit")){
-                    if(Vector3.Distance(transform.position, raycast.collider.transform.position) < 3){
-                        _forceRunAway = raycast.collider.transform;
-              //          Debug.Log("Run away!");
-                    };
-                    endingPoint = raycast.collider.transform.position;
-                    return true;
-                }
-            }
-
-            return false;
-        }
-
-
-        private Vector3 UpdateNavePoint_PathBlocking(){
-            Vector3 center = Graphicals.transform.position;
-            List<AnimationSide> directionList = GetDirectionList();
-         //   string listOfDirections = _lookDirection + " :: " + directionList[0] + directionList[1] + directionList[2];
-         //   Debug.Log(listOfDirections);
-            for(int i = 0; i < directionList.Count; i++){
-                if(!IsFacingWall(directionList[i])){
-                    _lookDirection = directionList[i];
-                    return DD_NavMesh.GetNextPathPoint(
-                        transform.position, 
-                        transform.position + (Vector3)DirectionToVector2(_lookDirection)*_distanceB);
-                }
-            }
-            return center;
-        }
-
-        private List<AnimationSide> GetDirectionList(){
-            switch(_lookDirection){
-                case AnimationSide.Right:
-                case AnimationSide.Left:
-                    return new List<AnimationSide>{
-                        AnimationSide.Top, AnimationSide.Bottom, ReverseDirection(_lookDirection)
-                    };
-                case AnimationSide.Top:
-                case AnimationSide.Bottom:
-                    return new List<AnimationSide>{
-                        AnimationSide.Right, AnimationSide.Left, ReverseDirection(_lookDirection)
-                    };
-            }
-
-            return new List<AnimationSide> {_lookDirection};
-        }
 
         private void ProcessInputsMove(){
-            _playerFollowTime -= Time.deltaTime;
-            _playerRushTime   -= Time.deltaTime;
-            _ignoreDamage     -= Time.deltaTime;
-            
-            Vector3 nextNavPoint = GetNextPoint();
-         //   Debug.Log("CALL" + nextNavPoint);
+            _ignoreDamage -= Time.deltaTime;
 
-            _inputs = nextNavPoint - transform.position;
-            if(Mathf.Abs(_inputs.x) < 0.4f) _inputs.x = 0;
-            if(Mathf.Abs(_inputs.y) < 0.4f) _inputs.y = 0;
+            _targetPoint = brain.GetNextPoint();
+            AddToDebugLog(_targetPoint.ToString() + " " + transform.position);
+
+            _inputs = _targetPoint - transform.position;
+            if(Mathf.Abs(_inputs.x) < 0.0f) _inputs.x = 0;
+            if(Mathf.Abs(_inputs.y) < 0.0f) _inputs.y = 0;
 
             switch(_pressedDirection){
                 case AnimationSide.Common:

@@ -126,32 +126,65 @@ namespace ESM{
 
     // public interfaces
     public abstract class SMC_1D<StateType> :
-    SMC<StateType, SMA_1D<StateType>>
+        SMCBase<StateType, SMA_1D<StateType>>
         where StateType : System.Enum
     {};
 
     public abstract class SMC_2D<StateType> :
-    SMC<StateType, SMA_2D<StateType>>
+        SMCBase<StateType, SMA_2D<StateType>>
         where StateType : System.Enum
     {};
 
 
     public abstract class SMC_4D<StateType> : 
-        SMC<StateType, SMA<StateType>>
+        SMCBase<StateType, SMA<StateType>>
         where StateType : System.Enum
     {};
 
     public abstract class SMC_8D<StateType> : 
-        SMC<StateType, SMA_8D<StateType>>
+        SMCBase<StateType, SMA_8D<StateType>>
         where StateType : System.Enum
     {};
 
+    //Base for static calls
+    public abstract class SMC : CMonoBehaviour{
+        public static Vector2 DirectionToVector2(AnimationSide side){
+            switch(side){
+                case AnimationSide.Common: return Vector2.zero;
+                case AnimationSide.Left: return Vector2.left;
+                case AnimationSide.Right: return Vector2.right;
+                case AnimationSide.Top: return Vector2.up;
+                case AnimationSide.Bottom: return Vector2.down;
+                case AnimationSide.LeftTop: return new Vector2(-1, 1);
+                case AnimationSide.RightBottom: return new Vector2(1, 1);
+                case AnimationSide.LeftBottom: return new Vector2(-1, -1);
+                case AnimationSide.RightTop: return new Vector2(1, 1);
+            }
+
+            return Vector2.zero;
+        }
+
+        public static AnimationSide ReverseDirection(AnimationSide side){
+            switch(side){
+                case AnimationSide.Common: return AnimationSide.Common;
+                case AnimationSide.Left: return AnimationSide.Right;
+                case AnimationSide.Right: return AnimationSide.Left;
+                case AnimationSide.Top: return AnimationSide.Bottom;
+                case AnimationSide.Bottom: return AnimationSide.Top;
+                case AnimationSide.LeftTop: return AnimationSide.RightTop;
+                case AnimationSide.RightBottom: return AnimationSide.LeftBottom;
+                case AnimationSide.LeftBottom: return AnimationSide.RightBottom;
+                case AnimationSide.RightTop: return AnimationSide.LeftBottom;
+            }
+            return side;
+        }
+    }
+
     // base for public interface
-    public abstract class SMC<StateType, AnimationType> : CMonoBehaviour
+    public abstract class SMCBase<StateType, AnimationType> : SMC
     where StateType : System.Enum
     where AnimationType : SMA<StateType>
     {
-
         [SerializeField][NonReorderable] protected Image Graphicals;
         [SerializeField] private float _animationFrameDuration = 0.3f;
         [SerializeField][NonReorderable] protected AnimationType[] _animations;
@@ -159,6 +192,7 @@ namespace ESM{
         [SerializeField] bool _mirrorSprites = false;
         [SerializeField] bool _keepHDirectionWhenMoveV = true;
         [SerializeField] bool _useCustomScaleSet = false;
+        [SerializeField] AnimationSide startingSide = AnimationSide.Common;
 
         bool _stateChanged = false;
         protected StateType ActiveState;
@@ -170,6 +204,9 @@ namespace ESM{
 
         Vector3 _previousPosition;
 
+        private void OnEnable() {
+            _side = startingSide;
+        }
 
         protected virtual void Update()
         {
@@ -224,10 +261,7 @@ namespace ESM{
             return scaleMultipler;
         }
 
-        protected virtual Vector3 GetDirectionChange(){ 
-            Debug.Log(GetNameWithParent() + " " + (transform.position.x-_previousPosition.x) + " " + (transform.position.y-_previousPosition.y));
-            return transform.position - _previousPosition;
-            }
+        protected virtual Vector3 GetDirectionChange(){ return transform.position - _previousPosition;}
 
     #region "Animations"
         private void UpdateGraphics_Internal(){
@@ -365,36 +399,7 @@ namespace ESM{
 
         public AnimationSide GetFacingDirection(){ return _side; }
 
-        protected Vector2 DirectionToVector2(AnimationSide side){
-            switch(side){
-                case AnimationSide.Common: return Vector2.zero;
-                case AnimationSide.Left: return Vector2.left;
-                case AnimationSide.Right: return Vector2.right;
-                case AnimationSide.Top: return Vector2.up;
-                case AnimationSide.Bottom: return Vector2.down;
-                case AnimationSide.LeftTop: return new Vector2(-1, 1);
-                case AnimationSide.RightBottom: return new Vector2(1, 1);
-                case AnimationSide.LeftBottom: return new Vector2(-1, -1);
-                case AnimationSide.RightTop: return new Vector2(1, 1);
-            }
 
-            return Vector2.zero;
-        }
-
-        protected AnimationSide ReverseDirection(AnimationSide side){
-            switch(side){
-                case AnimationSide.Common: return AnimationSide.Common;
-                case AnimationSide.Left: return AnimationSide.Right;
-                case AnimationSide.Right: return AnimationSide.Left;
-                case AnimationSide.Top: return AnimationSide.Bottom;
-                case AnimationSide.Bottom: return AnimationSide.Top;
-                case AnimationSide.LeftTop: return AnimationSide.RightTop;
-                case AnimationSide.RightBottom: return AnimationSide.LeftBottom;
-                case AnimationSide.LeftBottom: return AnimationSide.RightBottom;
-                case AnimationSide.RightTop: return AnimationSide.LeftBottom;
-            }
-            return side;
-        }
 
     #endregion
 

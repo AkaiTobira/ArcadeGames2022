@@ -1116,6 +1116,11 @@ MonoBehaviour:
     Volume: 0
     TargetVolume: 0
     Pitch: 0
+  - _name: DigDug_DangerIncrease
+    _clip: {fileID: 8300000, guid: 271daea82309697429bae8e1e66a9e10, type: 3}
+    Volume: 0
+    TargetVolume: 0
+    Pitch: 0
   LowPitchRange: 0.95
   HighPitchRange: 1.05
   _musics:

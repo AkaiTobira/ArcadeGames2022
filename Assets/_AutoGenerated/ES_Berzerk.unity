@@ -15516,6 +15516,7 @@ MonoBehaviour:
   _mirrorSprites: 0
   _keepHDirectionWhenMoveV: 1
   _useCustomScaleSet: 0
+  startingSide: 0
   _misslePrefab: {fileID: 8884426621438522888, guid: 009171e42670dbf46bf3f80c2682b973, type: 3}
   _shootingPoints:
   - {fileID: 582742779}
@@ -28844,7 +28845,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: BINNOCENTLIVES
+  m_text: "V\xEDctimas inocentes:"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -34156,7 +34157,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_text: MAINMENU
+  m_text: "Men\xFA principal"
   m_isRightToLeft: 0
   m_fontAsset: {fileID: 11400000, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
   m_sharedMaterial: {fileID: 2180264, guid: 8f586378b4e144a9851e7b34d9b748ee, type: 2}
@@ -34183,7 +34184,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 2.45
+  m_fontSize: 2.05
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -34903,6 +34904,7 @@ MonoBehaviour:
   _mirrorSprites: 0
   _keepHDirectionWhenMoveV: 1
   _useCustomScaleSet: 0
+  startingSide: 0
 --- !u!61 &2135537998
 BoxCollider2D:
   m_ObjectHideFlags: 0

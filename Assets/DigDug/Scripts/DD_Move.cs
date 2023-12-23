@@ -139,18 +139,17 @@ namespace DigDug{
         float zRotationChange = 0;
 
         Vector2 _lastHorizontalPlace = new Vector2();
-        float   _lastScaleMultiplier = 0;
+        float   _lastScaleMultiplier = 1;
         bool enabledY;
         float distance = 0;
 
-        private void AddToDebugLog(string s, bool flush = false){
+        public void AddToDebugLog(string s, bool flush = false){
+#if UNITY_EDITOR
+
             if(!Guard.IsValid(uGUI)) return;
             if(flush) uGUI.text = "";
             uGUI.text += s;
-
-            Vector3 scale = uGUI.transform.localScale;
-            scale.x = Mathf.Abs(1) * Mathf.Sign(_lastScaleMultiplier);
-            uGUI.transform.localScale = scale;
+#endif
         }
 
         protected override void CustomDirectionScaleSet(float scaleMultipler)
@@ -164,10 +163,11 @@ namespace DigDug{
                 }
             }else{ _lastHorizontalPlace = transformPosition; }
 
-            enabledY = Mathf.Abs(_direction.y) > 0.2f;
+            Vector2 normalizedDirection = _direction.normalized;
+            enabledY = Mathf.Abs(normalizedDirection.y) > 0.4f;
             zRotationChange = 0;
             if(enabledY){
-                if(_direction.y > 0) zRotationChange = 90  * _lastScaleMultiplier;
+                if(_direction.y > 0) zRotationChange =  90 * _lastScaleMultiplier;
                 if(_direction.y < 0) zRotationChange = -90 * _lastScaleMultiplier;
             }
 
@@ -177,6 +177,13 @@ namespace DigDug{
             Graphicals.transform.localScale = scale;
             Graphicals.transform.rotation = Quaternion.Euler(rotation2);
             Graphicals.transform.position = transformPosition;
+
+#if UNITY_EDITOR
+            if(!Guard.IsValid(uGUI)) return;
+            scale = uGUI.transform.localScale;
+            scale.x = Mathf.Abs(1) * Mathf.Sign(_lastScaleMultiplier);
+            uGUI.transform.localScale = scale;
+#endif
         }
 
         protected virtual void UpdateMove(){
@@ -188,7 +195,19 @@ namespace DigDug{
             }
         }
 
-        private Vector2 GetPoint(ESM.AnimationSide side){
+        protected AnimationSide GetRotatedDirection(){
+            if(_lastScaleMultiplier > 0){
+                if(zRotationChange > 0) return AnimationSide.Top;
+                else if(zRotationChange < 0) return AnimationSide.Bottom;
+                else return AnimationSide.Right;
+            } else {
+                if(zRotationChange > 0) return AnimationSide.Bottom;
+                else if(zRotationChange < 0) return AnimationSide.Top;
+                else return AnimationSide.Left;
+            }
+        }
+
+        protected virtual Vector2 GetPoint(ESM.AnimationSide side){
             switch(side){
                 case ESM.AnimationSide.Common: 
                     return _points[1,1];

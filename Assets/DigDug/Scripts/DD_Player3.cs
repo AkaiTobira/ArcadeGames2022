@@ -48,11 +48,13 @@ namespace DigDug{
 
         bool _shootingRequirementsMeet = false;
         bool _shootingFailed           = false;
+        bool _shootBrick               = false;
         float _shootingTimeColdown = 0;
         float _shootingTimeElapsed = 0;
         float _lineShootingTimeElapsed = 0;
         Vector3 _landingPoint = new Vector3();
         Vector3 _startingPoint = new Vector3();
+        Vector3 _rockShotPoint = new Vector3();
         IPumpableEnemy _pumpableEnemy = null;
 
 
@@ -78,12 +80,14 @@ namespace DigDug{
             _shootingFailed           = false;
             _shoot                    = false;
             _isDead                   = false;
+            _shootBrick               = false;
             _shootingTimeColdown      = 0;
             _shootingTimeElapsed      = 0;
             _lineShootingTimeElapsed  = 0;
             _stateDuration            = 0;
             _landingPoint             = new Vector3();
             _startingPoint            = new Vector3();
+            _rockShotPoint            = new Vector3();
             _pumpableEnemy            = null;
 
             _lastHorizontalDirection = AnimationSide.Left;
@@ -209,6 +213,7 @@ namespace DigDug{
         private void TurnOffShooting(){
             _shootingFailed = false;
             _pumpableEnemy  = null;
+            _shootBrick = false;
         }
 
         private void ProcessShooting(){
@@ -221,7 +226,7 @@ namespace DigDug{
                 _shootingTimeColdown = SHOT_PUMP_ACTION_COLDOWN;
                 _shootingTimeElapsed = SHOT_ACTION_NONLANDED_COLDOWN;
                 _shootingFailed = true;
-                _lineShootingTimeElapsed = SHOT_LANDING_TIME;
+                _lineShootingTimeElapsed = GetShootLandingTime();
 
                 AudioSystem.Instance.PlayEffect("DigDug_Shoot", 1);
             }
@@ -229,9 +234,30 @@ namespace DigDug{
             Vector3 direction     = GetShootingDirectionAndUpdateShotingStartPoint();
             RaycastHit2D[] hits = Physics2D.RaycastAll(_startingPoint, direction, DISTANCE_OF_SHOOT, _enemyLayer);
             _startingPoint.z = 0;
+            RaycastHit2D[] solidHits = Physics2D.RaycastAll(_startingPoint, direction, DISTANCE_OF_SHOOT, _blockslayerMask);
+
+            if((solidHits?.Length ?? 0) > 0){
+                _rockShotPoint = solidHits[0].point;
+                        _shootBrick = true;
+            }
 
             for(int i = 0; i < (hits?.Length ?? 0); i++ ){
                 LF_ColliderSide side = hits[i].collider.GetComponent<LF_ColliderSide>();
+
+                if((solidHits?.Length ?? 0) > 0){
+                    float distanceA = Vector2.Distance(solidHits[0].point, transform.position);
+                    float distanceB = Vector2.Distance(side.transform.position, transform.position);
+                    
+                    if(distanceA < distanceB){
+                        GetLineRenderer().SetPosition(1, solidHits[0].point);
+                        _rockShotPoint = solidHits[0].point;
+                        _shootBrick = true;
+                        return;
+                    }else{
+                        _shootBrick = false;
+                    }
+                }
+
                 if(Guard.IsValid(side)) {
                     GetLineRenderer().SetPosition(1, GetLineRenderer().GetPosition(0)); 
                     _pumpableEnemy = side.GetParent().GetComponent<IPumpableEnemy>();
@@ -286,29 +312,57 @@ namespace DigDug{
         }   
 
 
+        private Vector3 GetLandingPoint(){
+             if(_lineShootingTimeElapsed > 0){
+                    Vector3 direction = GetShootingDirectionAndUpdateShotingStartPoint();
+                    return Guard.IsValid(_pumpableEnemy) ?
+                    _pumpableEnemy.GetPumpingPoint() :
+                    _shootBrick ? 
+                        _rockShotPoint :
+                        _startingPoint + (direction * DISTANCE_OF_SHOOT);
+             }else{
+                    return Guard.IsValid(_pumpableEnemy) ?
+                    _pumpableEnemy.GetPumpingPoint() :
+                    _landingPoint;
+             }
+        }
+
+        private float GetShootLandingTime(){
+            
+            if(false){
+                
+
+                float speed = DISTANCE_OF_SHOOT/SHOT_LANDING_TIME;
+                float distance = Vector2.Distance(_startingPoint, _rockShotPoint);
+
+                Debug.Log($"{speed} = {DISTANCE_OF_SHOOT}/{SHOT_LANDING_TIME} :: {distance/speed} = {distance}/{speed}");
+
+
+                return distance/speed;
+            }
+
+            return SHOT_LANDING_TIME;
+        }
 
         private void ProcessShootingVisuals(){
             if(_lineShootingTimeElapsed > 0){
 
-                Vector3 direction = GetShootingDirectionAndUpdateShotingStartPoint();
-                _landingPoint = 
-                    Guard.IsValid(_pumpableEnemy) ?
-                    _pumpableEnemy.GetPumpingPoint() :
-                    _startingPoint + (direction * DISTANCE_OF_SHOOT);
+                _landingPoint = GetLandingPoint();
 
                 GetLineRenderer().SetPosition(0, _startingPoint);
 
-                Vector3 landingWay     = (_landingPoint - _startingPoint) * (1.0f - _lineShootingTimeElapsed/SHOT_LANDING_TIME);
+                Vector3 landingWay     = 
+                    (_landingPoint - _startingPoint) * 
+                    (1.0f - _lineShootingTimeElapsed/GetShootLandingTime());
+
                 landingWay.z = 0;
 
                 GetLineRenderer().SetPosition(0, _startingPoint);
                 GetLineRenderer().SetPosition(1, _startingPoint + landingWay);
             }else{
 
-                _landingPoint = 
-                    Guard.IsValid(_pumpableEnemy) ?
-                    _pumpableEnemy.GetPumpingPoint() :
-                    _landingPoint;
+                _landingPoint = GetLandingPoint();
+
 
                 GetLineRenderer().SetPosition(0, _startingPoint);
                 GetLineRenderer().SetPosition(1, _landingPoint);
@@ -317,7 +371,7 @@ namespace DigDug{
         private Vector3 GetShootingDirectionAndUpdateShotingStartPoint(){
             Vector3 direction = new Vector3();
             _startingPoint = Graphicals.transform.GetChild(0).transform.position;
-            switch (GetFacingDirection()) {
+            switch (GetRotatedDirection()) {
                 case ESM.AnimationSide.Left:
                     direction = Vector3.left;
                     break;

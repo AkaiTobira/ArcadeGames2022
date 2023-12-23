@@ -2,6 +2,7 @@ using System;
 using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
+using ESM;
 using UnityEngine;
 
 
@@ -243,9 +244,9 @@ namespace DigDug {
 
         }
 
-        public static Vector3 GetClosestPointExt(Vector3 point){
+        public static Vector3 GetClosestPointExt(Vector3 point, bool ignoreFilled = false){
             if(Guard.IsValid(instance) && _initialized){
-                return instance.bricks[instance.GetClosestPoint(point)].transform.position;
+                return instance.bricks[instance.GetClosestPoint(point, ignoreFilled)].transform.position;
             }
 
             return point;
@@ -280,7 +281,7 @@ namespace DigDug {
         }
 
         private bool IsRock_Internal(Vector3 point){
-            int brickIndex = GetClosestPoint(point);
+            int brickIndex = GetClosestPoint(point, false);
 
             if(brickIndex > 0){
                 return bricks[brickIndex].GetWalkWeight() > 100;
@@ -288,11 +289,12 @@ namespace DigDug {
             return false;
         }
 
-        private int GetClosestPoint(Vector3 point){
+        private int GetClosestPoint(Vector3 point, bool ignoreFilled = false){
             
             int found = -1;
             float distance = 9999999;
             for(int i = 0; i < bricks.Count; i++) {
+                if(bricks[i].GetWalkWeight() > 2 && ignoreFilled) continue;
                 float dis = Vector3.Distance(point, bricks[i].transform.position);
                 if(distance > dis){
                     found = i;
@@ -367,6 +369,29 @@ namespace DigDug {
             }
 
             return bricks[source].transform.position;
+        }
+
+        private Vector2 GetFarestPoint(Vector2 point, AnimationSide dir){
+            int closestPoint = GetClosestPoint(point);
+            
+            int direction = 0;
+            if(AnimationSide.Bottom == dir) direction = 1;
+            if(AnimationSide.Left   == dir) direction = 2;
+            if(AnimationSide.Right  == dir) direction = 3;
+            
+            for(int i = 0; i < 100; i++){
+                int pointIndex = neighbourMatrix[closestPoint][direction];
+                if(pointIndex == -1) break;
+                if(bricks[pointIndex].GetWalkWeight() > 2) break;
+                closestPoint = pointIndex;
+            }
+
+            return bricks[closestPoint].transform.position;
+        }
+
+        public static Vector2 GetFarestPointInDirection(Vector2 startPoint, AnimationSide direction){
+            if(Guard.IsValid(instance)) return instance.GetFarestPoint(startPoint, direction);
+            return startPoint;
         }
 
 

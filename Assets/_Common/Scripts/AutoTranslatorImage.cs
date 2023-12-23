@@ -7,8 +7,8 @@ using UnityEngine.UI;
 [RequireComponent(typeof(Image))]
 public class AutoTranslatorImage : AutoTranslatorUnitBase
 {
-    [SerializeField] int FolderID = 0;
-    [SerializeField] GameType game;
+    [SerializeField] protected int FolderID = 0;
+    [SerializeField] protected GameType game;
     Image _image;
 
     protected override void Initialize(){

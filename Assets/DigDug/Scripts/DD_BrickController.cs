@@ -12,6 +12,7 @@ public enum DD_BrickState{
     Empty,
     Full,
     Rock,
+    PlayerPosition
 }
 
 public class DD_BrickController : DD_NavPoint
@@ -63,6 +64,8 @@ public class DD_BrickController : DD_NavPoint
         for(int i = 0; i< transform.childCount; i++){
             transform.GetChild(i).gameObject.SetActive(false);
         }
+
+        //_uiGui.gameObject.SetActive(true);
         
         SwitchFrameObj(rightEnabled, topEnabled);      
         state = brickState;
@@ -92,6 +95,13 @@ public class DD_BrickController : DD_NavPoint
                 SwitchCenterObj(false);
             
                 MakeEnemy((int)brickState); 
+            break;
+            case DD_BrickState.PlayerPosition:
+                SwitchFrameBox(rightEnabled, topEnabled);
+                SwitchCenterBox(false);
+                SwitchCenterObj(false);
+                
+                DD_Player3.Instance.transform.position = transform.position;
             break;
         }
 
