@@ -1,6 +1,8 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public enum BS_PlayerState{
     Idle,
@@ -10,22 +12,25 @@ public enum BS_PlayerState{
 
 public class BS_Player : ESM.SMC_1D<BS_PlayerState>,
     ITakeDamage,
-    IDealDamage
+    IDealDamage,
+    IUserControlled
 {
 
     [SerializeField] BoxCollider2D _hitBox;
-    
     [SerializeField] GameObject _missle;
     [SerializeField] GameObject _missleBegin;
+    [SerializeField] GameObject _invicibleBarrier;
     [SerializeField] Transform _towerHead;
     [SerializeField] LF_PlayerHPBar _PlayerHPBar;
-    
+    [SerializeField] Image _invincibleBar;
+    [SerializeField] BS_SpeedBar _speedBar;
     [SerializeField] int _MaxHealthPoints = 30;
 
     private Vector2 _inputs = new Vector2();
-    private int _health;
+    private float _health;
+    private float _invincibleTime;
     private bool _shoot;
-
+    private bool _shootCon;
     private float _cTowerRotation = 0;
     private float _cTankRotation  = 0;
     protected float _movePenalty = 1;
@@ -41,14 +46,22 @@ public class BS_Player : ESM.SMC_1D<BS_PlayerState>,
     [SerializeField] Transform[] _rayPoints;
     [SerializeField] GameObject _explodeAnimation;
 
-    protected GameObject _aimedTarget;
+    [SerializeField] BS_TowerHeadSelector _mainTowers;
+    [SerializeField] BS_MainTower _activeTower;
 
+
+    int towerLevel = 0;
+    UpgradeType _type = UpgradeType.Missle;
+
+    public UpgradeType GetUpgradeType() { return _type; }
 
     protected override void Awake() {
         base.Awake();
         _health = _MaxHealthPoints;
         _hitBox.gameObject.SetActive(true);
-        PointsCounter.Score = 0;
+        PointsCounter.Reset();
+        PlayerList<BS_Player>.Register(PlayerIndex.Player1, this);
+        _activeTower = _mainTowers.GetTower(_type, towerLevel);
     }
 /*
     public Vector2 RotateVector(Vector2 v, float angle)
@@ -60,21 +73,37 @@ public class BS_Player : ESM.SMC_1D<BS_PlayerState>,
 */
     protected override void UpdateState()
     {
-        switch(ActiveState){
+        switch (ActiveState)
+        {
             case BS_PlayerState.Idle: break;
             case BS_PlayerState.Move:
                 RotateMove();
                 UpdateSpeed();
-                ProcessMove(transform.up * calcMoveSpeed);
 
-            break;
+                ProcessMove(transform.up * calcMoveSpeed);
+                break;
             case BS_PlayerState.Dead: break;
         }
 
         ProcessInputs();
         RotateTowerHead();
-        ScanForAimHelper();
-        Shoot();
+        ProcessInvincible();
+
+        _activeTower.Shoot(_towerHead.transform.up, this, _shoot, _shootCon, false);
+    }
+
+    private void ProcessInvincible()
+    {
+        if (_invincibleTime > 0)
+        {
+            _invincibleBar.fillAmount = _invincibleTime / _invincibleTimeMax;
+            _invincibleTime -= Time.deltaTime;
+        }
+        else
+        {
+            _invincibleBar.fillAmount = 0;
+            _invicibleBarrier.SetActive(false);
+        }
     }
 
     private void ProcessInputs(){
@@ -82,68 +111,11 @@ public class BS_Player : ESM.SMC_1D<BS_PlayerState>,
         //ProcessInputsAttack();
     }
 
-    private void ScanForAimHelper(){
-
-        RaycastHit2D[] hits = Physics2D.RaycastAll(_missleBegin.transform.position, _towerHead.transform.up, 50, _EnemylayerMask);
-
-        for(int i = 0; i < hits.Length; i++){
-//            Debug.Log(hits[i].transform.name);
-            ITakeDamage side = 
-                hits[i].transform.gameObject.GetComponent<ITakeDamage>();
-            if(side != null){
-                _aimedTarget = hits[i].transform.gameObject;
-                Debug.DrawLine(
-                    _missleBegin.transform.position, 
-                    hits[i].transform.position, 
-                    Color.red);
-                return;
-            }
-        }
-
-        Debug.DrawLine(
-            _missleBegin.transform.position, 
-            _missleBegin.transform.position + _towerHead.transform.up * 50, 
-            Color.blue);
-
-        _aimedTarget = null;
-    }
-
-
-    private void Shoot(){
-        if(!_shoot) return;
-
-        
-        AudioSystem.PlaySample("SpaceBase_GunP", 1, true);
-
-        LF_ColliderSide side = 
-            Instantiate(
-                _missle, 
-                _missleBegin.transform.position, 
-                Quaternion.identity, 
-                transform.parent
-            ).GetComponent<LF_ColliderSide>();
-        side.SetParent(this);
-
-        Vector3 direction = _towerHead.transform.up;
-
-
-        //Aim Helper;
-        if(Guard.IsValid(_aimedTarget)){
-            Vector3 aimedTarget = (_aimedTarget.transform.position - transform.position).normalized;
-            if(aimedTarget.sqrMagnitude < 2500 && Vector3.Angle(aimedTarget, _towerHead.transform.up) < 40){
-                direction = (_aimedTarget.transform.position -  transform.position).normalized;
-            }
-        //    Debug.Log("Shoot" + direction + " " + transform.up + " " + Vector3.Angle(aimedTarget, _towerHead.transform.up));
-        } 
-        
-
-        side.GetComponent<BS_Missle>().Setup(direction);
-    }
-
     private void ProcessInputsMove(){
-        _inputs.x = Input.GetAxisRaw("Horizontal");
-        _inputs.y = Input.GetKey(KeyCode.M) ? 1.0f : 0.0f;
-        _shoot    = Input.GetKeyDown(KeyCode.N);
+        _inputs.x = InputHandler.GetHorizontal();
+        _inputs.y = InputHandler.GetKey(InputKey.ActionZ, false) ? 1.0f : 0.0f;
+        _shoot    = InputHandler.GetKey(InputKey.ActionX);
+        _shootCon = InputHandler.GetKey(InputKey.ActionX, false);
     }
 
     private void RotateTowerHead(){
@@ -159,44 +131,33 @@ public class BS_Player : ESM.SMC_1D<BS_PlayerState>,
 
     private void UpdateSpeed(){
 
-
-
         for(int i = 0; i < _rayPoints.Length; i++){
             RaycastHit2D hit = Physics2D.Raycast(_rayPoints[i].transform.position, transform.up, 0.5f, _layerMask);
 
-        if(hit && 
-            (hit.transform.CompareTag("HitBox") ||
-             hit.transform.CompareTag("Obstacle"))  ){
+            if(hit && 
+                (hit.transform.CompareTag("HitBox") ||
+                hit.transform.CompareTag("Obstacle"))  ){
 
-            Debug.Log(hit.transform.tag);
+                Debug.Log(hit.transform.tag);
+                Debug.DrawLine(
+                    _rayPoints[i].transform.position,
+                    _rayPoints[i].transform.position + transform.up, 
+                    Color.blue
+                );
 
-Debug.DrawLine(
-                _rayPoints[i].transform.position,
-                _rayPoints[i].transform.position + transform.up, 
-                Color.blue
-            );
+                calcMoveSpeed = 0;
+                return;
+            }else{
+                Debug.DrawLine(
+                    _rayPoints[i].transform.position,
+                    _rayPoints[i].transform.position + transform.up, 
+                    Color.green
+                );
+            }
 
-            calcMoveSpeed = 0;
-            return;
-        }else{
-Debug.DrawLine(
-                _rayPoints[i].transform.position,
-                _rayPoints[i].transform.position + transform.up, 
-                Color.green
-            );
-
+            _speedBar.Setup(calcMoveSpeed/_maxSpeed);
         }
 
-            
-        }
-
-
-        
-
-
-
-
-            
         if(_inputs.y > 0){
             calcMoveSpeed = Mathf.Min(calcMoveSpeed +  _movePenalty*(_accelerationMove * Time.deltaTime), _movePenalty*_maxSpeed);
         }
@@ -206,7 +167,7 @@ Debug.DrawLine(
 
     private void RotateMove(){
 
-        if(Mathf.Abs(_cTowerRotation) > 45){
+        if(Mathf.Abs(_cTowerRotation) > 15){
 
             float direction = 0;
             if(_cTowerRotation < 0) direction = -1;
@@ -216,7 +177,7 @@ Debug.DrawLine(
             float rotationChange = 
                 direction * 
                 // /(1.0f - Mathf.Max( 0, (calcMoveSpeed - (_maxSpeed * 0.05f)) /_maxSpeed)) *
-                _tankRotation  * 
+                _tankRotation  * (_type == UpgradeType.Laser ? 0.7f : 1.0f) * 
                 Time.deltaTime;
             if(rotationChange > Mathf.Abs(_cTowerRotation)){
                 rotationChange = _cTowerRotation;
@@ -235,12 +196,11 @@ Debug.DrawLine(
         switch(ActiveState){
             case BS_PlayerState.Idle:
                 _hitBox.gameObject.SetActive(true);
+                _speedBar.Setup(0);
             break;
             case BS_PlayerState.Move: break;
             case BS_PlayerState.Dead: 
                 RequestDisable(1f);
-                HighScoreRanking.LoadRanking(GameType.SpaceBase);
-                HighScoreRanking.TryAddNewRecord(PointsCounter.Score);
                 _explodeAnimation.SetActive(true);
             //    TimersManager.Instance.FireAfter(5, () => {
             //        _endScene.OnSceneLoadAsync();
@@ -281,11 +241,14 @@ Debug.DrawLine(
         return ActiveState;
     }
 
-    public void TakeDamage(int amount, MonoBehaviour source = null){
+    public void TakeDamage(float amount, MonoBehaviour source = null){
+        if(_invincibleTime > 0) return;
+
         _health -= amount;
+        if(_health > _MaxHealthPoints) _health = _MaxHealthPoints;
         _PlayerHPBar.SetupHp((float)_health / (float)_MaxHealthPoints);
 
-        Debug.Log("Player hit for" + amount);
+//        Debug.Log("Player hit for" + amount);
 
 /*
         if( !_ishurt 
@@ -313,5 +276,37 @@ Debug.DrawLine(
 */
     }
 
-    public int GetDamage(){ return 1; }
+    public float GetDamage(){ 
+        switch(_type)
+        {
+            case UpgradeType.Missle: return 1;
+            case UpgradeType.Rocket: return 3f + towerLevel*0.5f;
+            case UpgradeType.Laser:  return (2.5f + towerLevel) * Time.deltaTime;
+            case UpgradeType.Flamethower: return 0.75f + (0.2f * towerLevel); 
+        }    
+
+        return 0; 
+    }
+
+    private float _invincibleTimeMax;
+
+    public void InvincibleCollected(float strenght){
+        _invincibleTimeMax = strenght;
+        _invincibleTime = _invincibleTimeMax;
+        _invincibleBar.fillAmount = _invincibleTime/_invincibleTimeMax;
+        _invicibleBarrier.SetActive(true);
+    }
+
+    public void SwapWeapon(UpgradeType type)
+    {
+        if(type == _type)  towerLevel += 1;
+        else{
+            towerLevel = 0;
+            _type = type;
+        }
+
+        _activeTower = _mainTowers.GetTower(type, towerLevel);
+    }
+
+    public PlayerIndex GetPlayerIndex() { return PlayerIndex.Player1; }
 }

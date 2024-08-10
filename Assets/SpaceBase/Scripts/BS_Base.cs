@@ -19,7 +19,7 @@ public class BS_Base : ESM.SMC_1D<BS_TowerState>,
     [SerializeField] int _points;
     [SerializeField] GameObject _explodeAnimation;
 
-    private int _health;
+    private float _health;
 
 
     protected override void Awake() {
@@ -91,7 +91,7 @@ public class BS_Base : ESM.SMC_1D<BS_TowerState>,
             //        _endScene.OnSceneLoadAsync();
             //    });
                 _explodeAnimation.SetActive(true);
-                PointsCounter.Score += _points;
+                PointsCounter.AddPoints(PlayerIndex.Player1, _points);
 
                 Debug.Log("BAse enetereed death");
                 if(Guard.IsValid(_additionalAnimation)){
@@ -135,15 +135,15 @@ public class BS_Base : ESM.SMC_1D<BS_TowerState>,
         return ActiveState;
     }
 
-    public void TakeDamage(int amount, MonoBehaviour source = null){
+    public void TakeDamage(float amount, MonoBehaviour source = null){
         _health -= amount;
         //_playerDetectedTimer = TIME_OF_ATTACK;
         Detected(source);
 
-        Debug.Log("Base take damamge " + amount);
+        Debug.LogWarning("Base take damamge " + amount);
     }
 
-    public int GetDamage(){
+    public float GetDamage(){
         return 1;
     }
 

@@ -26,6 +26,9 @@ public class MainMenu : MonoBehaviour
     bool continueButtonPressed = false;
 
     void Update(){
-        if(Input.GetKey(KeyCode.C) && !continueButtonPressed){ _play.onClick.Invoke(); continueButtonPressed = true; }
+        if(InputHandler.GetKey(InputKey.Confirm) && !continueButtonPressed){ 
+            _play.onClick.Invoke(); 
+            continueButtonPressed = true; 
+        }
     }
 }

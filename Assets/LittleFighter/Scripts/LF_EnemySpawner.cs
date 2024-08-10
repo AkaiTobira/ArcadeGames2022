@@ -19,7 +19,7 @@ public class LF_EnemySpawner : MonoBehaviour
     public static int EnemyLevel = 0;
 
     private void Awake() {
-        PointsCounter.Score = 0;
+        PointsCounter.Reset();
         HighScoreRanking.LoadRanking(GameType.LittleFighter);
         _increaseDelayTimer = _increaseDelay;
     }

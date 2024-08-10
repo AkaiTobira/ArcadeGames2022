@@ -9,7 +9,7 @@ public class SceneLoader : MonoBehaviour
     [SerializeField] int sceneFlowIndex;
 
     public void OnSceneLoad(bool playSound = false){
-        if(playSound) AudioSystem.Instance.PlayEffect("Button", 1);
+        if(playSound) AudioSystem.Instance.PlayEffect("Button", 0.5f);
         SceneManager.LoadScene(SceneFlowController.GetNextScene(sceneFlowIndex));
 
 

@@ -18,6 +18,7 @@ public enum GameplayEventType{
     RecolorPlayer,
     ReverseAnimation, //sick idea of client
     UpdateButtonGraphics,
+    ButtonOvervieved_Silent,
 }
 
 public static class Events{

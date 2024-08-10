@@ -18,13 +18,13 @@ public class LF_EnemyThrower : LF_EnemyCore
         LF_ColliderSide side = Instantiate( missle, misslebegin.position, Quaternion.identity, transform.parent).GetComponent<LF_ColliderSide>();
         side.SetParent(this);
 
-        Vector3 direction = (LF_Player.Player.transform.position - transform.position).normalized;
+        Vector3 direction = (GetCloserPlayer() - transform.position).normalized;
         direction.x = Mathf.Sign(direction.x);
         direction.y = 0;
         side.GetComponent<BS_Missle>().Setup(direction);
     }
 
-    public override int GetDamage()
+    public override float GetDamage()
     {
         base.GetDamage();
         return stats.Damage;

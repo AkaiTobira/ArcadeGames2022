@@ -27,7 +27,7 @@ public class T_Player : MonoBehaviour, IListenToGameplayEvents
     private void Awake() {
         HighScoreRanking.LoadRanking(GameType.Tunnel);
         Events.Gameplay.RegisterListener(this, GameplayEventType.RecolorPlayer);
-        PointsCounter.Score = 0;
+        PointsCounter.Reset();
     }
 
     public void OnGameEvent(GameplayEvent gEvent){
@@ -41,7 +41,7 @@ public class T_Player : MonoBehaviour, IListenToGameplayEvents
     private void AddPoints(){
         pointProgress += Time.deltaTime * 6 * T_SegmentSpawner.MULTIPLER;
         if(pointProgress > 1){
-            PointsCounter.Score += 1;
+            PointsCounter.AddPoints(PlayerIndex.Player1, 1);
             pointProgress -= 1;
         }
     }
@@ -69,8 +69,8 @@ public class T_Player : MonoBehaviour, IListenToGameplayEvents
     }
 
     private void ProcessMove(){
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical   = Input.GetAxisRaw("Vertical");
+        float horizontal = InputHandler.GetHorizontal();
+    // /    float vertical   = InputHandler.GetVertical();
 
         ProcessMove_Horizontal(horizontal);
     }
@@ -100,7 +100,6 @@ public class T_Player : MonoBehaviour, IListenToGameplayEvents
             _endAnimation.SetActive(true);
             AudioSystem.PlaySample("Tunnel_Explode");
             HighScoreRanking.LoadRanking(GameType.Tunnel);
-            HighScoreRanking.TryAddNewRecord(PointsCounter.Score);
             TimersManager.Instance.FireAfter(3f, () => {
                 _nextScene.OnSceneLoad();
                 T_Segment.Stop = false;

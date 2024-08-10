@@ -2,6 +2,8 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
+using TMPro;
+using System.Xml.Linq;
 
 
 public enum LFPlayerState{
@@ -17,10 +19,12 @@ public enum LFPlayerState{
 
 public static class LF_PlayerInput{
 
-    private static List<(KeyCode, long)> _scanned = new List<(KeyCode, long)>();
-    private static List<KeyCode> _keys = new List<KeyCode>{
-        KeyCode.N,
-        KeyCode.M,
+    private static List<(InputKey, long)> _scanned = new List<(InputKey, long)>();
+    private static List<InputKey> _keys = new List<InputKey>{
+        InputKey.ActionX,
+        InputKey.ActionZ,
+        InputKey.ActionV,
+        InputKey.ActionB,
     };
 
     private static long GetCurrentTime(){
@@ -45,7 +49,7 @@ public static class LF_PlayerInput{
                 }
             }
             if(found) continue;
-            if(Input.GetKey(_keys[i])) _scanned.Add((_keys[i], current));
+            if(InputHandler.GetKey(_keys[i], false)) _scanned.Add((_keys[i], current));
         }
 
 //        string ss = "";
@@ -60,7 +64,7 @@ public static class LF_PlayerInput{
 
     private static void ReomveUnused(){
         long current = GetCurrentTime();
-        List<KeyCode> toRemove = new List<KeyCode>();
+        List<InputKey> toRemove = new List<InputKey>();
 
         for( int j = 0; j < _scanned.Count; j++){
             if(current - _scanned[j].Item2 > 1000){
@@ -73,7 +77,7 @@ public static class LF_PlayerInput{
         }
     }
 
-    private static void RemoveFromScanned(KeyCode code){
+    private static void RemoveFromScanned(InputKey code){
         for(int i = 0; i < _scanned.Count; i++){
             if(_scanned[i].Item1 == code){
                 _scanned.RemoveAt(i);
@@ -82,11 +86,11 @@ public static class LF_PlayerInput{
         }
     }
 
-    public static bool GetPressed(KeyCode active){
+    public static bool GetPressed(InputKey active){
         long current = GetCurrentTime();
         int pressed = 0;
 
-        List<KeyCode> toRemove = new List<KeyCode>();
+        List<InputKey> toRemove = new List<InputKey>();
 
 
         for( int j = 0; j < _scanned.Count; j++){
@@ -107,11 +111,11 @@ public static class LF_PlayerInput{
     }
 
 
-    public static bool GetPressed(KeyCode[] active){
+    public static bool GetPressed(InputKey[] active){
         long current = GetCurrentTime();
         int pressed = 0;
 
-        List<KeyCode> toRemove = new List<KeyCode>();
+        List<InputKey> toRemove = new List<InputKey>();
 
 
         for(int i = 0; i < active.Length; i++) {
@@ -134,17 +138,20 @@ public static class LF_PlayerInput{
     }
 }
 
-
-
 public class LF_Player : ESM.SMC_2D<LFPlayerState>,
     ITakeDamage,
-    IDealDamage
+    IDealDamage,
+    IUserControlled
 {
 
     private const float VERTICAL_SLOW = 0.5f;
 
     [SerializeField] private LF_PlayerHPBar _PlayerHPBar;
+    [SerializeField] private TextMeshProUGUI _gameOverText;
     [SerializeField] private SceneLoader _endScene;
+    [SerializeField] private PlayerIndex _playerIndex;
+    [SerializeField] public bool IsAwake;
+
     enum RayPoints{
         Right,
         Left,
@@ -201,12 +208,10 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
     [SerializeField] private BoxCollider2D _hitBox;
 
     private float _healthPoints = 30f;
-    private bool IsDead(){ return _healthPoints <= 0;}
+    public bool IsDead(){ return _healthPoints <= 0;}
     private bool HasBeenHurt(){ return _ishurt;}
 
     private Vector2 _inputs = new Vector2();
-    public static LF_Player Player;
-
     private bool _canPunch = false;
     private bool _canKick = false;
     private bool _canSpecial = false;
@@ -232,12 +237,15 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
 
     protected override void Awake() {
         base.Awake();
-        Player = this;
         ForceState(LFPlayerState.Idle, true);
         _healthPoints = _MaxHealthPoints;
         _PlayerHPBar.SetupHp(_healthPoints/_MaxHealthPoints);
-        PointsCounter.Score = 0;
+        PointsCounter.Reset();
+
+        PlayerList<LF_Player>.Register(_playerIndex, this);
     }
+
+    public PlayerIndex GetPlayerIndex() { return _playerIndex; }
 
     protected override void UpdateState()
     {
@@ -299,15 +307,31 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
             break;
             case LFPlayerState.Dead: 
                 RequestDisable(1f);
-                LF_IntroTexts.ShowGameOver();
-                AudioSystem.PlaySample("LittleFighter_GameOver", 1);
-                HighScoreRanking.LoadRanking(GameType.LittleFighter);
-                HighScoreRanking.TryAddNewRecord(PointsCounter.Score);
-                TimersManager.Instance.FireAfter(5, () => {
-                    _endScene.OnSceneLoadAsync();
-                });
+            //    _gameOverText.gameObject.SetActive(true);
+            //    _PlayerHPBar.gameObject.SetActive(false);
+
+                CameraFollow.Instance.RemoveFollowable( transform );
+
+                if(HasOtherPlayerActive()){
+                    LF_IntroTexts.ShowGameOver();
+                    AudioSystem.PlaySample("LittleFighter_GameOver", 1);
+                    HighScoreRanking.LoadRanking(GameType.LittleFighter);
+                    TimersManager.Instance.FireAfter(5, () => {
+                        _endScene.OnSceneLoadAsync();
+                    });
+                }
             break;
         }
+    }
+
+    private bool HasOtherPlayerActive(){
+        for(int i = 0; i < (int)PlayerIndex.None; i++){
+            LF_Player player = PlayerList<LF_Player>.Get((PlayerIndex)i);
+            if(!Guard.IsValid(player)) continue;
+            if(!player.IsDead() && player.IsAwake) return false;
+        }
+
+        return true;
     }
 
     protected override void OnStateExit(LFPlayerState exitedState)
@@ -370,7 +394,7 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
         return ActiveState;
     }
 
-    public void TakeDamage(int amount, MonoBehaviour source = null){
+    public void TakeDamage(float amount, MonoBehaviour source = null){
 
         if( !_ishurt 
             && (ActiveState != LFPlayerState.Hurt
@@ -396,7 +420,7 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
         }
     }
 
-    public int GetDamage(){
+    public float GetDamage(){
         switch(ActiveState){
             case LFPlayerState.Punch: return 1;
             case LFPlayerState.SuperAttack: return 5;
@@ -417,8 +441,8 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
     }
 
     private void ProcessInputsMove(){
-        _inputs.x = Input.GetAxisRaw("Horizontal"); //+ _mobileInputs.x;
-        _inputs.y = Input.GetAxisRaw("Vertical")  * VERTICAL_SLOW; //+ _mobileInputs.y;
+        _inputs.x = InputHandler.GetHorizontal(_playerIndex); //+ _mobileInputs.x;
+        _inputs.y = InputHandler.GetVertical(_playerIndex)  * VERTICAL_SLOW; //+ _mobileInputs.y;
 
         bool ResetX = false;
 
@@ -454,9 +478,16 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
     private void ProcessInputsAttack(){
         LF_PlayerInput.Scan();
 
-        _canSpecial = LF_PlayerInput.GetPressed(new KeyCode[] { KeyCode.N, KeyCode.M });
-        _canPunch   = LF_PlayerInput.GetPressed(KeyCode.N);
-        _canKick    = LF_PlayerInput.GetPressed(KeyCode.M);
+        if(_playerIndex == PlayerIndex.Player1){
+            _canSpecial = LF_PlayerInput.GetPressed(new InputKey[] { InputKey.ActionX, InputKey.ActionZ });
+            _canPunch   = LF_PlayerInput.GetPressed(InputKey.ActionX);
+            _canKick    = LF_PlayerInput.GetPressed(InputKey.ActionZ);
+        }
+        else if(_playerIndex == PlayerIndex.Player2){
+            _canSpecial = LF_PlayerInput.GetPressed(new InputKey[] { InputKey.ActionV, InputKey.ActionB });
+            _canPunch   = LF_PlayerInput.GetPressed(InputKey.ActionV);
+            _canKick    = LF_PlayerInput.GetPressed(InputKey.ActionB);    
+        }
     }
 
     private GameObject IsHit(

@@ -98,6 +98,8 @@ public class AudioSystem : MonoBehaviour
 
         public void PlayEffect(string clipName, float volume = 1.0f, bool randomPitch=false)
         {
+            Debug.Log(clipName);
+
             bool clipSelected = false;
             foreach( AudioTrack at in _clips){
 //                Debug.Log(at._callName + " " + clipName);

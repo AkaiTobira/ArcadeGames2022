@@ -9,16 +9,12 @@ public class BS_Follower : ESM.SMC_1D<BS_PlayerState>,
 {
 
     [SerializeField] BoxCollider2D _hitBox;
-    
-    [SerializeField] GameObject _missle;
-    [SerializeField] GameObject _missleBegin;
     [SerializeField] Transform _towerHead;
     
-    [SerializeField] int _MaxHealthPoints = 30;
+    [SerializeField] float _MaxHealthPoints = 30;
 
     private Vector2 _inputs = new Vector2();
-    private int _health;
-    private bool _shoot;
+    private float _health;
 
     private float _cTowerRotation = 0;
     private float _cTankRotation  = 0;
@@ -31,12 +27,14 @@ public class BS_Follower : ESM.SMC_1D<BS_PlayerState>,
     [SerializeField] float _accelerationMove = 0.5f;
     [SerializeField] float calcMoveSpeed = 0;
     [SerializeField] LayerMask _layerMask;
-    [SerializeField] LayerMask _EnemylayerMask;
     [SerializeField] int _points;
     [SerializeField] Transform[] _rayPoints;
     [SerializeField] GameObject _explodeAnimation;
+    [SerializeField] BS_MainTower _activeTower;
 
-    private float _idleBreakTime = 2.0f;
+    [SerializeField] float _maxShotTimer = 2.0f;
+    [SerializeField] protected float _distanceToStartMoving = 2.0f;
+
     private float _shootTimer    = 2.0f;
 
     protected GameObject _aimedTarget;
@@ -60,7 +58,6 @@ public class BS_Follower : ESM.SMC_1D<BS_PlayerState>,
     {
         switch(ActiveState){
             case BS_PlayerState.Idle: 
-                _idleBreakTime -= Time.deltaTime;
                 FocusTowerOnPlayer();
             break;
             case BS_PlayerState.Move:
@@ -94,26 +91,18 @@ public class BS_Follower : ESM.SMC_1D<BS_PlayerState>,
         //ProcessInputsAttack();
     }
 
-    private void Shoot(){
+    protected virtual void Shoot(){
         if(_shootTimer > 0) {
             _shootTimer -= Time.deltaTime;
             return;
         }
-        _shootTimer = 2f;
+        _shootTimer = _maxShotTimer;
 
-
-        
-        AudioSystem.PlaySample("SpaceBase_GunE", 1, true);
-        LF_ColliderSide side = 
-            Instantiate(
-                _missle, 
-                _missleBegin.transform.position, 
-                Quaternion.identity, 
-                transform.parent
-            ).GetComponent<LF_ColliderSide>();
-        side.SetParent(this);
-        side.GetComponent<BS_Missle>().Setup(_towerHead.transform.up);
+        _activeTower.Shoot(_towerHead.transform.up, this, true, true);
+        PlayShootAnimation();
     }
+
+    protected virtual void PlayShootAnimation(){}
 
     private void RotatePatrol(){
         _towerHead.Rotate(new Vector3(0, 0, _towerRotation * Time.deltaTime));
@@ -122,19 +111,17 @@ public class BS_Follower : ESM.SMC_1D<BS_PlayerState>,
         if(_cTowerRotation > 360) _cTowerRotation -= 360;
     }
 
-    BS_Player player = null;
-    public void Detected(MonoBehaviour item){
-        player = item.GetComponent<BS_Player>();
-    }
-
+    protected BS_Player player = null;
+    public void Detected(MonoBehaviour item){ player = item.GetComponent<BS_Player>(); }
     public void SignalLost(MonoBehaviour item){}
-
     private void FocusTowerOnPlayer(){
 
         if(player == null) {
             RotatePatrol();
             return;
         }
+
+        if(_activeTower.RotationLocked) return;
 
         Vector3 direction = (player.transform.position - transform.position).normalized;
 
@@ -162,9 +149,9 @@ public class BS_Follower : ESM.SMC_1D<BS_PlayerState>,
     }
 
     private void ProcessInputsMove(){
-
         if(Guard.IsValid(player)){
-            if((player.transform.position - transform.position).magnitude > 2){
+//            Debug.LogWarning((player.transform.position - transform.position).magnitude);
+            if((player.transform.position - transform.position).magnitude > _distanceToStartMoving){
                 _inputs.y = 1.0f;
             }else{
                 _inputs.y = 0.0f;
@@ -195,26 +182,24 @@ public class BS_Follower : ESM.SMC_1D<BS_PlayerState>,
             (hit.transform.CompareTag("HitBox") ||
              hit.transform.CompareTag("Obstacle"))  ){
 
-            Debug.Log(hit.transform.tag);
+//            Debug.Log(hit.transform.tag);
 
-Debug.DrawLine(
-                _rayPoints[i].transform.position,
-                _rayPoints[i].transform.position + transform.up, 
-                Color.blue
-            );
+                Debug.DrawLine(
+                    _rayPoints[i].transform.position,
+                    _rayPoints[i].transform.position + transform.up, 
+                    Color.blue
+                );
 
-            calcMoveSpeed = 0;
-            return;
-        }else{
-Debug.DrawLine(
-                _rayPoints[i].transform.position,
-                _rayPoints[i].transform.position + transform.up, 
-                Color.green
-            );
+                calcMoveSpeed = 0;
+                return;
+            }else{
+                Debug.DrawLine(
+                    _rayPoints[i].transform.position,
+                    _rayPoints[i].transform.position + transform.up, 
+                    Color.green
+                );
+            }
         }
-        }
-
-
 
         if(_engineFaliureTime > 0){
             calcMoveSpeed = Mathf.Max(calcMoveSpeed - _movePenalty*(_spaceMoveFriction * Time.deltaTime) * 0.3f, 0);
@@ -262,14 +247,11 @@ Debug.DrawLine(
             case BS_PlayerState.Move: break;
             case BS_PlayerState.Dead: 
                 RequestDestroy(1f);
-                PointsCounter.Score += _points;
+                PointsCounter.AddPoints(PlayerIndex.Player1, _points);
                 _explodeAnimation.SetActive(true);
                 
                 AudioSystem.PlaySample("SpaceBase_Explode", 1, true);
-            //    HighScoreRanking.TryAddNewRecord(PointsCounter.Score);
-            //    TimersManager.Instance.FireAfter(5, () => {
-            //        _endScene.OnSceneLoadAsync();
-            //    });
+                BS_Instances.Inst.DropBonus(transform.position);
             break;
         }
     }
@@ -300,7 +282,7 @@ Debug.DrawLine(
         return ActiveState;
     }
 
-    public void TakeDamage(int amount, MonoBehaviour source = null){
+    public void TakeDamage(float amount, MonoBehaviour source = null){
 
         _health -= amount;
 
@@ -330,5 +312,5 @@ Debug.DrawLine(
 */
     }
 
-    public int GetDamage(){ return 1; }
+    public virtual float GetDamage(){ return 1; }
 }

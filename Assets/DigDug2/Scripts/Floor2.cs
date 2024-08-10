@@ -7,13 +7,6 @@ public enum GTerrainType{
     GTT_Solid,
 }
 
-public enum NeighbourSide{
-    NS_Left,
-    NS_Right,
-    NS_Top,
-    NS_Bottom
-}
-
 public enum DiggersSpawnPositions{
     DSP_Left_Down,
     DSP_Left_Up,

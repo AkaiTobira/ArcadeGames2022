@@ -13,32 +13,34 @@ public static class SceneFlowController
         #elif INTRO3
             return "Intro3";
         #elif INTRO2
-                return "Intro2";
+            return "Intro2";
         #else 
-                return "Intro1";
+            return "Intro1";
         #endif
     }
 
     static string GetActiveOutrio(){
         #if SKIP_EU_OUTRO
-                return GetActiveIntro();
+            return GetActiveIntro();
         #else 
-                return "EOutro";
+            return "EOutro";
         #endif
     }
 
     static string GetGameSelect(){
-            #if THREE_GAME
-                return "GameSelect";
-            #elif T3_GAMES_2
-                return "GameSelect2";
-            #elif ALL_GAMES
-                return "GameSelect3";
-            #elif SIX_GAMES
-                return "GameSelect4";
-            #else 
-                return GetActiveIntro();
-            #endif
+        #if THREE_GAME
+            return "GameSelect";
+        #elif T3_GAMES_2
+            return "GameSelect2";
+        #elif ALL_GAMES
+            return "GameSelect3";
+        #elif SIX_GAMES
+            return "GameSelect4";
+        #elif NINE_GAMES
+            return "GameSelect5";
+        #else 
+            return GetActiveIntro();
+        #endif
     }
 
     static SceneFlowController(){
@@ -58,36 +60,36 @@ public static class SceneFlowController
             "DigDugMain"};
 
 
-        #if DIGDUG_GAME
-        #else
-
+#if DIGDUG_GAME
+#else
         flow[GetActiveIntro()] = new List<string>{
-            #if T_SegmentSpawner
+#if T_SegmentSpawner
                 "AsteroidsMain",
-            #elif BERZERK_GAME
+#elif BERZERK_GAME
                 "BerzerkMain",
-            #elif DIGDUG2_GAME
+#elif DIGDUG2_GAME
                 "DigDug2Main",
-            #elif FROGGER_GAME
+#elif FROGGER_GAME
                 "FroggerMain",
-            #elif THREE_GAME
+#elif THREE_GAME
                 "GameSelect",
-            #elif LITTLE_FIGHTER_GAME
+#elif LITTLE_FIGHTER_GAME
                 "LittleFighterMain",
-            #elif SPACE_BASE_GAME
+#elif SPACE_BASE_GAME
                 "SpaceBaseMain",
-            #elif T3_GAMES_2
+#elif T3_GAMES_2
                 "GameSelect2"
-            #elif TUNNEL_GAME
+#elif TUNNEL_GAME
                 "TunnelMain"
-            #elif ALL_GAMES
+#elif ALL_GAMES
                 "GameSelect3"
-            #elif SIX_GAMES
+#elif SIX_GAMES
                 "GameSelect4"
-            #endif    
-
+#elif NINE_GAMES
+                "GameSelect5"
+#endif    
         };
-        #endif
+#endif
 
         flow["GameSelect"]     = new List<string>{
             "AsteroidsMain", 
@@ -125,6 +127,19 @@ public static class SceneFlowController
             "DigDugMain"
         };
 
+        flow["GameSelect5"]     = new List<string>{
+            "SpaceBaseMain", 
+            "BerzerkMain", 
+            "LittleFighterMain",
+            "TunnelMain",
+            "FroggerMain",
+            "AsteroidsMain",
+            "DigDug2Main",
+            "DigDugMain",
+            "Garden"
+        };
+
+
         flow["Asteroids"]      = new List<string>{"AsteroidsOutro"};
         flow["AsteroidsIntro"] = new List<string>{"Asteroids"};
         flow["AsteroidsMain"]  = new List<string>{"AsteroidsIntro"};
@@ -146,19 +161,35 @@ public static class SceneFlowController
             "DigDug2Main",
             GetGameSelect(),};
 
+        flow["Garden"]         = new List<string>{
+            "GardenOutro",
+            GetActiveIntro(),
+            "Garden",
+        };
+        flow["GardenIntro"]    = new List<string>{"Garden"};
+        flow["GardenMain"]     = new List<string>{"GardenIntro"};
+        flow["GardenOutro"]    = new List<string>{
+            GetActiveOutrio(),
+            "GardenMain",
+            GetGameSelect(),};
+            
         flow["Frogger"]        = new List<string>{
-            "FroggerOutro", 
-            "FroggerOutro1",             
+            "FroggerOutroL", 
+            "FroggerOutroW1",
+            "FroggerOutroW2",             
             GetActiveIntro()
             };
 
         flow["FroggerIntro"]   = new List<string>{"Frogger"};
         flow["FroggerMain"]    = new List<string>{"FroggerIntro"};
-        flow["FroggerOutro"]   = new List<string>{GetActiveOutrio(),
+
+        flow["FroggerOutroL"]   = new List<string>{GetActiveOutrio(),
             "FroggerMain",
             GetGameSelect(),};
-
-        flow["FroggerOutro1"]  = new List<string>{GetActiveOutrio(),
+        flow["FroggerOutroW1"]   = new List<string>{GetActiveOutrio(),
+            "FroggerMain",
+            GetGameSelect(),};
+        flow["FroggerOutroW2"]  = new List<string>{GetActiveOutrio(),
             "FroggerMain",
             GetGameSelect(),
         };
@@ -225,9 +256,7 @@ public static class SceneFlowController
         return TryLocalizeScene(flow[activeSceneName][index]);
     }
 
-    public static string GetLocalizedSceneName(string sceneName){
-        return TryLocalizeScene(sceneName);
-    }
+    public static string GetLocalizedSceneName(string sceneName){ return TryLocalizeScene(sceneName); }
 
     private static string ParseSceneName(){
         string sceneName = SceneManager.GetActiveScene().name;

@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.Windows;
 
 public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
 {
@@ -21,23 +22,31 @@ public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
         Horizontal
     }
 
+    private bool SelectButton(CButton button){
+        int currentActiveButton = _activeButton;
+
+        for(int i = 0; i < _buttons.Length; i++) {
+            if(button == _buttons[i]) _activeButton = i;
+        }
+
+        return currentActiveButton != _activeButton;
+    }
 
     public void OnGameEvent(GameplayEvent gameplayEvent){
 
         if(gameplayEvent.type == GameplayEventType.ButtonOvervieved){
             CButton button = gameplayEvent.parameter as CButton;
             if(Guard.IsValid(button)){
-
-                int currentActiveButton = _activeButton;
-
-                for(int i = 0; i < _buttons.Length; i++) {
-                    if(button == _buttons[i]) _activeButton = i;
+                if(SelectButton(button)) 
+                {
+                    AudioSystem.Instance.PlayEffect("ButtonChange", 1);
+                    Debug.LogWarning("Soruce3");
                 }
-
-//                Debug.Log(currentActiveButton + " " + _activeButton);
-
-                if(currentActiveButton != _activeButton) AudioSystem.Instance.PlayEffect("ButtonChange", 1);
             }
+        }
+        else if(gameplayEvent.type == GameplayEventType.ButtonOvervieved_Silent){
+            CButton button = gameplayEvent.parameter as CButton;
+            if(Guard.IsValid(button)) SelectButton(button);
         }
     }
 
@@ -53,6 +62,7 @@ public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
     {
         _activeButton = 0;
         Events.Gameplay.RegisterListener(this, GameplayEventType.ButtonOvervieved);
+        Events.Gameplay.RegisterListener(this, GameplayEventType.ButtonOvervieved_Silent);
         
         RemoveInactiveButtons();
         if(_forceActivationOnStart) TimersManager.Instance.FireAfter( 0.3f, Enable );
@@ -62,14 +72,14 @@ public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
         if(Guard.IsValid(this)){
             Events.Gameplay.RiseEvent(
                 new GameplayEvent(
-                    GameplayEventType.ButtonOvervieved, 
+                    GameplayEventType.ButtonOvervieved_Silent, 
                     _buttons[_activeButton]));
         }
     }
 
     private void ProcessTransverseMove(){
         if(_buttons.Length == 1) {
-            if(Input.GetAxisRaw("Vertical") + Input.GetAxisRaw("Horizontal") != 0){
+            if(InputHandler.GetVertical() + InputHandler.GetHorizontal() != 0){
                 Events.Gameplay.RiseEvent(
                     new GameplayEvent(
                         GameplayEventType.ButtonOvervieved, 
@@ -78,7 +88,7 @@ public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
             return;
         }
 
-        float verticalChange = Input.GetAxisRaw("Vertical");
+        float verticalChange = InputHandler.GetVertical();
         if(_elapsedTime <= 0 && Mathf.Abs(verticalChange) > 0.3f && _isVertical){
             _elapsedTime = _reReadTime;
 
@@ -94,11 +104,14 @@ public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
                     _buttons[_activeButton]));
 
 
-            if(currentActiveButton != _activeButton) AudioSystem.Instance.PlayEffect("ButtonChange", 1);
+            if(currentActiveButton != _activeButton) {
+                AudioSystem.Instance.PlayEffect("ButtonChange", 1);
+                Debug.LogWarning("Soruce1");
+            }
             return;
         }
 
-        float horizontalChange = Input.GetAxisRaw("Horizontal");
+        float horizontalChange = InputHandler.GetHorizontal();
         if(_elapsedTime <= 0 && Mathf.Abs(horizontalChange) > 0.3f && _isHorizontal){
             _elapsedTime = _reReadTime;
 
@@ -114,7 +127,10 @@ public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
                     GameplayEventType.ButtonOvervieved, 
                     _buttons[_activeButton]));
 
-            if(currentActiveButton != _activeButton) AudioSystem.Instance.PlayEffect("ButtonChange", 1);
+            if(currentActiveButton != _activeButton) {
+                AudioSystem.Instance.PlayEffect("ButtonChange", 1);
+                Debug.LogWarning("Soruce2");
+            }
         }
     }
 
@@ -125,8 +141,8 @@ public class CButtonSelector : MonoBehaviour, IListenToGameplayEvents
         ProcessTransverseMove();
 
         if(_elapsedTime1 > 0) return;
-        if(Input.GetKeyDown(KeyCode.N) || Input.GetKeyDown(KeyCode.C)) {
-//            Debug.Log(_buttons[_activeButton].name + " PointDown");
+        if(InputHandler.GetKey(InputKey.Confirm)){
+            Debug.Log(_buttons[_activeButton].name + " PointDown");
             _buttons[_activeButton].OnPointerDown(null);
             _elapsedTime1 = _reReadTime;
 

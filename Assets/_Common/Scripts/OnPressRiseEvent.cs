@@ -11,7 +11,7 @@ public class OnPressRiseEvent : MonoBehaviour
         Debug.Log(gameObject.name);
 
         Events.Gameplay.RiseEvent(new GameplayEvent(_eventType));
-        AudioSystem.Instance.PlayEffect("Button", 1);
+        AudioSystem.Instance.PlayEffect("Button", 0.5f);
     }
 
 }

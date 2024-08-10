@@ -56,7 +56,7 @@ public class BLevelsManager : MonoBehaviour, IListenToGameplayEvents
     private void Awake() {
         _instance = this;
         CurrentLevel = 1;
-        PointsCounter.Score = 0;
+        PointsCounter.Reset();
 
         Points = 0;
         HighScoreRanking.LoadRanking(GameType.Berzerk);
@@ -90,8 +90,8 @@ public class BLevelsManager : MonoBehaviour, IListenToGameplayEvents
             return;
         }
 
-        PointsCounter.Score = Points;
-        HighScoreRanking.TryAddNewRecord(Points);
+        PointsCounter.Reset();
+        PointsCounter.AddPoints(PlayerIndex.Player1, Points);
         _outro.OnSceneLoad();
     }
 

@@ -4,19 +4,7 @@ using System;
 using UnityEngine.UI;
 using UnityEngine;
 
-public static class CONSTS
-{
-    public const float FLOAT_EPSILON = 0.01f;
-    public const float ANIMATION_ONE_BLINK_DURAION = 0.5f;
-    public const int BLINK_TIMES_TO_BE_DEAD = 30000000;
-    public const float DIGGING_TIME = 0.6f;
 
-    public const float SHOT_ACTION_LANDED_COLDOWN = 1.0f;
-    public const float SHOT_ACTION_NONLANDED_COLDOWN = 0.5f;
-    public const float SHOT_PUMP_ACTION_COLDOWN = 0.5f;
-    public const float SHOT_LANDING_TIME = 0.5f;
-    public const float DISTANCE_OF_SHOOT = 2.5f;
-};
 
 public enum PlayerStates{
         Idle,
@@ -285,10 +273,10 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
                 break;
         }
 
-        _inputs.x = Input.GetAxisRaw("Horizontal") + _mobileInputs.x;
-        _inputs.y = Input.GetAxisRaw("Vertical")   + _mobileInputs.y;
-        _diggingRequirementsMeet  = Input.GetKey(KeyCode.N);
-        _shootingRequirementsMeet = Input.GetKeyDown(KeyCode.M) && _shootingTimeColdown <= 0;
+        _inputs.x = InputHandler.GetHorizontal() + + _mobileInputs.x;
+        _inputs.y = InputHandler.GetVertical()   + _mobileInputs.y;
+        _diggingRequirementsMeet  = InputHandler.GetKey(InputKey.ActionX);
+        _shootingRequirementsMeet = InputHandler.GetKey(InputKey.ActionZ) && _shootingTimeColdown <= 0;
 
         return ActiveState;
     }

@@ -81,8 +81,8 @@ public class Asteroids : WallThrought
     }
 
     private void ProcessMove(){
-        float horizontal = -Input.GetAxisRaw("Horizontal");
-        float vertical   = Input.GetAxisRaw("Vertical");
+        float horizontal = -InputHandler.GetHorizontal();
+        float vertical   = InputHandler.GetVertical();
 
         ProcessMove_Horizontal(horizontal);
         ProcessMove_Vertical(vertical);
@@ -115,7 +115,7 @@ public class Asteroids : WallThrought
     }
 
     private void ProccesShooting(){
-        if(Input.GetKeyDown(KeyCode.N)){
+        if(InputHandler.GetKey(InputKey.ActionX)){
             Shoot();
         }
     }

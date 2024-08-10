@@ -4,6 +4,10 @@ using UnityEngine;
 using UnityEngine.UI;
 using System;
 
+public interface IActivateOnEnable{
+    void ScreenActivate();
+}
+
 public abstract class ScreenAnimation : CMonoBehaviour, IListenToGameplayEvents{
 
     [Serializable]
@@ -12,7 +16,7 @@ public abstract class ScreenAnimation : CMonoBehaviour, IListenToGameplayEvents{
         [SerializeField] public Color _color;
         [SerializeField] public bool _autoContinue;
         [SerializeField] public bool _hasCustomContinue;
-        [SerializeField] public Component _activateComponent;
+        [SerializeField] public AnimationBoard _board;
         [SerializeField] public float _showTimeDuration = 3f;
         [SerializeField] public float _hideTimeDuration = 1.5f;
         [SerializeField] public float _waitingTimeDuration = 3f;
@@ -48,8 +52,6 @@ public abstract class ScreenAnimation : CMonoBehaviour, IListenToGameplayEvents{
         }
     }
 
-
-
     void Start(){
 
         Events.Gameplay.RegisterListener(this, GameplayEventType.ContinueAnimation);
@@ -70,6 +72,7 @@ public abstract class ScreenAnimation : CMonoBehaviour, IListenToGameplayEvents{
         ActiveAnimation = _screens[_currentIndex];
         ActiveAnimation._image.gameObject.SetActive(true);
         SetState(State.Showing, ActiveAnimation._showTimeDuration);
+        if(Guard.IsValid(ActiveAnimation._board)) ActiveAnimation._board.Enable();
     }
 
     void Update()
@@ -119,9 +122,11 @@ public abstract class ScreenAnimation : CMonoBehaviour, IListenToGameplayEvents{
 
     private void ChangeScreen(int change){
 
+        if(Guard.IsValid(ActiveAnimation._board)) ActiveAnimation._board.Disable();
+        
         if(change > 0){
             if(GetNextScreen()) return;
-        }else{
+        }else if(change < 0){
             if(GetPreviousScreen()) return;
         }
 
@@ -129,6 +134,8 @@ public abstract class ScreenAnimation : CMonoBehaviour, IListenToGameplayEvents{
         ActiveAnimation = _screens[_currentIndex];
         ActiveAnimation._image.transform.position = _startingPoint.position;
         ActiveAnimation._image.gameObject.SetActive(true);
+
+        if(Guard.IsValid(ActiveAnimation._board)) ActiveAnimation._board.Enable();
         SetState(State.Showing, ActiveAnimation._showTimeDuration);
     }
 
@@ -160,11 +167,9 @@ public abstract class ScreenAnimation : CMonoBehaviour, IListenToGameplayEvents{
 
 
         if(_currentIndex >= _screens.Count){
-
             CallInTime(0.5f, () => {
                 if(Guard.IsValid(_loader)) _loader?.OnSceneLoadAsync();
             });
-
 
             CurrentState = State.Inactive;
             return true;
@@ -190,14 +195,10 @@ public abstract class ScreenAnimation : CMonoBehaviour, IListenToGameplayEvents{
         OnStateEnter(CurrentState);
     }
 
-    protected float GetTimeRate(){
-        return Mathf.Max( 0, Mathf.Min(_elapsedTime/_elapsedTime_max));
-    }
-
+    protected float GetTimeRate(){ return Mathf.Max( 0, Mathf.Min(_elapsedTime/_elapsedTime_max)); }
     protected abstract void OnStateEnter(State nextState);
     protected abstract void OnStateExit(State nextState);
-    protected virtual void OnStart(){
-        Initialiaze();
-    }
+    protected virtual void OnStart(){ Initialiaze(); }
     protected abstract void OnStateUpdate();
+    public void IgnoreScreen(int screenIndex, bool ignore){ _screens[screenIndex]._ignore = ignore; }
 }

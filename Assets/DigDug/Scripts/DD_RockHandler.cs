@@ -38,7 +38,7 @@ namespace DigDug{
             _damageBox.SetActive(false);
         }
 
-        public int GetDamage(){ 
+        public float GetDamage(){ 
 //            Debug.Log("Rock -> Damage Delivered");
             return 1; }
             

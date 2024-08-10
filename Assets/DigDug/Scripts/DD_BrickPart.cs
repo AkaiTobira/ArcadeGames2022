@@ -15,7 +15,7 @@ public class DD_BrickPart : MonoBehaviour
         if(other.name.Contains("Box")) return;
 
         gameObject.SetActive(false);
-        PointsCounter.Score += _points;
+        PointsCounter.AddPoints(PlayerIndex.Player1, _points);
     }
 
 }

@@ -6,7 +6,8 @@ public enum LF_EnemyType{
     Knife,
     Rua,
     Rhino,
-    KnifeThrover
+    KnifeThrover,
+    Artilery,
 }
 
 
@@ -29,13 +30,13 @@ public class LF_EnemyHPBarsController : MonoBehaviour
         _controller = this;
     }
 
-    public static void ShowHpBar(LF_EnemyType type, IHasHpBar item, int damage){
+    public static void ShowHpBar(LF_EnemyType type, IHasHpBar item, float damage){
         if(_controller != null){
             _controller.ShowHpBarInternal(type, item, damage);
         }
     }
 
-    public void ShowHpBarInternal(LF_EnemyType type, IHasHpBar item, int damage){
+    public void ShowHpBarInternal(LF_EnemyType type, IHasHpBar item, float damage){
         if(_activeBars.TryGetValue(item, out LF_EnemyHPBar value)){
             value.SetupHp(item.GetCurrentHp()/(float)item.GetMaxHp());
             _timeOfBeeingActive[value] = 4.0f;

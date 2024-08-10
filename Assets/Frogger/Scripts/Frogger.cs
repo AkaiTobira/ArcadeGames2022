@@ -1,8 +1,7 @@
 using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
-using TMPro;
+
 
 public class Frogger : MonoBehaviour
 {
@@ -24,6 +23,8 @@ public class Frogger : MonoBehaviour
     float FRAME_DISTANCE = 1.25f;
 
 
+
+    [SerializeField] PlayerIndex _playerIndex;
     [SerializeField] LayerMask obstacles; 
     [SerializeField] Sprite[] animations;
 
@@ -37,11 +38,10 @@ public class Frogger : MonoBehaviour
         startInstancePosition = transform.position;
     }
 
-
     void Update()
     {
-        float horizontal = Input.GetAxisRaw("Horizontal");
-        float vertical   = Input.GetAxisRaw("Vertical");
+        float horizontal = InputHandler.GetHorizontal(_playerIndex);
+        float vertical   = InputHandler.GetVertical(_playerIndex);
         if(isMoving || isDead) return;
 
         if(Mathf.Abs(horizontal) > 0.05f){
@@ -138,7 +138,7 @@ public class Frogger : MonoBehaviour
             if(!isDead) StartCoroutine(Dead());
         }else if(other.tag.Contains("nd")){
             if(isAlreadyHandled) return;
-            bool values = other.GetComponent<Target>().OnReach();
+            bool values = other.GetComponent<Target>().OnReach(_playerIndex);
             if(values) {
                 StartCoroutine(Reset());
                 AudioSystem.Instance.PlayEffect("Frogger_Landing", 1, true);
@@ -147,7 +147,7 @@ public class Frogger : MonoBehaviour
     }
 
     IEnumerator Dead(){
-        Events.Gameplay.RiseEvent( new GameplayEvent(GameplayEventType.PlayerDied));
+        Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.PlayerDied, _playerIndex));
         
         isDead          = true;
         elapsedDeadTime   = 0;
@@ -164,11 +164,12 @@ public class Frogger : MonoBehaviour
             elapsedDeadTime += Time.deltaTime;
         }
         
-
-        transform.position = startInstancePosition;
-        isDead = false;
-        GetComponent<Image>().sprite = animations[0];
-        AudioSystem.Instance.PlayEffect("Frogger_Lost", 1, true);
+        if(!DoNotRespawn){
+            transform.position = startInstancePosition;
+            isDead = false;
+            GetComponent<Image>().sprite = animations[0];
+            AudioSystem.Instance.PlayEffect("Frogger_Lost", 1, true);
+        }
     }
 
     IEnumerator Reset(){
@@ -195,6 +196,4 @@ public class Frogger : MonoBehaviour
 
         isAlreadyHandled = false;
     }
-
-
 }

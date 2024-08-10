@@ -16,34 +16,33 @@ public class BS_Tower : ESM.SMC_1D<BS_TowerState>,
 {
 
     [SerializeField] BoxCollider2D _hitBox;
-    
-    [SerializeField] GameObject _missle;
-    [SerializeField] GameObject _missleBegin;
-    [SerializeField] Transform _towerHead;
+    [SerializeField] UpgradeType _type;
     [SerializeField] BS_Base _correlatedBase;
     [SerializeField] int _MaxHealthPoints = 30;
     [SerializeField] int _points;
     [SerializeField] GameObject _explodeAnimation;
-
-    private int _health;
-    private bool _shoot;
-
-
-    protected float _movePenalty = 1;
-
     [SerializeField] float _towerRotation = 60;
+    [SerializeField] float _shotDelay = 3.5f;
+    [SerializeField] BS_TowerHeadSelector _towerSelector;
+
+
+    private float _health;
+    private BS_MainTower _turret;
+    private Transform _turretTransform;
+    private float _playerDetectedTimer = 0;
+    private float _shootTimer = 0;
+    private const float TIME_OF_ATTACK = 15f;
+    private BS_Player player = null;
 
     protected override void Awake() {
         base.Awake();
         _health = _MaxHealthPoints;
         _hitBox.gameObject.SetActive(true);
+        _turret = _towerSelector.GetTower(_type, 0);
+        _turretTransform = _towerSelector.transform;
     }
 
-    private float _playerDetectedTimer = 0;
-    private float _shootTimer = 0;
-    
 
-    private const float TIME_OF_ATTACK = 15f;
 
 /*
     public Vector2 RotateVector(Vector2 v, float angle)
@@ -59,7 +58,7 @@ public class BS_Tower : ESM.SMC_1D<BS_TowerState>,
     //    _canStartAttack = false;
     }
 
-    BS_Player player = null;
+    
     public void Detected(MonoBehaviour item){
         _playerDetectedTimer = TIME_OF_ATTACK;
         player = item.GetComponent<BS_Player>();
@@ -87,27 +86,16 @@ public class BS_Tower : ESM.SMC_1D<BS_TowerState>,
 
 
     private void Shoot(){
-        if(_shootTimer > 0) return;
-        _shootTimer = 3.5f;
+        if(_type != UpgradeType.Flamethower && _type != UpgradeType.Laser){
+            if(_shootTimer > 0) return;
+            _shootTimer = _shotDelay;
+        }
 
-        
-        AudioSystem.PlaySample("SpaceBase_GunB", 1, true);
-
-        LF_ColliderSide side = 
-            Instantiate(
-                _missle, 
-                _missleBegin.transform.position, 
-                Quaternion.identity, 
-                transform.parent
-            ).GetComponent<LF_ColliderSide>();
-        side.SetParent(this);
-        side.GetComponent<BS_Missle>().Setup(_towerHead.transform.up);
+        _turret.Shoot(_turretTransform.up, this, true, true);
     }
 
-
-
     private void RotatePatrol(){
-        _towerHead.Rotate(new Vector3(0, 0, _towerRotation * Time.deltaTime));
+        _turretTransform.Rotate(new Vector3(0, 0, _towerRotation * Time.deltaTime));
     }
 
     private void FocusTowerOnPlayer(){
@@ -117,9 +105,10 @@ public class BS_Tower : ESM.SMC_1D<BS_TowerState>,
             return;
         }
 
+        if(_turret.RotationLocked) return;
         Vector3 direction = (player.transform.position - transform.position).normalized;
 
-        Vector3 forwardVector = _towerHead.transform.up;
+        Vector3 forwardVector = _turretTransform.up;
         float currentAngle = Vector3.Angle(forwardVector, -direction);
 
         float change = _towerRotation * Time.deltaTime;
@@ -129,9 +118,9 @@ public class BS_Tower : ESM.SMC_1D<BS_TowerState>,
         Vector3 forwardVectorTemp2 = Quaternion.Euler(0, 0, -change) * forwardVector;
 
         if(currentAngle < Vector3.Angle(forwardVectorTemp1, -direction)) 
-            _towerHead.Rotate(new Vector3(0, 0, change));
+            _turretTransform.Rotate(new Vector3(0, 0, change));
         else if(currentAngle < Vector3.Angle(forwardVectorTemp2, -direction)) 
-            _towerHead.Rotate(new Vector3(0, 0, -change));
+            _turretTransform.Rotate(new Vector3(0, 0, -change));
 
 
 
@@ -147,8 +136,9 @@ public class BS_Tower : ESM.SMC_1D<BS_TowerState>,
             case BS_TowerState.Patrol: break;
             case BS_TowerState.Dead: 
                 _hitBox.gameObject.SetActive(false);
-                _towerHead.gameObject.SetActive(false);
-                PointsCounter.Score += _points;
+                _turretTransform.gameObject.SetActive(false);
+                _turret.RotationLocked = false;
+                PointsCounter.AddPoints(PlayerIndex.Player1, _points);
                 
                 AudioSystem.PlaySample("SpaceBase_Explode", 1, true);
                 _explodeAnimation.SetActive(true);
@@ -178,13 +168,9 @@ public class BS_Tower : ESM.SMC_1D<BS_TowerState>,
         return ActiveState;
     }
 
-    public void TakeDamage(int amount, MonoBehaviour source = null){
-
+    public void TakeDamage(float amount, MonoBehaviour source = null){
         _health -= amount;
         _playerDetectedTimer = TIME_OF_ATTACK;
-
-        Debug.Log("DAmage" + amount);
-
 
 /*
         if( !_ishurt 
@@ -212,8 +198,16 @@ public class BS_Tower : ESM.SMC_1D<BS_TowerState>,
 */
     }
 
-    public int GetDamage(){
-        return 1;
+    public float GetDamage(){
+
+        switch(_type){
+            case UpgradeType.Missle: return 1;
+            case UpgradeType.Laser: return 2 * Time.deltaTime;
+            case UpgradeType.Flamethower: return 8 * Time.deltaTime;
+            case UpgradeType.Mad: return 1;
+        }
+
+        return 0; 
     }
 }
 

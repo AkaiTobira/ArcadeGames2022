@@ -2,24 +2,6 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public interface IHiveMinded{}
-public interface ITakeDamage{
-    void TakeDamage(int amount, MonoBehaviour source = null);
-}
-public interface IDealDamage{
-    int GetDamage();
-}
-
-public interface IHasHpBar{
-    int GetMaxHp();
-    int GetCurrentHp();
-}
-
-public interface IUseDetector{
-    void Detected(MonoBehaviour item);
-    void SignalLost(MonoBehaviour item);
-}
-
 public abstract class LF_EnemyBase<StateType> : 
     ESM.SMC_2D<StateType>, 
     IHiveMinded, 
@@ -44,8 +26,8 @@ where StateType : System.Enum
         public string[]    ColliderName;
     }
 
-    public abstract int GetMaxHp();
-    public abstract int GetCurrentHp();
+    public abstract float GetMaxHp();
+    public abstract float GetCurrentHp();
 
     protected float _startDelay = 0f;
     protected int _enemyLevel;
@@ -65,7 +47,6 @@ where StateType : System.Enum
     }
 
     protected virtual void OnDestroy() {
-        PointsCounter.Score += stats.PointsAquire * (_enemyLevel + 1) ;
         LF_EnemySpawner.Counter --;
     }
 
@@ -133,8 +114,8 @@ where StateType : System.Enum
         if(ResetY) _directions.y = 0;
     }
 
-    public abstract int GetDamage();
-    public virtual void TakeDamage(int amount, MonoBehaviour source = null){}
+    public abstract float GetDamage();
+    public virtual void TakeDamage(float amount, MonoBehaviour source = null){}
 
     protected virtual void ProcessMoveRequirements(Vector3 target){
         Vector3 distance = target - transform.position;

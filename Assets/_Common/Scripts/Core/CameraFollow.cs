@@ -1,4 +1,5 @@
-﻿using System.Collections;
+﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
@@ -17,7 +18,7 @@ public class CameraFollow : MonoBehaviour
 
     [SerializeField] private Vector3 centerOfCamera      = new Vector3(0,0,0);
     [SerializeField] private float zoomOfCamera          = 0;
-    [SerializeField] private Transform followedObject    = null;
+    [SerializeField] private Transform[] followedObject  = null;
     [SerializeField] public  KeyValuePairs LeftClamping  = new KeyValuePairs(false, 0);
     [SerializeField] public KeyValuePairs RightClamping = new KeyValuePairs(false, 0);
     [SerializeField] public KeyValuePairs TopClamping   = new KeyValuePairs(false, 0);
@@ -30,6 +31,7 @@ public class CameraFollow : MonoBehaviour
     float zoomSpeed  = 0;
 
     private Vector3 additonalModificator = new Vector3();
+    private Vector3 objectsPosition = new Vector3();
     public float defaultSize = 0;
 
     [HideInInspector] public float additionalCameraSmoothTime = 0;
@@ -57,19 +59,28 @@ public class CameraFollow : MonoBehaviour
         if( zoom != 0) zoomOfCamera = zoom;
     }
 
-    public void SetNewFollowable( Transform obj){
+    public void SetNewFollowable( Transform[] obj){
         followedObject = obj;
+        UpdateObjectsPosition();
+    }
+
+    private void UpdateObjectsPosition(){
+        objectsPosition = Vector3.zero;
+        for(int i = 0; i < followedObject.Length; i++){
+            objectsPosition += followedObject[i].transform.position;
+        }
+        objectsPosition /= followedObject.Length;
     }
 
     float GetXPosition(){
-        float basePosition = followedObject.position.x - centerOfCamera.x;
+        float basePosition = objectsPosition.x - centerOfCamera.x;
         float minValue = (LeftClamping.enable)  ? LeftClamping.position  : basePosition;
         float maxValue = (RightClamping.enable) ? RightClamping.position : basePosition;
         return Mathf.Clamp( basePosition, minValue, maxValue);
     }
 
     float GetYPosition(){
-        float basePosition = followedObject.position.y - centerOfCamera.y;
+        float basePosition = objectsPosition.y - centerOfCamera.y;
         float minValue = (DownClamping.enable) ? DownClamping.position : basePosition;
         float maxValue = (TopClamping.enable)  ? TopClamping.position  : basePosition;
         return Mathf.Clamp( basePosition, minValue, maxValue);
@@ -85,10 +96,11 @@ public class CameraFollow : MonoBehaviour
 
 
     void Update(){
+        UpdateObjectsPosition();
         DragCenterOfCamera();
         DragZoomOfCamera();
 
-        Vector3 targetPosition = followedObject.position;
+        Vector3 targetPosition = objectsPosition;
         targetPosition.z   = -20;//transform.position.z + centerOfCamera.z;
         targetPosition.x   = GetXPosition();
         targetPosition.y   = GetYPosition();
@@ -128,4 +140,18 @@ public class CameraFollow : MonoBehaviour
         Instance.zoomOfCamera = Instance.defaultSize;
     }
 
+    public void RemoveFollowable(Transform t)
+    {
+        if( followedObject.Length == 1 ) return;
+
+        Transform[] transforms = new Transform[followedObject.Length-1];
+        int i = 0;
+        for(int j = 0; j < followedObject.Length; j++)
+        {
+            if(t == followedObject[j]) continue;
+            transforms[i++] = followedObject[j];
+        }
+
+        SetNewFollowable(transforms);
+    }
 }

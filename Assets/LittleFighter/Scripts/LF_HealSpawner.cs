@@ -3,9 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-interface IPickedUp{
-    void PickedUp();
-}
+
 
 public class LF_HealSpawner : CMonoBehaviour
 {

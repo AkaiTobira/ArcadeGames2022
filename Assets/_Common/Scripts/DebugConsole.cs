@@ -23,9 +23,10 @@
              }
             private void Update() {
                
-                if(Input.GetKeyDown(KeyCode.T)){ 
+                if(InputHandler.GetKey(InputKey.Debug2)){ 
                     myLog = "";
-                    display = !display; }
+                    display = !display; 
+                }
             }
 
 

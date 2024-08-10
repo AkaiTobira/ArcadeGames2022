@@ -4,13 +4,6 @@ using UnityEngine;
 using UnityEngine.UI;
 using TMPro;
 
-public enum GameOver{
-    Victory,
-    Dead,
-    TimesUp,
-    Kill
-}
-
 public class GameOverActivator : MonoBehaviour, IListenToGameplayEvents
 {
     [SerializeField] GameObject[] LoseTextes;
@@ -42,14 +35,6 @@ public class GameOverActivator : MonoBehaviour, IListenToGameplayEvents
                     HighScoreRanking.LoadRanking(GameType.DigDug2);
                     DigDugPlayedMaps.LockMap(LevelManager.SelectedLevel);
                     Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.SpamWithWindow));
-                    /*
-                    TimersManager.Instance.FireAfter( 10.0f, () => {
-                        HighScoreRanking.TryAddNewRecord(TimerCount.ElapsedTime);
-                    } );
-                    TimersManager.Instance.FireAfter( 12.0f, () => {
-                        _sceneLoader.OnSceneLoadAsync();
-                    });
-                    */
                     
                     
                     break;

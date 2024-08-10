@@ -76,7 +76,7 @@ namespace DigDug{
         }
 
 
-        public void TakeDamage(int amount, MonoBehaviour source){
+        public void TakeDamage(float amount, MonoBehaviour source){
 
             CMonoBehaviour cMono = source as CMonoBehaviour;
             Debug.Log(source.transform.parent.name + "/" + source.name + " " + transform.parent.name + "/" + name);
@@ -89,7 +89,7 @@ namespace DigDug{
             }
         }
 
-        public int GetDamage(){
+        public float GetDamage(){
             Debug.Log("Enemy -> Damage Delivered");
             return 1;
         } 
@@ -109,7 +109,7 @@ namespace DigDug{
                 case DD_EnemyStates.Dead:
                     _attackBox.SetActive(false);
                     RequestDisable(0.6f);
-                    PointsCounter.Score += 1000;
+                    PointsCounter.AddPoints(PlayerIndex.Player1, 1000);
                     AudioSystem.PlaySample("DigDug_EnemyDie");
 
                     DD_GameController.ActiveEnemies.Remove(transform.parent.GetComponent<DD_BrickController>());

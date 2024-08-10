@@ -24,7 +24,7 @@ public class MainMenuEscape : MonoBehaviour
     void Update()
     {
         if(loadDelay < 0) return;
-        if( Input.GetKeyDown(KeyCode.V) && 
+        if( InputHandler.GetKey(InputKey.Escape) && 
             startSceneName != SceneManager.GetActiveScene().name){
                 SceneManager.LoadScene(startSceneName, LoadSceneMode.Single);
                 loadDelay = 0.5f;

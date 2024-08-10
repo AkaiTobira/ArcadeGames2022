@@ -31,7 +31,7 @@ public class LF_EnemyRhino : LF_EnemyCore
     }
 
     protected override void OnAttackPrepEnter(){
-        _changeTargetPoint = LF_Player.Player.transform.position;
+        _changeTargetPoint = GetCloserPlayer();
         Vector3 difference = _changeTargetPoint - transform.position;
         Vector3 direction  = difference.normalized;
         _changeTargetPoint = transform.position + (direction * difference.magnitude * 5);

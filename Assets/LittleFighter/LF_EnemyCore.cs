@@ -15,7 +15,7 @@ public enum LF_EnemyCoreState{
 
 public class LF_EnemyCore : LF_EnemyBase<LF_EnemyCoreState>
 {
-    private int _healthPoints = 10;
+    private float _healthPoints = 10;
     private bool _ishurt;
 
     private float _attackDuration;
@@ -33,12 +33,12 @@ public class LF_EnemyCore : LF_EnemyBase<LF_EnemyCoreState>
         ForceState(LF_EnemyCoreState.Idle, true);
     }
 
-    public override int GetCurrentHp()
+    public override float GetCurrentHp()
     {
         return _healthPoints;
     }
 
-    public override int GetMaxHp()
+    public override float GetMaxHp()
     {
         return stats.MaxHealthPoints + (_enemyLevel * stats.AdditionaHpPerLevel);;
     }
@@ -92,6 +92,25 @@ public class LF_EnemyCore : LF_EnemyBase<LF_EnemyCoreState>
 
     protected virtual void UpdateAttack(){}
 
+    protected Vector3 GetCloserPlayer(){
+        Vector3 poz = transform.position;
+        Vector3 playerPos = poz;
+        float distance = 999999999;
+        
+        for(int i = 0; i < (int)PlayerIndex.None; i++){
+            LF_Player player = PlayerList<LF_Player>.Get((PlayerIndex)i);
+            if(player == null || !player.IsAwake || player.IsDead()) continue;
+            Vector3 candidatePos = player.transform.position;
+            float dist = Vector3.SqrMagnitude(candidatePos - poz);
+            if(dist < distance){
+                distance = dist;
+                playerPos = candidatePos;
+            }
+        }
+
+        return playerPos;
+    }
+
     protected override void UpdateState()
     {
         switch(ActiveState){
@@ -99,12 +118,12 @@ public class LF_EnemyCore : LF_EnemyBase<LF_EnemyCoreState>
                 _idleTimer -= Time.deltaTime;
                 _startDelay -= Time.deltaTime;
 
-                ProcessMoveRequirements(LF_Player.Player.transform.position);
+                ProcessMoveRequirements(GetCloserPlayer());
             break;
             case LF_EnemyCoreState.Move: 
                 _moveDuration -= Time.deltaTime;
 
-                ProcessMoveRequirements(LF_Player.Player.transform.position);
+                ProcessMoveRequirements(GetCloserPlayer());
                 ProcessMove(_directions);
             break;
             case LF_EnemyCoreState.Attack : 
@@ -126,21 +145,25 @@ public class LF_EnemyCore : LF_EnemyBase<LF_EnemyCoreState>
         }
     }
 
-    public override int GetDamage()
+    public override float GetDamage()
     {
         PlaySound(stats.hitSounds, true);
         if(ActiveState == LF_EnemyCoreState.Attack) return stats.Damage;
         return 0;
     }
 
-    public override void TakeDamage(int amount, MonoBehaviour source = null)
+    public override void TakeDamage(float amount, MonoBehaviour source = null)
     {
         if(!_ishurt){
-
             PlaySound(stats.hurtSounds, true);
             _healthPoints -= amount;
             LF_EnemyHPBarsController.ShowHpBar(stats.Type, this, amount);
             _ishurt = true;
+        }
+
+        if(_healthPoints < 0 && source != null){
+            IUserControlled user = source.GetComponent<IUserControlled>();
+            PointsCounter.AddPoints(user.GetPlayerIndex(), stats.PointsAquire * (_enemyLevel + 1)) ;
         }
     }
 

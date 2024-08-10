@@ -260,7 +260,7 @@ public class DD_BlocksManager : MonoBehaviour
     }
 #if UNITY_EDITOR
     private void Update() {
-        if(Input.GetKeyDown(KeyCode.B)){
+        if(InputHandler.GetKey(InputKey.Debug1)){
             currentLevel++;
             LoadLevel();
         }

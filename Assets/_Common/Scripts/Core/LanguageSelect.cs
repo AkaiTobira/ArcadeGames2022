@@ -19,7 +19,7 @@ public class LanguageSelect : MonoBehaviour
 
     void Update()
     {
-        float horizontalValue = Input.GetAxisRaw("Horizontal");
+        float horizontalValue = InputHandler.GetHorizontal();
 
         _elapsedTime -= Time.deltaTime;
         if(_elapsedTime <= 0 && Mathf.Abs(horizontalValue) >= 0.2f){
@@ -28,7 +28,7 @@ public class LanguageSelect : MonoBehaviour
             ChangeLanguage((int)Mathf.Sign(horizontalValue));
         }
 
-        if(Input.GetKeyDown(KeyCode.N) || Input.GetKeyDown(KeyCode.C)){
+        if(InputHandler.GetKey(InputKey.Confirm)){
             Events.Gameplay.RiseEvent(GameplayEventType.ContinueAnimation);
         }
     }

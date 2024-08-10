@@ -22,7 +22,7 @@ public class AsteroidSpawner : MonoBehaviour, IListenToGameplayEvents
     };
     private void OnEnable() {
         AsteroidCount = 0;
-        PointsCounter.Score = 0;
+        PointsCounter.Reset();
     }
     private void Start() {
         Events.Gameplay.RegisterListener(this, GameplayEventType.ResizeAsteroids);

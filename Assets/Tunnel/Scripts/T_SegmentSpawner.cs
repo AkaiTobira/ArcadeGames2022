@@ -71,7 +71,7 @@ public class T_SegmentSpawner : MonoBehaviour
     void Update()
     {
 
-        if(Input.GetKeyDown(KeyCode.P)) T_Segment.Stop = !T_Segment.Stop;
+        if(InputHandler.GetKey(InputKey.Pause)) T_Segment.Stop = !T_Segment.Stop;
 
         if(T_Segment.Stop) return;
 
@@ -109,27 +109,28 @@ public class T_SegmentSpawner : MonoBehaviour
             _positions.Add(new Vector3());
         }else{
             randomValue = Random.Range(0,2);
+            float multipler = 0.15f;
             if(randomValue == 0){
                 randomValue = Random.Range(0,2) == 0 ? -2.5f : 2.5f;
 
-                _positions.Add(new Vector3(randomValue * 0.25f, 0));
-                _positions.Add(new Vector3(2.0f * randomValue * 0.25f, 0));
-                _positions.Add(new Vector3(3.0f * randomValue * 0.25f, 0));
+                _positions.Add(new Vector3(randomValue * multipler, 0));
+                _positions.Add(new Vector3(2.0f * randomValue * multipler, 0));
+                _positions.Add(new Vector3(3.0f * randomValue * multipler, 0));
                 _positions.Add(new Vector3(randomValue, 0));
-                _positions.Add(new Vector3(3.0f * randomValue * 0.25f, 0));
-                _positions.Add(new Vector3(2.0f * randomValue * 0.25f, 0));
-                _positions.Add(new Vector3(randomValue * 0.25f, 0));
+                _positions.Add(new Vector3(3.0f * randomValue * multipler, 0));
+                _positions.Add(new Vector3(2.0f * randomValue * multipler, 0));
+                _positions.Add(new Vector3(randomValue * multipler, 0));
                 _positions.Add(new Vector3(0, 0));
             }else{
                 randomValue = Random.Range(0,2) == 0 ? -2.5f : 2.5f;
 
-                _positions.Add(new Vector3(0, randomValue * 0.25f, 0));
-                _positions.Add(new Vector3(0, 2.0f * randomValue * 0.25f, 0));
-                _positions.Add(new Vector3(0, 3.0f * randomValue * 0.25f, 0));
+                _positions.Add(new Vector3(0, randomValue * multipler, 0));
+                _positions.Add(new Vector3(0, 2.0f * randomValue * multipler, 0));
+                _positions.Add(new Vector3(0, 3.0f * randomValue * multipler, 0));
                 _positions.Add(new Vector3(0, randomValue, 0));
-                _positions.Add(new Vector3(0, 3.0f * randomValue * 0.25f, 0));
-                _positions.Add(new Vector3(0, 2.0f * randomValue * 0.25f, 0));
-                _positions.Add(new Vector3(0, randomValue * 0.25f, 0));
+                _positions.Add(new Vector3(0, 3.0f * randomValue * multipler, 0));
+                _positions.Add(new Vector3(0, 2.0f * randomValue * multipler, 0));
+                _positions.Add(new Vector3(0, randomValue * multipler, 0));
                 _positions.Add(new Vector3(0, 0, 0));
             }
         }

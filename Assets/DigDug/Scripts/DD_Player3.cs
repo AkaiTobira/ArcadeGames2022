@@ -95,9 +95,9 @@ namespace DigDug{
         }
 
         private void ProcessInputsMove(){
-            _inputs.x = Input.GetAxisRaw("Horizontal");
-            _inputs.y = Input.GetAxisRaw("Vertical");
-            _shoot    = Input.GetKeyDown(KeyCode.N);
+            _inputs.x = InputHandler.GetHorizontal();
+            _inputs.y = InputHandler.GetVertical();
+            _shoot    = InputHandler.GetKey(InputKey.ActionX);
 
             switch(_pressedDirection){
                 case AnimationSide.Common:
@@ -177,7 +177,7 @@ namespace DigDug{
             }
         }
 
-        public void TakeDamage(int amount, MonoBehaviour source){
+        public void TakeDamage(float amount, MonoBehaviour source){
             _isDead = true;
         }
 
@@ -454,7 +454,7 @@ namespace DigDug{
                     break;
             }
 
-            _shootingRequirementsMeet = Input.GetKeyDown(KeyCode.M) && _shootingTimeColdown <= 0;
+            _shootingRequirementsMeet = InputHandler.GetKey(InputKey.ActionZ) && _shootingTimeColdown <= 0;
 
             return ActiveState;
         }

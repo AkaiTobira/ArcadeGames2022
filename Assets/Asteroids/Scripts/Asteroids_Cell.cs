@@ -95,7 +95,6 @@ public class Asteroids_Cell : Asteroids
 
             if( (CurruptedParts[0] + CurruptedParts[1] + CurruptedParts[2]) >= 7 ){
                 HighScoreRanking.LoadRanking(GameType.Asteroids);
-                HighScoreRanking.TryAddNewRecord(PointsCounter.Score);
                 Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.GameOver));
                 enabled = false;
 
