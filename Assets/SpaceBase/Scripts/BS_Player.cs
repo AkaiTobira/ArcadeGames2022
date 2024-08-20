@@ -113,9 +113,9 @@ public class BS_Player : ESM.SMC_1D<BS_PlayerState>,
 
     private void ProcessInputsMove(){
         _inputs.x = InputHandler.GetHorizontal();
-        _inputs.y = InputHandler.GetKey(InputKey.ActionZ, false) ? 1.0f : 0.0f;
-        _shoot    = InputHandler.GetKey(InputKey.ActionX);
-        _shootCon = InputHandler.GetKey(InputKey.ActionX, false);
+        _inputs.y = InputHandler.GetKey(InputKey.Action_1_Player1, false) ? 1.0f : 0.0f;
+        _shoot    = InputHandler.GetKey(InputKey.Action_2_Player1);
+        _shootCon = InputHandler.GetKey(InputKey.Action_2_Player1, false);
     }
 
     private void RotateTowerHead(){

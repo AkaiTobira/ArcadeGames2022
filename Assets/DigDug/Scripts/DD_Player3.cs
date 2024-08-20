@@ -97,7 +97,7 @@ namespace DigDug{
         private void ProcessInputsMove(){
             _inputs.x = InputHandler.GetHorizontal();
             _inputs.y = InputHandler.GetVertical();
-            _shoot    = InputHandler.GetKey(InputKey.ActionX);
+            _shoot    = InputHandler.GetKey(InputKey.Action_2_Player1);
 
             switch(_pressedDirection){
                 case AnimationSide.Common:
@@ -454,7 +454,7 @@ namespace DigDug{
                     break;
             }
 
-            _shootingRequirementsMeet = InputHandler.GetKey(InputKey.ActionZ) && _shootingTimeColdown <= 0;
+            _shootingRequirementsMeet = InputHandler.GetKey(InputKey.Action_1_Player1) && _shootingTimeColdown <= 0;
 
             return ActiveState;
         }

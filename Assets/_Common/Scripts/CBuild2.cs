@@ -425,6 +425,66 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, "Frogger");
 	}
 
+	[MenuItem("Build/Rebuild/Garden/StandaloneLinux64")]
+	public static void BuildGardenStandaloneLinux64(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildGame(Game.Garden, BuildTargetGroup.Standalone, BuildTarget.StandaloneLinux64);
+		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneLinux64");
+	}
+
+	[MenuItem("Build/Rebuild/Garden/StandaloneWindows")]
+	public static void BuildGardenStandaloneWindows(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildGame(Game.Garden, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows");
+	}
+
+	[MenuItem("Build/Rebuild/Garden/StandaloneWindows64")]
+	public static void BuildGardenStandaloneWindows64(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildGame(Game.Garden, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
+		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows64");
+	}
+
+	[MenuItem("Build/Rebuild/Garden/WebGL")]
+	public static void BuildGardenWebGL(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildGame(Game.Garden, BuildTargetGroup.WebGL, BuildTarget.WebGL);
+		PrintTimeFormatted(GetCurrentTime() - time, "WebGL");
+	}
+
+	[MenuItem("Build/Rebuild/Garden/Android")]
+	public static void BuildGardenAndroid(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildGame(Game.Garden, BuildTargetGroup.Android, BuildTarget.Android);
+		PrintTimeFormatted(GetCurrentTime() - time, "Android");
+	}
+
+	[MenuItem("Build/Rebuild/Garden/All")]
+	public static void BuildGardenAll(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildForAllPlayfroms(Game.Garden);
+		PrintTimeFormatted(GetCurrentTime() - time, "Garden");
+	}
+
 	[MenuItem("Build/Rebuild/LittleFighter/StandaloneLinux64")]
 	public static void BuildLittleFighterStandaloneLinux64(){
 		FillScenes();

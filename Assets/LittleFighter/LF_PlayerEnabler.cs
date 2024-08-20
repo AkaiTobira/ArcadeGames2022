@@ -33,7 +33,7 @@ public class LF_PlayerEnabler : MonoBehaviour
     }
 
     void Update(){
-        if(!_isPlayerActive && InputHandler.GetKey(InputKey.Player2Start)){
+        if(!_isPlayerActive && InputHandler.GetKey(InputKey.Action_Any_Player2)){
             ActivatePlayer();
         }
     }

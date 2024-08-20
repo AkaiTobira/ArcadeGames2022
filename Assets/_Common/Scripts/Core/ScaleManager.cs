@@ -49,9 +49,9 @@ public class ScaleManager : IActionManager<ScaleAction>
             action.ElapsedTime       = 0;
             action.Instance          = toScale;
             action.OnActionEnd       = OnEnd;
-            action.ActionID          = actionCounter;
+            action.ActionID          = Action_3_Player1ounter;
             activeActions++;
-            return actionCounter++;
+            return Action_3_Player1ounter++;
         }
 
         _actions.Add(
@@ -62,11 +62,11 @@ public class ScaleManager : IActionManager<ScaleAction>
                 ElapsedTime = 0,
                 Instance = toScale,
                 OnActionEnd = OnEnd,
-                ActionID = actionCounter
+                ActionID = Action_3_Player1ounter
             }
         );
         activeActions++;
-        return actionCounter++;
+        return Action_3_Player1ounter++;
     }
 
     #region interfaces

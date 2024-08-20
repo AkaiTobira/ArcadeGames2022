@@ -275,8 +275,8 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
 
         _inputs.x = InputHandler.GetHorizontal() + + _mobileInputs.x;
         _inputs.y = InputHandler.GetVertical()   + _mobileInputs.y;
-        _diggingRequirementsMeet  = InputHandler.GetKey(InputKey.ActionX);
-        _shootingRequirementsMeet = InputHandler.GetKey(InputKey.ActionZ) && _shootingTimeColdown <= 0;
+        _diggingRequirementsMeet  = InputHandler.GetKey(InputKey.Action_2_Player1);
+        _shootingRequirementsMeet = InputHandler.GetKey(InputKey.Action_1_Player1) && _shootingTimeColdown <= 0;
 
         return ActiveState;
     }

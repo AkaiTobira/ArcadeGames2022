@@ -19,6 +19,8 @@ public enum GameplayEventType{
     ReverseAnimation, //sick idea of client
     UpdateButtonGraphics,
     ButtonOvervieved_Silent,
+    GenerateKeys,
+    EndGenerateKeys,
 }
 
 public static class Events{

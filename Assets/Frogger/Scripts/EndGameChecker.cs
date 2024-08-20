@@ -90,7 +90,7 @@ public class EndGameChecker : CUpdateMonoBehaviour, IListenToGameplayEvents
     public override void CUpdate()
     {
         if(!enabled) return;
-        if(!player2Active && InputHandler.GetKey(InputKey.Player2Start))
+        if(!player2Active && InputHandler.GetKey(InputKey.Action_Any_Player2))
         {
             player2Active = true;
             _frogger2.gameObject.SetActive(true);

@@ -9,6 +9,7 @@ public enum GameType{
     SpaceBase,
     Tunnel,
     DigDug,
+    Garden,
 }
 
 public enum GameOver{

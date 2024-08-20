@@ -31,7 +31,7 @@ where T : IAction
     protected List<T> _actions = new List<T>();
     
     protected int activeActions = 0;
-    protected int actionCounter = 0;
+    protected int Action_3_Player1ounter = 0;
 
     const int MAX_ACTIONS_PER_FRAME = 75;
     private int updateInterval = 0;

@@ -22,6 +22,7 @@ public static class HighScoreRanking{
         {GameType.SpaceBase, false},
         {GameType.Tunnel, false},
         {GameType.DigDug, false},
+        {GameType.Garden, false},
     };
 
     private static List<KeyValuePair<int, string>> _ranking = new List<KeyValuePair<int, string>>();

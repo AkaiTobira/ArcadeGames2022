@@ -81,6 +81,8 @@ public static class SceneFlowController
                 "GameSelect2"
 #elif TUNNEL_GAME
                 "TunnelMain"
+#elif GARDEN_GAME
+                "GardenMain"
 #elif ALL_GAMES
                 "GameSelect3"
 #elif SIX_GAMES

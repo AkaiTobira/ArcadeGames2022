@@ -13,32 +13,33 @@ public enum PlayerIndex
 public enum InputKey
 {
     //Both players
-    ActionZBoth,
-    ActionXBoth,
-    ActionCBoth,
-    UnusedJBoth,
-    UnusedKBoth,
-    UnusedLBoth,
+    Action_1_Both,
+    Action_2_Both,
+    Action_3_Both,
+    Action_4_Both,
+    Action_5_Both,
+    Action_6_Both,
     //Player1
-    ActionZ, 
-    ActionX, 
-    ActionC, 
+    Action_1_Player1, 
+    Action_2_Player1, 
+    Action_3_Player1, 
     // Player2
-    ActionV, 
-    ActionB, 
-    ActionN, 
+    Action_1_Player2, 
+    Action_2_Player2, 
+    Action_3_Player2, 
     // Unused but defined
-    UnusedY, 
-    UnusedU, 
-    UnusedI, 
-    UnusedJ, 
-    UnusedK, 
-    UnusedL, 
+    Action_4_Player1, 
+    Action_5_Player1, 
+    Action_6_Player1, 
+    Action_4_Player2, 
+    Action_5_Player2, 
+    Action_6_Player2, 
     // System
     Pause, 
     Escape, 
     Confirm, // One of all actions and unused of players
-    Player2Start,
+    Action_Any_Player2,
+    Action_Any_Player1,
     // Debug
     Debug1, 
     Debug2,
@@ -48,30 +49,31 @@ public static class InputHandler
 {
     private static Dictionary<InputKey, List<KeyCode>> KeyBindings = new Dictionary<InputKey, List<KeyCode>>()
     {
-       { InputKey.ActionZ,      new List<KeyCode>(){KeyCode.Z,} },
-       { InputKey.ActionX,      new List<KeyCode>(){KeyCode.X,} },
-       { InputKey.ActionC,      new List<KeyCode>(){KeyCode.C,} },
-       { InputKey.ActionV,      new List<KeyCode>(){KeyCode.V,} },
-       { InputKey.ActionB,      new List<KeyCode>(){KeyCode.B,} },
-       { InputKey.ActionN,      new List<KeyCode>(){KeyCode.N,} },
-       { InputKey.UnusedJ,      new List<KeyCode>(){KeyCode.J,} },
-       { InputKey.UnusedK,      new List<KeyCode>(){KeyCode.K,} },
-       { InputKey.UnusedL,      new List<KeyCode>(){KeyCode.L,} },
-       { InputKey.UnusedU,      new List<KeyCode>(){KeyCode.U,} },
-       { InputKey.UnusedY,      new List<KeyCode>(){KeyCode.I,} },
-       { InputKey.UnusedI,      new List<KeyCode>(){KeyCode.O,} },
-       { InputKey.Escape,       new List<KeyCode>(){KeyCode.M,} },
-       { InputKey.Pause,        new List<KeyCode>(){KeyCode.P,} },
-       { InputKey.Debug1,       new List<KeyCode>(){KeyCode.Q,} },
-       { InputKey.Debug2,       new List<KeyCode>(){KeyCode.E,} },
-       { InputKey.Confirm,      new List<KeyCode>(){KeyCode.Z, KeyCode.X, KeyCode.C, KeyCode.V, KeyCode.B, KeyCode.N, KeyCode.L, KeyCode.J, KeyCode.K, KeyCode.U, KeyCode.O, KeyCode.I} },
-       { InputKey.Player2Start, new List<KeyCode>(){KeyCode.V, KeyCode.B, KeyCode.N,KeyCode.U, KeyCode.O, KeyCode.I,}},
-       { InputKey.ActionZBoth,  new List<KeyCode>(){KeyCode.Z, KeyCode.V}},
-       { InputKey.ActionXBoth,  new List<KeyCode>(){KeyCode.X, KeyCode.B}},
-       { InputKey.ActionCBoth,  new List<KeyCode>(){KeyCode.C, KeyCode.N}},
-       { InputKey.UnusedJBoth,  new List<KeyCode>(){KeyCode.J, KeyCode.U}},
-       { InputKey.UnusedKBoth,  new List<KeyCode>(){KeyCode.K, KeyCode.I}},
-       { InputKey.UnusedLBoth,  new List<KeyCode>(){KeyCode.L, KeyCode.O}},
+       { InputKey.Action_1_Player1,   new List<KeyCode>(){KeyCode.Z,} },
+       { InputKey.Action_2_Player1,   new List<KeyCode>(){KeyCode.X,} },
+       { InputKey.Action_3_Player1,   new List<KeyCode>(){KeyCode.C,} },
+       { InputKey.Action_1_Player2,   new List<KeyCode>(){KeyCode.V,} },
+       { InputKey.Action_2_Player2,   new List<KeyCode>(){KeyCode.B,} },
+       { InputKey.Action_3_Player2,   new List<KeyCode>(){KeyCode.N,} },
+       { InputKey.Action_4_Player2,   new List<KeyCode>(){KeyCode.J,} },
+       { InputKey.Action_5_Player2,   new List<KeyCode>(){KeyCode.K,} },
+       { InputKey.Action_6_Player2,   new List<KeyCode>(){KeyCode.L,} },
+       { InputKey.Action_5_Player1,   new List<KeyCode>(){KeyCode.U,} },
+       { InputKey.Action_4_Player1,   new List<KeyCode>(){KeyCode.I,} },
+       { InputKey.Action_6_Player1,   new List<KeyCode>(){KeyCode.O,} },
+       { InputKey.Escape,             new List<KeyCode>(){KeyCode.M,} },
+       { InputKey.Pause,              new List<KeyCode>(){KeyCode.P,} },
+       { InputKey.Debug1,             new List<KeyCode>(){KeyCode.Q,} },
+       { InputKey.Debug2,             new List<KeyCode>(){KeyCode.E,} },
+       { InputKey.Confirm,            new List<KeyCode>(){KeyCode.Z, KeyCode.X, KeyCode.C, KeyCode.V, KeyCode.B, KeyCode.N, KeyCode.L, KeyCode.J, KeyCode.K, KeyCode.U, KeyCode.O, KeyCode.I} },
+       { InputKey.Action_Any_Player2, new List<KeyCode>(){KeyCode.V, KeyCode.B, KeyCode.N,KeyCode.U, KeyCode.O, KeyCode.I,}},
+       { InputKey.Action_Any_Player1, new List<KeyCode>(){KeyCode.Z, KeyCode.X, KeyCode.C,KeyCode.J, KeyCode.K, KeyCode.L,}},
+       { InputKey.Action_1_Both,      new List<KeyCode>(){KeyCode.Z, KeyCode.V}},
+       { InputKey.Action_2_Both,      new List<KeyCode>(){KeyCode.X, KeyCode.B}},
+       { InputKey.Action_3_Both,      new List<KeyCode>(){KeyCode.C, KeyCode.N}},
+       { InputKey.Action_4_Both,      new List<KeyCode>(){KeyCode.J, KeyCode.U}},
+       { InputKey.Action_5_Both,      new List<KeyCode>(){KeyCode.K, KeyCode.I}},
+       { InputKey.Action_6_Both,      new List<KeyCode>(){KeyCode.L, KeyCode.O}},
     };
 
     public static float GetHorizontal(PlayerIndex index = PlayerIndex.None){
@@ -80,7 +82,10 @@ public static class InputHandler
             case PlayerIndex.Player2: return Input.GetAxisRaw("Horizontal2");
         }
 
-        return Math.Min(Math.Max(-1, Input.GetAxisRaw("Horizontal") + Input.GetAxisRaw("Horizontal2")), 1);
+        float sum = Input.GetAxisRaw("Horizontal") + Input.GetAxisRaw("Horizontal2");
+        if(Mathf.Abs(sum) < 0.01f){ return 0; }
+        if(Mathf.Abs(sum) <= 1f) { return sum; }
+        return Math.Sign(sum);
     }
 
     public static float GetVertical(PlayerIndex index = PlayerIndex.None){
@@ -89,7 +94,10 @@ public static class InputHandler
             case PlayerIndex.Player2: return Input.GetAxisRaw("Vertical2");
         }
 
-        return Math.Min(Math.Max(-1, Input.GetAxisRaw("Vertical") + Input.GetAxisRaw("Vertical2")), 1);
+        float sum = Input.GetAxisRaw("Vertical") + Input.GetAxisRaw("Vertical2");
+        if(Mathf.Abs(sum) < 0.01f){ return 0; }
+        if(Mathf.Abs(sum) <= 1f) { return sum; }
+        return Math.Sign(sum);
     }
 
     public static bool GetKey(InputKey key, bool keyDown = true)

@@ -182,7 +182,8 @@ TextureImporter:
     edges: []
     weights: []
     secondaryTextures: []
-    nameFileIdTable: {}
+    nameFileIdTable:
+      cosmoguy_0: 5376713811073789503
   mipmapLimitGroupName: 
   pSDRemoveMatte: 0
   userData: 

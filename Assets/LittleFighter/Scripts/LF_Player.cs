@@ -21,10 +21,10 @@ public static class LF_PlayerInput{
 
     private static List<(InputKey, long)> _scanned = new List<(InputKey, long)>();
     private static List<InputKey> _keys = new List<InputKey>{
-        InputKey.ActionX,
-        InputKey.ActionZ,
-        InputKey.ActionV,
-        InputKey.ActionB,
+        InputKey.Action_2_Player1,
+        InputKey.Action_1_Player1,
+        InputKey.Action_1_Player2,
+        InputKey.Action_2_Player2,
     };
 
     private static long GetCurrentTime(){
@@ -479,14 +479,14 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
         LF_PlayerInput.Scan();
 
         if(_playerIndex == PlayerIndex.Player1){
-            _canSpecial = LF_PlayerInput.GetPressed(new InputKey[] { InputKey.ActionX, InputKey.ActionZ });
-            _canPunch   = LF_PlayerInput.GetPressed(InputKey.ActionX);
-            _canKick    = LF_PlayerInput.GetPressed(InputKey.ActionZ);
+            _canSpecial = LF_PlayerInput.GetPressed(new InputKey[] { InputKey.Action_2_Player1, InputKey.Action_1_Player1 });
+            _canPunch   = LF_PlayerInput.GetPressed(InputKey.Action_2_Player1);
+            _canKick    = LF_PlayerInput.GetPressed(InputKey.Action_1_Player1);
         }
         else if(_playerIndex == PlayerIndex.Player2){
-            _canSpecial = LF_PlayerInput.GetPressed(new InputKey[] { InputKey.ActionV, InputKey.ActionB });
-            _canPunch   = LF_PlayerInput.GetPressed(InputKey.ActionV);
-            _canKick    = LF_PlayerInput.GetPressed(InputKey.ActionB);    
+            _canSpecial = LF_PlayerInput.GetPressed(new InputKey[] { InputKey.Action_1_Player2, InputKey.Action_2_Player2 });
+            _canPunch   = LF_PlayerInput.GetPressed(InputKey.Action_1_Player2);
+            _canKick    = LF_PlayerInput.GetPressed(InputKey.Action_2_Player2);    
         }
     }
 

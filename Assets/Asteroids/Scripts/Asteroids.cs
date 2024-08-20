@@ -115,7 +115,7 @@ public class Asteroids : WallThrought
     }
 
     private void ProccesShooting(){
-        if(InputHandler.GetKey(InputKey.ActionX)){
+        if(InputHandler.GetKey(InputKey.Action_2_Player1)){
             Shoot();
         }
     }
