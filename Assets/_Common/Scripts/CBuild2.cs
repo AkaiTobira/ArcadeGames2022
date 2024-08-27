@@ -2,6 +2,10 @@
 //AFTER ADD NEW GAME REGENEREATE BY BUILD/GENERATEINTERFACE
 using UnityEditor;
 
+#if UNITY_EDITOR
+using UnityEditor.Build;
+
+#endif
 
 public static partial class CBuild{
 #if UNITY_EDITOR
@@ -11,7 +15,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.AllForOne, BuildTargetGroup.Standalone, BuildTarget.StandaloneLinux64);
+		BuildGame(Game.AllForOne, NamedBuildTarget.Standalone, BuildTarget.StandaloneLinux64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneLinux64");
 	}
 
@@ -21,7 +25,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.AllForOne, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+		BuildGame(Game.AllForOne, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows");
 	}
 
@@ -31,7 +35,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.AllForOne, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
+		BuildGame(Game.AllForOne, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows64");
 	}
 
@@ -41,7 +45,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.AllForOne, BuildTargetGroup.WebGL, BuildTarget.WebGL);
+		BuildGame(Game.AllForOne, NamedBuildTarget.WebGL, BuildTarget.WebGL);
 		PrintTimeFormatted(GetCurrentTime() - time, "WebGL");
 	}
 
@@ -51,7 +55,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.AllForOne, BuildTargetGroup.Android, BuildTarget.Android);
+		BuildGame(Game.AllForOne, NamedBuildTarget.Android, BuildTarget.Android);
 		PrintTimeFormatted(GetCurrentTime() - time, "Android");
 	}
 
@@ -71,7 +75,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Asteroids, BuildTargetGroup.Standalone, BuildTarget.StandaloneLinux64);
+		BuildGame(Game.Asteroids, NamedBuildTarget.Standalone, BuildTarget.StandaloneLinux64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneLinux64");
 	}
 
@@ -81,7 +85,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Asteroids, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+		BuildGame(Game.Asteroids, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows");
 	}
 
@@ -91,7 +95,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Asteroids, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
+		BuildGame(Game.Asteroids, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows64");
 	}
 
@@ -101,7 +105,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Asteroids, BuildTargetGroup.WebGL, BuildTarget.WebGL);
+		BuildGame(Game.Asteroids, NamedBuildTarget.WebGL, BuildTarget.WebGL);
 		PrintTimeFormatted(GetCurrentTime() - time, "WebGL");
 	}
 
@@ -111,7 +115,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Asteroids, BuildTargetGroup.Android, BuildTarget.Android);
+		BuildGame(Game.Asteroids, NamedBuildTarget.Android, BuildTarget.Android);
 		PrintTimeFormatted(GetCurrentTime() - time, "Android");
 	}
 
@@ -131,7 +135,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Berzerk, BuildTargetGroup.Standalone, BuildTarget.StandaloneLinux64);
+		BuildGame(Game.Berzerk, NamedBuildTarget.Standalone, BuildTarget.StandaloneLinux64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneLinux64");
 	}
 
@@ -141,7 +145,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Berzerk, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+		BuildGame(Game.Berzerk, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows");
 	}
 
@@ -151,7 +155,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Berzerk, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
+		BuildGame(Game.Berzerk, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows64");
 	}
 
@@ -161,7 +165,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Berzerk, BuildTargetGroup.WebGL, BuildTarget.WebGL);
+		BuildGame(Game.Berzerk, NamedBuildTarget.WebGL, BuildTarget.WebGL);
 		PrintTimeFormatted(GetCurrentTime() - time, "WebGL");
 	}
 
@@ -171,7 +175,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Berzerk, BuildTargetGroup.Android, BuildTarget.Android);
+		BuildGame(Game.Berzerk, NamedBuildTarget.Android, BuildTarget.Android);
 		PrintTimeFormatted(GetCurrentTime() - time, "Android");
 	}
 
@@ -191,7 +195,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.DigDug, BuildTargetGroup.Standalone, BuildTarget.StandaloneLinux64);
+		BuildGame(Game.DigDug, NamedBuildTarget.Standalone, BuildTarget.StandaloneLinux64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneLinux64");
 	}
 
@@ -201,7 +205,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.DigDug, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+		BuildGame(Game.DigDug, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows");
 	}
 
@@ -211,7 +215,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.DigDug, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
+		BuildGame(Game.DigDug, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows64");
 	}
 
@@ -221,7 +225,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.DigDug, BuildTargetGroup.WebGL, BuildTarget.WebGL);
+		BuildGame(Game.DigDug, NamedBuildTarget.WebGL, BuildTarget.WebGL);
 		PrintTimeFormatted(GetCurrentTime() - time, "WebGL");
 	}
 
@@ -231,7 +235,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.DigDug, BuildTargetGroup.Android, BuildTarget.Android);
+		BuildGame(Game.DigDug, NamedBuildTarget.Android, BuildTarget.Android);
 		PrintTimeFormatted(GetCurrentTime() - time, "Android");
 	}
 
@@ -251,7 +255,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.DigDug2, BuildTargetGroup.Standalone, BuildTarget.StandaloneLinux64);
+		BuildGame(Game.DigDug2, NamedBuildTarget.Standalone, BuildTarget.StandaloneLinux64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneLinux64");
 	}
 
@@ -261,7 +265,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.DigDug2, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+		BuildGame(Game.DigDug2, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows");
 	}
 
@@ -271,7 +275,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.DigDug2, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
+		BuildGame(Game.DigDug2, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows64");
 	}
 
@@ -281,7 +285,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.DigDug2, BuildTargetGroup.WebGL, BuildTarget.WebGL);
+		BuildGame(Game.DigDug2, NamedBuildTarget.WebGL, BuildTarget.WebGL);
 		PrintTimeFormatted(GetCurrentTime() - time, "WebGL");
 	}
 
@@ -291,7 +295,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.DigDug2, BuildTargetGroup.Android, BuildTarget.Android);
+		BuildGame(Game.DigDug2, NamedBuildTarget.Android, BuildTarget.Android);
 		PrintTimeFormatted(GetCurrentTime() - time, "Android");
 	}
 
@@ -311,7 +315,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Four1, BuildTargetGroup.Standalone, BuildTarget.StandaloneLinux64);
+		BuildGame(Game.Four1, NamedBuildTarget.Standalone, BuildTarget.StandaloneLinux64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneLinux64");
 	}
 
@@ -321,7 +325,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Four1, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+		BuildGame(Game.Four1, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows");
 	}
 
@@ -331,7 +335,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Four1, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
+		BuildGame(Game.Four1, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows64");
 	}
 
@@ -341,7 +345,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Four1, BuildTargetGroup.WebGL, BuildTarget.WebGL);
+		BuildGame(Game.Four1, NamedBuildTarget.WebGL, BuildTarget.WebGL);
 		PrintTimeFormatted(GetCurrentTime() - time, "WebGL");
 	}
 
@@ -351,7 +355,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Four1, BuildTargetGroup.Android, BuildTarget.Android);
+		BuildGame(Game.Four1, NamedBuildTarget.Android, BuildTarget.Android);
 		PrintTimeFormatted(GetCurrentTime() - time, "Android");
 	}
 
@@ -371,7 +375,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Frogger, BuildTargetGroup.Standalone, BuildTarget.StandaloneLinux64);
+		BuildGame(Game.Frogger, NamedBuildTarget.Standalone, BuildTarget.StandaloneLinux64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneLinux64");
 	}
 
@@ -381,7 +385,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Frogger, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+		BuildGame(Game.Frogger, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows");
 	}
 
@@ -391,7 +395,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Frogger, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
+		BuildGame(Game.Frogger, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows64");
 	}
 
@@ -401,7 +405,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Frogger, BuildTargetGroup.WebGL, BuildTarget.WebGL);
+		BuildGame(Game.Frogger, NamedBuildTarget.WebGL, BuildTarget.WebGL);
 		PrintTimeFormatted(GetCurrentTime() - time, "WebGL");
 	}
 
@@ -411,7 +415,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Frogger, BuildTargetGroup.Android, BuildTarget.Android);
+		BuildGame(Game.Frogger, NamedBuildTarget.Android, BuildTarget.Android);
 		PrintTimeFormatted(GetCurrentTime() - time, "Android");
 	}
 
@@ -431,7 +435,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Garden, BuildTargetGroup.Standalone, BuildTarget.StandaloneLinux64);
+		BuildGame(Game.Garden, NamedBuildTarget.Standalone, BuildTarget.StandaloneLinux64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneLinux64");
 	}
 
@@ -441,7 +445,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Garden, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+		BuildGame(Game.Garden, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows");
 	}
 
@@ -451,7 +455,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Garden, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
+		BuildGame(Game.Garden, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows64");
 	}
 
@@ -461,7 +465,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Garden, BuildTargetGroup.WebGL, BuildTarget.WebGL);
+		BuildGame(Game.Garden, NamedBuildTarget.WebGL, BuildTarget.WebGL);
 		PrintTimeFormatted(GetCurrentTime() - time, "WebGL");
 	}
 
@@ -471,7 +475,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Garden, BuildTargetGroup.Android, BuildTarget.Android);
+		BuildGame(Game.Garden, NamedBuildTarget.Android, BuildTarget.Android);
 		PrintTimeFormatted(GetCurrentTime() - time, "Android");
 	}
 
@@ -491,7 +495,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.LittleFighter, BuildTargetGroup.Standalone, BuildTarget.StandaloneLinux64);
+		BuildGame(Game.LittleFighter, NamedBuildTarget.Standalone, BuildTarget.StandaloneLinux64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneLinux64");
 	}
 
@@ -501,7 +505,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.LittleFighter, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+		BuildGame(Game.LittleFighter, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows");
 	}
 
@@ -511,7 +515,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.LittleFighter, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
+		BuildGame(Game.LittleFighter, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows64");
 	}
 
@@ -521,7 +525,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.LittleFighter, BuildTargetGroup.WebGL, BuildTarget.WebGL);
+		BuildGame(Game.LittleFighter, NamedBuildTarget.WebGL, BuildTarget.WebGL);
 		PrintTimeFormatted(GetCurrentTime() - time, "WebGL");
 	}
 
@@ -531,7 +535,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.LittleFighter, BuildTargetGroup.Android, BuildTarget.Android);
+		BuildGame(Game.LittleFighter, NamedBuildTarget.Android, BuildTarget.Android);
 		PrintTimeFormatted(GetCurrentTime() - time, "Android");
 	}
 
@@ -551,7 +555,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.NineGames, BuildTargetGroup.Standalone, BuildTarget.StandaloneLinux64);
+		BuildGame(Game.NineGames, NamedBuildTarget.Standalone, BuildTarget.StandaloneLinux64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneLinux64");
 	}
 
@@ -561,7 +565,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.NineGames, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+		BuildGame(Game.NineGames, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows");
 	}
 
@@ -571,7 +575,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.NineGames, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
+		BuildGame(Game.NineGames, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows64");
 	}
 
@@ -581,7 +585,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.NineGames, BuildTargetGroup.WebGL, BuildTarget.WebGL);
+		BuildGame(Game.NineGames, NamedBuildTarget.WebGL, BuildTarget.WebGL);
 		PrintTimeFormatted(GetCurrentTime() - time, "WebGL");
 	}
 
@@ -591,7 +595,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.NineGames, BuildTargetGroup.Android, BuildTarget.Android);
+		BuildGame(Game.NineGames, NamedBuildTarget.Android, BuildTarget.Android);
 		PrintTimeFormatted(GetCurrentTime() - time, "Android");
 	}
 
@@ -611,7 +615,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.SixGames, BuildTargetGroup.Standalone, BuildTarget.StandaloneLinux64);
+		BuildGame(Game.SixGames, NamedBuildTarget.Standalone, BuildTarget.StandaloneLinux64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneLinux64");
 	}
 
@@ -621,7 +625,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.SixGames, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+		BuildGame(Game.SixGames, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows");
 	}
 
@@ -631,7 +635,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.SixGames, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
+		BuildGame(Game.SixGames, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows64");
 	}
 
@@ -641,7 +645,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.SixGames, BuildTargetGroup.WebGL, BuildTarget.WebGL);
+		BuildGame(Game.SixGames, NamedBuildTarget.WebGL, BuildTarget.WebGL);
 		PrintTimeFormatted(GetCurrentTime() - time, "WebGL");
 	}
 
@@ -651,7 +655,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.SixGames, BuildTargetGroup.Android, BuildTarget.Android);
+		BuildGame(Game.SixGames, NamedBuildTarget.Android, BuildTarget.Android);
 		PrintTimeFormatted(GetCurrentTime() - time, "Android");
 	}
 
@@ -671,7 +675,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.SpaceBase, BuildTargetGroup.Standalone, BuildTarget.StandaloneLinux64);
+		BuildGame(Game.SpaceBase, NamedBuildTarget.Standalone, BuildTarget.StandaloneLinux64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneLinux64");
 	}
 
@@ -681,7 +685,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.SpaceBase, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+		BuildGame(Game.SpaceBase, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows");
 	}
 
@@ -691,7 +695,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.SpaceBase, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
+		BuildGame(Game.SpaceBase, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows64");
 	}
 
@@ -701,7 +705,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.SpaceBase, BuildTargetGroup.WebGL, BuildTarget.WebGL);
+		BuildGame(Game.SpaceBase, NamedBuildTarget.WebGL, BuildTarget.WebGL);
 		PrintTimeFormatted(GetCurrentTime() - time, "WebGL");
 	}
 
@@ -711,7 +715,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.SpaceBase, BuildTargetGroup.Android, BuildTarget.Android);
+		BuildGame(Game.SpaceBase, NamedBuildTarget.Android, BuildTarget.Android);
 		PrintTimeFormatted(GetCurrentTime() - time, "Android");
 	}
 
@@ -731,7 +735,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Three1, BuildTargetGroup.Standalone, BuildTarget.StandaloneLinux64);
+		BuildGame(Game.Three1, NamedBuildTarget.Standalone, BuildTarget.StandaloneLinux64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneLinux64");
 	}
 
@@ -741,7 +745,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Three1, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+		BuildGame(Game.Three1, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows");
 	}
 
@@ -751,7 +755,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Three1, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
+		BuildGame(Game.Three1, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows64");
 	}
 
@@ -761,7 +765,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Three1, BuildTargetGroup.WebGL, BuildTarget.WebGL);
+		BuildGame(Game.Three1, NamedBuildTarget.WebGL, BuildTarget.WebGL);
 		PrintTimeFormatted(GetCurrentTime() - time, "WebGL");
 	}
 
@@ -771,7 +775,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Three1, BuildTargetGroup.Android, BuildTarget.Android);
+		BuildGame(Game.Three1, NamedBuildTarget.Android, BuildTarget.Android);
 		PrintTimeFormatted(GetCurrentTime() - time, "Android");
 	}
 
@@ -791,7 +795,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Tunnel, BuildTargetGroup.Standalone, BuildTarget.StandaloneLinux64);
+		BuildGame(Game.Tunnel, NamedBuildTarget.Standalone, BuildTarget.StandaloneLinux64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneLinux64");
 	}
 
@@ -801,7 +805,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Tunnel, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
+		BuildGame(Game.Tunnel, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows");
 	}
 
@@ -811,7 +815,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Tunnel, BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
+		BuildGame(Game.Tunnel, NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows64);
 		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows64");
 	}
 
@@ -821,7 +825,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Tunnel, BuildTargetGroup.WebGL, BuildTarget.WebGL);
+		BuildGame(Game.Tunnel, NamedBuildTarget.WebGL, BuildTarget.WebGL);
 		PrintTimeFormatted(GetCurrentTime() - time, "WebGL");
 	}
 
@@ -831,7 +835,7 @@ public static partial class CBuild{
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildGame(Game.Tunnel, BuildTargetGroup.Android, BuildTarget.Android);
+		BuildGame(Game.Tunnel, NamedBuildTarget.Android, BuildTarget.Android);
 		PrintTimeFormatted(GetCurrentTime() - time, "Android");
 	}
 
@@ -845,18 +849,68 @@ public static partial class CBuild{
 		PrintTimeFormatted(GetCurrentTime() - time, "Tunnel");
 	}
 
-	[MenuItem("Build/Rebuild/All")]
+	[MenuItem("Build/Rebuild/All/All")]
 	public static void BuildAllPlatforms(){
 		FillScenes();
 		FillDirectives();
 
 		long time = GetCurrentTime();
-		BuildAll(BuildTargetGroup.Standalone, BuildTarget.StandaloneLinux64);
-		BuildAll(BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows);
-		BuildAll(BuildTargetGroup.Standalone, BuildTarget.StandaloneWindows64);
-		BuildAll(BuildTargetGroup.WebGL, BuildTarget.WebGL);
-		BuildAll(BuildTargetGroup.Android, BuildTarget.Android);
+		BuildAll(NamedBuildTarget.Standalone, BuildTarget.StandaloneLinux64);
+		BuildAll(NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows);
+		BuildAll(NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows64);
+		BuildAll(NamedBuildTarget.WebGL, BuildTarget.WebGL);
+		BuildAll(NamedBuildTarget.Android, BuildTarget.Android);
 		PrintTimeFormatted(GetCurrentTime() - time, "NoTarget");
+	}
+
+	[MenuItem("Build/Rebuild/All/StandaloneLinux64")]
+	public static void BuildAllPlatformsStandaloneLinux64(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildAll(NamedBuildTarget.Standalone, BuildTarget.StandaloneLinux64);
+		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneLinux64");
+	}
+
+	[MenuItem("Build/Rebuild/All/StandaloneWindows")]
+	public static void BuildAllPlatformsStandaloneWindows(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildAll(NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows);
+		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows");
+	}
+
+	[MenuItem("Build/Rebuild/All/StandaloneWindows64")]
+	public static void BuildAllPlatformsStandaloneWindows64(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildAll(NamedBuildTarget.Standalone, BuildTarget.StandaloneWindows64);
+		PrintTimeFormatted(GetCurrentTime() - time, "StandaloneWindows64");
+	}
+
+	[MenuItem("Build/Rebuild/All/WebGL")]
+	public static void BuildAllPlatformsWebGL(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildAll(NamedBuildTarget.WebGL, BuildTarget.WebGL);
+		PrintTimeFormatted(GetCurrentTime() - time, "WebGL");
+	}
+
+	[MenuItem("Build/Rebuild/All/Android")]
+	public static void BuildAllPlatformsAndroid(){
+		FillScenes();
+		FillDirectives();
+
+		long time = GetCurrentTime();
+		BuildAll(NamedBuildTarget.Android, BuildTarget.Android);
+		PrintTimeFormatted(GetCurrentTime() - time, "Android");
 	}
 
 #endif

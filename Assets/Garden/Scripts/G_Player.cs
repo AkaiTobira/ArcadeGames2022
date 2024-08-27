@@ -15,6 +15,9 @@ public class G_Player : CUpdateMonoBehaviour, IListenToGameplayEvents
     private bool _blockMovement = false;
 
     public static bool InverseMovement = false;
+
+    public static int[] _takenPosition = new int[2] { -1, -1};
+
     protected override void Awake() {
         for(int i = 0; i < _playerPositions.Length; i++) _playerPositions[i].GetComponent<Image>().sprite = _image;
         MoveToPosition();
@@ -75,8 +78,17 @@ public class G_Player : CUpdateMonoBehaviour, IListenToGameplayEvents
         if(InverseMovement){ vertical = -vertical; horizontal = -horizontal;}
 
         if(_moveDelay < 0 && Mathf.Abs(horizontal) > 0.2f){
-            _position = (_position + (int)Mathf.Sign(horizontal) + _playerPositions.Length) % _playerPositions.Length;
+
             
+
+            _takenPosition[(int)_index] = -1;
+            _position = (_position + (int)Mathf.Sign(horizontal) + _playerPositions.Length) % _playerPositions.Length;
+            for(int i = 0; i < _takenPosition.Length; i++){
+                if(_position == _takenPosition[i]) 
+                    _position = (_position + (int)Mathf.Sign(horizontal) + _playerPositions.Length) % _playerPositions.Length;
+            }
+            _takenPosition[(int)_index] = _position;
+
             //GetPosition(convertToFull(vertical), convertToFull(horizontal));
             MoveToPosition();
             _moveDelay = 0.2f;

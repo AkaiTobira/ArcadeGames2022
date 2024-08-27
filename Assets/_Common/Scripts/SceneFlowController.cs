@@ -46,8 +46,14 @@ public static class SceneFlowController
     static SceneFlowController(){
 
         //DigDug has reversed flow, need to be fixed when combined with othergames
-        flow["DigDugMain"]   = new List<string>{ "DigDugIntro0"};
-        flow["DigDugIntro0"] = new List<string>{ "DigDugIntro" };
+        flow["DigDugMain"]   = 
+
+        #if INTRO4
+        new List<string>{ "DigDugIntro0"};
+        flow["DigDugIntro0"] = 
+        #endif
+        
+        new List<string>{ "DigDugIntro" };
         flow["DigDug"]       = new List<string>{
             "DigDugOutro",
             "DigDugMain",

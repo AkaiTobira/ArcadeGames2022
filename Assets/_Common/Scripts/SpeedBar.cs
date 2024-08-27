@@ -10,7 +10,7 @@ public class BS_SpeedBar : MonoBehaviour
     [SerializeField] TextMeshProUGUI _text;
 
     public void Setup(float percent){
-        _text.text = ((int)(percent * 320)).ToString() + "\nMPH";
+        _text.text = ((int)(percent * _maxSpeed)).ToString() + "\nMPH";
         _bar.fillAmount = percent;
     }
 }

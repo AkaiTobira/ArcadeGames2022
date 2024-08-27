@@ -9407,7 +9407,7 @@ MonoBehaviour:
     _showTimeDuration: 0.2
     _hideTimeDuration: 0.2
     _waitingTimeDuration: 30
-    _ignore: 0
+    _ignore: 1
   - _image: {fileID: 1687852095}
     _color: {r: 0, g: 0, b: 0, a: 0}
     _autoContinue: 1
@@ -9416,7 +9416,7 @@ MonoBehaviour:
     _showTimeDuration: 0.2
     _hideTimeDuration: 0.1
     _waitingTimeDuration: 30
-    _ignore: 0
+    _ignore: 1
   - _image: {fileID: 1423748791}
     _color: {r: 0, g: 0, b: 0, a: 0}
     _autoContinue: 1
@@ -9425,7 +9425,7 @@ MonoBehaviour:
     _showTimeDuration: 0.2
     _hideTimeDuration: 0.2
     _waitingTimeDuration: 30
-    _ignore: 0
+    _ignore: 1
   - _image: {fileID: 2020695140}
     _color: {r: 0, g: 0, b: 0, a: 0}
     _autoContinue: 1
@@ -9434,7 +9434,7 @@ MonoBehaviour:
     _showTimeDuration: 0.2
     _hideTimeDuration: 0.2
     _waitingTimeDuration: 30
-    _ignore: 0
+    _ignore: 1
   _loader: {fileID: 1893794875}
   _startingPoint: {fileID: 769351109}
   _center: {fileID: 944933947}

@@ -149,7 +149,7 @@ MonoBehaviour:
     m_Bits: 256
   shotSound: SpaceBase_GunP
   RotationLocked: 0
-  _loadingTimeMax: 2
+  _loadingTimeMax: 1.25
   _image: {fileID: 5365634085537467449}
 --- !u!1 &493714231215204709
 GameObject:
@@ -309,6 +309,7 @@ GameObject:
   - component: {fileID: 2986233024221089050}
   - component: {fileID: 6918438679307473933}
   - component: {fileID: 7563997665825137173}
+  - component: {fileID: 180642735899845493}
   m_Layer: 8
   m_Name: ThrowerMKi
   m_TagString: Untagged
@@ -364,7 +365,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 15bfe75696c500f41bf4be9d64730e2c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 8b432c445cd06254493b58ba35476074, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -408,6 +409,27 @@ MonoBehaviour:
   shotSound: SpaceBase_GunP
   RotationLocked: 0
   _loadingTimeMax: 0.1
+--- !u!114 &180642735899845493
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 798415736633679528}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c147e33ffa56a8c459727366e5188826, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvas: {fileID: 0}
+  _keepRelative: 0
+  _fireAtEveryActivation: 1
+  _oneFrameDuration: 0.2
+  _looped: 1
+  _playRewersed: 0
+  _sprites:
+  - {fileID: 21300000, guid: 8b432c445cd06254493b58ba35476074, type: 3}
+  - {fileID: 21300000, guid: 5a7ac06f86a3acd4683c98f1944907f0, type: 3}
 --- !u!1 &901477179907675584
 GameObject:
   m_ObjectHideFlags: 0
@@ -732,7 +754,7 @@ MonoBehaviour:
     m_Bits: 256
   shotSound: SpaceBase_GunP
   RotationLocked: 0
-  _loadingTimeMax: 2
+  _loadingTimeMax: 1.25
   _image: {fileID: 3543170100768922966}
 --- !u!1 &1060835949547464143
 GameObject:
@@ -782,6 +804,7 @@ GameObject:
   - component: {fileID: 1911618168272430630}
   - component: {fileID: 5777323115443490791}
   - component: {fileID: 3565655479226105435}
+  - component: {fileID: 6201223034465962059}
   m_Layer: 8
   m_Name: ThrowerMK4
   m_TagString: Untagged
@@ -837,7 +860,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 1debfa2f70dbae74b88932af0ff389f0, type: 3}
+  m_Sprite: {fileID: 21300000, guid: d1bb57aa2278bf64ca1c4e45b471505f, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -881,6 +904,27 @@ MonoBehaviour:
   shotSound: SpaceBase_GunP
   RotationLocked: 0
   _loadingTimeMax: 0.1
+--- !u!114 &6201223034465962059
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1116854392531524532}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c147e33ffa56a8c459727366e5188826, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvas: {fileID: 0}
+  _keepRelative: 0
+  _fireAtEveryActivation: 1
+  _oneFrameDuration: 0.2
+  _looped: 1
+  _playRewersed: 0
+  _sprites:
+  - {fileID: 21300000, guid: d1bb57aa2278bf64ca1c4e45b471505f, type: 3}
+  - {fileID: 21300000, guid: 8ae5f3f8d614c20459e8d611ba538767, type: 3}
 --- !u!1 &1140116970794150328
 GameObject:
   m_ObjectHideFlags: 0
@@ -2315,6 +2359,7 @@ GameObject:
   - component: {fileID: 3075092084801645624}
   - component: {fileID: 6568039714233996471}
   - component: {fileID: 8695855714538670066}
+  - component: {fileID: 2384823613782571331}
   m_Layer: 8
   m_Name: ThrowerMK3
   m_TagString: Untagged
@@ -2370,7 +2415,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 3520eb60a99c9b4408816370434e3af3, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 3fff0ce1ad0611149a46e54898a03d3d, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -2414,6 +2459,27 @@ MonoBehaviour:
   shotSound: SpaceBase_GunP
   RotationLocked: 0
   _loadingTimeMax: 0.1
+--- !u!114 &2384823613782571331
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3001593739600747661}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c147e33ffa56a8c459727366e5188826, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvas: {fileID: 0}
+  _keepRelative: 0
+  _fireAtEveryActivation: 1
+  _oneFrameDuration: 0.2
+  _looped: 1
+  _playRewersed: 0
+  _sprites:
+  - {fileID: 21300000, guid: 3fff0ce1ad0611149a46e54898a03d3d, type: 3}
+  - {fileID: 21300000, guid: b0844b466c84f074f80bfb5b0800f490, type: 3}
 --- !u!1 &3011186312407144265
 GameObject:
   m_ObjectHideFlags: 0
@@ -3479,7 +3545,7 @@ MonoBehaviour:
     m_Bits: 256
   shotSound: SpaceBase_GunP
   RotationLocked: 0
-  _loadingTimeMax: 2
+  _loadingTimeMax: 1.25
   _image: {fileID: 4588527871020257450}
 --- !u!1 &4445342107924541225
 GameObject:
@@ -3628,7 +3694,7 @@ MonoBehaviour:
     m_Bits: 256
   shotSound: SpaceBase_GunP
   RotationLocked: 0
-  _loadingTimeMax: 2
+  _loadingTimeMax: 1.25
   _image: {fileID: 4425559409421954866}
 --- !u!1 &4597221784760387128
 GameObject:
@@ -4226,6 +4292,7 @@ GameObject:
   - component: {fileID: 6235101767397675115}
   - component: {fileID: 986663329002092073}
   - component: {fileID: 2035503125731369450}
+  - component: {fileID: 6191269998549212555}
   m_Layer: 8
   m_Name: ThrowerMK2
   m_TagString: Untagged
@@ -4281,7 +4348,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 426200d52e2e8b141a7fa330f5d63652, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e664de45e90d1394180ec9b011bc22ea, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -4325,6 +4392,27 @@ MonoBehaviour:
   shotSound: SpaceBase_GunP
   RotationLocked: 0
   _loadingTimeMax: 0.1
+--- !u!114 &6191269998549212555
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4912828124701468076}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c147e33ffa56a8c459727366e5188826, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvas: {fileID: 0}
+  _keepRelative: 0
+  _fireAtEveryActivation: 1
+  _oneFrameDuration: 0.2
+  _looped: 1
+  _playRewersed: 0
+  _sprites:
+  - {fileID: 21300000, guid: e664de45e90d1394180ec9b011bc22ea, type: 3}
+  - {fileID: 21300000, guid: 44c1f9ace7419a8449425a3b85dc5a1d, type: 3}
 --- !u!1 &4950989069013763795
 GameObject:
   m_ObjectHideFlags: 0
@@ -6003,7 +6091,7 @@ MonoBehaviour:
     m_Bits: 256
   shotSound: SpaceBase_GunP
   RotationLocked: 0
-  _loadingTimeMax: 2
+  _loadingTimeMax: 1.25
   _image: {fileID: 6069439209856076157}
 --- !u!1 &7041005800847903643
 GameObject:
@@ -6656,6 +6744,7 @@ GameObject:
   - component: {fileID: 2003741876430520957}
   - component: {fileID: 2747429670195792184}
   - component: {fileID: 8036633686803175653}
+  - component: {fileID: 6413726792545584312}
   m_Layer: 8
   m_Name: ThrowerMK5
   m_TagString: Untagged
@@ -6711,7 +6800,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 53067ce57dd4ef742a6a701930ed86b7, type: 3}
+  m_Sprite: {fileID: 21300000, guid: e3d3e61aa6eca214bb7b759b208f4ee4, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -6755,6 +6844,27 @@ MonoBehaviour:
   shotSound: SpaceBase_GunP
   RotationLocked: 0
   _loadingTimeMax: 0.1
+--- !u!114 &6413726792545584312
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8239244099534926069}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c147e33ffa56a8c459727366e5188826, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvas: {fileID: 0}
+  _keepRelative: 0
+  _fireAtEveryActivation: 1
+  _oneFrameDuration: 0.2
+  _looped: 1
+  _playRewersed: 0
+  _sprites:
+  - {fileID: 21300000, guid: e3d3e61aa6eca214bb7b759b208f4ee4, type: 3}
+  - {fileID: 21300000, guid: fcbda41df912650458a3b1f727b334fc, type: 3}
 --- !u!1 &8439248816235806056
 GameObject:
   m_ObjectHideFlags: 0

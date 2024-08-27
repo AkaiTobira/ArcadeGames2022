@@ -199,14 +199,14 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.42352942, b: 1, a: 1}
+  m_Color: {r: 0.9433962, g: 0.084549636, b: 0.9433962, a: 1}
   m_RaycastTarget: 1
   m_RaycastPadding: {x: 0, y: 0, z: 0, w: 0}
   m_Maskable: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: ad9df765432a0bc4ab3a67c934b0105b, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 855fda8ed0a2ce1468f5fee465148837, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -248,6 +248,7 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 256
   shotSound: SpaceBase_GunE
+  RotationLocked: 0
 --- !u!114 &2915375808016026744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -267,7 +268,16 @@ MonoBehaviour:
   _looped: 0
   _playRewersed: 0
   _sprites:
-  - {fileID: 21300000, guid: ad9df765432a0bc4ab3a67c934b0105b, type: 3}
+  - {fileID: 21300000, guid: 855fda8ed0a2ce1468f5fee465148837, type: 3}
+  - {fileID: 21300000, guid: 7fcc5f2184d3281449b075d6b2a47503, type: 3}
+  - {fileID: 21300000, guid: 3dfbbc39c5364fe40bb0986956611032, type: 3}
+  - {fileID: 21300000, guid: c128b26eb2076fd43913146638e0080c, type: 3}
+  - {fileID: 21300000, guid: 16f6643a949710e4fb9eb816dbb5d3be, type: 3}
+  - {fileID: 21300000, guid: de5b760c5d00a7a4dbd9bd54295f144c, type: 3}
+  - {fileID: 21300000, guid: a172353aaf0e2c64592a5a7447157a85, type: 3}
+  - {fileID: 21300000, guid: f29c35dcec360ad4daeeaa53cdc87a1f, type: 3}
+  - {fileID: 21300000, guid: ba14793f2a157e84199ee2781f79d328, type: 3}
+  - {fileID: 21300000, guid: 6b96704aeb7102a4c99887e8e9d01659, type: 3}
 --- !u!1 &814746052564447179
 GameObject:
   m_ObjectHideFlags: 0

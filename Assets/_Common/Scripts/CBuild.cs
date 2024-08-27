@@ -7,6 +7,9 @@ using System.Diagnostics;
 using System.IO;
 using UnityEngine.Assertions;
 
+#if UNITY_EDITOR
+using UnityEditor.Build;
+#endif
 
 public static partial class CBuild
 {
@@ -191,7 +194,7 @@ public static partial class CBuild
     static Dictionary<Game, string[]> _directives = new Dictionary<Game, string[]>();
     static Dictionary<Game, string[]> _scenes = new Dictionary<Game, string[]>();
 
-    static Dictionary<BuildTarget, BuildTargetGroup> _buildConfigs = new Dictionary<BuildTarget, BuildTargetGroup>();
+    static Dictionary<BuildTarget, NamedBuildTarget> _buildConfigs = new Dictionary<BuildTarget, NamedBuildTarget>();
 
     private static void FillScenes(){
         _scenes[Game.Asteroids] = 
@@ -295,21 +298,21 @@ public static partial class CBuild
         _directives[Game.DigDug2]       = new string[] {"DIGDUG2_GAME"};
         _directives[Game.Frogger]       = new string[] {"FROGGER_GAME"};
         _directives[Game.Three1]        = new string[] {"THREE_GAME"};
-        _directives[Game.Four1]         = new string[] { "T3_GAMES_2" };
+        _directives[Game.Four1]         = new string[] {"T3_GAMES_2"};
         _directives[Game.LittleFighter] = new string[] {"LITTLE_FIGHTER_GAME"};
         _directives[Game.SpaceBase]     = new string[] {"SPACE_BASE_GAME"};
         _directives[Game.Tunnel]        = new string[] {"TUNNEL_GAME"};
         _directives[Game.Garden]        = new string[] {"GARDEN_GAME"};
-        _directives[Game.AllForOne]     = new string[] { "ALL_GAMES" };
-        _directives[Game.SixGames]      = new string[] { "SIX_GAMES", "INTRO3", "SKIP_EU_OUTRO" };
-        _directives[Game.DigDug]        = new string[] { "DIGDUG_GAME", "INTRO4", "SKIP_EU_OUTRO"};
-        _directives[Game.NineGames]     = new string[] { "NINE_GAMES", "INTRO3", "SKIP_EU_OUTRO"};
+        _directives[Game.AllForOne]     = new string[] {"ALL_GAMES"};
+        _directives[Game.SixGames]      = new string[] {"SIX_GAMES", "INTRO3", "SKIP_EU_OUTRO"};
+        _directives[Game.DigDug]        = new string[] {"DIGDUG_GAME", "INTRO4", "SKIP_EU_OUTRO"};
+        _directives[Game.NineGames]     = new string[] {"NINE_GAMES", "INTRO3", "SKIP_EU_OUTRO"};
 
-        _buildConfigs[BuildTarget.StandaloneLinux64] = BuildTargetGroup.Standalone;
-        _buildConfigs[BuildTarget.StandaloneWindows] = BuildTargetGroup.Standalone;
-        _buildConfigs[BuildTarget.StandaloneWindows64] = BuildTargetGroup.Standalone;
-        _buildConfigs[BuildTarget.WebGL] = BuildTargetGroup.WebGL;
-        _buildConfigs[BuildTarget.Android] = BuildTargetGroup.Android;
+        _buildConfigs[BuildTarget.StandaloneLinux64] = NamedBuildTarget.Standalone;
+        _buildConfigs[BuildTarget.StandaloneWindows] = NamedBuildTarget.Standalone;
+        _buildConfigs[BuildTarget.StandaloneWindows64] = NamedBuildTarget.Standalone;
+        _buildConfigs[BuildTarget.WebGL] = NamedBuildTarget.WebGL;
+        _buildConfigs[BuildTarget.Android] = NamedBuildTarget.Android;
     }
 
 
@@ -325,7 +328,7 @@ public static partial class CBuild
         return now.Hour * 3600 + now.Minute * 60 + now.Second;
     }
 
-    private static void BuildAll(BuildTargetGroup targetGroup, BuildTarget platform){
+    private static void BuildAll(NamedBuildTarget targetGroup, BuildTarget platform){
         FillScenes();
         FillDirectives();
 
@@ -338,18 +341,20 @@ public static partial class CBuild
         FillScenes();
         FillDirectives();
 
-        foreach( KeyValuePair<BuildTarget, BuildTargetGroup> config in _buildConfigs){
+        foreach( KeyValuePair<BuildTarget, NamedBuildTarget> config in _buildConfigs){
             BuildGame(game, config.Value, config.Key);
         }
     }
 
-    private static void BuildGame(Game gameId, BuildTargetGroup targetGroup, BuildTarget platform){
+    private static void BuildGame(Game gameId, NamedBuildTarget targetGroup, BuildTarget platform){
         UnityEngine.Debug.Log( platform.ToString() + "Building " + gameId + " (" + (int)(gameId + 1) + "/" + (int)(Game.MAX) + ")");
 
         string path = GetPath(gameId, platform);
 
-        //PlayerSettings.SetScriptingDefineSymbols(NamedBuildTarget buildTarget, string[] defines)
-        PlayerSettings.SetScriptingDefineSymbolsForGroup(targetGroup, _directives[gameId]);
+       
+
+        PlayerSettings.SetScriptingDefineSymbols(targetGroup, _directives[gameId]);
+        //PlayerSettings.SetScriptingDefineSymbolsForGroup(targetGroup, _directives[gameId]);
         PlayerSettings.SetArchitecture(targetGroup, 2);
         PlayerSettings.productName = gameId.ToString();
         PlayerSettings.bundleVersion = ((int)gameId).ToString();
@@ -403,6 +408,9 @@ public static partial class CBuild
             file.WriteLine("//THIS FILE IS AUTO GENERATED");
             file.WriteLine("//AFTER ADD NEW GAME REGENEREATE BY BUILD/GENERATEINTERFACE");
             file.WriteLine("using UnityEditor;\n");
+            file.WriteLine("#if UNITY_EDITOR");
+            file.WriteLine("using UnityEditor.Build;\n");
+            file.WriteLine("#endif");
             file.WriteLine("");
             file.WriteLine("public static partial class CBuild{");
             file.WriteLine("#if UNITY_EDITOR");
@@ -418,7 +426,7 @@ public static partial class CBuild
 
             for(int i = 0; i < list.Count; i++) {
                 Game g = list[i];
-                foreach( KeyValuePair<BuildTarget, BuildTargetGroup> config in _buildConfigs){
+                foreach( KeyValuePair<BuildTarget, NamedBuildTarget> config in _buildConfigs){
                     file.WriteLine(ConstructStaticMetod(g, config.Value, config.Key));
                 }
 
@@ -427,6 +435,9 @@ public static partial class CBuild
 
 
             file.WriteLine(ConstuctBuildAllStaticMetodInternal());
+            foreach( KeyValuePair<BuildTarget, NamedBuildTarget> config in _buildConfigs){
+                file.WriteLine(ConstuctBuildAllStaticMetodInternal(config.Key, config.Value));
+            }
             file.WriteLine("#endif\n}\n");
 
             file.Close();
@@ -434,11 +445,11 @@ public static partial class CBuild
         #endif
     }
 
-    private static string ConstructStaticMetod(Game game, BuildTargetGroup targetGroup, BuildTarget target){
+    private static string ConstructStaticMetod(Game game, NamedBuildTarget targetGroup, BuildTarget target){
         string output = ConstructInterfaceEtiquiete(game.ToString(), target.ToString());
         output += ConstructFunctionName(game.ToString() + target.ToString());
         output += ConstructCommonBlock();
-        output += "\t\tBuildGame(Game." + game.ToString() +", BuildTargetGroup." + targetGroup.ToString() + ", BuildTarget." + target.ToString() + ");\n";  
+        output += "\t\tBuildGame(Game." + game.ToString() +", NamedBuildTarget." + targetGroup.TargetName + ", BuildTarget." + target.ToString() + ");\n";  
         return output + ConstructTimerBlock2(target);
     }
 
@@ -451,13 +462,21 @@ public static partial class CBuild
     }
 
     private static string ConstuctBuildAllStaticMetodInternal(){
-        string output = ConstructInterfaceEtiquiete("All");
+        string output = ConstructInterfaceEtiquiete("All/All");
         output += ConstructFunctionName("AllPlatforms");
         output += ConstructCommonBlock();
-        foreach(KeyValuePair<BuildTarget, BuildTargetGroup> config in _buildConfigs){
-            output += "\t\tBuildAll(BuildTargetGroup." + config.Value.ToString() + ", BuildTarget." + config.Key.ToString() + ");\n";  
+        foreach(KeyValuePair<BuildTarget, NamedBuildTarget> config in _buildConfigs){
+            output += "\t\tBuildAll(NamedBuildTarget." + config.Value.TargetName + ", BuildTarget." + config.Key.ToString() + ");\n";  
         }
         return output + ConstructTimerBlock2(BuildTarget.NoTarget);
+    }
+
+    private static string ConstuctBuildAllStaticMetodInternal(BuildTarget target, NamedBuildTarget nameBuildTarget){
+        string output = ConstructInterfaceEtiquiete("All/" + target.ToString());
+        output += ConstructFunctionName("AllPlatforms" + target.ToString());
+        output += ConstructCommonBlock();
+        output += "\t\tBuildAll(NamedBuildTarget." + nameBuildTarget.TargetName + ", BuildTarget." + target.ToString() + ");\n";
+        return output + ConstructTimerBlock2(target);
     }
 
     private static string ConstructInterfaceEtiquiete(string prefix, string suffix = null){

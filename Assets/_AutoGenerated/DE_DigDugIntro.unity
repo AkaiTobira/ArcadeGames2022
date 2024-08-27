@@ -10331,7 +10331,7 @@ MonoBehaviour:
     _showTimeDuration: 0
     _hideTimeDuration: 0
     _waitingTimeDuration: 30
-    _ignore: 0
+    _ignore: 1
   - _image: {fileID: 897535784}
     _color: {r: 0, g: 0, b: 0, a: 0}
     _autoContinue: 1
@@ -10340,7 +10340,7 @@ MonoBehaviour:
     _showTimeDuration: 0
     _hideTimeDuration: 0
     _waitingTimeDuration: 30
-    _ignore: 0
+    _ignore: 1
   - _image: {fileID: 1099265528}
     _color: {r: 0, g: 0, b: 0, a: 0}
     _autoContinue: 1
@@ -10349,7 +10349,7 @@ MonoBehaviour:
     _showTimeDuration: 0
     _hideTimeDuration: 0
     _waitingTimeDuration: 30
-    _ignore: 0
+    _ignore: 1
   - _image: {fileID: 1915332006}
     _color: {r: 0, g: 0, b: 0, a: 0}
     _autoContinue: 0
@@ -10358,7 +10358,7 @@ MonoBehaviour:
     _showTimeDuration: 0
     _hideTimeDuration: 0
     _waitingTimeDuration: 30
-    _ignore: 0
+    _ignore: 1
   - _image: {fileID: 345226981}
     _color: {r: 0, g: 0, b: 0, a: 0}
     _autoContinue: 0

@@ -51,7 +51,7 @@ public class BS_Player : ESM.SMC_1D<BS_PlayerState>,
 
 
     int towerLevel = 0;
-    UpgradeType _type = UpgradeType.Missle;
+    UpgradeType _type = UpgradeType.Rocket;
 
     public UpgradeType GetUpgradeType() { return _type; }
 

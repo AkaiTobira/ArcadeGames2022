@@ -632,6 +632,7 @@ GameObject:
   - component: {fileID: 1799964386561816576}
   - component: {fileID: 5875159419734597911}
   - component: {fileID: 6445582089730905871}
+  - component: {fileID: 6774750929065148591}
   m_Layer: 8
   m_Name: BS_T_ThrowerMKi
   m_TagString: Untagged
@@ -687,7 +688,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: 565f514ed823b554ea40c6406127d7ad, type: 3}
+  m_Sprite: {fileID: 21300000, guid: c8e3db95f1e80c846ac177ca9a7c93bf, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -731,6 +732,27 @@ MonoBehaviour:
   shotSound: SpaceBase_GunP
   RotationLocked: 0
   _loadingTimeMax: 0.1
+--- !u!114 &6774750929065148591
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4224222442899516338}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: c147e33ffa56a8c459727366e5188826, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _canvas: {fileID: 0}
+  _keepRelative: 0
+  _fireAtEveryActivation: 1
+  _oneFrameDuration: 0.2
+  _looped: 1
+  _playRewersed: 0
+  _sprites:
+  - {fileID: 21300000, guid: c8e3db95f1e80c846ac177ca9a7c93bf, type: 3}
+  - {fileID: 21300000, guid: af4b4450bb8172c4796dfda58d7baf4b, type: 3}
 --- !u!1 &4815036148761941380
 GameObject:
   m_ObjectHideFlags: 0

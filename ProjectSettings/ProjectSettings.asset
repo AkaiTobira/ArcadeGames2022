@@ -795,7 +795,7 @@ PlayerSettings:
     13: SIX_GAMES;INTRO3;SKIP_EU_OUTRO
     7: SIX_GAMES;INTRO3;SKIP_EU_OUTRO
     Standalone: NINE_GAMES;INTRO3;SKIP_EU_OUTRO
-    WebGL: GARDEN_GAME
+    WebGL: NINE_GAMES;INTRO3;SKIP_EU_OUTRO
   additionalCompilerArguments: {}
   platformArchitecture:
     Android: 2

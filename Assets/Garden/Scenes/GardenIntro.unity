@@ -9820,7 +9820,7 @@ MonoBehaviour:
     _showTimeDuration: 0.2
     _hideTimeDuration: 0.2
     _waitingTimeDuration: 30
-    _ignore: 0
+    _ignore: 1
   - _image: {fileID: 261808985}
     _color: {r: 0, g: 0, b: 0, a: 0}
     _autoContinue: 1
@@ -9829,7 +9829,7 @@ MonoBehaviour:
     _showTimeDuration: 0.2
     _hideTimeDuration: 0.2
     _waitingTimeDuration: 30
-    _ignore: 0
+    _ignore: 1
   - _image: {fileID: 1355944729}
     _color: {r: 0, g: 0, b: 0, a: 0}
     _autoContinue: 1
@@ -9838,7 +9838,7 @@ MonoBehaviour:
     _showTimeDuration: 0.2
     _hideTimeDuration: 0.2
     _waitingTimeDuration: 30
-    _ignore: 0
+    _ignore: 1
   - _image: {fileID: 782668625}
     _color: {r: 0, g: 0, b: 0, a: 0}
     _autoContinue: 1
@@ -9847,7 +9847,7 @@ MonoBehaviour:
     _showTimeDuration: 0.2
     _hideTimeDuration: 0.2
     _waitingTimeDuration: 30
-    _ignore: 0
+    _ignore: 1
   - _image: {fileID: 142740337}
     _color: {r: 0, g: 0, b: 0, a: 0}
     _autoContinue: 1
@@ -9856,7 +9856,7 @@ MonoBehaviour:
     _showTimeDuration: 0.2
     _hideTimeDuration: 0.2
     _waitingTimeDuration: 30
-    _ignore: 0
+    _ignore: 1
   _loader: {fileID: 1893794875}
   _startingPoint: {fileID: 461617225}
   _curtain: {fileID: 1909956556}

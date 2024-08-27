@@ -69,10 +69,18 @@ public abstract class ScreenAnimation : CMonoBehaviour, IListenToGameplayEvents{
 
     void Initialiaze(){
         _currentIndex = 0;
-        ActiveAnimation = _screens[_currentIndex];
-        ActiveAnimation._image.gameObject.SetActive(true);
-        SetState(State.Showing, ActiveAnimation._showTimeDuration);
-        if(Guard.IsValid(ActiveAnimation._board)) ActiveAnimation._board.Enable();
+        for(int i = 0; i < _screens.Count; i++){
+            if(_screens[i]._ignore) _currentIndex++;
+        }
+        if(_currentIndex < _screens.Count){
+            ActiveAnimation = _screens[_currentIndex];
+            ActiveAnimation._image.gameObject.SetActive(true);
+            SetState(State.Showing, ActiveAnimation._showTimeDuration);
+            if(Guard.IsValid(ActiveAnimation._board)) ActiveAnimation._board.Enable();
+        }
+        else{
+            if(Guard.IsValid(_loader)) _loader?.OnSceneLoadAsync();
+        }
     }
 
     void Update()

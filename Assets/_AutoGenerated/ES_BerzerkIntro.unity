@@ -9291,7 +9291,7 @@ MonoBehaviour:
     _showTimeDuration: 0.01
     _hideTimeDuration: 0.01
     _waitingTimeDuration: 30
-    _ignore: 0
+    _ignore: 1
   - _image: {fileID: 562079817}
     _color: {r: 0, g: 0, b: 0, a: 0}
     _autoContinue: 1
@@ -9300,7 +9300,7 @@ MonoBehaviour:
     _showTimeDuration: 0.01
     _hideTimeDuration: 0.01
     _waitingTimeDuration: 30
-    _ignore: 0
+    _ignore: 1
   - _image: {fileID: 1115329858}
     _color: {r: 0, g: 0, b: 0, a: 0}
     _autoContinue: 1
@@ -9309,7 +9309,7 @@ MonoBehaviour:
     _showTimeDuration: 0.01
     _hideTimeDuration: 0.01
     _waitingTimeDuration: 30
-    _ignore: 0
+    _ignore: 1
   _loader: {fileID: 1893794875}
   _startingPoint: {fileID: 78068120}
   _curtain: {fileID: 693662244}
