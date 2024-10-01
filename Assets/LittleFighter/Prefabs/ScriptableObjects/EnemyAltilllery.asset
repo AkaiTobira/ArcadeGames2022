@@ -23,12 +23,11 @@ MonoBehaviour:
   AttackHitboxActivationTime: 0.5
   AttackPreparationTimeDelay: 1.2
   AttackBreakTimeDelay: 0.5
-  hitSounds:
-  - LittleFighter_LaskaDie
+  hitSounds: []
   hurtSounds:
-  - LittleFighter_LaskaHurt
-  attackSounds:
-  - LittleFighter_LaskaShoot1
-  - LittleFighter_LaskaShoot2
+  - LittleFighter_GrandmaHurt
+  - LittleFighter_GrandmaDie
+  attackSounds: []
   afterAttackSound: []
-  beforeAttackSound: []
+  beforeAttackSound:
+  - LittleFighter_GrandmaAttack

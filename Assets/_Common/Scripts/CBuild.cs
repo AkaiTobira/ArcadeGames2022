@@ -64,6 +64,7 @@ public static partial class CBuild
                 case 2: elements.Add("Assets/_Common/Scenes/Intro/Intro2.unity"); break;
                 case 3: elements.Add("Assets/_Common/Scenes/Intro/Intro3.unity"); break;
                 case 4: /* DigDug has reversed order(Intro-Main) and dedicated Intro */ break;
+                case 5: elements.Add("Assets/_Common/Scenes/Intro/Intro5.unity"); break;
             }
         }
 
@@ -267,7 +268,7 @@ public static partial class CBuild
                 .Construct();
 
         _scenes[Game.NineGames] = 
-            new PathConstructor(3)
+            new PathConstructor(5, false)
                 .AddGameSelect(9)
                 .AddLittleFighter()
                 .AddAsteroids()
@@ -306,7 +307,7 @@ public static partial class CBuild
         _directives[Game.AllForOne]     = new string[] {"ALL_GAMES"};
         _directives[Game.SixGames]      = new string[] {"SIX_GAMES", "INTRO3", "SKIP_EU_OUTRO"};
         _directives[Game.DigDug]        = new string[] {"DIGDUG_GAME", "INTRO4", "SKIP_EU_OUTRO"};
-        _directives[Game.NineGames]     = new string[] {"NINE_GAMES", "INTRO3", "SKIP_EU_OUTRO"};
+        _directives[Game.NineGames]     = new string[] {"NINE_GAMES", "INTRO5", "SKIP_EU_OUTRO"};
 
         _buildConfigs[BuildTarget.StandaloneLinux64] = NamedBuildTarget.Standalone;
         _buildConfigs[BuildTarget.StandaloneWindows] = NamedBuildTarget.Standalone;

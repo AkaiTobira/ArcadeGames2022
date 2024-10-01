@@ -4,6 +4,9 @@ using UnityEngine;
 
 
 public interface IHiveMinded{}
+
+
+
 public interface ITakeDamage{
     void TakeDamage(float amount, MonoBehaviour source = null);
 }

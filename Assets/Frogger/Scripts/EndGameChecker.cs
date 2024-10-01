@@ -7,6 +7,8 @@ using UnityEngine.UI;
 public class EndGameChecker : CUpdateMonoBehaviour, IListenToGameplayEvents
 {
     [SerializeField] Target[] objects;
+    [SerializeField] GameObject[] colliders;
+    
     [SerializeField] Button _mainMenuButton;
     [SerializeField] Transform centerPoint;
     [SerializeField] Transform bottomPoint;
@@ -41,6 +43,9 @@ public class EndGameChecker : CUpdateMonoBehaviour, IListenToGameplayEvents
 
         objects[0].gameObject.SetActive(false);
         objects[4].gameObject.SetActive(false);
+
+        colliders[0].SetActive(true);
+        colliders[4].SetActive(true);
 
         UpdateHP();
         Events.Gameplay.RegisterListener(this, GameplayEventType.PlayerDied);
@@ -99,6 +104,9 @@ public class EndGameChecker : CUpdateMonoBehaviour, IListenToGameplayEvents
 
             objects[0].gameObject.SetActive(true);
             objects[4].gameObject.SetActive(true);
+
+            colliders[0].gameObject.SetActive(false);
+            colliders[4].gameObject.SetActive(false);
         }
 
         int score1 = 0, score2 = 0;

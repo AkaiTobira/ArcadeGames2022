@@ -567,6 +567,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activated: {fileID: 177341823}
   _activated2: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!114 &120948489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1540,7 +1541,11 @@ MonoBehaviour:
   obstacles:
     serializedVersion: 2
     m_Bits: 0
+  player:
+    serializedVersion: 2
+    m_Bits: 0
   animations: []
+  image: {fileID: 0}
   LD: {fileID: 0}
   RU: {fileID: 0}
 --- !u!1 &308836915
@@ -2121,7 +2126,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
-  m_AnchoredPosition: {x: 19.7, y: 2.8}
+  m_AnchoredPosition: {x: 19.7, y: 2.7999878}
   m_SizeDelta: {x: 12.681, y: 4.412}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &507353540
@@ -4910,6 +4915,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activated: {fileID: 1415352321}
   _activated2: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!114 &1260418628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -6147,6 +6153,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activated: {fileID: 1897742334}
   _activated2: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!61 &1445109289
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -6387,6 +6394,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activated: {fileID: 1486355845}
   _activated2: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!114 &1468803807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7270,6 +7278,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activated: {fileID: 803183474}
   _activated2: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!114 &1624230955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -8261,7 +8270,7 @@ MonoBehaviour:
   _playSoundOnEnable: 0
   _playMusicOnEnable: 0
   _soundName: 
-  _musicName: Tunnel_BG
+  _musicName: Garden_BG1
   _volume: 0.3
 --- !u!1 &1896436818
 GameObject:
@@ -8789,8 +8798,8 @@ MonoBehaviour:
       m_Calls: []
   m_text: Start
   m_isRightToLeft: 0
-  m_fontAsset: {fileID: 11400000, guid: c302362db6948814fb7385596de9924d, type: 2}
-  m_sharedMaterial: {fileID: -3636404267484409240, guid: c302362db6948814fb7385596de9924d, type: 2}
+  m_fontAsset: {fileID: 11400000, guid: 6d1940ce90148f84e9529fa3d527a40d, type: 2}
+  m_sharedMaterial: {fileID: 2677013293550427843, guid: 6d1940ce90148f84e9529fa3d527a40d, type: 2}
   m_fontSharedMaterials: []
   m_fontMaterial: {fileID: 0}
   m_fontMaterials: []
@@ -8814,7 +8823,7 @@ MonoBehaviour:
   m_faceColor:
     serializedVersion: 2
     rgba: 4294967295
-  m_fontSize: 4
+  m_fontSize: 2.55
   m_fontSizeBase: 36
   m_fontWeight: 400
   m_enableAutoSizing: 1
@@ -8933,6 +8942,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activated: {fileID: 1061044071}
   _activated2: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!114 &2002490197
 MonoBehaviour:
   m_ObjectHideFlags: 0

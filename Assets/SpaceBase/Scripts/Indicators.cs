@@ -5,6 +5,7 @@ using UnityEngine.UI;
 
 public interface IIsTrackable{
     bool ShouldBeTracked();
+    
 }
 
 

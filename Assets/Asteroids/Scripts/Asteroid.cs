@@ -1,6 +1,5 @@
 using System.Collections;
 using System;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
@@ -34,6 +33,7 @@ public class Asteroid : WallThrought, IListenToGameplayEvents
     [SerializeField] float[] _speedAccelerations;
     
     [SerializeField] EAsteroidSize _size;
+    [SerializeField] Vector3 _targetScale;
 
     [SerializeField] GameObject _prefab;
 
@@ -43,24 +43,15 @@ public class Asteroid : WallThrought, IListenToGameplayEvents
     public EAsteroidSize GetSize() => _size;
 
     WaitForSeconds ANIM_TIMER = new WaitForSeconds(0.3f);
-    Sprites _usedSprites;
+    [SerializeField] Sprites _usedSprites;
     int _activeFrame;
 
     int _generation;
 
     Vector3 _forwardDirection;
-    Vector3 _startScale;
-
-    float creapyInsideScale;
-
-
-    private void Awake(){
-        _startScale = transform.localScale;
-    }
 
     private void Start() {
         Events.Gameplay.RegisterListener(this, GameplayEventType.ResizeAsteroids);
-
     }
 
     public bool IsShootedDown(){
@@ -80,21 +71,12 @@ public class Asteroid : WallThrought, IListenToGameplayEvents
             if(types.Sizes.Count == 0) return;
 
             if(types.InvalidSizes.Contains(_size)){
-
-                    creapyInsideScale = 2; // transform.localScale.x / _startScale.x;
-
-                    ScaleManager.Instance.ScaleTo(transform, new Vector3(0.01f,0.01f,1f), 0.2f, ()=>{
-
-
-                    _size = types.Sizes[ UnityEngine.Random.Range(0, types.Sizes.Count)];
-                    SetupIcon();
-
-                    Vector3 newScale = (_startScale * creapyInsideScale) / ((float)_size + 1.0f ); 
-
-                    ScaleManager.Instance.ScaleTo(transform, newScale, 0.2f, () => {
-                        _startScale = newScale;
-                    });
-                });
+                    ScaleManager.Instance.ScaleTo(transform, new Vector3(0.01f,0.01f,1f), 0.2f);
+                    TimersManager.Instance.FireAfter(0.2f, () => {
+                        _size = types.Sizes[ UnityEngine.Random.Range(0, types.Sizes.Count)];
+                        AsteroidSpawner.Spawner.Spawn(transform.position, _size, _forwardDirection, _generation);
+                        Destroy(gameObject);
+                    });  
             }
         }
     }
@@ -120,17 +102,11 @@ public class Asteroid : WallThrought, IListenToGameplayEvents
         _image.sprite = _usedSprites.Frames[_activeFrame];
     }
 
-
     public void Setup(Vector3 direction, EAsteroidSize size, int generation){
         _forwardDirection = direction;
         _size = size;
 
-
-
-        transform.localScale = _startScale / ((float)_size + 1.0f );
-
-        AsteroidSpawner.AsteroidCount += 1;
-
+        ScaleManager.Instance.ScaleTo(transform, _targetScale, 0.2f);
         SetupIcon();
 
         _frame.enabled = false;

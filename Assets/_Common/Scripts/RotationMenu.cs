@@ -1,20 +1,35 @@
+using System.Collections.Generic;
 using UnityEngine;
 
 public class RotationMenu : CUpdateMonoBehaviour
 {
-    [SerializeField] private CButton[] buttons;
-    [SerializeField] private RectTransform[] points;
+    [SerializeField] private List<CButton> buttons;
+    [SerializeField] private List<RectTransform> points;
     [SerializeField] private float scaleSize = 2;
 
     bool canMove = true;
     int buttonIndex = 0;
 
     private void OnEnable() {
-        Vector2 startPoint = new Vector2(0,1);
-        float angle = -2*Mathf.PI/buttons.Length;
+
+        List<int> indexesToRemove = new List<int>();
+        for (int i = 0; i< buttons.Count; i++){
+            if(!buttons[i].gameObject.activeSelf) indexesToRemove.Add(i);
+        }
+        indexesToRemove.Reverse();
+
+        for (int i = 0; i < indexesToRemove.Count; i++){
+            buttons.RemoveAt(indexesToRemove[i]);
+            points.RemoveAt(indexesToRemove[i]);
+        }
+
+
+
+        Vector2 startPoint = new Vector2(0,1.25f);
+        float angle = -2*Mathf.PI/buttons.Count;
 
         float distance = (points[0].transform.position - transform.position).magnitude;
-        for (int i = 0; i < points.Length; i++){
+        for (int i = 0; i < points.Count; i++){
             points[i].position = CUtils.RotateVector(startPoint,i * angle) * distance;
         }
 
@@ -35,11 +50,11 @@ public class RotationMenu : CUpdateMonoBehaviour
             canMove = false;
 
             SetupButton(2, 1);
-            buttonIndex = (buttonIndex + (int)Mathf.Sign(horizontalMove) + buttons.Length) % buttons.Length;
+            buttonIndex = (buttonIndex + (int)Mathf.Sign(horizontalMove) + buttons.Count) % buttons.Count;
             buttons[buttonIndex].OnPointerExit(null);
             RotationManager.Instance.RotateBy(
                 transform, 
-                new Vector3(0,0, Mathf.Sign(horizontalMove) * 360.0f/buttons.Length), 
+                new Vector3(0,0, Mathf.Sign(horizontalMove) * 360.0f/buttons.Count), 
                 0.2f, () => {
                     canMove = true;
                     buttons[buttonIndex].OnPointerEnter(null);

@@ -13,7 +13,7 @@ public enum EnemyStates{
     Dead
 }
 
-public class Enemy1 : SMC<EnemyStates>, IListenToGameplayEvents
+public class Enemy1 : BlinkableCharacter<EnemyStates>, IListenToGameplayEvents
 {
     // Start is called before the first frame update
 
@@ -52,6 +52,7 @@ public class Enemy1 : SMC<EnemyStates>, IListenToGameplayEvents
         Enemy1,
         Enemy2,
         Enemy3,
+        Enemy4,
     }
 
     [SerializeField] EnemyID _enemy;
@@ -76,10 +77,12 @@ public class Enemy1 : SMC<EnemyStates>, IListenToGameplayEvents
         if(_enemy == EnemyID.Enemy1) EnemyVisualSlotManager.Enemy1Count += 1;
         if(_enemy == EnemyID.Enemy2) EnemyVisualSlotManager.Enemy2Count += 1;
         if(_enemy == EnemyID.Enemy3) EnemyVisualSlotManager.Enemy3Count += 1;
+        if(_enemy == EnemyID.Enemy4) EnemyVisualSlotManager.Enemy4Count += 1;
+        
         
         _animations = Animations2;
         CanvasSorter.AddCanvas(Graphicals.GetComponent<Canvas>());
-    //    DeadState = EnemyStates.Dead;
+        DeadState = EnemyStates.Dead;
 
         _currentFloor = LevelController.GetClosestFloor(transform.position);
 
@@ -174,6 +177,8 @@ public class Enemy1 : SMC<EnemyStates>, IListenToGameplayEvents
             case EnemyStates.Dead: 
                 Deregister();
                 RequestDisable(1.0f);
+
+                PointsCounter.AddPoints(PlayerIndex.Player1, 500);
             break;
             case EnemyStates.Stare:
                 _elapsedStareTime = TIME_OF_STARING;
@@ -278,33 +283,33 @@ public class Enemy1 : SMC<EnemyStates>, IListenToGameplayEvents
 
         switch (ActiveState) {
             case EnemyStates.Idle:
-                //if(IsDeadByBlinking(TIMES_TO_DEAD_BY_TILE)) return EnemyStates.Dead;
+                if(IsDeadByBlinking(TIMES_TO_DEAD_BY_TILE)) return EnemyStates.Dead;
                 if(_pumpingStacks != 0) return EnemyStates.Pumping;
                 else if(_elapsedIdlingTime <= 0) return EnemyStates.Move;
                 break;
             case EnemyStates.Move:
-                //if(IsDeadByBlinking(TIMES_TO_DEAD_BY_TILE)) return EnemyStates.Dead;
+                if(IsDeadByBlinking(TIMES_TO_DEAD_BY_TILE)) return EnemyStates.Dead;
                 if(_pumpingStacks != 0) return EnemyStates.Pumping;
                 else if(Vector3.Distance(transform.position, DigDugger.Player.transform.position) < 2f && 
                     _elapsedStareTimeColdown <= 0) return EnemyStates.Stare;
                 break;
             case EnemyStates.Stare:
-                //if(IsDeadByBlinking(TIMES_TO_DEAD_BY_TILE)) return EnemyStates.Dead;
+                if(IsDeadByBlinking(TIMES_TO_DEAD_BY_TILE)) return EnemyStates.Dead;
                 if(_pumpingStacks != 0) return EnemyStates.Pumping;
                 else if(Vector3.Distance(transform.position, DigDugger.Player.transform.position) > 4f) return EnemyStates.Move;
                 else if(_elapsedStareTime <= 0) return EnemyStates.Move;
                 break;
             case EnemyStates.LookForPlayer:
-                //if(IsDeadByBlinking(TIMES_TO_DEAD_BY_TILE)) return EnemyStates.Dead;
+                if(IsDeadByBlinking(TIMES_TO_DEAD_BY_TILE)) return EnemyStates.Dead;
                 if(_pumpingStacks != 0) return EnemyStates.Pumping;
                 break;
             case EnemyStates.Escape:
-                //if(IsDeadByBlinking(TIMES_TO_DEAD_BY_TILE)) return EnemyStates.Dead;
+                if(IsDeadByBlinking(TIMES_TO_DEAD_BY_TILE)) return EnemyStates.Dead;
                 if(_pumpingStacks != 0) return EnemyStates.Pumping;
                 else if(_elapsedEscapeTime <= 0) return EnemyStates.Idle;
                 break;
             case EnemyStates.Pumping:
-                //if(IsDeadByBlinking(TIMES_TO_DEAD_BY_TILE)) return EnemyStates.Dead;
+                if(IsDeadByBlinking(TIMES_TO_DEAD_BY_TILE)) return EnemyStates.Dead;
                 if(_pumpingStacks == MAX_PUMPING) return EnemyStates.Dead;
                 if(_pumpingStacks == 0 && _elapsedPumpTime <= 0) return EnemyStates.Idle;
                 
@@ -315,9 +320,9 @@ public class Enemy1 : SMC<EnemyStates>, IListenToGameplayEvents
         return ActiveState;
     }
 
-    public bool IsDead(){
-        return ActiveState == EnemyStates.Dead;
-    }
+  //  public bool IsDead(){
+  //      return ActiveState == EnemyStates.Dead;
+  //  }
 
     protected override Vector3 GetDirectionChange(){
         return new Vector3( 
@@ -328,7 +333,7 @@ public class Enemy1 : SMC<EnemyStates>, IListenToGameplayEvents
     }
 
     protected override void ProcessMove(Vector2 directions ){
-    //    if(IsBlinking()) directions *= 0.2f;
+        if(IsBlinking()) directions *= 0.2f;
         if(ActiveState == EnemyStates.Escape) directions *= 2.0f;
 
         ProcessMove_Horizontal(directions.x);

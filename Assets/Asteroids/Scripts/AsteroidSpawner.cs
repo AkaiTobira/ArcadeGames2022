@@ -4,10 +4,11 @@ using UnityEngine;
 public class AsteroidSpawner : MonoBehaviour, IListenToGameplayEvents
 {
     [SerializeField] Transform[] _positions;
-    [SerializeField] GameObject _asteroidPrefab;
+    [SerializeField] GameObject[]  _prefab;
     [SerializeField] GameObject _player;
 
     public static int AsteroidCount = 0;
+    public static AsteroidSpawner Spawner;
     int generation = 0;
     int needToSpawn = 0;
 
@@ -24,9 +25,12 @@ public class AsteroidSpawner : MonoBehaviour, IListenToGameplayEvents
         AsteroidCount = 0;
         PointsCounter.Reset();
     }
-    private void Start() {
+
+    private void Awake() {
         Events.Gameplay.RegisterListener(this, GameplayEventType.ResizeAsteroids);
+        Spawner = this;
     }
+
     public void OnGameEvent(GameplayEvent gameplayEvent){
         if(enabled == false) return;
         if(gameplayEvent.type == GameplayEventType.ResizeAsteroids){
@@ -56,24 +60,30 @@ public class AsteroidSpawner : MonoBehaviour, IListenToGameplayEvents
         for(int i = 0; i < indexes.Count; i++) {
             if( Vector3.Distance(_positions[indexes[i]].transform.position, _player.transform.position) < 2.0f) continue;
 
-            Asteroid asteroid = Instantiate(
-                _asteroidPrefab, 
-                _positions[indexes[i]].transform.position, 
-                Quaternion.identity).GetComponent<Asteroid>();
-
             Asteroid.EAsteroidSize type = _types.Sizes[ UnityEngine.Random.Range(0, _types.Sizes.Count)];
-            asteroid.Setup(
-                new Vector3(
-                    Random.Range(-1.0f, 1.0f), 
-                    Random.Range(-1.0f, 1.0f), 
-                    0).normalized, 
-                type, 
-                generation);
-
-            (asteroid.transform as RectTransform).SetParent(transform);
+            Spawn(_positions[indexes[i]].transform.position, 
+                    type, 
+                    new Vector3(
+                        Random.Range(-1.0f, 1.0f), 
+                        Random.Range(-1.0f, 1.0f), 
+                        0).normalized,
+                    generation);
+            
             needToSpawn -= 1;
+            AsteroidCount += 1;
             return;
         }
+    }
+
+    public void Spawn(Vector3 pos, Asteroid.EAsteroidSize size, Vector3 direction, int generation){
+            Asteroid asteroid = Instantiate(
+                _prefab[(int)size], 
+                pos, 
+                Quaternion.identity).GetComponent<Asteroid>();
+
+            
+            asteroid.Setup(direction, size, generation);
+            (asteroid.transform as RectTransform).SetParent(transform.parent);
     }
 
     private void ShuffleList(List<int> list){

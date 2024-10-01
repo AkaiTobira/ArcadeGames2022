@@ -6,6 +6,7 @@ public class Target : MonoBehaviour
 {
    [SerializeField] GameObject _activated;
    [SerializeField] GameObject _activated2;
+   [SerializeField] GameObject _collider;
 
     public bool IsPlayerOneActive() { return _activated.activeSelf; }
     public bool IsPlayerTwoActive() { return _activated2.activeSelf; }
@@ -15,6 +16,7 @@ public class Target : MonoBehaviour
             if(_activated != null){
                 bool wasActive = _activated.activeSelf;
                 _activated.SetActive(true);
+                _collider.SetActive(true);
                 return wasActive != _activated.activeSelf;
             }
         }
@@ -22,9 +24,11 @@ public class Target : MonoBehaviour
             if(_activated2 != null){
                 bool wasActive = _activated2.activeSelf;
                 _activated2.SetActive(true);
+                _collider.SetActive(true);
                 return wasActive != _activated2.activeSelf;
             }
-        }      
+        } 
+        
         
         return false;
     }

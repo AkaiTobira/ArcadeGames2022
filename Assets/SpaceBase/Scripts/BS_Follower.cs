@@ -5,7 +5,8 @@ using UnityEngine;
 public class BS_Follower : ESM.SMC_1D<BS_PlayerState>,
     ITakeDamage,
     IDealDamage,
-    IUseDetector
+    IUseDetector,
+    ICanBeRocketTarget
 {
 
     [SerializeField] BoxCollider2D _hitBox;
@@ -313,4 +314,9 @@ public class BS_Follower : ESM.SMC_1D<BS_PlayerState>,
     }
 
     public virtual float GetDamage(){ return 1; }
+
+    public Vector2 GetTargetPoint()
+    {
+        return transform.position;
+    }
 }

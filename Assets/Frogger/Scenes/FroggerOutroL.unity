@@ -490,7 +490,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4940932428591877529, guid: 4c96a5591e831bb478a599d9edaf76ad, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -2.04
       objectReference: {fileID: 0}
     - target: {fileID: 4940932428591877529, guid: 4c96a5591e831bb478a599d9edaf76ad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -787,6 +787,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activated: {fileID: 177341823}
   _activated2: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!114 &120948489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1408,7 +1409,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4940932428591877529, guid: 4c96a5591e831bb478a599d9edaf76ad, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -2.04
       objectReference: {fileID: 0}
     - target: {fileID: 4940932428591877529, guid: 4c96a5591e831bb478a599d9edaf76ad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -1931,7 +1932,11 @@ MonoBehaviour:
   obstacles:
     serializedVersion: 2
     m_Bits: 0
+  player:
+    serializedVersion: 2
+    m_Bits: 0
   animations: []
+  image: {fileID: 0}
   LD: {fileID: 0}
   RU: {fileID: 0}
 --- !u!1 &308836915
@@ -5528,11 +5533,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4940932428591877529, guid: 4c96a5591e831bb478a599d9edaf76ad, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 0.68
       objectReference: {fileID: 0}
     - target: {fileID: 4940932428591877529, guid: 4c96a5591e831bb478a599d9edaf76ad, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -2.33
       objectReference: {fileID: 0}
     - target: {fileID: 4940932428591877529, guid: 4c96a5591e831bb478a599d9edaf76ad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -6210,6 +6215,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activated: {fileID: 1415352321}
   _activated2: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!114 &1260418628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -7442,11 +7448,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4940932428591877529, guid: 4c96a5591e831bb478a599d9edaf76ad, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 0.7800007
       objectReference: {fileID: 0}
     - target: {fileID: 4940932428591877529, guid: 4c96a5591e831bb478a599d9edaf76ad, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -0.5799999
       objectReference: {fileID: 0}
     - target: {fileID: 4940932428591877529, guid: 4c96a5591e831bb478a599d9edaf76ad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -8027,6 +8033,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activated: {fileID: 1897742334}
   _activated2: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!61 &1445109289
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -8267,6 +8274,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activated: {fileID: 1486355845}
   _activated2: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!114 &1468803807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9150,6 +9158,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activated: {fileID: 803183474}
   _activated2: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!114 &1624230955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9347,11 +9356,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 4940932428591877529, guid: 4c96a5591e831bb478a599d9edaf76ad, type: 3}
       propertyPath: m_AnchoredPosition.x
-      value: 0
+      value: 0.68
       objectReference: {fileID: 0}
     - target: {fileID: 4940932428591877529, guid: 4c96a5591e831bb478a599d9edaf76ad, type: 3}
       propertyPath: m_AnchoredPosition.y
-      value: 0
+      value: -2.04
       objectReference: {fileID: 0}
     - target: {fileID: 4940932428591877529, guid: 4c96a5591e831bb478a599d9edaf76ad, type: 3}
       propertyPath: m_LocalEulerAnglesHint.x
@@ -10715,6 +10724,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activated: {fileID: 1061044071}
   _activated2: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!114 &2002490197
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12629,7 +12639,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: -42.79, y: 83.05496}
-  m_SizeDelta: {x: 42.6624, y: 35}
+  m_SizeDelta: {x: 40, y: 35}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &6775311357866549910
 MonoBehaviour:

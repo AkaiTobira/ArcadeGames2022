@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using DigDug;
@@ -167,7 +168,7 @@ public static class DD_Levels{
     }
 }
 
-public class DD_BlocksManager : MonoBehaviour
+public class DD_BlocksManager : CUpdateMonoBehaviour
 {
     // Start is called before the first frame update
     int currentLevel = 0;
@@ -189,9 +190,25 @@ public class DD_BlocksManager : MonoBehaviour
         {'S', DD_BrickState.PlayerPosition},
     };
 
-    void Start(){
-        StartCoroutine(RestoreSavedPositions());
+    protected override void Start(){
+        base.Start();
+        //StartCoroutine(RestoreSavedPositions());
         Instance = this;
+    
+        Vector2 sizes = DD_NavMesh.GetSize();
+        for(int i = 0; i < numberOfBricks; i++) {
+            DD_BrickController brick = Instantiate(brickControllerPrefab, background);
+            brick.name = "Brick (" + i + ")";
+            brick.Recolor(i, (int)sizes.y, (int)sizes.x);
+            brick.transform.SetAsLastSibling();
+        }
+
+        TimersManager.Instance.FireAfter(0.001f, () =>{
+            LoadLevel();
+            DD_NavMesh.InitializeNavMesh();
+            AlphaManipolator.Hide();
+            Initilized = true;
+        });
     }
 
     private IEnumerator RestoreSavedPositions(){
@@ -217,6 +234,11 @@ public class DD_BlocksManager : MonoBehaviour
         AudioSystem.PlaySample("DigDug_LevelWin");
     }
 
+    public void ResetLevel()
+    {
+        LoadLevel();
+    }
+
     public static int GetCurrentLevel(){
         if(Guard.IsValid(Instance)) return Instance.currentLevel;
 
@@ -225,8 +247,6 @@ public class DD_BlocksManager : MonoBehaviour
 
     void LoadLevel(){
         string[] level = DD_Levels.GetLevel(currentLevel);
-
-
 
         for(int i = 0; i < level.Length; i++) {
             string row = level[i];
@@ -243,10 +263,7 @@ public class DD_BlocksManager : MonoBehaviour
                 bool toop  = false;
                 if(i > 0) toop |= !IsEmpty(level[i][j]) || !IsEmpty(level[i-1][j]);
 
-                brick.Setup(
-                    CharToState[row[j]], 
-                    right, 
-                    toop);
+                brick.Setup(CharToState[row[j]], right, toop);
             }
         }
     }
@@ -259,7 +276,7 @@ public class DD_BlocksManager : MonoBehaviour
         return c != ' ' && c != '1';
     }
 #if UNITY_EDITOR
-    private void Update() {
+    public override void CUpdate() {
         if(InputHandler.GetKey(InputKey.Debug1)){
             currentLevel++;
             LoadLevel();

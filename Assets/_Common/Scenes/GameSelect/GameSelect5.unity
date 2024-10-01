@@ -717,6 +717,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activated: {fileID: 177341823}
   _activated2: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!114 &120948489
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -1046,10 +1047,10 @@ MonoBehaviour:
   _interactable: 1
   _buttonText: 
   _audioTap: 
-  _pressed: {fileID: 21300000, guid: 06ba5d7221cc6224da3930893839d18c, type: 3}
-  _hover: {fileID: 21300000, guid: 06ba5d7221cc6224da3930893839d18c, type: 3}
-  _inactive: {fileID: 21300000, guid: 06ba5d7221cc6224da3930893839d18c, type: 3}
-  _active: {fileID: 21300000, guid: 06ba5d7221cc6224da3930893839d18c, type: 3}
+  _pressed: {fileID: 21300000, guid: c66ed1e9cdf5e494db17318db939401e, type: 3}
+  _hover: {fileID: 21300000, guid: c66ed1e9cdf5e494db17318db939401e, type: 3}
+  _inactive: {fileID: 21300000, guid: c66ed1e9cdf5e494db17318db939401e, type: 3}
+  _active: {fileID: 21300000, guid: c66ed1e9cdf5e494db17318db939401e, type: 3}
   _buttonName: {fileID: 0}
   _textColorTilt: []
   _images:
@@ -1578,10 +1579,10 @@ MonoBehaviour:
   _interactable: 1
   _buttonText: 
   _audioTap: 
-  _pressed: {fileID: 21300000, guid: b1b4ee13281790840aec40e366ce12cb, type: 3}
-  _hover: {fileID: 21300000, guid: b1b4ee13281790840aec40e366ce12cb, type: 3}
-  _inactive: {fileID: 21300000, guid: b1b4ee13281790840aec40e366ce12cb, type: 3}
-  _active: {fileID: 21300000, guid: b1b4ee13281790840aec40e366ce12cb, type: 3}
+  _pressed: {fileID: 21300000, guid: 4923bd0affef08045811c44947926254, type: 3}
+  _hover: {fileID: 21300000, guid: 4923bd0affef08045811c44947926254, type: 3}
+  _inactive: {fileID: 21300000, guid: 4923bd0affef08045811c44947926254, type: 3}
+  _active: {fileID: 21300000, guid: 4923bd0affef08045811c44947926254, type: 3}
   _buttonName: {fileID: 0}
   _textColorTilt: []
   _images:
@@ -2483,7 +2484,11 @@ MonoBehaviour:
   obstacles:
     serializedVersion: 2
     m_Bits: 0
+  player:
+    serializedVersion: 2
+    m_Bits: 0
   animations: []
+  image: {fileID: 0}
   LD: {fileID: 0}
   RU: {fileID: 0}
 --- !u!1 &308836915
@@ -2912,10 +2917,10 @@ MonoBehaviour:
   _interactable: 1
   _buttonText: 
   _audioTap: 
-  _pressed: {fileID: 21300000, guid: 7c54a8cb8095fed46b291bb8c2e6a86e, type: 3}
-  _hover: {fileID: 21300000, guid: 7c54a8cb8095fed46b291bb8c2e6a86e, type: 3}
-  _inactive: {fileID: 21300000, guid: 7c54a8cb8095fed46b291bb8c2e6a86e, type: 3}
-  _active: {fileID: 21300000, guid: 7c54a8cb8095fed46b291bb8c2e6a86e, type: 3}
+  _pressed: {fileID: 21300000, guid: 50559afbe40d7864c90c0cc7cd1b28c2, type: 3}
+  _hover: {fileID: 21300000, guid: 50559afbe40d7864c90c0cc7cd1b28c2, type: 3}
+  _inactive: {fileID: 21300000, guid: 50559afbe40d7864c90c0cc7cd1b28c2, type: 3}
+  _active: {fileID: 21300000, guid: 50559afbe40d7864c90c0cc7cd1b28c2, type: 3}
   _buttonName: {fileID: 0}
   _textColorTilt: []
   _images:
@@ -3118,10 +3123,10 @@ MonoBehaviour:
   _interactable: 1
   _buttonText: 
   _audioTap: 
-  _pressed: {fileID: 21300000, guid: 50385ce9c442cdb41a6d90cfa40143a1, type: 3}
-  _hover: {fileID: 21300000, guid: 50385ce9c442cdb41a6d90cfa40143a1, type: 3}
-  _inactive: {fileID: 21300000, guid: 50385ce9c442cdb41a6d90cfa40143a1, type: 3}
-  _active: {fileID: 21300000, guid: 50385ce9c442cdb41a6d90cfa40143a1, type: 3}
+  _pressed: {fileID: 21300000, guid: 1f4e978d35aeb6b458d5b78712fdfa24, type: 3}
+  _hover: {fileID: 21300000, guid: 1f4e978d35aeb6b458d5b78712fdfa24, type: 3}
+  _inactive: {fileID: 21300000, guid: 1f4e978d35aeb6b458d5b78712fdfa24, type: 3}
+  _active: {fileID: 21300000, guid: 1f4e978d35aeb6b458d5b78712fdfa24, type: 3}
   _buttonName: {fileID: 0}
   _textColorTilt: []
   _images:
@@ -4617,7 +4622,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &694827545
 RectTransform:
   m_ObjectHideFlags: 0
@@ -4658,10 +4663,10 @@ MonoBehaviour:
   _interactable: 1
   _buttonText: 
   _audioTap: 
-  _pressed: {fileID: 21300000, guid: 904a6c079ffb4064a8b607825cdc6a8a, type: 3}
-  _hover: {fileID: 21300000, guid: 904a6c079ffb4064a8b607825cdc6a8a, type: 3}
-  _inactive: {fileID: 21300000, guid: 904a6c079ffb4064a8b607825cdc6a8a, type: 3}
-  _active: {fileID: 21300000, guid: 904a6c079ffb4064a8b607825cdc6a8a, type: 3}
+  _pressed: {fileID: 21300000, guid: 72f8ebe4cea372e49adfd31ad6db3201, type: 3}
+  _hover: {fileID: 21300000, guid: 72f8ebe4cea372e49adfd31ad6db3201, type: 3}
+  _inactive: {fileID: 21300000, guid: 72f8ebe4cea372e49adfd31ad6db3201, type: 3}
+  _active: {fileID: 21300000, guid: 72f8ebe4cea372e49adfd31ad6db3201, type: 3}
   _buttonName: {fileID: 0}
   _textColorTilt: []
   _images:
@@ -8615,6 +8620,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activated: {fileID: 1415352321}
   _activated2: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!114 &1260418628
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -9962,6 +9968,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activated: {fileID: 1897742334}
   _activated2: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!61 &1445109289
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -10202,6 +10209,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activated: {fileID: 1486355845}
   _activated2: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!114 &1468803807
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10359,10 +10367,10 @@ MonoBehaviour:
   _interactable: 1
   _buttonText: 
   _audioTap: 
-  _pressed: {fileID: 21300000, guid: 1a1bd701a3166d740b5e70d30a501e4e, type: 3}
-  _hover: {fileID: 21300000, guid: 1a1bd701a3166d740b5e70d30a501e4e, type: 3}
-  _inactive: {fileID: 21300000, guid: 1a1bd701a3166d740b5e70d30a501e4e, type: 3}
-  _active: {fileID: 21300000, guid: 1a1bd701a3166d740b5e70d30a501e4e, type: 3}
+  _pressed: {fileID: 21300000, guid: 5c2a70cb974ee4944997e3043bdbf1c7, type: 3}
+  _hover: {fileID: 21300000, guid: 5c2a70cb974ee4944997e3043bdbf1c7, type: 3}
+  _inactive: {fileID: 21300000, guid: 5c2a70cb974ee4944997e3043bdbf1c7, type: 3}
+  _active: {fileID: 21300000, guid: 5c2a70cb974ee4944997e3043bdbf1c7, type: 3}
   _buttonName: {fileID: 0}
   _textColorTilt: []
   _images:
@@ -11443,10 +11451,10 @@ MonoBehaviour:
   _interactable: 1
   _buttonText: 
   _audioTap: 
-  _pressed: {fileID: 21300000, guid: e668b4090971c0b478bb626c2411c363, type: 3}
-  _hover: {fileID: 21300000, guid: e668b4090971c0b478bb626c2411c363, type: 3}
-  _inactive: {fileID: 21300000, guid: e668b4090971c0b478bb626c2411c363, type: 3}
-  _active: {fileID: 21300000, guid: e668b4090971c0b478bb626c2411c363, type: 3}
+  _pressed: {fileID: 21300000, guid: ed46cdd5a5991874ea800504cafec246, type: 3}
+  _hover: {fileID: 21300000, guid: ed46cdd5a5991874ea800504cafec246, type: 3}
+  _inactive: {fileID: 21300000, guid: ed46cdd5a5991874ea800504cafec246, type: 3}
+  _active: {fileID: 21300000, guid: ed46cdd5a5991874ea800504cafec246, type: 3}
   _buttonName: {fileID: 0}
   _textColorTilt: []
   _images:
@@ -11578,6 +11586,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activated: {fileID: 803183474}
   _activated2: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!114 &1624230955
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -12303,10 +12312,10 @@ MonoBehaviour:
   _interactable: 1
   _buttonText: 
   _audioTap: 
-  _pressed: {fileID: 21300000, guid: 7f64233ed21f8e1409eb5d340b519192, type: 3}
-  _hover: {fileID: 21300000, guid: 7f64233ed21f8e1409eb5d340b519192, type: 3}
-  _inactive: {fileID: 21300000, guid: 7f64233ed21f8e1409eb5d340b519192, type: 3}
-  _active: {fileID: 21300000, guid: 7f64233ed21f8e1409eb5d340b519192, type: 3}
+  _pressed: {fileID: 21300000, guid: 7c790a6e46ee7ba41b19a508da436aed, type: 3}
+  _hover: {fileID: 21300000, guid: 7c790a6e46ee7ba41b19a508da436aed, type: 3}
+  _inactive: {fileID: 21300000, guid: 7c790a6e46ee7ba41b19a508da436aed, type: 3}
+  _active: {fileID: 21300000, guid: 7c790a6e46ee7ba41b19a508da436aed, type: 3}
   _buttonName: {fileID: 0}
   _textColorTilt: []
   _images:
@@ -12457,10 +12466,10 @@ MonoBehaviour:
   _interactable: 1
   _buttonText: 
   _audioTap: 
-  _pressed: {fileID: 21300000, guid: 547d6e8ebe931ed43b4e8d451480fb5b, type: 3}
-  _hover: {fileID: 21300000, guid: 547d6e8ebe931ed43b4e8d451480fb5b, type: 3}
-  _inactive: {fileID: 21300000, guid: 547d6e8ebe931ed43b4e8d451480fb5b, type: 3}
-  _active: {fileID: 21300000, guid: 547d6e8ebe931ed43b4e8d451480fb5b, type: 3}
+  _pressed: {fileID: 21300000, guid: 398b6f7cfe9217145b6f8de9f964d7e7, type: 3}
+  _hover: {fileID: 21300000, guid: 398b6f7cfe9217145b6f8de9f964d7e7, type: 3}
+  _inactive: {fileID: 21300000, guid: 398b6f7cfe9217145b6f8de9f964d7e7, type: 3}
+  _active: {fileID: 21300000, guid: 398b6f7cfe9217145b6f8de9f964d7e7, type: 3}
   _buttonName: {fileID: 0}
   _textColorTilt: []
   _images:
@@ -13696,6 +13705,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _activated: {fileID: 1061044071}
   _activated2: {fileID: 0}
+  _collider: {fileID: 0}
 --- !u!114 &2002490197
 MonoBehaviour:
   m_ObjectHideFlags: 0

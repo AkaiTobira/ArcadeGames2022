@@ -25,9 +25,8 @@ public class BS_Missle : MonoBehaviour
 
         transform.position += speed;
 
-        if(_distance < 0){
+        if(_distance < 0 && Guard.IsValid(gameObject)){
             Destroy(gameObject);
         }
     }
-
 }

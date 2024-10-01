@@ -8,11 +8,13 @@ public class EnemyVisualSlotManager : MonoBehaviour, IListenToGameplayEvents
     public static int Enemy1Count = 0;
     public static int Enemy2Count = 0;
     public static int Enemy3Count = 0;
+    public static int Enemy4Count = 0;
 
 
     private int enemy1Count = 0;
     private int enemy2Count = 0;
     private int enemy3Count = 0;
+    private int enemy4Count = 0;
 
     private bool gameWinEnabled;
 
@@ -29,6 +31,7 @@ public class EnemyVisualSlotManager : MonoBehaviour, IListenToGameplayEvents
             Enemy1Count = 0;
             Enemy2Count = 0;
             Enemy3Count = 0;
+            Enemy4Count = 0;
         }
     }
 
@@ -36,7 +39,9 @@ public class EnemyVisualSlotManager : MonoBehaviour, IListenToGameplayEvents
     {
         if( enemy1Count != Enemy1Count || 
             enemy2Count != Enemy2Count || 
-            enemy3Count != Enemy3Count){
+            enemy3Count != Enemy3Count || 
+            enemy4Count != Enemy4Count
+            ){
 
 // /            Debug.Log(Enemy1Count + " " + enemy2Count + " " + enemy3Count);
         };
@@ -57,14 +62,16 @@ public class EnemyVisualSlotManager : MonoBehaviour, IListenToGameplayEvents
 
         if( enemy1Count != Enemy1Count || 
             enemy2Count != Enemy2Count || 
-            enemy3Count != Enemy3Count){
+            enemy3Count != Enemy3Count ||
+            enemy4Count != Enemy4Count){
 
             enemy1Count = Enemy1Count;
             enemy2Count = Enemy2Count;
             enemy3Count = Enemy3Count;
+            enemy4Count = Enemy4Count;
         };
-        if(enemy1Count + enemy2Count + enemy3Count == 0 && gameWinEnabled){
-            Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.GameOver, GameOver.Kill));
+        if(enemy1Count + enemy2Count + enemy3Count + enemy4Count == 0 && gameWinEnabled){
+        //    Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.GameOver, GameOver.Kill));
             gameWinEnabled = false;
         }
     }

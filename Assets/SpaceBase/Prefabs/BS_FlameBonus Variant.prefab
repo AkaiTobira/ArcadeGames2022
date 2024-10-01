@@ -90,7 +90,11 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 2038952719559477038, guid: 1a0dd1f281d7b454eaeb284a6a532ebf, type: 3}
       propertyPath: m_Name
-      value: BS_HealthBonus Variant
+      value: BS_FlameBonus Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 7778571216582986473, guid: 1a0dd1f281d7b454eaeb284a6a532ebf, type: 3}
+      propertyPath: _type
+      value: 7
       objectReference: {fileID: 0}
     m_RemovedComponents: []
     m_RemovedGameObjects: []

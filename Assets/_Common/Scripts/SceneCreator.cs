@@ -44,13 +44,15 @@ public class SceneCreator : MonoBehaviour
 
             await UpdateComponent<ConstAutoTranslatorImage>();
             await UpdateComponent<ConstAutoTranslatorAnimator>();
+            await UpdateComponent<ConstAutoTranslatorAnimatorWithIntro>();
 
             debugLog += "\n" + path + " Opened\n";
 
             ConstAutoTranslatorImage[]    c1 = Resources.FindObjectsOfTypeAll<ConstAutoTranslatorImage>();
             ConstAutoTranslatorAnimator[] c2 = Resources.FindObjectsOfTypeAll<ConstAutoTranslatorAnimator>();
+            ConstAutoTranslatorAnimatorWithIntro[] c3 = Resources.FindObjectsOfTypeAll<ConstAutoTranslatorAnimatorWithIntro>();
         
-            if(c1.Length + c2.Length > 0){
+            if(c1.Length + c2.Length + c3.Length > 0){
                 Debug.Log($"Replacing {path}");
                 EditorSceneManager.SaveScene(EditorSceneManager.GetActiveScene(), path);
             }
@@ -68,6 +70,7 @@ public class SceneCreator : MonoBehaviour
 
                 await UpdateComponent<AutoTranslatorImage>();
                 await UpdateComponent<AutoTranslatorAnimator>();
+                await UpdateComponent<AutoTranslatorAnimatorWithIntro>();
                 
 //                debugLog += c1.Length + "//" + c2.Length;
                 debugLog += "\n" + path + " Opened with " + i.ToString() + "\n";
@@ -90,11 +93,14 @@ public class SceneCreator : MonoBehaviour
     static void SaveGeneratedScene(){
         AutoTranslatorImage[]    c1 = Resources.FindObjectsOfTypeAll<AutoTranslatorImage>();
         AutoTranslatorAnimator[] c2 = Resources.FindObjectsOfTypeAll<AutoTranslatorAnimator>();
+        AutoTranslatorAnimatorWithIntro[] c3 = Resources.FindObjectsOfTypeAll<AutoTranslatorAnimatorWithIntro>();
         
-        if(c1.Length + c2.Length > 0){
+        if(c1.Length + c2.Length + c3.Length > 0){
 
             for(int i = 0; i < c1.Length; i++){ DestroyImmediate(c1[i]); }
             for(int i = 0; i < c2.Length; i++){ DestroyImmediate(c2[i]); }
+            for(int i = 0; i < c3.Length; i++){ DestroyImmediate(c3[i]); }
+
 
             string[] path = EditorSceneManager.GetActiveScene().path.Split(char.Parse("/"));
             path[path.Length - 1] = AutoTranslator.Language.ToString() + "_" + path[path.Length - 1];

@@ -49,7 +49,7 @@ SpaceJunkOutro1	GAME OVER <br>You are dead.	Game over<br><br>Leben wurde erschaf
 NextPlanetDelay	I am not done here.	Ich bin hier noch nicht fertig.	No he terminado aquí.	0::
 NextPlanetOver	Good, I am out of here	Gut, ich bin hier raus	Buena estoy fuera de aqui	0::
 NextPlanetNext	Give me more of them	Gib mir mehr davon	Dame más de ellas	0::
-NextPlanetAsk2	This planet has nothing more to offer<br>What you want to do next?	Dieser Planet hat nichts mehr zu bieten<br>Was möchtest du als nächstes tun?	Este planeta no tiene nada más que ofrecer<br>¿Qué quieres hacer a continuación?	0::
+NextPlanetAsk2	This planet has nothing more to offer<br>Let's got to next one	Dieser Planet hat nichts mehr zu bieten<br>Kommen wir zum nächsten	Este planeta no tiene nada más que ofrecer<br>Pasemos al siguiente.	0::
 BInnocentLives	Innocent Lives Taken :	Unschuldige Leben genommen:	Víctimas inocentes:	0::
 BerzerkGeneral_N_1	It's us or them!	Entweder wir oder sie!	¡Es nosotros o ellos!	0::
 BerzerkGeneral_N_2	Hurry up soldier!	Schneller, Soldat!	¡Date prisa, soldado!	0::
@@ -97,3 +97,17 @@ BerzerkStrike4	Waiting for text :)	Not translated	Not translated	0::
 BerzerkStrike5	Waiting for text :)	Not translated	Not translated	0::
 BerzerkStrike6	Waiting for text :)	Not translated	Not translated	0::
 ChoseLang	Choose the language	Sprache wählen	Elige el idioma	0::
+SpaceJunkOutroP1	Good Job Player 1!<br>You ran away	Gute Arbeit, Spieler 1!<br>Du bist weggelaufen	¡Buen trabajo, jugador 1!<br>Te escapaste	0::
+SpaceJunkOutroP2	Good Job Player 2!<br>You ran away	Gute Arbeit, Spieler 2!<br>Du bist weggelaufen	¡Buen trabajo, jugador 2!<br>Te escapaste	0::
+DigDug2StartGame	Welcome!<br>Now go fix the planet!	Willkommen!<br>Jetzt geh und repariere den Planeten!	¡Bienvenido!<br>¡Ahora ve a arreglar el planeta!	0::
+GardenOutro	GAME OVER<br> All planties are dead	SPIEL ENDE<br> Alle Planties sind tot	JUEGO TERMINADO<br> Todas las plantas están muertas.	0::
+GCodeBreak	Input hacked	Eingabe gehackt	Entrada pirateada	0::
+GPress	Press button	Taste drücken	Presione el botón	0::
+GInverseMovement	Movement inverted	Bewegung umgekehrt	Movimiento invertido	0::
+GMorePlanties	New plant unlocked	Neue Anlage freigeschaltet	Nueva planta desbloqueada	0::
+Player2Join	Press to join	Drücken Sie, um beizutreten	Presione para unirse	0::
+ANEwHighScore_P1	New Highscore !!!<br>Player 1 please enter your name	Neuer Highscore !!!<br>Spieler 1, bitte geben Sie Ihren Namen ein	¡¡¡Nueva puntuación más alta!!!<br>Jugador 1, ingresa tu nombre	0::
+ANEwHighScore_P2	New Highscore !!!<br>Player 2 please enter your name	Neuer Highscore !!!<br>Spieler 2, bitte geben Sie Ihren Namen ein	¡¡¡Nueva puntuación más alta!!!<br>Jugador 2, ingresa tu nombre	0::
+TSlower	Slower	Langsamer	Más lento	0::
+TFaster	Faster	Schneller	Más rápido	0::
+TProtect	Shield	Schild	Blindaje	0::

@@ -163,7 +163,7 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
         LeftBottom,
     }
 
-    private float _startDelay = 8f;
+
 
     class HitParameters{
         public RayPoints[] RelatedDirections;
@@ -219,7 +219,7 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
 
     const float ATTACK_PUNCH_TIME = 0.45f;
     const float ATTACK_KICK_TIME  = 0.55f;
-    const float ATTACK_SPECIAL_TIME  = 0.7f;
+    const float ATTACK_SPECIAL_TIME  = 1.14f;
     const float HURT_TIME = 0.2f;
 
 
@@ -234,6 +234,8 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
     const string SOUND_PLAYER_KICK = "LittleFighter_PlayerKick";
     const string SOUND_PLAYER_SPECIAL = "LittleFighter_PlayerSpecial";
     const string SOUND_PLAYER_HEAL = "LittleFighter_Heal";
+
+    public static float StartDelay = 8f;
 
     protected override void Awake() {
         base.Awake();
@@ -432,8 +434,8 @@ public class LF_Player : ESM.SMC_2D<LFPlayerState>,
 
     private void ProcessInputs(){
 
-        _startDelay -= Time.deltaTime;
-        if(_startDelay > 0) return;
+        StartDelay -= Time.deltaTime;
+        if(StartDelay > 0) return;
 
 
         ProcessInputsMove();

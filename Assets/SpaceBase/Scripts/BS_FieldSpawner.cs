@@ -15,7 +15,7 @@ public class BS_FieldSpawner : MonoBehaviour
 
     private void SpawnTiles(){
 
-        Vector2 size = new Vector2( (int)(810 / 48) + 1, (int)(750 / 36) + 1 );
+        Vector2 size = new Vector2( (int)(900 / 48) + 1, (int)(845 / 36) + 1 );
 
         for(int i = 0; i < size.x * size.y; i++){
             GameObject go = Instantiate(_tile, new Vector3(), Quaternion.identity, transform);

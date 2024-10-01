@@ -15,11 +15,21 @@ public class AutoTranslatorUnit : AutoTranslatorUnitBase{
     }
 
     protected override void Refresh(){
-        _text.font = TextAssets.GetFont();
-        _text.text = AutoTranslator.Translate(textTag);
-        _text.ForceMeshUpdate(false, true);
+
+        TMP_FontAsset font = TextAssets.GetFont();
+        if(Guard.IsValid(font)){
+            _text.font = TextAssets.GetFont();
+            _text.text = AutoTranslator.Translate(textTag);
+            _text.ForceMeshUpdate(false, true);
+        }
+    }
+
+    public void SetTag(string tag){
+        textTag = tag;
+        Refresh();
     }
 }
+
 [ExecuteInEditMode]
 public abstract class AutoTranslatorUnitBase : CMonoBehaviour, IListenToGameplayEvents
 {

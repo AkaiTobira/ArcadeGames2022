@@ -3,13 +3,14 @@ using System.Collections.Generic;
 using UnityEngine;
 using TMPro;
 
-public class LevelController : MonoBehaviour, IListenToGameplayEvents
+public class LevelController : CUpdateMonoBehaviour, IListenToGameplayEvents
 {
 
     private enum WorldType{
         Grassland,
         Magmaland,
         RedWeedLand,
+        OrangeLand,
         MixedLand,
     }
 
@@ -18,17 +19,21 @@ public class LevelController : MonoBehaviour, IListenToGameplayEvents
     [SerializeField] List<Sprite> _solidTiles1;
     [SerializeField] List<Sprite> _solidTiles2;
     [SerializeField] List<Sprite> _solidTiles3;
+    [SerializeField] List<Sprite> _solidTiles4;
 
-    [SerializeField] TextMeshProUGUI _penaltyTexy;
-    [SerializeField] TextMeshProUGUI _timer;
+    //[SerializeField] TextMeshProUGUI _penaltyTexy;
+    [SerializeField] TextMeshProUGUI _score;
     
+
+
 
     private int _numberOfGroundTiles = 0;
     private Floor2[] _allFloorTiles;
     private Vector3 _distances = new Vector3(3.75f, 3.75f, 0);
 
     [SerializeField] WorldType type;
-    private void Awake() {
+    protected override void Awake() {
+        base.Awake();
         _allFloorTiles = GetComponentsInChildren<Floor2>();
     }
 
@@ -36,9 +41,9 @@ public class LevelController : MonoBehaviour, IListenToGameplayEvents
         _instance = this;
     }
 
-
-    void Start()
+    protected override void Start()
     {
+        base.Start();
         Events.Gameplay.RegisterListener(this, GameplayEventType.RecalculateTerrain);
         Events.Gameplay.RegisterListener(this, GameplayEventType.GameOver);
 
@@ -67,11 +72,11 @@ public class LevelController : MonoBehaviour, IListenToGameplayEvents
             case WorldType.Grassland: return _solidTiles1;
             case WorldType.Magmaland: return _solidTiles2;
             case WorldType.RedWeedLand: return _solidTiles3;
+            case WorldType.OrangeLand: return _solidTiles4;
         }
 
         return _solidTiles1;
     }
-
 
     private void SetupNeighbours(Floor2 current){
         Dictionary<NeighbourSide, Floor2> neighbours = new Dictionary<NeighbourSide, Floor2>();
@@ -94,6 +99,24 @@ public class LevelController : MonoBehaviour, IListenToGameplayEvents
         }
 
         current.SetNeighbours(neighbours);
+    }
+
+    float _pointsDropTime = 1;
+
+    public static bool StopGame = false;
+
+    public override void CUpdate()
+    {
+        base.CUpdate();
+
+        if(StopGame) return;
+
+        _pointsDropTime -= Time.deltaTime;
+        if(_pointsDropTime < 0){
+            _pointsDropTime += 1;
+
+            PointsCounter.AddPoints(PlayerIndex.Player1, -50);
+        }
     }
 
     private bool AreStillConnected(List<Floor2> tiles, out HashSet<Floor2> connectedToFirstTile){
@@ -119,6 +142,8 @@ public class LevelController : MonoBehaviour, IListenToGameplayEvents
     }
 
     private void RecalculateTerrain(List<Floor2> ends){
+        int removedTiles = 0;
+        
         if(!AreStillConnected(ends, out HashSet<Floor2> connectedToFirstTile)){
             int firstPartTilesCount = connectedToFirstTile.Count;
             int secondPartTilesCount = _numberOfGroundTiles - connectedToFirstTile.Count;
@@ -128,14 +153,25 @@ public class LevelController : MonoBehaviour, IListenToGameplayEvents
 
             for(int i = 0; i < _allFloorTiles.Length; i++) {
                 Floor2 tile = _allFloorTiles[i];
-                if(isSmallerPart && connectedToFirstTile.Contains(tile)) tile.ConvertToEmptyTile();
-                if(!isSmallerPart && !connectedToFirstTile.Contains(tile)) tile.ConvertToEmptyTile();
+
+                bool isScorable = tile.IsSolid();
+
+                if(isSmallerPart && connectedToFirstTile.Contains(tile)) {
+                    tile.ConvertToEmptyTile();
+                    if(isScorable)removedTiles++;
+                }
+                if(!isSmallerPart && !connectedToFirstTile.Contains(tile)) {
+                    tile.ConvertToEmptyTile();
+                    if(isScorable)removedTiles++;
+                }
             }
             Events.Gameplay.RiseEvent( new GameplayEvent(GameplayEventType.RecalculateDiggers));
             Events.Gameplay.RiseEvent( new GameplayEvent(GameplayEventType.RefreshConections));
             
             AudioSystem.Instance.PlayEffect("DigDug_Terraforming", 1);
         }
+
+        PointsCounter.AddPoints(PlayerIndex.Player1, 200 * removedTiles + (removedTiles/4 * 500));
     }
 
     private bool GameOVer = false;
@@ -147,10 +183,10 @@ public class LevelController : MonoBehaviour, IListenToGameplayEvents
         if(!gameObject.activeSelf) return;
 
         if(gameplayEvent.type == GameplayEventType.GameOver){
-            
+            Debug.Log("GameOver");
             if(!GameOVer){
                 GameOVer = true;
-
+                /*
                 GameOver gameOverType = (GameOver)gameplayEvent.parameter;
                 if(gameOverType != GameOver.Kill){
 
@@ -171,6 +207,7 @@ public class LevelController : MonoBehaviour, IListenToGameplayEvents
                         _penaltyTexy.transform.parent.gameObject.SetActive( false );
                     }
                 });
+                */
             }
         }
     }
@@ -195,5 +232,4 @@ public class LevelController : MonoBehaviour, IListenToGameplayEvents
         
         return null;
     }
-
 }

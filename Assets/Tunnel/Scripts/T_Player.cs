@@ -13,15 +13,17 @@ public class T_Player : MonoBehaviour, IListenToGameplayEvents
     [SerializeField] float _accelerationRotate = 0.5f;
     [SerializeField] float _moveSpeed = 4f;
 
-
     [SerializeField] float calcRotationSpeed = 0;
     [SerializeField] Vector3 movePoint;
+    [SerializeField] GameObject _shield;
+    [SerializeField] GameObject _deathSpirit;
 
     public static int NumberOfMissles = 0;
 
 
     protected float _movePenalty = 1;
     private Transform _currentSegment;
+    bool _invincibleSkip = false;
     private float pointProgress = 0;
 
     private void Awake() {
@@ -92,7 +94,15 @@ public class T_Player : MonoBehaviour, IListenToGameplayEvents
 
     private void OnTriggerEnter2D(Collider2D other) {
         if(other.tag.Contains("Enemy")){
+            if(_invincibleSkip){
+                _invincibleSkip = false;
+                _shield.SetActive(false);
+                return;
+            }
+
             T_Segment.Stop = true;
+
+
 
             other.gameObject.SetActive(false);
             transform.GetChild(0).GetComponent<Image>().enabled = false;
@@ -100,11 +110,40 @@ public class T_Player : MonoBehaviour, IListenToGameplayEvents
             _endAnimation.SetActive(true);
             AudioSystem.PlaySample("Tunnel_Explode");
             HighScoreRanking.LoadRanking(GameType.Tunnel);
-            TimersManager.Instance.FireAfter(3f, () => {
+
+            TimersManager.Instance.FireAfter(1f, () => {
+                transform.GetChild(2).gameObject.SetActive(false);
+                _deathSpirit.SetActive(true);
+            });
+
+
+
+
+            TimersManager.Instance.FireAfter(6f, () => {
                 _nextScene.OnSceneLoad();
                 T_Segment.Stop = false;
                 T_SegmentSpawner.MULTIPLER = 1.0f;
             });
+        }
+
+        if(other.tag.Contains("Pickup")){
+            T_BonusType type = other.GetComponent<T_BonusAnimator>().GetBonusType();
+            switch(type){
+                case T_BonusType.Slower: 
+                    T_SegmentSpawner.MULTIPLER = Mathf.Max(T_SegmentSpawner.MULTIPLER - 0.25f, 1f);
+
+                break;
+                case T_BonusType.Faster: 
+                    T_SegmentSpawner.MULTIPLER = Mathf.Min(T_SegmentSpawner.MULTIPLER + 0.25f, 3f);
+
+                break;
+                case T_BonusType.Protect:
+                    _invincibleSkip = true;
+                    _shield.SetActive(true);
+                break;
+            }
+
+            Destroy(other.gameObject);
         }
     }
 }

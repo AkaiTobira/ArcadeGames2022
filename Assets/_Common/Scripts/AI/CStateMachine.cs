@@ -52,7 +52,7 @@ namespace AI.FSM
             if(isChanged){
                 _activeState.OnExit();
 
-                Debug.Log("Transition from " + _activeStateEnum + " to " + newState);
+//                Debug.Log("Transition from " + _activeStateEnum + " to " + newState);
 
                 _activeState     = _states[newState];
                 _activeStateEnum = newState;

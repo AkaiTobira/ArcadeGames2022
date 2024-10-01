@@ -52,6 +52,12 @@ public class T_SegmentSpawner : MonoBehaviour
         {"0100300200", new string[]{ "0000000000", "0020100300", "0000000000", "0000100030", "1230230123", "1230230123"}},
         {"0020100300", new string[]{ "0000000000", "0020100300", "0000000000", "0000100030", "1230230123", "1230230123"}},
         {"0000100030", new string[]{ "0000000000", "0000100030", "0020100300", "0000100030", "1230230123", "1230230123"}},
+    
+    
+
+
+
+
     };
 
 
@@ -91,7 +97,10 @@ public class T_SegmentSpawner : MonoBehaviour
             if(_positions.Count == 0) GeneratePositions();
             if(_colors.Count == 1) GenerateColors();
             if(_patterns.Count == 1) _patterns.Add(
-                    _enemiesPatterns[_patterns[0]][Random.Range(0, _enemiesPatterns[_patterns[0]].Length)]
+                    
+                    GenerateNewPattern(_patterns[0])
+                    
+                //    _enemiesPatterns[_patterns[0]][Random.Range(0, _enemiesPatterns[_patterns[0]].Length)]
                 );
 
             segment.Setup(_positions[0] + _spawnPositionOffset, rotation, _colors[0], _patterns[0]);
@@ -101,6 +110,46 @@ public class T_SegmentSpawner : MonoBehaviour
 
             SortCanvas();
         }
+    }
+
+    int bonusProb = 30;
+
+    private string GenerateNewPattern(string v)
+    {
+        string outer = v;
+
+        for(int i = 0; i < outer.Length; i++){
+            if(outer[i] == '4' || outer[i] == '5' || outer[i] == '6' ){
+                outer = outer.Remove(i, 1).Insert(i, "0");
+            }
+        }
+
+
+        int addEnemies = CUtils.Rand(-3, 3);
+
+        if(addEnemies < 0){
+            for(int i = 0; i < Mathf.Abs(addEnemies); i++){
+                int indexToReplace = CUtils.Rand(outer.Length);
+                outer = outer.Remove(indexToReplace, 1).Insert(indexToReplace, "0");
+            }
+        }
+        
+        if(addEnemies > 0){
+            int enemy = CUtils.Rand(1,4);
+            for(int i = 0; i < Mathf.Abs(addEnemies); i++){
+                int indexToReplace = CUtils.Rand(outer.Length);
+                outer = outer.Remove(indexToReplace, 1).Insert(indexToReplace, enemy.ToString());
+            }
+        }
+
+        if(CUtils.Rand(100) < bonusProb){
+            int bonusId = CUtils.Rand(4,7);
+            int indexToReplace = CUtils.Rand(outer.Length);
+            outer = outer.Remove(indexToReplace, 1).Insert(indexToReplace, bonusId.ToString());
+            bonusProb = 0;
+        }else { bonusProb += 5; }
+        
+        return outer;
     }
 
     void GeneratePositions(){

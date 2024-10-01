@@ -1317,7 +1317,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.25}
+  m_AnchoredPosition: {x: 0, y: 3.94}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1486000569770066023
@@ -1710,7 +1710,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.25}
+  m_AnchoredPosition: {x: 0, y: 3.94}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &1830439592382175739
@@ -1732,7 +1732,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &8004572465789554240
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1830,7 +1830,7 @@ MonoBehaviour:
   _EnemylayerMask:
     serializedVersion: 2
     m_Bits: 256
-  shotSound: SpaceBase_GunP
+  shotSound: SpaceBase_Laser
   RotationLocked: 0
   _loadingTimeMax: 3
   _image: {fileID: 6069439209856076157}
@@ -3579,7 +3579,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.25}
+  m_AnchoredPosition: {x: 0, y: 3.94}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4514992951405306311
@@ -3976,7 +3976,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.25}
+  m_AnchoredPosition: {x: 0, y: 3.94}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &4654091485955814326
@@ -4263,7 +4263,7 @@ MonoBehaviour:
   _EnemylayerMask:
     serializedVersion: 2
     m_Bits: 256
-  shotSound: SpaceBase_GunP
+  shotSound: SpaceBase_Laser
   RotationLocked: 0
   _loadingTimeMax: 3
   _image: {fileID: 1146303630656493839}
@@ -4869,7 +4869,7 @@ MonoBehaviour:
   _EnemylayerMask:
     serializedVersion: 2
     m_Bits: 256
-  shotSound: SpaceBase_GunP
+  shotSound: SpaceBase_Laser
   RotationLocked: 0
   _loadingTimeMax: 3
   _image: {fileID: 7818937889675985380}
@@ -5322,7 +5322,7 @@ MonoBehaviour:
   _EnemylayerMask:
     serializedVersion: 2
     m_Bits: 256
-  shotSound: SpaceBase_GunP
+  shotSound: SpaceBase_Laser
   RotationLocked: 0
   _loadingTimeMax: 3
   _image: {fileID: 5144821352108053306}
@@ -6445,7 +6445,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 2.25}
+  m_AnchoredPosition: {x: 0, y: 3.94}
   m_SizeDelta: {x: 1, y: 1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8130604867694586709
@@ -7267,7 +7267,7 @@ MonoBehaviour:
   _EnemylayerMask:
     serializedVersion: 2
     m_Bits: 256
-  shotSound: SpaceBase_GunP
+  shotSound: SpaceBase_Laser
   RotationLocked: 0
   _loadingTimeMax: 3
   _image: {fileID: 3478143714816664836}

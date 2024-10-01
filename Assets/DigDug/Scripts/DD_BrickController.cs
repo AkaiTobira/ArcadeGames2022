@@ -17,21 +17,32 @@ public enum DD_BrickState{
 
 public class DD_BrickController : DD_NavPoint
 {
+    enum BrickComponent{
+        Frame,
+        Center,
+        Rock,
+        Enemy1,
+        Enemy2,
+        Enemy3,
+        BlockingCollider,
+    }
+
+
     [SerializeField] GridLayoutGroup _layout;
-    [SerializeField] GameObject[] _digPoints;
     [SerializeField] Transform _brickFrame;
     [SerializeField] Transform _brickCenter;
-    [SerializeField] Transform _rock;
     [SerializeField] public TextMeshProUGUI _uiGui;
     [SerializeField] public Color[] _colors;     
 
-    private DD_BrickState state;
-
-    void Start()
+    protected override void Awake()
     {
-        CallInTime( 1, () => {
-            _layout.enabled = false;
-        });
+        base.Awake();
+        CacheChildren();
+    }
+
+    protected override void Start()
+    {
+        base.Start();
     }
 
     private void SwitchChildren(Transform parent, bool enable){
@@ -43,12 +54,6 @@ public class DD_BrickController : DD_NavPoint
         parent.gameObject.SetActive(enable);
     }
 
-    private void SwitchCenterObj(bool enable){
-        SwitchChildren(_brickCenter, enable);
-    }
-    private void SwitchCenterBox(bool enable){
-        SwitchBoxColliders(_brickCenter, enable);
-    }
     private void SwitchFrameObj(bool enableRight, bool enableTop){
         _brickFrame.gameObject.SetActive(enableRight || enableTop);
         SwitchChildren(_brickFrame.GetChild(0), enableRight);
@@ -58,48 +63,41 @@ public class DD_BrickController : DD_NavPoint
         SwitchBoxColliders(_brickFrame.GetChild(0), enableRight);
         SwitchBoxColliders(_brickFrame.GetChild(1), enableTop);
     }
-
     public void Setup(DD_BrickState brickState, bool rightEnabled, bool topEnabled){
-//        Debug.Log(name + " " + brickState);
-        for(int i = 0; i< transform.childCount; i++){
-            transform.GetChild(i).gameObject.SetActive(false);
-        }
+        //Debug.Log(name + " " + brickState);
+        for(int i = 0; i< transform.childCount; i++){ transform.GetChild(i).gameObject.SetActive(false); }
 
         //_uiGui.gameObject.SetActive(true);
-        
-        SwitchFrameObj(rightEnabled, topEnabled);      
-        state = brickState;
+        //transform.GetChild((int)BrickComponent.BlockingCollider).gameObject.SetActive(true);
+        SwitchFrameObj(rightEnabled, topEnabled);
+        SwitchFrameBox(rightEnabled, topEnabled);
+        _layout.enabled = true;
 
         switch(brickState){
             case DD_BrickState.Empty:
-                SwitchFrameBox(rightEnabled, topEnabled);
-                SwitchCenterBox(false);
-                SwitchCenterObj(false);
+                SwitchBoxColliders(_brickCenter, false);
+                SwitchChildren    (_brickCenter, false);
             break;
             case DD_BrickState.Full: 
-                SwitchFrameBox(rightEnabled, topEnabled);
-                SwitchCenterBox(true);
-                SwitchCenterObj(true);
+                SwitchBoxColliders(_brickCenter, true);
+                SwitchChildren    (_brickCenter, true);
             break;
             case DD_BrickState.Rock:
-                SwitchFrameBox(rightEnabled, topEnabled);
-                SwitchCenterBox(false);
-                SwitchCenterObj(true);
+                SwitchBoxColliders(_brickCenter, false);
+                SwitchChildren    (_brickCenter, true);
                 MakeRock(); 
             break;
             case DD_BrickState.Enemy1:
             case DD_BrickState.Enemy2:
             case DD_BrickState.Enemy3: 
-                SwitchFrameBox(rightEnabled, topEnabled);
-                SwitchCenterBox(false);
-                SwitchCenterObj(false);
+                SwitchBoxColliders(_brickCenter, false);
+                SwitchChildren(_brickCenter, false);
             
                 MakeEnemy((int)brickState); 
             break;
             case DD_BrickState.PlayerPosition:
-                SwitchFrameBox(rightEnabled, topEnabled);
-                SwitchCenterBox(false);
-                SwitchCenterObj(false);
+                SwitchBoxColliders(_brickCenter, false);
+                SwitchChildren    (_brickCenter, false);
                 
                 DD_Player3.Instance.transform.position = transform.position;
             break;
@@ -108,6 +106,15 @@ public class DD_BrickController : DD_NavPoint
         //for(int i = 2; i < transform.childCount; i++){
         //    transform.GetChild(i).gameObject.SetActive(false);
         //}
+
+        TimersManager.Instance.FireAfter(0.01f, () => _layout.enabled = false);
+    }
+
+    [SerializeField] GameObject[] _brickChildren = null;
+
+    private void CacheChildren(){
+        _brickChildren = new GameObject[_brickCenter.childCount];
+        for(int j = 0; j < _brickCenter.childCount; j++) _brickChildren[j] = _brickCenter.GetChild(j).gameObject;
     }
 
     private void EnableChildren(Transform parent){
@@ -123,16 +130,7 @@ public class DD_BrickController : DD_NavPoint
         _brickCenter.gameObject.SetActive(false);
     }
 
-    public void Disable(bool up, bool right, bool center){
-        _brickCenter.gameObject.SetActive(center);
-        Transform frame = _brickFrame;  
-
-        frame.GetChild(0).gameObject.SetActive(right);
-        frame.GetChild(1).gameObject.SetActive(up);
-    }
-
     public void MakeRock(){
-        
         transform.GetChild(2).position = transform.position;
         transform.GetChild(2).gameObject.SetActive(true);
 
@@ -151,8 +149,7 @@ public class DD_BrickController : DD_NavPoint
 
     public void SwitchBoxColliders(Transform parent, bool value){
         for(int i = 0; i < parent.childCount; i++) {
-            Transform child = parent.GetChild(i);
-            SwitchBoxColliders(child, value);
+            SwitchBoxColliders(parent.GetChild(i), value);
         }
 
         BoxCollider2D box = parent.GetComponent<BoxCollider2D>();
@@ -201,40 +198,12 @@ public class DD_BrickController : DD_NavPoint
         }
     }
 
-    private void Update() {
-
+    public override void CUpdate() {
         bool shouldBeActiveMoveBlock = false;
-        for(int j = 0; j < _brickCenter.childCount; j++){
-            shouldBeActiveMoveBlock |= _brickCenter.GetChild(j).gameObject.activeInHierarchy;
+        for(int j = 0; j < _brickChildren.Length; j++){
+            shouldBeActiveMoveBlock |= _brickChildren[j].activeInHierarchy;
         }
-    //    transform.GetChild(7).gameObject.SetActive(shouldBeActiveMoveBlock);
-        transform.GetChild(6).gameObject.SetActive(shouldBeActiveMoveBlock);
-    }
-
-    public Vector3 GetClosetDigPoint(){
-
-        float distance = 999999;
-        Vector3 closestPoint = new Vector3();
-
-        for(int i = 0; i < _digPoints.Length; i++) {
-            float distance2 = Vector3.Distance(closestPoint, _digPoints[i].transform.position);
-            if(distance > distance2){
-                distance = distance2;
-                closestPoint = _digPoints[i].transform.position;
-            }
-        }
-
-        return closestPoint;
-    }
-
-    public Vector2 GetMininingPoint(ESM.AnimationSide side){
-        switch(side){
-            case ESM.AnimationSide.Right  : return _digPoints[1].transform.position;
-            case ESM.AnimationSide.Top    : return _digPoints[0].transform.position;
-            case ESM.AnimationSide.Left   : return _digPoints[3].transform.position;
-            case ESM.AnimationSide.Bottom : return _digPoints[2].transform.position;
-        }
-
-        return transform.position;
+        
+    //    transform.GetChild(6).gameObject.SetActive(shouldBeActiveMoveBlock);
     }
 }

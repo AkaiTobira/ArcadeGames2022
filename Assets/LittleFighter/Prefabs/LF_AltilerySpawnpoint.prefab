@@ -142,3 +142,5 @@ MonoBehaviour:
   _explosionTime: 0.2
   _missleSpawnPoint: {fileID: 4911907729214153827}
   missle: {fileID: 9090724023423558194, guid: d0d0708fd4e0f884cae4e77f3ddd87e8, type: 3}
+  _missleStart: SpaceBase_Altilery
+  _missleLanding: LittleFIghter_DogLanding

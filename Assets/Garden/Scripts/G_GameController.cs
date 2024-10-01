@@ -9,7 +9,6 @@ public enum G_RandomEvents{
     InverseMovement,
     MorePlanties,
     Max,
-
     CodeBreak,
 }
 

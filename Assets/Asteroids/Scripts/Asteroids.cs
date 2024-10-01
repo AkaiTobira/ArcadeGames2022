@@ -127,7 +127,7 @@ public class Asteroids : WallThrought
             missle.Setup(transform.up);
             (missle.transform as RectTransform).SetParent(transform.parent);
 
-            transform.position -= transform.up * 15 * Time.deltaTime * FRAME_DISTANCE;
+            transform.position -= transform.up * 3 * Time.deltaTime * FRAME_DISTANCE;
         }
     }
 

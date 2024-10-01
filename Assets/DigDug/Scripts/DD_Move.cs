@@ -134,7 +134,7 @@ namespace DigDug{
 
 
         private const float TIME_TO_CHANGE= 0;
-        float timeToChangeHorizontalDirection = TIME_TO_CHANGE;
+   //     float timeToChangeHorizontalDirection = TIME_TO_CHANGE;
         float zRotationChange = 0;
 
         Vector2 _lastHorizontalPlace = new Vector2();

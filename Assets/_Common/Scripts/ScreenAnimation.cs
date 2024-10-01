@@ -71,6 +71,7 @@ public abstract class ScreenAnimation : CMonoBehaviour, IListenToGameplayEvents{
         _currentIndex = 0;
         for(int i = 0; i < _screens.Count; i++){
             if(_screens[i]._ignore) _currentIndex++;
+            else break;
         }
         if(_currentIndex < _screens.Count){
             ActiveAnimation = _screens[_currentIndex];

@@ -1,9 +1,6 @@
-using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using System;
-
-
 
 
 public class LevelManager : MonoBehaviour
@@ -19,18 +16,17 @@ public class LevelManager : MonoBehaviour
 
     [SerializeField] LevelController[] _levels;
     [SerializeField] CameraSetup[] _cameraSetups;
-    [SerializeField] int[] _timerMax;
-    [SerializeField] TimerCount _timer;
     [SerializeField] string[] _audioClipsNames;
 
     public static int SelectedLevel = -1;
-    public static int NUMBER_OF_LEVELS = 3; 
+    public static int NUMBER_OF_LEVELS = 4; 
 
     private static List<int> indexes = new List<int>();
 
-    private void Start() {
+    public void Setup(){
         NUMBER_OF_LEVELS = _levels.Length;
 
+        for(int i = 0; i < NUMBER_OF_LEVELS; i++) _levels[i].gameObject.SetActive(false);
         for(int i = 0; i < NUMBER_OF_LEVELS; i++) indexes.Add(i);
         for(int i = 0; i < NUMBER_OF_LEVELS; i++) {
             int  firstIndex = UnityEngine.Random.Range(0, _levels.Length);
@@ -54,7 +50,11 @@ public class LevelManager : MonoBehaviour
             );
 
         _levels[SelectedLevel].gameObject.SetActive(true);
-        _timer.time = 0;//_timerMax[selectedLevel];
+//        _timer.time = 0;//_timerMax[selectedLevel];
         AudioSystem.Instance.PlayMusic(_audioClipsNames[SelectedLevel],1);
+        DigDugger.Player.enabled = true;
+        DigDugger.Player.transform.position = Vector2.zero;
     }
+
+//    private void Start() { Setup(); }
 }

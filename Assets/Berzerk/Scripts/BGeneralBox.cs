@@ -31,7 +31,8 @@ public class BGeneralBox : MonoBehaviour
     }
 
     private void Update() {
-        
+        if(BLevelsManager.Paused) return;
+
         float maxValue = Mathf.Max( _maxFillValue - 
             (
                 BLevelsManager.CurrentLevel * _perLevelLost 

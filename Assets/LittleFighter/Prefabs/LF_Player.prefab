@@ -343,6 +343,7 @@ MonoBehaviour:
   _sides: 0
   _dealDamage: 0
   _isDetector: 0
+  _canPickup: 1
   _destroySelfAtCollision: 0
   _Parent: {fileID: 5436822061982539336}
 --- !u!1 &5436822061982539338
@@ -494,12 +495,17 @@ MonoBehaviour:
     - Side: 0
       Frames:
       - {fileID: 21300000, guid: da122bad09ca5a3428d389ca888ad53a, type: 3}
+      - {fileID: 21300000, guid: 900b2435317660d4cae5bcd870401514, type: 3}
       - {fileID: 21300000, guid: 00ef0f9e610e85f4fbbfa3be5f3ea5cd, type: 3}
+      - {fileID: 21300000, guid: 1d7780591031a824ea179b1e717ef6b1, type: 3}
       - {fileID: 21300000, guid: 77d6b9eedcdb69e499228a09b9098bbf, type: 3}
       - {fileID: 21300000, guid: 046b19a556b11294faada0c26b1724f5, type: 3}
+      - {fileID: 21300000, guid: ff0a629456ca32b4fa2094f9e9140284, type: 3}
       - {fileID: 21300000, guid: 83aaeb82837ea784e81aa02d038120fc, type: 3}
       - {fileID: 21300000, guid: 5082791864b5c724294705a1f983ca95, type: 3}
+      - {fileID: 21300000, guid: e0ac2bb881aa2d44596fe5b3d35e1e4d, type: 3}
       - {fileID: 21300000, guid: 82fe7bab502cdd745bb6ce4a93234848, type: 3}
+      - {fileID: 21300000, guid: 22c73b67c9ea35945aa38cc641523a74, type: 3}
       - {fileID: 21300000, guid: 16674c884fef1094fb1ee953f0097901, type: 3}
     Looped: 0
     UseRightAsLeft: 1
@@ -507,18 +513,25 @@ MonoBehaviour:
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: b9a872a231781a94295ee00977416066, type: 3}
-      - {fileID: 21300000, guid: cecfa548f6726414caee812b8d47fcb8, type: 3}
-      - {fileID: 21300000, guid: 57fec8efa2f14fd4ba0460d050052d63, type: 3}
-      - {fileID: 21300000, guid: c151b6c0ef7351947a45691c932ba89f, type: 3}
+      - {fileID: 21300000, guid: c621adb0a77f1f94785d9c9de7af2a98, type: 3}
+      - {fileID: 21300000, guid: 2b5d9080136305c40a82ca82cf7ed2fd, type: 3}
+      - {fileID: 21300000, guid: 5b8862785f5320040bdebe742077b7f5, type: 3}
+      - {fileID: 21300000, guid: 4d2c35b3a5aded24ead6798d5946b899, type: 3}
+      - {fileID: 21300000, guid: d6d5ccf7753e98e469b95bf0fdb2ebbd, type: 3}
     Looped: 0
     UseRightAsLeft: 1
   - State: 7
     Sprites:
     - Side: 0
       Frames:
-      - {fileID: 21300000, guid: 57fec8efa2f14fd4ba0460d050052d63, type: 3}
-      - {fileID: 21300000, guid: c151b6c0ef7351947a45691c932ba89f, type: 3}
+      - {fileID: 21300000, guid: 04ae51344632c4b48af580e724194ed6, type: 3}
+      - {fileID: 21300000, guid: 509fa582fad4ca54fb828970b55ac791, type: 3}
+      - {fileID: 21300000, guid: 56617f4f1929a78499a09add58abb863, type: 3}
+      - {fileID: 21300000, guid: 88d4fadb03027e044b916886f2e24dd3, type: 3}
+      - {fileID: 21300000, guid: 8145373f2d9afb743b18cc13fcee78d1, type: 3}
+      - {fileID: 21300000, guid: 898f4e5997644184b8fbdce6d91c9475, type: 3}
+      - {fileID: 21300000, guid: 86e11ca74e963f04c9254364d8bd26a2, type: 3}
+      - {fileID: 21300000, guid: 5747c9a68cf60254fa1881bee5c21b77, type: 3}
     Looped: 1
     UseRightAsLeft: 1
   _moveSpeed: 2.5
@@ -527,6 +540,7 @@ MonoBehaviour:
   _useCustomScaleSet: 0
   startingSide: 0
   _PlayerHPBar: {fileID: 0}
+  _gameOverText: {fileID: 0}
   _endScene: {fileID: 0}
   _playerIndex: 0
   IsAwake: 1
@@ -855,6 +869,7 @@ MonoBehaviour:
   _sides: 0
   _dealDamage: 1
   _isDetector: 0
+  _canPickup: 1
   _destroySelfAtCollision: 0
   _Parent: {fileID: 5436822061982539336}
 --- !u!50 &1601030686478882312
@@ -983,6 +998,7 @@ MonoBehaviour:
   _sides: 0
   _dealDamage: 1
   _isDetector: 0
+  _canPickup: 1
   _destroySelfAtCollision: 0
   _Parent: {fileID: 5436822061982539336}
 --- !u!50 &8162808534393274936
@@ -1146,6 +1162,7 @@ MonoBehaviour:
   _sides: 0
   _dealDamage: 1
   _isDetector: 0
+  _canPickup: 1
   _destroySelfAtCollision: 0
   _Parent: {fileID: 5436822061982539336}
 --- !u!50 &8222809353606363632

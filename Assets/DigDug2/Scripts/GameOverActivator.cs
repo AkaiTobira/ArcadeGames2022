@@ -11,8 +11,9 @@ public class GameOverActivator : MonoBehaviour, IListenToGameplayEvents
     [SerializeField] Button _endButton;
     [SerializeField] SceneLoader _sceneLoader;
     [SerializeField] TimerCount _timer;
+    [SerializeField] DD2_StartLevel _StartLevel;
 
-    bool isGameOverReach = false;
+    public static bool isGameOverReach = false;
 
     private void Start() {
         Events.Gameplay.RegisterListener(this, GameplayEventType.GameOver);
@@ -23,8 +24,10 @@ public class GameOverActivator : MonoBehaviour, IListenToGameplayEvents
         if(gameplayEvent.type == GameplayEventType.GameOver){
             GameOver reason = (GameOver)gameplayEvent.parameter;
             isGameOverReach = true;
-            _timer.gameObject.SetActive(false);
+//            _timer.gameObject.SetActive(false);
             AudioSystem.Instance.PlayMusic("DigDug_BG1", 0.2f);
+            DD2_GameOverText.reason = reason;
+
             switch (reason) {
                 case GameOver.Kill:
                 case GameOver.Victory: 
@@ -33,37 +36,25 @@ public class GameOverActivator : MonoBehaviour, IListenToGameplayEvents
 
                     AudioSystem.Instance.PlayEffect("DigDug_Victory", 1);
                     HighScoreRanking.LoadRanking(GameType.DigDug2);
+
                     DigDugPlayedMaps.LockMap(LevelManager.SelectedLevel);
-                    Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.SpamWithWindow));
-                    
+                    _StartLevel.ChangeVisisbility(true);
                     
                     break;
                 case GameOver.Dead: 
+                    
                     LoseTextes[0].SetActive(true);
                     DigDugger.Player.enabled = false;
                     AudioSystem.Instance.PlayEffect("DigDug_Dead",1);
                     
-                    TweenManager.Instance.TweenTo(transform,ScreenCenter, 1f, () => {
-                        _endButton.Select();
-
-                        Vector3 pos = transform.position;
-                        pos.z = 0;
-                        transform.position = pos;
-                    });
+                    TimersManager.Instance.FireAfter(3f, () => _sceneLoader.OnSceneLoadAsync());
                     break;
                 case GameOver.TimesUp:
                     LoseTextes[1].SetActive(true);
                     DigDugger.Player.enabled = false;
                     AudioSystem.Instance.PlayEffect("DigDug_Dead",1);
                     
-                    TweenManager.Instance.TweenTo( transform,ScreenCenter, 0.2f, () => {
-                        _endButton.Select();
-
-                        Vector3 pos = transform.position;
-                        pos.z = 0;
-                        transform.position = pos;
-                    });
-
+                    TimersManager.Instance.FireAfter(3f, () => _sceneLoader.OnSceneLoadAsync());
                     break;
             }
 

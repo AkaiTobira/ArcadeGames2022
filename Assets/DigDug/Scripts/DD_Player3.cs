@@ -91,7 +91,8 @@ namespace DigDug{
             _pumpableEnemy            = null;
 
             _lastHorizontalDirection = AnimationSide.Left;
-        
+            RequestEnable();
+            ForceState(DD_PlayerStates.Idle, true);
         }
 
         private void ProcessInputsMove(){
@@ -329,17 +330,14 @@ namespace DigDug{
 
         private float GetShootLandingTime(){
             
+            /*
             if(false){
-                
-
                 float speed = DISTANCE_OF_SHOOT/SHOT_LANDING_TIME;
                 float distance = Vector2.Distance(_startingPoint, _rockShotPoint);
-
                 Debug.Log($"{speed} = {DISTANCE_OF_SHOOT}/{SHOT_LANDING_TIME} :: {distance/speed} = {distance}/{speed}");
-
-
                 return distance/speed;
             }
+            */
 
             return SHOT_LANDING_TIME;
         }

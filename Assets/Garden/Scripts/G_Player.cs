@@ -3,13 +3,15 @@ using UnityEngine.UI;
 
 public class G_Player : CUpdateMonoBehaviour, IListenToGameplayEvents
 {
-    [SerializeField] GameObject[] _playerPositions;
+    [SerializeField] G_PlayerAnimator[] _playerPositions;
     [SerializeField] Transform[] _shootingPositions;
     [SerializeField] G_PlantInstance[] _planties;
     [SerializeField] G_WaterMissle _missle;
     [SerializeField] Sprite _image;
     [SerializeField] PlayerIndex _index;
     [SerializeField] G_KeyLocker _locker;
+    [SerializeField] string _moveSound = "Garden_Move";
+    [SerializeField] string _shotSound = "Garden_Shot";
 
     private int _position = 0;
     private bool _blockMovement = false;
@@ -19,7 +21,7 @@ public class G_Player : CUpdateMonoBehaviour, IListenToGameplayEvents
     public static int[] _takenPosition = new int[2] { -1, -1};
 
     protected override void Awake() {
-        for(int i = 0; i < _playerPositions.Length; i++) _playerPositions[i].GetComponent<Image>().sprite = _image;
+    //    for(int i = 0; i < _playerPositions.Length; i++) _playerPositions[i].GetComponent<Image>().sprite = _image;
         MoveToPosition();
 
         InverseMovement = false;
@@ -30,6 +32,8 @@ public class G_Player : CUpdateMonoBehaviour, IListenToGameplayEvents
     private void MoveToPosition(){
         for(int i = 0; i < _playerPositions.Length; i++) _playerPositions[i].SetActive(false);
         _playerPositions[_position].SetActive(true);
+
+        AudioSystem.PlaySample(_moveSound, 1);
     }
 
     private int GetPosition(int vertical, int horizontal){
@@ -68,6 +72,8 @@ public class G_Player : CUpdateMonoBehaviour, IListenToGameplayEvents
     float _moveDelay;
     float _shotDelay;
 
+    bool _waitForReset = false;
+
     private void ProcessMovement(){
         _moveDelay -= Time.deltaTime;
         _shotDelay -= Time.deltaTime;
@@ -76,10 +82,9 @@ public class G_Player : CUpdateMonoBehaviour, IListenToGameplayEvents
         float horizontal = InputHandler.GetHorizontal(_index);
 
         if(InverseMovement){ vertical = -vertical; horizontal = -horizontal;}
-
-        if(_moveDelay < 0 && Mathf.Abs(horizontal) > 0.2f){
-
-            
+        //_waitForReset = Mathf.Abs(horizontal) < 0.2f && _waitForReset;
+        if(Mathf.Abs(horizontal) > 0.2f && !_waitForReset){
+            _waitForReset = true;
 
             _takenPosition[(int)_index] = -1;
             _position = (_position + (int)Mathf.Sign(horizontal) + _playerPositions.Length) % _playerPositions.Length;
@@ -92,7 +97,7 @@ public class G_Player : CUpdateMonoBehaviour, IListenToGameplayEvents
             //GetPosition(convertToFull(vertical), convertToFull(horizontal));
             MoveToPosition();
             _moveDelay = 0.2f;
-        }
+        }else if(Mathf.Abs(horizontal) <= 0.01f){ _waitForReset = false; }
         
         bool shot = false;
         switch(_index){
@@ -102,7 +107,10 @@ public class G_Player : CUpdateMonoBehaviour, IListenToGameplayEvents
 
         if(shot && _shotDelay < 0) {
             SpawnMissle();
-             _moveDelay = 0.1f;
+            _shotDelay = 0.05f;
+
+            _playerPositions[_position].SetAnim(G_PlayerAnims.Shot);
+            AudioSystem.PlaySample(_shotSound, 1.7f);
         }
     }
 

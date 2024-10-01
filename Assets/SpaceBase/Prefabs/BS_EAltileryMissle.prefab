@@ -33,7 +33,7 @@ RectTransform:
   m_GameObject: {fileID: 6090805827248896856}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 7, y: 7, z: 1}
+  m_LocalScale: {x: 17, y: 17, z: 1}
   m_ConstrainProportionsScale: 0
   m_Children: []
   m_Father: {fileID: 0}
@@ -71,7 +71,7 @@ MonoBehaviour:
   m_OnCullStateChanged:
     m_PersistentCalls:
       m_Calls: []
-  m_Sprite: {fileID: 21300000, guid: cd856764ee1728b4191cf96099d04fdc, type: 3}
+  m_Sprite: {fileID: 711340479871900548, guid: 6e98ca23c3f29b94293fde3c1c7f4655, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -211,26 +211,49 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   _loadingSprites:
-  - {fileID: 711340479871900548, guid: 6e98ca23c3f29b94293fde3c1c7f4655, type: 3}
-  - {fileID: 547333603863936631, guid: d7e729663c9ff11489e22148b45247c8, type: 3}
-  - {fileID: -1199225257042511880, guid: 660e3ada240f8864fbdb3fc963331423, type: 3}
-  - {fileID: -2364020935863320852, guid: 34f16aa45c828f04ba34eda5af1b8678, type: 3}
+  - {fileID: 21300000, guid: 5bf4b28e946bf7a4382ff1c423b48ca9, type: 3}
+  - {fileID: 21300000, guid: 5281bb9d88145cb438ae5dca748e13cd, type: 3}
+  - {fileID: 21300000, guid: 54979bb6cebd030458e5116395b51a4c, type: 3}
+  - {fileID: 21300000, guid: 6e5225ac19fcb3c44815199d2d70977b, type: 3}
+  - {fileID: 21300000, guid: 1074388cecafdfc48b76c4ec9d6cc1c1, type: 3}
+  - {fileID: 21300000, guid: 799b665bbe359514f9f7d4c2d83d776f, type: 3}
+  - {fileID: 21300000, guid: ea905c23f58b80c4ca52c75eb2457b3c, type: 3}
+  - {fileID: 21300000, guid: b5e6b7084d5c93a49b79ab7e930b3f87, type: 3}
+  - {fileID: 21300000, guid: aba54779ac252d74c8b04d962b53f31b, type: 3}
+  - {fileID: 21300000, guid: 37a9c9d419e97cb4b83ae2297b2e18d3, type: 3}
+  - {fileID: 21300000, guid: eca59a522cf2cba4499fe1cdd385e484, type: 3}
+  - {fileID: 21300000, guid: 54da193ce3ac8c64d83e126dd8a05d9b, type: 3}
+  - {fileID: 21300000, guid: 219448252cbef9741a465de6d6ed9a3a, type: 3}
+  - {fileID: 21300000, guid: 88e7f30de34d5ca43a87c9a3e0e14ed8, type: 3}
+  - {fileID: 21300000, guid: 2d77ef1407d92e64d933f396d987625a, type: 3}
+  - {fileID: 21300000, guid: 683fe3459fb1f10469207995db2eb038, type: 3}
+  - {fileID: 21300000, guid: 8a467de83f9d93740bfef6ee0824e2cc, type: 3}
+  - {fileID: 21300000, guid: f394ee548fc45b7498589599b0fc1b55, type: 3}
+  - {fileID: 21300000, guid: 348e89487428bca4aafc71f7b96099a3, type: 3}
+  - {fileID: 21300000, guid: e74c226cadda8564eb4d11a08432297a, type: 3}
+  - {fileID: 21300000, guid: 9f8ef9063cc9265448667387bd96d6f8, type: 3}
+  - {fileID: 21300000, guid: 47e51dd81f34e194f89abb7d2d952efb, type: 3}
+  - {fileID: 21300000, guid: b8e09ba9052f7e5438b8c697754f84d8, type: 3}
+  - {fileID: 21300000, guid: ccf87149b22fe814eab8960bcaf9436d, type: 3}
+  - {fileID: 21300000, guid: 6935bc4613eb5e24fa47182138f4135e, type: 3}
+  - {fileID: 21300000, guid: a7719d0a3d04e6349b977c10b4bf7f3f, type: 3}
   _afterHitSprites:
   - {fileID: -5296937953814588979, guid: a4400503e8560f5468845ac081bb2d36, type: 3}
-  - {fileID: 980291060591812861, guid: 3ef4ce4f1ea35fb4eb096798d93263cc, type: 3}
-  - {fileID: -8421895503047003775, guid: 10bd265270cd8ba418e095f6f5507f70, type: 3}
-  - {fileID: -6274916844113806082, guid: 24caf12ce1965354fb01b76d3a09e50c, type: 3}
-  - {fileID: -5663909490945802659, guid: 7065013082778d44ea014d19026b2e5a, type: 3}
-  - {fileID: 3881061373927898044, guid: 52b19168c2d74bb4fa45092b874cbe62, type: 3}
-  - {fileID: -5985462264502505549, guid: 523b4a75d93068345b6584b7a7a09436, type: 3}
-  - {fileID: -6656941033056220319, guid: 554ff14cda70ab14eb3e18adb27b470e, type: 3}
-  - {fileID: -1240845699830917527, guid: b6f84a1c0e11cfd4cbe7ac82d73fa8e8, type: 3}
-  - {fileID: 165926748953071324, guid: 6ad90e1abf38a4841bf22239085177de, type: 3}
-  - {fileID: -8655730566824788255, guid: 94d5bed6bcccc0b4cbebc58761e3b884, type: 3}
-  - {fileID: -7809133262662703981, guid: 2fec9b93dbced3e49aa654d0ba957d0c, type: 3}
-  - {fileID: -112889996939612803, guid: 34e23b9f0544c8545a6a1f2f365dcfaa, type: 3}
+  - {fileID: 21300000, guid: 3ef4ce4f1ea35fb4eb096798d93263cc, type: 3}
+  - {fileID: 21300000, guid: 10bd265270cd8ba418e095f6f5507f70, type: 3}
+  - {fileID: 21300000, guid: 24caf12ce1965354fb01b76d3a09e50c, type: 3}
+  - {fileID: 21300000, guid: 7065013082778d44ea014d19026b2e5a, type: 3}
+  - {fileID: 21300000, guid: 52b19168c2d74bb4fa45092b874cbe62, type: 3}
+  - {fileID: 21300000, guid: 523b4a75d93068345b6584b7a7a09436, type: 3}
+  - {fileID: 21300000, guid: 554ff14cda70ab14eb3e18adb27b470e, type: 3}
+  - {fileID: 21300000, guid: b6f84a1c0e11cfd4cbe7ac82d73fa8e8, type: 3}
+  - {fileID: 21300000, guid: 6ad90e1abf38a4841bf22239085177de, type: 3}
+  - {fileID: 21300000, guid: 94d5bed6bcccc0b4cbebc58761e3b884, type: 3}
+  - {fileID: 21300000, guid: 2fec9b93dbced3e49aa654d0ba957d0c, type: 3}
+  - {fileID: 21300000, guid: 34e23b9f0544c8545a6a1f2f365dcfaa, type: 3}
   _hitBox: {fileID: 8680564513066754181}
   _side: {fileID: 5530357741969827466}
   _missleLandingTime: 3
   _explosionTime: 1
-  _shotSound: Asteroid_Shoot
+  _shotSound: SpaceBase_Altilery
+  _landedSound: SpaceBase_Explode2

@@ -51,7 +51,7 @@ public class BS_Player : ESM.SMC_1D<BS_PlayerState>,
 
 
     int towerLevel = 0;
-    UpgradeType _type = UpgradeType.Rocket;
+    UpgradeType _type = UpgradeType.TMissle;
 
     public UpgradeType GetUpgradeType() { return _type; }
 
@@ -62,6 +62,7 @@ public class BS_Player : ESM.SMC_1D<BS_PlayerState>,
         PointsCounter.Reset();
         PlayerList<BS_Player>.Register(PlayerIndex.Player1, this);
         _activeTower = _mainTowers.GetTower(_type, towerLevel);
+        BS_UIWeaponry.SetUIWeaponry(_type, towerLevel);
     }
 /*
     public Vector2 RotateVector(Vector2 v, float angle)
@@ -134,9 +135,11 @@ public class BS_Player : ESM.SMC_1D<BS_PlayerState>,
         for(int i = 0; i < _rayPoints.Length; i++){
             RaycastHit2D hit = Physics2D.Raycast(_rayPoints[i].transform.position, transform.up, 0.5f, _layerMask);
 
+            if(hit) Debug.Log(hit.transform.tag);
+
             if(hit && 
-                (hit.transform.CompareTag("HitBox") ||
-                hit.transform.CompareTag("Obstacle"))  ){
+                (hit.collider.transform.CompareTag("HitBox") ||
+                hit.collider.transform.CompareTag("Obstacle"))  ){
 
                 Debug.Log(hit.transform.tag);
                 Debug.DrawLine(
@@ -279,7 +282,7 @@ public class BS_Player : ESM.SMC_1D<BS_PlayerState>,
     public float GetDamage(){ 
         switch(_type)
         {
-            case UpgradeType.Missle: return 1;
+            case UpgradeType.TMissle: return 1;
             case UpgradeType.Rocket: return 3f + towerLevel*0.5f;
             case UpgradeType.Laser:  return (2.5f + towerLevel) * Time.deltaTime;
             case UpgradeType.Flamethower: return 0.75f + (0.2f * towerLevel); 
@@ -306,6 +309,7 @@ public class BS_Player : ESM.SMC_1D<BS_PlayerState>,
         }
 
         _activeTower = _mainTowers.GetTower(type, towerLevel);
+        BS_UIWeaponry.SetUIWeaponry(_type, towerLevel);
     }
 
     public PlayerIndex GetPlayerIndex() { return PlayerIndex.Player1; }

@@ -10,8 +10,11 @@ public class G_AlertDisplayer : MonoBehaviour
     [SerializeField] GameObject _warningTextBox;
     [SerializeField] TextMeshProUGUI _warningText;
     [SerializeField] G_DurationBar _bar;
+    [SerializeField] string _warningSound = "Garden_Warning";
 
     public void Show(G_RandomEvents @event, float duration = 2){
+
+        AudioSystem.PlaySample(_warningSound);
 
         _warning.SetActive(true);
         switch (@event){
@@ -31,6 +34,7 @@ public class G_AlertDisplayer : MonoBehaviour
             _warningText.gameObject.SetActive(true);
             _warningTextBox.gameObject.SetActive(true);
             _bar.FillIn(duration-0.2f, true);
+
         });
 
         TimersManager.Instance.FireAfter(duration, () => Hide());

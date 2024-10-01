@@ -1,3 +1,4 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
@@ -85,6 +86,31 @@ public class Digger : MonoBehaviour, IListenToGameplayEvents
             //    }
                 }
             }
+
+            ShowBreak(NeighbourSide.NS_Left,   ReverseSide(_player.GetFacingDirection()) == NeighbourSide.NS_Left);
+            ShowBreak(NeighbourSide.NS_Right,  ReverseSide(_player.GetFacingDirection()) == NeighbourSide.NS_Right);
+            ShowBreak(NeighbourSide.NS_Top,    ReverseSide(_player.GetFacingDirection()) == NeighbourSide.NS_Top);
+            ShowBreak(NeighbourSide.NS_Bottom, ReverseSide(_player.GetFacingDirection()) == NeighbourSide.NS_Bottom);
+        }
+    }
+
+    private void ShowBreak(NeighbourSide side, bool enable)
+    {
+
+        SideCorelations corelations = constSiteValues[side];
+
+        if(!Guard.IsValid(corelations.Tile1) || !Guard.IsValid(corelations.Tile2)) return;
+        if(!_corresponingTiles.ContainsKey(corelations.Tile1) || !_corresponingTiles.ContainsKey(corelations.Tile1)) return;
+        Floor2 tile1 = _corresponingTiles[corelations.Tile1];
+        Floor2 tile2 = _corresponingTiles[corelations.Tile2];
+
+        if(Guard.IsValid(tile1) && Guard.IsValid(tile2)){
+            if( !tile1.IsSideLocked(corelations.LockSideForTile1) && 
+                !tile2.IsSideLocked(corelations.LockSideForTile2)){
+
+                tile1.PreviewSide(corelations.LockSideForTile1, side, enable);
+                tile2.PreviewSide(corelations.LockSideForTile2, side, enable);
+            }
         }
     }
 
@@ -99,6 +125,12 @@ public class Digger : MonoBehaviour, IListenToGameplayEvents
 
         if( gameplayEvent.type == GameplayEventType.RecalculateDiggers){
             DisableIfAnyTileIsEmpty();
+
+
+            ShowBreak(NeighbourSide.NS_Left,   false);
+            ShowBreak(NeighbourSide.NS_Right,  false);
+            ShowBreak(NeighbourSide.NS_Top,    false);
+            ShowBreak(NeighbourSide.NS_Bottom, false);
         }
     }
 
@@ -184,6 +216,11 @@ public class Digger : MonoBehaviour, IListenToGameplayEvents
         if(other.gameObject.tag.Contains("yer")){
             _isPlayerInside = false;
             _player = other.GetComponent<DigDugger>();
+
+            ShowBreak(NeighbourSide.NS_Left, false);
+            ShowBreak(NeighbourSide.NS_Right, false);
+            ShowBreak(NeighbourSide.NS_Top, false);
+            ShowBreak(NeighbourSide.NS_Bottom, false);
         }
     }
 

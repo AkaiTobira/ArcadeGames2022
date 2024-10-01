@@ -54,7 +54,7 @@ namespace DigDug{
             transform.position = transform.parent.position;
             _attackBox.SetActive(true);
 
-            Debug.Log(transform.parent.name);
+//            Debug.Log(transform.parent.name);
 
             DD_GameController.ActiveEnemies.Add(transform.parent.GetComponent<DD_BrickController>());
 
@@ -79,7 +79,7 @@ namespace DigDug{
         public void TakeDamage(float amount, MonoBehaviour source){
 
             CMonoBehaviour cMono = source as CMonoBehaviour;
-            Debug.Log(source.transform.parent.name + "/" + source.name + " " + transform.parent.name + "/" + name);
+//            Debug.Log(source.transform.parent.name + "/" + source.name + " " + transform.parent.name + "/" + name);
           //  if(Guard.IsValid(cMono)){
            //     Debug.Log(GetNameWithParent() + " -> Take Damage from " + cMono.GetNameWithParent());
             
@@ -157,7 +157,11 @@ namespace DigDug{
 
 //                Debug.Log(_direction + " " + Vector2.Distance(GetPoint(AnimationSide.Common), (Vector2)transform.position));
 
-                ProcessMove( (_direction.normalized / _moveSpeed) * GetMoveModifier() * DD_GameController.SpeedMultiplier);
+                Vector2 moveVector = (_direction.normalized / _moveSpeed) * GetMoveModifier() * DD_GameController.SpeedMultiplier;
+
+                if(_direction.magnitude > 0.01f){
+                    ProcessMove( moveVector );
+                }
         //    }
         }
 
@@ -238,19 +242,19 @@ namespace DigDug{
                 case DD_EnemyStates.Idle:
                     if(_pumpingStacks == MAX_PUMPING - 1) return DD_EnemyStates.Dead;
                     if(_pumpingStacks != 0) return DD_EnemyStates.Hurt;
-                    if(_inputs.magnitude > 0) return DD_EnemyStates.Moving;
+                    if(_inputs.magnitude > 0.01f) return DD_EnemyStates.Moving;
                 break;
                 case DD_EnemyStates.Moving:
                     if(_pumpingStacks == MAX_PUMPING - 1) return DD_EnemyStates.Dead;
                     if(_pumpingStacks != 0) return DD_EnemyStates.Hurt;
-                    if(_inputs.magnitude <= 0) return DD_EnemyStates.Idle;
+                    if(_direction.magnitude < 0.01f) return DD_EnemyStates.Idle;
                     if(isShadowWalking()) return DD_EnemyStates.ShadowMoving;
                 break;
                 case DD_EnemyStates.ShadowMoving:
                     if(_pumpingStacks == MAX_PUMPING - 1) return DD_EnemyStates.Dead;
                     if(_pumpingStacks != 0) return DD_EnemyStates.Hurt;
                     if(_stateDuration <= 0) {
-                        if(isShadowWalking() && _inputs.magnitude > 0) return DD_EnemyStates.ShadowMoving;
+                        if(isShadowWalking() && _direction.magnitude > 0.01f) return DD_EnemyStates.ShadowMoving;
                         return DD_EnemyStates.Moving;
                     }
                 break;

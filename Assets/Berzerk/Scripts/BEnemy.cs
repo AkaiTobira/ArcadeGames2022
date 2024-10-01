@@ -70,6 +70,12 @@ public class BEnemy : ESM.SMC_4D<B_PlayerStates>, IShootable
 
     private void OnEnable() {
         ForceState(B_PlayerStates.Idle, true);
+
+        BEnemySpawnerManager.EnemyCounter++;
+    }
+
+    private void OnDisable() {
+        BEnemySpawnerManager.EnemyCounter--;    
     }
 
     #region  IShootable
@@ -103,6 +109,8 @@ public class BEnemy : ESM.SMC_4D<B_PlayerStates>, IShootable
     }
 
     protected override void UpdateState(){
+        if(BLevelsManager.Paused) return;
+
         _shootTimer    -= Time.deltaTime;
         _activateTimer -= Time.deltaTime;
         _walkingTimer  -= Time.deltaTime;
@@ -346,4 +354,7 @@ public class BEnemy : ESM.SMC_4D<B_PlayerStates>, IShootable
             Kill();
         }
     }
+
+
+
 }

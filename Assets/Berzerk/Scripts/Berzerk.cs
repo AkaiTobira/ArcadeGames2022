@@ -8,7 +8,7 @@ public static class B_CONSTS
     public const float FLOAT_EPSILON = 0.01f;
     public const float SHOT_ACTION_COLDOWN = 0.2f;
     public const int MISSLE_COUNT = 5;
-    public const float DISABLE_AFTER = 2.0f;
+    public const float DISABLE_AFTER = 0.5f;
 };
 
 public enum B_PlayerStates{
@@ -57,6 +57,7 @@ public class Berzerk : ESM.SMC_8D<B_PlayerStates>, IShootable
     }
 
     protected override void UpdateState(){
+        if(BLevelsManager.Paused) return;
         _shootTimer -= Time.deltaTime;
     
         switch (ActiveState) {
@@ -166,18 +167,20 @@ public class Berzerk : ESM.SMC_8D<B_PlayerStates>, IShootable
                 break;
         }
 
-        _inputs.x = InputHandler.GetHorizontal();// + _mobileInputs.x;
-        _inputs.y = InputHandler.GetVertical();// //   + _mobileInputs.y;
-        _willShoot  = InputHandler.GetKey(InputKey.Action_2_Player1);//
+        if(!BLevelsManager.Paused){
+            _inputs.x = InputHandler.GetHorizontal();// + _mobileInputs.x;
+            _inputs.y = InputHandler.GetVertical();// //   + _mobileInputs.y;
+            _willShoot  = InputHandler.GetKey(InputKey.Action_Any_Player1);//
 
-        _inputs.x = HitRay(0, new Vector3(_inputs.x, 0), _inputs.x);
-        _inputs.x = HitRay(1, new Vector3(_inputs.x, 0), _inputs.x);
-        if(_inputs.y > 0){
-            _inputs.y = HitRay(0, new Vector3(0, 1, 0), _inputs.y);
-            _inputs.y = HitRay(2, new Vector3(0, 1, 0), _inputs.y);
-        }else if(_inputs.y < 0){
-            _inputs.y = HitRay(1, new Vector3(0, -1, 0), _inputs.y);
-            _inputs.y = HitRay(3, new Vector3(0, -1, 0), _inputs.y);
+            _inputs.x = HitRay(0, new Vector3(_inputs.x, 0), _inputs.x);
+            _inputs.x = HitRay(1, new Vector3(_inputs.x, 0), _inputs.x);
+            if(_inputs.y > 0){
+                _inputs.y = HitRay(0, new Vector3(0, 1, 0), _inputs.y);
+                _inputs.y = HitRay(2, new Vector3(0, 1, 0), _inputs.y);
+            }else if(_inputs.y < 0){
+                _inputs.y = HitRay(1, new Vector3(0, -1, 0), _inputs.y);
+                _inputs.y = HitRay(3, new Vector3(0, -1, 0), _inputs.y);
+            }
         }
 
         return ActiveState;

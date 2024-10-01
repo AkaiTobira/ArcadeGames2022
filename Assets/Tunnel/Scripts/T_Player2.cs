@@ -13,6 +13,7 @@ public class T_Player2 : T_Player
     protected override void Update()
     {
         base.Update();
+        if(T_Segment.Stop) return;
 
         transform.Rotate(new Vector3(0,0, T_Segment.RotationSpeed * (T_SegmentSpawner.MULTIPLER - 1.0f) * Time.deltaTime));
     }

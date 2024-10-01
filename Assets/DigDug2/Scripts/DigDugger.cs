@@ -59,12 +59,14 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
         
         CanvasSorter.AddCanvas(Graphicals.GetComponent<Canvas>());
         _uiDangerous.SetActive(false);
-    //    DeadState = PlayerStates.Dead;
+        DeadState = PlayerStates.Dead;
+
+        PointsCounter.AddPoints(PlayerIndex.Player1, 1000);
     }
 
     private bool reportDead = true;
     
-// /    float _elapsedDangerTime = 0;
+     float _elapsedDangerTime = 0;
 
     protected override void UpdateState(){
         _shootingTimeElapsed -= Time.deltaTime;
@@ -72,11 +74,11 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
         _lineShootingTimeElapsed -= Time.deltaTime;
 
 
-    //    _elapsedDangerTime += Time.deltaTime;
-    //    if(_elapsedDangerTime > 0 && IsBlinking() ){
-    //        AudioSystem.Instance.PlayEffect("DigDug_Danger", 1, true);
-    //        _elapsedDangerTime = -0.6f;
-    //    }
+        _elapsedDangerTime += Time.deltaTime;
+        if(_elapsedDangerTime > 0 && IsBlinking() ){
+            AudioSystem.Instance.PlayEffect("DigDug_Danger", 1, true);
+            _elapsedDangerTime = -0.6f;
+        }
 
         switch (ActiveState) {
             case PlayerStates.Idle: 
@@ -208,7 +210,7 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
     public override void SetupBlink(bool isInDangerousZone)
     {
         base.SetupBlink(isInDangerousZone);
-    //    _uiDangerous.SetActive(isInDangerousZone);
+        _uiDangerous.SetActive(isInDangerousZone);
     }
 
     private void TurnOffShooting(){
@@ -228,7 +230,7 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
             case PlayerStates.Move : 
                 _shootLineRenderer.SetPosition(1, _shootLineRenderer.GetPosition(0)); 
             break;
-            //case PlayerStates.Dead : RequestDisable(1.0f); break;
+            case PlayerStates.Dead : RequestDisable(2.0f); break;
             default : break;
         }
     }
@@ -250,33 +252,40 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
 
         switch (ActiveState) {
             case PlayerStates.Idle:
-                //if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
+                if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
                 if(_shootingRequirementsMeet) return PlayerStates.Shoot;
                 else if(_diggingRequirementsMeet) return PlayerStates.Dig;
                 else if(_inputs.magnitude > CONSTS.FLOAT_EPSILON) return PlayerStates.Move;
                 break;
             case PlayerStates.Move:
-                //if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
+                if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
                 if(_shootingRequirementsMeet) return PlayerStates.Shoot;
                 else if(_diggingRequirementsMeet) return PlayerStates.Dig;
                 else if(_inputs.magnitude < CONSTS.FLOAT_EPSILON) return PlayerStates.Idle;
                 break;
             case PlayerStates.Dig:
-                //if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
+                if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
                 if(!_diggingRequirementsMeet) return PlayerStates.Idle;
                 break;
             case PlayerStates.Dead:
                 break;
             case PlayerStates.Shoot:
-                //if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
+                if(IsDeadByBlinking(CONSTS.BLINK_TIMES_TO_BE_DEAD)) return PlayerStates.Dead;
                 if(_shootingTimeElapsed <= 0) return PlayerStates.Idle;
                 break;
         }
 
-        _inputs.x = InputHandler.GetHorizontal() + + _mobileInputs.x;
-        _inputs.y = InputHandler.GetVertical()   + _mobileInputs.y;
-        _diggingRequirementsMeet  = InputHandler.GetKey(InputKey.Action_2_Player1);
-        _shootingRequirementsMeet = InputHandler.GetKey(InputKey.Action_1_Player1) && _shootingTimeColdown <= 0;
+        if(LevelController.StopGame){
+            _inputs = Vector2.zero;
+            _diggingRequirementsMeet = false;
+        }else{
+            _inputs.x = InputHandler.GetHorizontal() + + _mobileInputs.x;
+            _inputs.y = InputHandler.GetVertical()   + _mobileInputs.y;
+            _diggingRequirementsMeet  = InputHandler.GetKey(InputKey.Action_Any_Player1);
+        }
+
+
+        //_shootingRequirementsMeet = InputHandler.GetKey(InputKey.Action_1_Player1) && _shootingTimeColdown <= 0;
 
         return ActiveState;
     }
@@ -296,10 +305,8 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
         ProcessMove_Vertical(directions.y * _digginingMoveMultipler);
     }
 
-
     protected override void ProcessMove(Vector2 directions){
         if(IsBlinking()) directions *= 0.3f;
-
 
         if(directions.y == 0){
             ProcessMove_Horizontal(directions.x);
@@ -329,9 +336,7 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
         }
     }
 
-
     Vector2 _mobileInputs = new Vector2();
-
 
     public void OnHotizontalButtonPressed(int direction){
         _mobileInputs.x = direction;
@@ -356,6 +361,4 @@ public class DigDugger : BlinkableCharacter<PlayerStates>
     public void OnDigButtonPressed(){
         _diggingRequirementsMeet = true;
     }
-
-
 }

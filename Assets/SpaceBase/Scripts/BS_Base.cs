@@ -1,13 +1,18 @@
-using System.Collections;
-using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+
+public interface ICanBeRocketTarget
+{
+    Vector2 GetTargetPoint();
+}
+
 
 public class BS_Base : ESM.SMC_1D<BS_TowerState>,
     ITakeDamage,
     IDealDamage,
     IUseDetector,
-    IIsTrackable
+    IIsTrackable,
+    ICanBeRocketTarget
 {
 
     [SerializeField] BoxCollider2D _hitBox;
@@ -18,6 +23,7 @@ public class BS_Base : ESM.SMC_1D<BS_TowerState>,
     [SerializeField] Sprite _destoryedBase;
     [SerializeField] int _points;
     [SerializeField] GameObject _explodeAnimation;
+    [SerializeField] Transform _targetingPoint;
 
     private float _health;
 
@@ -150,4 +156,6 @@ public class BS_Base : ESM.SMC_1D<BS_TowerState>,
     public bool ShouldBeTracked(){
         return ActiveState != BS_TowerState.Dead;
     }
+
+    public Vector2 GetTargetPoint(){ return _targetingPoint.position; }
 }

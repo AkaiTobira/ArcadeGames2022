@@ -11,6 +11,10 @@ public class T_Segment : MonoBehaviour
     [SerializeField] GameObject[] _colliders1;
     [SerializeField] GameObject[] _colliders2;
     [SerializeField] GameObject[] _colliders3;
+    [SerializeField] GameObject[] _colliders4;
+    [SerializeField] GameObject[] _colliders5;
+    [SerializeField] GameObject[] _colliders6;
+
     [SerializeField] float rotationSpeed = 60f;
     [SerializeField] float scaleIncreaseCoef = 1.03f;
     bool _isScaling = false;
@@ -41,7 +45,7 @@ public class T_Segment : MonoBehaviour
         }
 
         Update_ScaleAndMove();
-        transform.Rotate(new Vector3(0,0, rotationSpeed * (T_SegmentSpawner.MULTIPLER - 1.0f) * Time.deltaTime));
+       // transform.Rotate(new Vector3(0,0, rotationSpeed * (T_SegmentSpawner.MULTIPLER - 1.0f) * Time.deltaTime));
 
         Update_SetPlayerInfo();
         Update_LifeEnd();
@@ -122,6 +126,18 @@ public class T_Segment : MonoBehaviour
         for(int i =0 ; i< _colliders3.Length; i++){
             _colliders3[i].GetComponent<Image>().color = color;
             _colliders3[i].SetActive(enemies[i] == '3');
+        }
+        for(int i =0 ; i< _colliders4.Length; i++){
+            _colliders4[i].GetComponent<Image>().color = color;
+            _colliders4[i].SetActive(enemies[i] == '4');
+        }
+        for(int i =0 ; i< _colliders5.Length; i++){
+            _colliders5[i].GetComponent<Image>().color = color;
+            _colliders5[i].SetActive(enemies[i] == '5');
+        }
+        for(int i =0 ; i< _colliders6.Length; i++){
+            _colliders6[i].GetComponent<Image>().color = color;
+            _colliders6[i].SetActive(enemies[i] == '6');
         }
     }
 }

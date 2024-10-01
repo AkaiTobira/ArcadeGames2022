@@ -33,8 +33,15 @@
              public void Log(string logString, string stackTrace, LogType type)
              {
                  output = logString;
+                 
                  stack = stackTrace;
-                 myLog = output + "\n" + myLog;
+
+                if(type == LogType.Error){
+                     myLog = output + "\n" + myLog + "\n" + stackTrace;                
+                }else{
+                    myLog = output + "\n" + myLog;
+                }
+                
                  if (myLog.Length > 5000)
                  {
                      myLog = myLog.Substring(0, 4000);

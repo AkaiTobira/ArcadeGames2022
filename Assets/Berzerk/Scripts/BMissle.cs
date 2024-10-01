@@ -30,6 +30,8 @@ public abstract class ABMissle : CMonoBehaviour{
 
     private void Update()
     {
+        if(BLevelsManager.Paused) return;
+        
         Vector3 speed = _forwardDirection * _speed * Time.deltaTime;
         _distance -= speed.magnitude;
 

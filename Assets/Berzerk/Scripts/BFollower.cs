@@ -57,6 +57,8 @@ public class BFollower : ESM.SMC_4D<FollowerState>
 
     protected override void UpdateState()
     {
+        if(BLevelsManager.Paused) return;
+
         switch(ActiveState){
             case FollowerState.Move:
                 if(_isDead) return;

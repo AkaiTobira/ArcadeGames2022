@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 
 
-public  class DD_NavPoint : CMonoBehaviour{
+public  class DD_NavPoint : CUpdateMonoBehaviour{
     [SerializeField] float passWeight = 2f;
     public virtual float GetWalkWeight(){ return passWeight; }
 }

@@ -6,6 +6,8 @@ public class BEnemySpawnerManager : CMonoBehaviour
 {
     [SerializeField] BEnemySpawner[] _spawners;
 
+    public static int EnemyCounter = 0;
+
     protected override void Awake() {
         base.Awake();
 

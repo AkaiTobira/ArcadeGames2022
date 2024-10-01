@@ -15,7 +15,7 @@ public static class HighScoreRanking{
     private static Dictionary<GameType, bool> _isTimed = new Dictionary<GameType, bool>{
         {GameType.NotLoaded, false},
         {GameType.Asteroids, false},
-        {GameType.DigDug2, true},
+        {GameType.DigDug2, false},
         {GameType.Frogger, true},
         {GameType.Berzerk, false},
         {GameType.LittleFighter, false},
@@ -34,9 +34,9 @@ public static class HighScoreRanking{
 
 
         for(int i = 0; i < NUMBER_OF_RECORDS; i++){
-            string playerName = PlayerPrefs.GetString( game.ToString() + "Rank_Name" + i.ToString(), "..........");
+            string playerName = PlayerPrefs.GetString( game.ToString() + "_Name_" + i.ToString(), "..........");
             int playerScore   = PlayerPrefs.GetInt   ( 
-                game.ToString() + "Rank_Score" + i.ToString(), 
+                game.ToString() + "_Score_" + i.ToString(), 
                 _isTimed[_currentlyLoaded] ? MAX_TIME : ZERO_POINT);
 
             _ranking.Add(new KeyValuePair<int, string>(playerScore, playerName));

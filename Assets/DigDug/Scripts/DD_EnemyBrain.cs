@@ -217,6 +217,8 @@ public class DD_EnemyPlayerPursit : DD_EnemyIdle
     {
         base.OnUpdate();
 
+        
+
         if(Vector2.Distance(owner.transform.position, nextPoint) < 0.05f){
             nextPoint = DD_NavMesh.GetNextPathPoint(owner.transform.position, DD_Player3.Instance.transform.position);    
         }
@@ -331,6 +333,8 @@ public class DD_EnemyRunedAway : DD_EnemyBaseState
     public override void OnEnter()
     {
         base.OnEnter();
+
+        PointsCounter.AddPoints(PlayerIndex.Player1, -1000);
     }
 
     public override Vector3 GetNextPoint()

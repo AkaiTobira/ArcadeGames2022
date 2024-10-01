@@ -26,18 +26,23 @@ public class Frogger : MonoBehaviour
 
     [SerializeField] PlayerIndex _playerIndex;
     [SerializeField] LayerMask obstacles; 
+    [SerializeField] LayerMask player; 
     [SerializeField] Sprite[] animations;
+    [SerializeField] GameObject image;
 
     [SerializeField] Transform LD;
     [SerializeField] Transform RU;
 
     Camera _camera;
 
+    private static Vector2[] positions = new Vector2[(int)PlayerIndex.None];
+
     void Start(){
         _camera = Camera.main;
         startInstancePosition = transform.position;
-    }
 
+        positions[(int)_playerIndex] = startInstancePosition;
+    }
     void Update()
     {
         float horizontal = InputHandler.GetHorizontal(_playerIndex);
@@ -55,13 +60,19 @@ public class Frogger : MonoBehaviour
 
         if(Input.touchCount > 0) ProcessMobileInput();
     }
-
     private void MoveInternal(Vector3 moveDirection){
         if(isMoving || isDead) return;
         if(AdditionalWallRock(moveDirection)) return;
 
         if(Physics2D.Raycast(transform.position, moveDirection, FRAME_DISTANCE, obstacles))return;
 
+        Vector2 position2 = transform.position + (moveDirection * FRAME_DISTANCE);
+        for(int i = 0; i < (int)PlayerIndex.None; i++){
+            if(i == (int)_playerIndex) continue;
+            if(Mathf.Abs(position2.x - positions[i].x) < 0.01f && Mathf.Abs(position2.y - positions[i].y) < 0.01f ) return;
+        }
+
+        image.transform.position = position2;
 
         StartCoroutine(Move(moveDirection));
         RotateDirection(moveDirection);
@@ -85,6 +96,8 @@ public class Frogger : MonoBehaviour
         if(landingPosition.x > _camera.WorldToViewportPoint(RU.position).x) return true;
         if(landingPosition.y < _camera.WorldToViewportPoint(LD.position).y) return true;
         if(landingPosition.y > _camera.WorldToViewportPoint(RU.position).y) return true;
+
+        
 
         return false;
     }
@@ -116,6 +129,8 @@ public class Frogger : MonoBehaviour
         isMoving      = true;
         startMovePosition = transform.position;
         elapsedTime   = 0;
+
+        positions[(int)_playerIndex] = startMovePosition + (direction * FRAME_DISTANCE);
 
         if(!isDead) GetComponent<Image>().sprite = animations[4];
         AudioSystem.Instance.PlayEffect("Frogger_Move", 1, true);
@@ -149,6 +164,8 @@ public class Frogger : MonoBehaviour
     IEnumerator Dead(){
         Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.PlayerDied, _playerIndex));
         
+        positions[(int)_playerIndex] = new Vector2(-100000,-100000);
+
         isDead          = true;
         elapsedDeadTime   = 0;
         AudioSystem.Instance.PlayEffect("Frogger_Dead", 1, true);
@@ -176,6 +193,8 @@ public class Frogger : MonoBehaviour
         isAlreadyHandled = true;
         isDead          = true;
         elapsedDeadTime   = 0;
+
+        positions[(int)_playerIndex] = startInstancePosition;
 
     //    AudioSystem.Instance.PlayEffect("Frogger_Lost", 1, true);
         GetComponent<Image>().sprite = animations[3];

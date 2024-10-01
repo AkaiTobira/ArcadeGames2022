@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UIElements;
 
 
 public enum BS_TowerState{
@@ -12,7 +13,8 @@ public enum BS_TowerState{
 public class BS_Tower : ESM.SMC_1D<BS_TowerState>,
     ITakeDamage,
     IDealDamage,
-    IUseDetector
+    IUseDetector,
+    ICanBeRocketTarget
 {
 
     [SerializeField] BoxCollider2D _hitBox;
@@ -63,7 +65,7 @@ public class BS_Tower : ESM.SMC_1D<BS_TowerState>,
         _playerDetectedTimer = TIME_OF_ATTACK;
         player = item.GetComponent<BS_Player>();
 
-        if(Guard.IsValid(_correlatedBase)) _correlatedBase.Detected(item);
+    //    if(Guard.IsValid(_correlatedBase)) _correlatedBase.Detected(item);
     }
 
     protected override void UpdateState()
@@ -71,6 +73,7 @@ public class BS_Tower : ESM.SMC_1D<BS_TowerState>,
         switch(ActiveState){
             case BS_TowerState.Patrol:
                 RotatePatrol();
+                Shoot(false);
             break;
             case BS_TowerState.PlayerDetected:
 
@@ -78,20 +81,20 @@ public class BS_Tower : ESM.SMC_1D<BS_TowerState>,
                 _playerDetectedTimer -= Time.deltaTime;
 
                 FocusTowerOnPlayer();
-                Shoot();
+                Shoot(true);
             break;
             case BS_TowerState.Dead: break;
         }
     }
 
 
-    private void Shoot(){
+    private void Shoot(bool enable){
         if(_type != UpgradeType.Flamethower && _type != UpgradeType.Laser){
             if(_shootTimer > 0) return;
             _shootTimer = _shotDelay;
         }
 
-        _turret.Shoot(_turretTransform.up, this, true, true);
+        _turret.Shoot(_turretTransform.up, this, enable, enable);
     }
 
     private void RotatePatrol(){
@@ -201,13 +204,18 @@ public class BS_Tower : ESM.SMC_1D<BS_TowerState>,
     public float GetDamage(){
 
         switch(_type){
-            case UpgradeType.Missle: return 1;
+            case UpgradeType.TMissle: return 1;
             case UpgradeType.Laser: return 2 * Time.deltaTime;
             case UpgradeType.Flamethower: return 8 * Time.deltaTime;
             case UpgradeType.Mad: return 1;
         }
 
         return 0; 
+    }
+
+    public Vector2 GetTargetPoint()
+    {
+        return transform.position;
     }
 }
 

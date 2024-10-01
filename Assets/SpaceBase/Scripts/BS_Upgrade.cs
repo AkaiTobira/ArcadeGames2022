@@ -4,7 +4,7 @@ using UnityEngine;
 using TMPro;
 
 public enum UpgradeType{
-    Missle = 0,
+    TMissle = 0,
     Rocket = 5,
     Laser,
     Flamethower,
@@ -33,12 +33,12 @@ public class BS_Upgrade : MonoBehaviour, IPickedUp
         switch (_type)
         {
             case UpgradeType.Health: player.TakeDamage(-_strenght); break;
-            case UpgradeType.Missle: 
+            case UpgradeType.TMissle: 
             case UpgradeType.Laser: 
             case UpgradeType.Rocket: 
             case UpgradeType.Flamethower: player.SwapWeapon(_type) ; break;
             case UpgradeType.Score: PointsCounter.AddPoints(side, _strenght); break;
-            case UpgradeType.Invincible: player.InvincibleCollected(_strenght); break;
+            case UpgradeType.Invincible: player.InvincibleCollected(_strenght); player.TakeDamage(-20); break;
         }
 
         Debug.LogWarning("PuckedUp " + _type + " " + side);

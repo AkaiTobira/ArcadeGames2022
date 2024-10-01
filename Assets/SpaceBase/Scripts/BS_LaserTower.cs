@@ -16,6 +16,8 @@ public class BS_LaserTower : BS_MainTower
 
     private bool _needCooldown;
 
+    private float _soundRestartTime;
+
     public override void Shoot(Vector3 direction, MonoBehaviour spawner, bool canShoot, bool canShootContinuesly, bool ignoreShoot = true){
         if(canShootContinuesly && !_needCooldown) {
             _elapsedTime += Time.deltaTime;
@@ -25,7 +27,7 @@ public class BS_LaserTower : BS_MainTower
             if(_elapsedTime <= 0){ _needCooldown = false; }    
         }
         
-        Debug.Log(_elapsedTime + " " + canShootContinuesly + " " + _needCooldown);
+//        Debug.Log(_elapsedTime + " " + canShootContinuesly + " " + _needCooldown);
 
         if(_elapsedTime/_loadingTimeMax >  0.0) _image.color = _colors[0];
         if(_elapsedTime/_loadingTimeMax > 0.33) _image.color = _colors[1];
@@ -36,6 +38,12 @@ public class BS_LaserTower : BS_MainTower
             _renderer.enabled = false;
         }else if(canShootContinuesly){
             _renderer.enabled = true;
+
+            _soundRestartTime -= Time.deltaTime;
+            if(_soundRestartTime<= 0){
+                AudioSystem.PlaySample(shotSound, 0.74f);
+                _soundRestartTime = 1.05f;
+            }
 
             float distance = Vector2.Distance(_missleSpawnPoint[1].position, _missleSpawnPoint[0].position);
             Vector3 vector = _missleSpawnPoint[1].position;
@@ -58,10 +66,10 @@ public class BS_LaserTower : BS_MainTower
 
 
                     ITakeDamage side = parent.GetComponent<ITakeDamage>();
-                    Debug.LogWarning(
-                        side + " " + 
-                        hits[i].collider + " " + 
-                        hits[i].collider.transform.parent.parent);
+//                    Debug.LogWarning(
+//                        side + " " + 
+//                        hits[i].collider + " " + 
+//                        hits[i].collider.transform.parent.parent);
 
                     if(side != null){
                         Debug.DrawLine(

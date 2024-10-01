@@ -36,6 +36,7 @@ public static class AutoTranslator
         {GameType.SpaceBase,     "SpaceBase"},
         {GameType.Tunnel,        "Tunnel"},
         {GameType.DigDug,        "DigDug"},
+        {GameType.Garden,        "Garden"},
     };
 
     public static SupportedLanguages Language = SupportedLanguages.UK;

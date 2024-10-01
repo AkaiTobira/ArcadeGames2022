@@ -27,7 +27,9 @@ public class Floor2 : MonoBehaviour, IListenToGameplayEvents
 
     [SerializeField] GameObject _digger;
     [SerializeField] GameObject[] _lockVisual;
-    //[SerializeField] bool _bindPosition = false;
+    [SerializeField] GameObject[] _loackVisualPreview;
+
+    [SerializeField] bool _bindPosition = false;
     [SerializeField] bool _repopulateProperties = false;
     [SerializeField] List<Floor2> _tempToSee = new List<Floor2>();
 
@@ -132,7 +134,7 @@ public class Floor2 : MonoBehaviour, IListenToGameplayEvents
 
         #if UNITY_EDITOR
             if(_repopulateProperties) RepopulateProperites();
-        //    if(_bindPosition) BindPositions();
+            if(_bindPosition) BindPositions();
         #endif
     }
 
@@ -145,7 +147,7 @@ public class Floor2 : MonoBehaviour, IListenToGameplayEvents
         newPosition *= TILE_SIZE;
         transform.position = newPosition;
 
-    //    _bindPosition = false;
+        _bindPosition = false;
     }
 
     private void SetBreaks((Floor2, Floor2) neighbors){
@@ -213,6 +215,7 @@ public class Floor2 : MonoBehaviour, IListenToGameplayEvents
     private void RepopulateProperites(){
         if(!IsSolid()){
             SetToEmpty();
+             _repopulateProperties = false;
             return;
         }
 
@@ -227,6 +230,9 @@ public class Floor2 : MonoBehaviour, IListenToGameplayEvents
     public void EnableSides(){
         _lockVisual[0].gameObject.SetActive(IsSideLocked(NeighbourSide.NS_Left));
         _lockVisual[1].gameObject.SetActive(IsSideLocked(NeighbourSide.NS_Top));
+
+        _loackVisualPreview[0].gameObject.SetActive(IsSideLocked(NeighbourSide.NS_Left));
+        _loackVisualPreview[1].gameObject.SetActive(IsSideLocked(NeighbourSide.NS_Top));
     }
 
     //public void OnDrawGizmosSelected() {
@@ -254,6 +260,8 @@ public class Floor2 : MonoBehaviour, IListenToGameplayEvents
 
         _lockVisual[0].gameObject.SetActive(false);
         _lockVisual[1].gameObject.SetActive(false);
+        _loackVisualPreview[0].gameObject.SetActive(false);
+        _loackVisualPreview[1].gameObject.SetActive(false);
 
         _digger.gameObject.SetActive(false);
         GetComponent<BoxCollider2D>().enabled = true;
@@ -321,7 +329,7 @@ public class Floor2 : MonoBehaviour, IListenToGameplayEvents
         }
 
         if(other.tag.Contains("cle")){
-    //        other.GetComponent<Enemy1>().SetupBlink(true);
+            other.GetComponent<Enemy1>().SetupBlink(true);
         }
 
     }
@@ -334,8 +342,27 @@ public class Floor2 : MonoBehaviour, IListenToGameplayEvents
         }
 
         if(other.tag.Contains("cle")){
-    //        other.GetComponent<Enemy1>().SetupBlink(false);
+            other.GetComponent<Enemy1>().SetupBlink(false);
         }
     }
 
+    public void PreviewSide(NeighbourSide lockSideForTile, NeighbourSide side, bool activate)
+    {
+        if(!isLeftSet && lockSideForTile == NeighbourSide.NS_Left){
+            //Setup up/down break looking from digger perspective; 
+            ImageFiller left = _loackVisualPreview[0].GetComponent<ImageFiller>();
+            bool lefSide   = (lockSideForTile == NeighbourSide.NS_Left) && (side == NeighbourSide.NS_Top);
+            left.Setup(1, (lefSide) ? FillOrigin.Left : FillOrigin.Right );
+    
+            left.gameObject.SetActive(activate);
+        }
+
+        if(!isTopSet && lockSideForTile == NeighbourSide.NS_Top){
+            ImageFiller top  = _loackVisualPreview[1].GetComponent<ImageFiller>();
+            bool rightSide = (lockSideForTile == NeighbourSide.NS_Top)  && (side == NeighbourSide.NS_Right);
+            top.Setup (1, (rightSide) ? FillOrigin.Right : FillOrigin.Left);
+
+            top.gameObject.SetActive(activate);
+        }
+    }
 }

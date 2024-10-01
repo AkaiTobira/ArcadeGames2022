@@ -11,7 +11,12 @@ public class G_PlantInstance : CMonoBehaviour
     protected override void Awake() { _image.sprite = _sprites[_index]; base.Awake(); }
     public bool CanDegradate(){ return _index < _sprites.Length; }
     public bool IsWaterd(){ return _index == 0; }
-    public void Setup(){ gameObject.SetActive(true); _image.sprite = _sprites[0]; _index = 0; }
+    public void Setup(){ 
+        AudioSystem.PlaySample("Garden_FlowerNew", 1.6f);
+        gameObject.SetActive(true);
+        _image.sprite = _sprites[0]; 
+        _index = 0; 
+    }
 
     public void Degradate(){
         if(!CanDegradate()) return;
@@ -24,6 +29,8 @@ public class G_PlantInstance : CMonoBehaviour
         if(_index == _sprites.Length-1){
            Events.Gameplay.RiseEvent(new GameplayEvent(GameplayEventType.PlayerDied, this));
             gameObject.SetActive(false);
+
+            AudioSystem.PlaySample("Garden_FlowerLost");
         }
     }
 

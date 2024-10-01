@@ -42,8 +42,14 @@ public class G_KeyLocker : MonoBehaviour
         }
 
         if(readed != -1){
-            if(keys[_currentToReadIndex] == readed) _currentToReadIndex++;
-            else _currentToReadIndex = 0;
+            if(keys[_currentToReadIndex] == readed) {
+                _currentToReadIndex++;
+                AudioSystem.PlaySample("Garden_CodeGood");
+            }
+            else {
+                _currentToReadIndex = 0;
+                AudioSystem.PlaySample("Garden_CodeWrong");
+            }
 
             SetupReaded();
             EnableTextes();

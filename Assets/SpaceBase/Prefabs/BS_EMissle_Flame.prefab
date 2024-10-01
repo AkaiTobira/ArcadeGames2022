@@ -67,7 +67,7 @@ MonoBehaviour:
   _speed: 10
   _distance: 8
   _rotationSpeed: 0
-  _shotSound: Asteroid_Shoot
+  _shotSound: SpaceBase_Flamethower
   _graphical: {fileID: 0}
   _slowDown: 0
   _steps:
